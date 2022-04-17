@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        Spatie\Permission\PermissionServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -231,5 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+    'admin_role' => env('ADMIN_ROLE', 'admin'),
+    'user_role' => env('USER_ROLE', 'user'),
 
 ];
