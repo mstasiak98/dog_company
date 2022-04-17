@@ -5,6 +5,7 @@ import {AuthService} from "../../shared/services/auth/auth.service";
 import {TokenService} from "../../shared/services/token/token.service";
 import {AuthStateService} from "../../shared/services/auth-state/auth-state.service";
 import {UserState} from "../../shared/models/UserState";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    private authStateService: AuthStateService
+    private authStateService: AuthStateService,
+    private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
       email: [],
@@ -69,5 +71,6 @@ export class LoginComponent implements OnInit {
         console.log('ERROR =',err);
       }
     })
+    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
   }
 }
