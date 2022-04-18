@@ -1,0 +1,21 @@
+
+.p-steps ul{
+  @apply bg-white flex-col md:flex-row border border-2 border-solid rounded-2xl
+}
+
+.p-steps .p-steps-item .p-menuitem-link:not(.p-disabled):focus {
+  @apply shadow-none
+}
+
+.p-steps .p-steps-item {
+  @apply py-2
+}
+
+.p-card .p-card-body {
+  @apply border border-2 border-solid rounded-2xl
+}
+
+.bg-img {
+  background-image: url("/assets/background/bg2.png");
+  object-fit: cover;
+}

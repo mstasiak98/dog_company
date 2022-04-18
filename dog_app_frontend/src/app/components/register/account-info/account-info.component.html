@@ -1,33 +1,67 @@
-<div class="stepsdemo-content">
+<div class="mt-8">
   <p-card>
     <ng-template pTemplate="title">
-      Personal Information
+      <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Rejestracja</h1>
     </ng-template>
     <ng-template pTemplate="subtitle">
-      Enter your personal information
+      <h6 class="text-center text-md mb-6 text-gray-600 font-sans">Wprowadź dane konta</h6>
     </ng-template>
     <ng-template pTemplate="content">
-      <div class="p-fluid formgrid grid">
-        <div class="field">
-          <label for="firstname">Firstname</label>
-          <input #firstname="ngModel" id="firstname" type="text" required pInputText [(ngModel)]="personalInformation.firstname" [ngClass]="{'ng-dirty': (firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)}">
-          <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error">Firstname is required.</small>
+      <form [formGroup]="accountData">
+        <div class="p-fluid">
+            <label for="personal_info">Imię i nazwisko</label>
+            <div id="personal_info" class="grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-4">
+              <div>
+                <input formControlName="firstName" id="firstName" class="form-control" type="text"
+                       placeholder="Wprowadź imię" required pInputText
+                       [ngClass]="{'ng-dirty': (f.firstName.invalid && submitted) || (f.firstName.dirty && f.firstName.invalid)}">
+                <small *ngIf="(f.firstName.invalid && submitted) || (f.firstName.dirty && f.firstName.invalid)" class="p-error">Pole <strong>imię</strong> jest wymagane.</small>
+              </div>
+              <div>
+                <input id="lastName" type="text" formControlName="lastName" placeholder="Wprowadź nazwisko" required pInputText
+                       [ngClass]="{'ng-dirty': (f.lastName.invalid && submitted) || (f.lastName.dirty && f.lastName.invalid)}">
+                <small class="p-error" *ngIf="(f.lastName.invalid && submitted )|| (f.lastName.dirty && f.lastName.invalid)">Pole <strong>nazwisko</strong> jest wymagane.</small>
+              </div>
+            </div>
         </div>
-        <div class="field">
-          <label for="lastname">Lastname</label>
-          <input #lastname="ngModel" id="lastname" type="text" required pInputText [(ngModel)]="personalInformation.lastname" [ngClass]="{'ng-dirty': (lastname.invalid && submitted) || (lastname.dirty && lastname.invalid)}">
-          <small class="p-error" *ngIf="(lastname.invalid && submitted )|| (lastname.dirty && lastname.invalid)">Lastname is required.</small>
+        <div class="pt-4 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="email">Adres email</label>
+            <input id="email" type="email" required pInputText
+                   formControlName="email"
+                   [ngClass]="{'ng-dirty': (f.email.invalid && submitted) || (f.email.dirty && f.email.invalid)}">
+            <small class="p-error" *ngIf="(f.email.invalid && submitted) || (f.email.dirty && f.email.invalid)">Pole <strong>email</strong> jest wymagane.</small>
+          </div>
         </div>
-        <div class="field">
-          <label for="age">Age</label>
-          <input #age="ngModel" id="age" type="number" required pInputText [(ngModel)]="personalInformation.age" [ngClass]="{'ng-dirty': (age.invalid && submitted) || (age.dirty && age.invalid)}">
-          <small class="p-error" *ngIf="(age.invalid && submitted) || (age.dirty && age.invalid)">Age is required.</small>
+        <div class="pt-4 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="password">Hasło</label>
+            <input id="password" type="password" required pInputText
+                   formControlName="password"
+                   [ngClass]="{'ng-dirty': (f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)}">
+            <small class="p-error" *ngIf="(f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)">Pole <strong>hasło</strong> jest wymagane.</small>
+          </div>
         </div>
-      </div>
+        <div class="pt-4 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="phoneNo">Numer telefonu</label>
+            <input id="phoneNo" type="text" required pInputText
+                   formControlName="phoneNo"
+                   [ngClass]="{'ng-dirty': (f.phoneNo.invalid && submitted) || (f.phoneNo.dirty && f.phoneNo.invalid)}">
+            <small class="p-error" *ngIf="(f.phoneNo.invalid && submitted) || (f.phoneNo.dirty && f.phoneNo.invalid)">Pole <strong>numer telefonu</strong> jest wymagane.</small>
+          </div>
+        </div>
+      </form>
     </ng-template>
 <ng-template pTemplate="footer">
-  <div class="grid grid-nogutter justify-content-end">
-    <p-button label="Next" icon="pi pi-angle-right" iconPos="right"></p-button>
+  <div class="flex justify-end">
+    <button pButton
+            [disabled]="f.firstName.invalid ||
+             f.lastName.invalid ||
+             f.email.invalid ||
+             f.password.invalid ||
+             f.phoneNo.invalid
+" type="button" icon="pi pi-angle-right" iconPos="right" label="Dalej" (click)="nextPage()"></button>
   </div>
 </ng-template>
 </p-card>

@@ -16,6 +16,10 @@ export class AuthService {
     return this.http.post(`${this.url}/login`, user)
   }
 
+  register(formData: any){
+    return this.http.post(`${this.url}/register`, formData)
+  }
+
   test():Observable<any>{
     return this.http.get(`${this.url}/user`);
   }

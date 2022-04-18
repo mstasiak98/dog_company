@@ -40,6 +40,29 @@ class AuthController extends BaseController
         }
     }
 
+    public function register(Request $request){
 
+        // dane w requescie nie sa w postaci obiektu, tylko jsona w stringu, tutaj je zamieniam na obiekt
+        $accountData = is_string($request->get('data')) ?
+            json_decode($request->get('data')) : (object) ($request->get('data'));
+        if(!isset($accountData) || !is_object($accountData)){
+            return $this->sendErrorResponse('Invalid request', ['invalid'=>'Błędne zapytanie']);
+        }
+
+        // zamiana std class na array
+        $validator = Validator::make(json_decode(json_encode($accountData), true),[
+            "firstName"=>"required",
+            "lastName"=>"required",
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["status" => "failed", "data" => 'FAIL']);
+        }
+
+        if($request->hasFile('photo') && $request->file('photo')->isValid()){
+            $photo = $request->file('photo');
+        }
+        return response()->json(["status" => "ok", "data" => $accountData->firstName]);
+    }
 
 }

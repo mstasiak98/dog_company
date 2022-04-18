@@ -22,7 +22,6 @@ export class TokenService {
     const token = this.getToken();
     if(token){
       const payload = this.payload(token);
-      console.log('zwrocony payload = ', payload);
       if(payload){
         return Object.values(this.issuer).indexOf(payload.iss) > -1;
       }
@@ -32,7 +31,6 @@ export class TokenService {
 
   payload(token: any){
     const jwtPayload = token.split('.')[1];
-    console.log('payload po splicie = ', jwtPayload);
     return JSON.parse(atob(jwtPayload));
   }
 
