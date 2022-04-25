@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\DogProfileController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,16 @@ Route::post('/test', function (Request $request){
     error_log($request);
 });
 
+Route::get('/dog-profile', [DogProfileController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'role:admin'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/save-photo', [PhotoController::class, 'save']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('logout', [AuthController::class, 'logout']);
 });
+
+

@@ -3,3 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.bg-img {
+  background-image: url("/assets/background/bg2.png");
+  object-fit: cover;
+}

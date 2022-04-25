@@ -1,3 +1,4 @@
+<!--
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
   <div>
@@ -15,3 +16,43 @@
 <button (click)="test()">TEST</button>
 
 <p-toast position="top-left"></p-toast>
+-->
+
+
+<div class="bg-img">
+  <div class="container h-screen mx-auto ">
+    <div class="w-2/3 lg:w-2/5 md:2-3/5 h-fit mx-auto py-20">
+      <div class="h-full bg-indigo-50 rounded-2xl px-5 border border-2 border-solid border-gray-600">
+          <form [formGroup]="loginForm">
+            <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans pt-10">Logowanie</h1>
+            <h6 class="text-center text-md mb-6 text-gray-600 font-sans">Wprowadź dane swojego konta</h6>
+            <div class="pt-4 p-fluid grid grid-cols-1">
+              <div>
+                <label for="email">Adres email</label>
+                <input id="email" type="email" required pInputText formControlName="email"
+                       [ngClass]="{'ng-dirty': (f.password.invalid && submitted) || (f.email.dirty && f.email.invalid)}">
+                <div *ngIf="(f.email.invalid && submitted) || (f.email.dirty && f.email.invalid)">
+                  <small class="p-error" *ngIf="f.email.errors.required">Pole <strong>email</strong> jest wymagane.</small>
+                  <small class="p-error" *ngIf="f.email.errors.email">Adres <strong>email</strong> nie jest poprawny.</small>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 p-fluid grid grid-cols-1">
+              <div>
+                <label for="password">Hasło</label>
+                <input id="password" type="password" required pInputText
+                       formControlName="password"
+                       [ngClass]="{'ng-dirty': (f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)}">
+                <div *ngIf="(f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)">
+                  <small class="p-error" *ngIf="f.password.errors.required">Pole <strong>haso</strong> jest wymagane.</small>
+                </div>
+              </div>
+            </div>
+            <button type="submit" (click)="onSubmit()" class="w-full mt-6 bg-indigo-600 rounded-2xl px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans hover:bg-indigo-500">Logowanie</button>
+            <button type="submit" routerLink="/register" class="mb-7 w-full mt-6 mb-3 bg-white rounded-2xl border border-2 border-solid border-indigo-200 px-4 py-2 text-lg text-gray-800 tracking-wide font-semibold font-sans hover:bg-indigo-600 hover:text-white">Rejestracja</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+

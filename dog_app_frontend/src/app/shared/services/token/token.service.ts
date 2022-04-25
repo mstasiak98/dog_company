@@ -18,10 +18,12 @@ export class TokenService {
     return localStorage.getItem('auth_token');
   }
 
-  isValidToken(){
+/*  isValidToken(){
     const token = this.getToken();
+    console.log('wzialem token = ', token);
     if(token){
       const payload = this.payload(token);
+      console.log('payload po = ',payload);
       if(payload){
         return Object.values(this.issuer).indexOf(payload.iss) > -1;
       }
@@ -30,13 +32,16 @@ export class TokenService {
   }
 
   payload(token: any){
-    const jwtPayload = token.split('.')[1];
+    const jwtPayload = token.split('.')[0];
+    console.log('jwtTOKEN PAULOATD = ', jwtPayload);
+    console.log('JWT PAYLOAD ATOB', JSON.parse(atob(jwtPayload)));
     return JSON.parse(atob(jwtPayload));
+
   }
 
   isLoggedIn(){
     return this.isValidToken();
-  }
+  }*/
 
   removeToken(){
     localStorage.removeItem('auth_token');

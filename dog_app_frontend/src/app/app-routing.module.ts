@@ -7,12 +7,24 @@ import {PersonalInfoComponent} from "./components/register/personal-info/persona
 import {AdditionalInfoComponent} from "./components/register/additional-info/additional-info.component";
 import {AccountDataGuard} from "./shared/guards/registration-form/account-data.guard";
 import {PersonalDataGuard} from "./shared/guards/registration-form/personal-data.guard";
+import {LoginComponent} from "./components/login/login.component";
+import {NotLoggedGuard} from "./shared/guards/not-logged.guard";
+import {DashboardModule} from "./modules/dashboard/dashboard.module";
 
 const routes: Routes = [
-  { path: 'root', component: AppComponent },
+
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+
+  { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard]},
   {
     path: 'register',
-    component: RegisterComponent,
+    component: RegisterComponent, canActivate: [NotLoggedGuard],
     children: [
       { path: '', redirectTo: 'account_info', pathMatch: 'full' },
       { path: 'account_info', component: AccountInfoComponent },

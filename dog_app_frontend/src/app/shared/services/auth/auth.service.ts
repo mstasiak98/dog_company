@@ -20,6 +20,10 @@ export class AuthService {
     return this.http.post(`${this.url}/register`, formData)
   }
 
+  logout(){
+    return this.http.post(`${this.url}/logout`,'');
+  }
+
   test():Observable<any>{
     return this.http.get(`${this.url}/user`);
   }

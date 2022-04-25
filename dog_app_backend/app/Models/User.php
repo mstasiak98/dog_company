@@ -19,10 +19,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'phone_number',
+        'city',
+        'street',
+        'zip_code',
+        'house_number',
+        'flat_number',
+        'description'
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +52,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function photos() {
+        return $this->morphMany(Photo::class, 'photoable');
+    }
 }

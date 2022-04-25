@@ -1,6 +1,6 @@
 
 .p-steps ul{
-  @apply bg-white flex-col md:flex-row border border-2 border-solid rounded-2xl
+  @apply bg-white flex-col md:flex-row border border-2 border-solid rounded-2xl border-gray-600
 }
 
 .p-steps .p-steps-item .p-menuitem-link:not(.p-disabled):focus {
@@ -12,10 +12,10 @@
 }
 
 .p-card .p-card-body {
-  @apply border border-2 border-solid rounded-2xl
+  @apply border border-0 border-solid rounded-2xl border-black bg-indigo-50
 }
 
-.bg-img {
-  background-image: url("/assets/background/bg2.png");
-  object-fit: cover;
+p-card .p-card{
+  @apply border border-2 border-solid rounded-2xl border-gray-600
 }
+

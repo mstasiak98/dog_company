@@ -4,6 +4,9 @@ import {RegistrationFormService} from "../../../shared/services/registration-for
 import {Router} from "@angular/router";
 import {AuthService} from "../../../shared/services/auth/auth.service";
 import {RegistrationData} from "../../../shared/models/RegistrationData";
+import {UserState} from "../../../shared/models/UserState";
+import {AuthStateService} from "../../../shared/services/auth-state/auth-state.service";
+import {TokenService} from "../../../shared/services/token/token.service";
 
 @Component({
   selector: 'app-additional-info',
@@ -14,10 +17,10 @@ import {RegistrationData} from "../../../shared/models/RegistrationData";
 export class AdditionalInfoComponent implements OnInit {
 
   additionalData: any;
-  fileName = '';
   imgUploaded = false;
   file: File;
   imgUrl:any;
+  errors: any = null;
 
   registrationData: any;
   test:any;
@@ -26,7 +29,9 @@ export class AdditionalInfoComponent implements OnInit {
     private registrationFormService: RegistrationFormService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private authStateService: AuthStateService,
+    private tokenService: TokenService
   ) { }
 
   ngOnInit(): void {
@@ -69,11 +74,28 @@ export class AdditionalInfoComponent implements OnInit {
       console.log('DANE OSTATECZNE OSTATECZNE = ', this.registrationData)
 
       let formData = new FormData();
+      if(this.imgUploaded){
+        formData.append('photo', this.file);
+      }
       formData.append('data', JSON.stringify(this.registrationData));
-      formData.append('photo', this.file);
 
-      this.authService.register(formData).subscribe(res => {
-        console.log('ODPOWIEDZ = ', res);
+      this.authService.register(formData).subscribe({
+        next: (result: any) =>{
+          console.log('RESULT', result);
+          if(result.success){
+            this.tokenService.handleData(result.data.access_token);
+            const userState: UserState = {authenticated: true, user: {userId: result.data.user_id, userName: result.data.name}};
+            this.authStateService.setAuthState(userState);
+            this.router.navigate(['/dashboard']);
+          }else{
+            this.errors = result.error;
+          }
+        },
+        error: (error) => {},
+        complete: () => {
+          this.additionalData.reset();
+          this.registrationFormService.registrationFormData.reset();
+        }
       })
     }
   }
@@ -101,17 +123,17 @@ export class AdditionalInfoComponent implements OnInit {
   setFormDataToSend(){
     const formGroupData = this.registrationFormService.registrationFormData;
     this.registrationData = {
-      firstName: formGroupData.get('firstName')?.value,
-      lastName: formGroupData.get('lastName')?.value,
+      first_name: formGroupData.get('firstName')?.value,
+      last_name: formGroupData.get('lastName')?.value,
       email: formGroupData.get('email')?.value,
       password: formGroupData.get('password')?.value,
-      phoneNo: formGroupData.get('phoneNo')?.value,
+      phone_number: formGroupData.get('phoneNo')?.value,
       city: formGroupData.get('personalData')!.get('city')?.value,
-      zipCode: formGroupData.get('personalData')!.get('zipCode')?.value,
+      zip_code: formGroupData.get('personalData')!.get('zipCode')?.value,
       street: formGroupData.get('personalData')!.get('street')?.value,
-      houseNo: formGroupData.get('personalData')!.get('houseNo')?.value,
-      flatNo: formGroupData.get('personalData')!.get('flatNo')?.value,
-      info: formGroupData.get('additionalData')!.get('info')?.value
+      house_number: formGroupData.get('personalData')!.get('houseNo')?.value,
+      flat_number: formGroupData.get('personalData')!.get('flatNo')?.value,
+      description: formGroupData.get('additionalData')!.get('info')?.value
     };
   }
 }

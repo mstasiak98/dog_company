@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth/auth.service";
 import {TokenService} from "../../shared/services/token/token.service";
@@ -10,12 +10,14 @@ import {MessageService} from "primeng/api";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: any;
   errors: any = null;
+  submitted: boolean = false;
 
   constructor(
     public router: Router,
@@ -26,13 +28,14 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
-      email: [],
-      password: [],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {}
+  get f(){
+    return this.loginForm.controls;
   }
 
   onSubmit(){
@@ -44,6 +47,7 @@ export class LoginComponent implements OnInit {
           this.responseHandler(result.data.access_token);
           const userState: UserState = {authenticated: true, user: {userId: result.data.user_id, userName: result.data.name}};
           this.authStateService.setAuthState(userState);
+          this.router.navigate(['/dashboard']);
         }else{
           this.errors = result.error;
         }
@@ -57,7 +61,6 @@ export class LoginComponent implements OnInit {
 
   responseHandler(data: any){
     if(data){
-      console.log('SREDEK HANDLERA');
       this.tokenService.handleData(data);
     }
   }

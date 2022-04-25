@@ -18,10 +18,16 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Test',
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'phone_number' => '111111111',
+            'city' => 'Kalisz',
+            'street' => 'Kaliska',
+            'zip_code' => '11-111',
+            'house_number' => '4a',
             'email' => 'test@test.com',
+            'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'password' => Hash::make('test')
         ]);
 
         $userRole = Role::findByName(config('app.user_role'));
@@ -30,10 +36,16 @@ class UsersSeeder extends Seeder
         }
 
         $user = User::create([
-            'name' => 'Admin',
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'phone_number' => '222222222',
+            'city' => 'Kalisz',
+            'street' => 'Kaliska',
+            'zip_code' => '11-111',
+            'house_number' => '4a',
             'email' => 'admin@admin.com',
+            'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'password' => Hash::make('admin')
         ]);
 
         $adminRole = Role::findByName(config('app.admin_role'));
