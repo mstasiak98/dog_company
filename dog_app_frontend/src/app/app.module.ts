@@ -21,7 +21,6 @@ import { AdditionalInfoComponent } from './components/register/additional-info/a
 import {KeyFilterModule} from "primeng/keyfilter";
 import {FileUploadModule} from "primeng/fileupload";
 import {AuthStateService} from "./shared/services/auth-state/auth-state.service";
-import { NavbarComponent } from './core/navbar/navbar.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +30,6 @@ import { NavbarComponent } from './core/navbar/navbar.component';
         AccountInfoComponent,
         PersonalInfoComponent,
         AdditionalInfoComponent,
-        NavbarComponent
     ],
     imports: [
         BrowserModule,
@@ -54,9 +52,6 @@ import { NavbarComponent } from './core/navbar/navbar.component';
             multi: true
         },
         MessageService
-    ],
-    exports: [
-        NavbarComponent
     ],
     bootstrap: [AppComponent]
 })
