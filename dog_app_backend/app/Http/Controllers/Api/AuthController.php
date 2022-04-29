@@ -46,65 +46,48 @@ class AuthController extends BaseController
         }
     }
 
-    public function register(Request $request){
-        // dane w requescie nie sa w postaci obiektu, tylko jsona w stringu, tutaj je zamieniam na obiekt
-        $accountData = is_string($request->get('data')) ?
-            json_decode($request->get('data')) : (object) ($request->get('data'));
-        if(!isset($accountData) || !is_object($accountData)){
-            return $this->sendErrorResponse('Invalid request', ['invalid'=>'Błędne zapytanie']);
-        }
+    public function register(RegisterRequest $request){
 
-        // zamiana std class na array
-        $args = json_decode(json_encode($accountData), true);
-
-        $validator = Validator::make($args,[
-            'first_name'=>['required'],
-            'last_name'=>['required'],
-            'email'=>['required','unique:users','email'],
-            'password'=>['required', 'min:6'],
-            'phone_number'=>['required', 'unique:users', 'regex:/(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/'],
-            'city'=>['required'],
-            'street'=>['required'],
-            'zip_code'=>['required', 'regex:/^([0-9]{2})(-[0-9]{3})?$/i'],
-            'house_number'=>['required']
-        ]);
-
-        if($validator->fails()){
-            return $this->sendErrorResponse($accountData, $validator->errors());
-        }
-
-        $args['password'] = Hash::make($args['password']);
-        if($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $photo = $request->file('photo')->store('photos');
-            if(!$photo) {
-                return $this->sendErrorResponse('Registration error', ['registration_error'=>'Wystąpił błąd podczas rejestracji']);
+        try {
+            $photo = null;
+            if($request->hasFile('photo') && $request->file('photo')->isValid()){
+                $photo = $request->file('photo')->store('photos');
+                if(!is_string($photo)){
+                    return $this->sendErrorResponse('Error', ['photo_error'=>'Wystąpił błąd podczas zapisywania zdjęcia']);
+                }
+            }else if ($request->hasFile('photo') && !$request->file('photo')->isValid()){
+                return $this->sendErrorResponse('Error', ['photo_error'=>'Wystąpił błąd podczas przesyłania zdjęcia']);
             }
 
-            $data = DB::transaction(function () use ($args, $photo){
-                $user = User::create($args);
+            $data = DB::transaction(function () use ($request, $photo){
+                //Create user and assign role
+                $request['password'] = Hash::make($request->password);
+                $user = User::create($request->all());
+                $userRole = Role::findByName(config('app.user_role'));
+                if(isset($userRole) && isset($user)){
+                    $user->assignRole($userRole);
+                }
+                //prepare user data for message to front
                 $data = [];
                 $data['access_token'] = $user->createToken('access_token')->plainTextToken;
                 $data['name'] = $user->first_name;
                 $data['user_id'] = $user->id;
-                $user_photo = new Photo();
-                $user_photo->url = Storage::url($photo);
-              /*  Photo::create([
-                    'url'=>Storage::url($photo),
-                ]);*/
-                $user_photo->photoable()->associate($user);
-                $user_photo->save();
+
+                // if photo exists save it to database
+                if(is_string($photo)) {
+                    $user_photo = new Photo();
+                    $user_photo->url = Storage::url($photo);
+                    $user_photo->photoable()->associate($user);
+                    $user_photo->save();
+                }
+
                 return $data;
             });
-        }else {
-            $user = User::create($args);
-            $data['access_token'] = $user->createToken('access_token')->plainTextToken;
-            $data['first_name'] = $user->first_name;
-            $data['user_id'] = $user->id;
-        }
-        $user = User::find($data['user_id']);
-        $userRole = Role::findByName(config('app.user_role'));
-        if(isset($userRole) && isset($user)){
-            $user->assignRole($userRole);
+        } catch (\Exception $e) {
+            if(is_string($photo)) {
+               Storage::delete($photo);
+            }
+            return $this->sendErrorResponse('Error', ['registration_error'=>'Wystąpił błąd poczas rejestracji']);
         }
 
         return $this->sendResponse($data, 'Success');

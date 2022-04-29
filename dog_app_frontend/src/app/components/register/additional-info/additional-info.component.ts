@@ -79,6 +79,8 @@ export class AdditionalInfoComponent implements OnInit {
       }
       formData.append('data', JSON.stringify(this.registrationData));
 
+      console.log('TEST = ', formData.get('data'));
+
       this.authService.register(formData).subscribe({
         next: (result: any) =>{
           console.log('RESULT', result);

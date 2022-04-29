@@ -21,16 +21,18 @@ import { AdditionalInfoComponent } from './components/register/additional-info/a
 import {KeyFilterModule} from "primeng/keyfilter";
 import {FileUploadModule} from "primeng/fileupload";
 import {AuthStateService} from "./shared/services/auth-state/auth-state.service";
+import { NavbarComponent } from './core/navbar/navbar.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    AccountInfoComponent,
-    PersonalInfoComponent,
-    AdditionalInfoComponent
-  ],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        AccountInfoComponent,
+        PersonalInfoComponent,
+        AdditionalInfoComponent,
+        NavbarComponent
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -45,14 +47,17 @@ import {AuthStateService} from "./shared/services/auth-state/auth-state.service"
         KeyFilterModule,
         FileUploadModule,
     ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    MessageService
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+        MessageService
+    ],
+    exports: [
+        NavbarComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

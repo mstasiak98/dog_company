@@ -38,14 +38,17 @@ class RegisterRequest extends FormRequest
         ];
     }
 
+    public function prepareForValidation() {
+        // dane w requescie nie sa w postaci obiektu, tylko jsona w stringu, tutaj je zamieniam na obiekt
+        $accountData = is_string($this->get('data')) ?
+            json_decode($this->get('data')) : (object) ($this->get('data'));
 
-   /* public function validationData() {
-         // dane w requescie nie sa w postaci obiektu, tylko jsona w stringu, tutaj je zamieniam na obiekt
-       $accountData = is_string($this->get('data')) ?
-           json_decode($this->get('data')) : (object) ($this->get('data'));
+        // zamiana std class na array
+        $args=json_decode(json_encode($accountData), true);
+        if(!$args){
+            $args = [];
+        }
 
-       // zamiana std class na array
-       return json_decode(json_encode($accountData), true);
-    }*/
-
+        $this->replace($args);
+    }
 }
