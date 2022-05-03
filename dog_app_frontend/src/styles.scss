@@ -4,7 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html {
+  height: 100%;
+  font-size: 14px;
+}
 
 .bg-img {
   background-image: url("/assets/background/bg2.png");
@@ -12,6 +15,10 @@
 }
 
 .nav-img {
-  background-image: url("/assets/background/dogs5.png") !important;
-
+  background-image: url("/assets/background/dogs9.png") !important;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+  filter: blur();
+  -webkit-filter: blur(4px);
 }

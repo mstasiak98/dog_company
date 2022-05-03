@@ -1,0 +1,11 @@
+:host ::ng-deep .p-button {
+  @apply ml-5 text-base
+}
+
+.active {
+  @apply font-bold
+}
+
+:host ::ng-deep .p-divider {
+  max-width: 100%;
+}

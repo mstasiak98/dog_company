@@ -1,5 +1,207 @@
-<!--
-<p>dashboard works!</p>
--->
-<a *ngIf="showLogout" (click)="logout()">WYLOGUJ</a>
 <app-navbar></app-navbar>
+<div class="w-full h-full mt-2">
+  <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:flex-row md:justify-center md:items-start">
+    <div class="md:w-1/4 my-6">
+      <div class="block py-6 md:hidden">
+        <p class="text-custom-purple-dark text-center font-bold text-md cursor-pointer" (click)="showFilters = !showFilters">
+          {{showFilters ? 'Schowaj filtry' : 'Pokaż filtry'}}
+        </p>
+      </div>
+      <div [ngClass]="{'show':showFilters}" class="hidden md:block">
+        <form [formGroup]="filters">
+          <div class="field">
+            <label for="breed" class="block font-bold text-lg text-custom-grey">Rasa</label>
+            <p-autoComplete id="breed" formControlName="breed" [dropdown]="true" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
+          </div>
+
+          <div class="mt-2 field">
+            <label for="traits" class="pt-4 block font-bold text-lg text-custom-grey">Cechy osobowości</label>
+            <div id="traits" class="mt-2">
+              <div *ngFor="let trait of traits" class="field-checkbox">
+                <div class="flex items-center">
+                  <p-checkbox name="traits" value="trait" [value]="trait" [formControl]="filters.controls['trait']" [inputId]="trait.key"></p-checkbox>
+                  <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" [for]="trait.key">{{trait.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 field">
+            <label for="activities" class="pt-4 block font-bold text-lg text-custom-grey">Potrzeba</label>
+            <div id="activities" class="mt-2">
+              <div *ngFor="let activity of activities" class="field-checkbox">
+                <div class="flex items-center">
+                  <p-checkbox name="traits" value="trait" [value]="activity" [formControl]="filters.controls['activity']" [inputId]="activity.key"></p-checkbox>
+                  <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" [for]="activity.key">{{activity.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 field">
+            <label for="availabilities" class="pt-4 block font-bold text-lg text-custom-grey">Dostępność</label>
+            <div id="availabilities" class="mt-2">
+              <div *ngFor="let availability of availabilities" class="field-checkbox">
+                <div class="flex items-center">
+                  <p-checkbox name="traits" value="trait" [value]="availability" [formControl]="filters.controls['availability']" [inputId]="availability.key"></p-checkbox>
+                  <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" [for]="availability.key">{{availability.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 field">
+            <label for="sizes" class="pt-4 block font-bold text-lg text-custom-grey">Wielkość</label>
+            <div id="sizes" class="mt-2">
+              <div *ngFor="let size of sizes" class="field-checkbox">
+                <div class="flex items-center">
+                  <p-checkbox name="traits" value="trait" [value]="size" [formControl]="filters.controls['availability']" [inputId]="size.key"></p-checkbox>
+                  <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" [for]="size.key">{{size.name}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 field flex justify-center md:justify-start">
+            <button style="min-width: 60%" pButton pRipple type="button" label="Szukaj" class="p-button-rounded"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="w-full items-center md:w-3/4 my-6 flex flex-col">
+      <div class="md:w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="card shade w-full cursor-pointer bg-white rounded-lg">
+          <a href="#" class="w-full block ">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+            <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+              <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2">
+                Barry
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                Mały - owczarek
+              </p>
+              <p class="text-custom-purple-dark text-center font-regular text-md">
+                2km od ciebie
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="w-full mt-4">
+        <p-paginator [rows]="1" [totalRecords]="2000" [showFirstLastIcon]="false"></p-paginator>
+      </div>
+
+    </div>
+  </div>
+</div>

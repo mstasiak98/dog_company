@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DogProfile extends Model
 {
+
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -13,7 +16,7 @@ class DogProfile extends Model
         'visible',
         'breed_id',
         'size_id',
-        //user_id
+        'user_id'
     ];
 
     public function size() {
@@ -22,6 +25,10 @@ class DogProfile extends Model
 
     public function breed() {
         return $this->belongsTo(Breed::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
     public function activities() {

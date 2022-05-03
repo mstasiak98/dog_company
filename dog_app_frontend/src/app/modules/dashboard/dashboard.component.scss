@@ -1,0 +1,30 @@
+/*:host ::ng-deep .p-inputtext {
+  max-height: 2.5rem;
+}*/
+:host ::ng-deep .p-component {
+  max-height: 2.5rem;
+  max-width: 15rem;
+}
+
+:host ::ng-deep .pi {
+  font-size: 0.7rem;
+}
+
+:host ::ng-deep .p-paginator {
+  max-width: 100% !important;
+}
+
+.card {
+  min-height: 20rem;
+  max-height: 20rem;
+}
+
+.shade {
+  -moz-box-shadow: 0px 3px 6px rgb(122, 122, 122);
+  -webkit-box-shadow: 0px 3px 6px rgb(122, 122, 122);
+  box-shadow: 0px 3px 6px rgb(122, 122, 122);
+}
+
+.show {
+  display: block;
+}

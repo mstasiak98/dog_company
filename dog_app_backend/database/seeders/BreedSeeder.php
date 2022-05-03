@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Breed;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class BreedSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('breeds')->insert([
+        /*DB::table('breeds')->insert([
             'name' => 'Owczarek niemiecki',
         ]);
 
@@ -32,6 +33,16 @@ class BreedSeeder extends Seeder
 
         DB::table('breeds')->insert([
             'name' => 'Pinczer',
-        ]);
+        ]);*/
+
+        $csvFile = fopen(base_path("database/data/breeds.csv"), "r");
+
+        while(($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            Breed::create([
+                'name' => $data['0']
+            ]);
+        }
+
+        fclose($csvFile);
     }
 }

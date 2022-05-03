@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function photos() {
         return $this->morphMany(Photo::class, 'photoable');
     }
+
+    public function dogProfiles() {
+        return $this->hasMany(DogProfile::class);
+    }
 }

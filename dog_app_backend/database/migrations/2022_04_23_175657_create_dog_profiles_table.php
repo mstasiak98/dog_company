@@ -18,11 +18,11 @@ class CreateDogProfilesTable extends Migration
             $table->string('name');
             $table->string('color');
             $table->boolean('visible');
-/*            $table->unsignedBigInteger('user_id');*/
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('breed_id');
             $table->unsignedBigInteger('size_id');
-           /* $table->foreign('user_id')
-                ->references('id')->on('users');*/
+            $table->foreign('user_id')
+                ->references('id')->on('users');
             $table->foreign('breed_id')
                 ->references('id')->on('breeds');
             $table->foreign('size_id')

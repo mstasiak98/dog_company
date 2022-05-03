@@ -11,7 +11,7 @@
           <div class="ml-4 flex items-center md:ml-6">
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <a class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " href="/#">
+                <a routerLinkActive="active" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " routerLink="/dashboard">
                   Potrzebują Opieki
                 </a>
                 <a class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " href="/#">
@@ -22,7 +22,7 @@
                 </a>
               </div>
             </div>
-            <div class="ml-3 relative">
+            <div *ngIf="isSignedIn" class="hidden md:block ml-3 relative">
               <div class="relative inline-block text-left" (appClickOutside)="showDropdown = false">
                 <div>
                   <button type="button" (click)="showDropdown = !showDropdown" class="flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500" id="options-menu">
@@ -32,7 +32,7 @@
                     </svg>
                   </button>
                 </div>
-                <div [hidden]="!showDropdown" class="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 opacity-100">
+                <div [hidden]="!showDropdown" class="cursor-pointer absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 opacity-100">
                   <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                     <a href="#" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                         <span class="flex flex-col">
@@ -41,7 +41,7 @@
                             </span>
                         </span>
                     </a>
-                    <a href="#" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 " role="menuitem">
+                    <a (click)="logout()" class="cursor-pointer block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 " role="menuitem">
                         <span class="flex flex-col">
                             <span>
                                 Wyloguj
@@ -52,10 +52,13 @@
                 </div>
               </div>
             </div>
+            <div *ngIf="!isSignedIn" class="hidden md:block">
+              <button  routerLink="/login" pButton pRipple type="button" label="Login" class="hidden p-button-sm p-button-raised p-button-help"></button>
+            </div>
           </div>
         </div>
         <div class="-mr-2 flex md:hidden">
-          <button class="text-gray-800 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
+          <button (click)="showHamburgerDropdown = !showHamburgerDropdown" class="text-gray-800 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
             <svg width="20" height="20" fill="black" class="h-8 w-8" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
               <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z">
               </path>
@@ -64,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div class="md:hidden">
+    <div class="md:hidden" [hidden]="!showHamburgerDropdown">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
           Potrzebują opieki
@@ -75,13 +78,28 @@
         <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
           Forum
         </a>
+        <p-divider align="center">
+          <span class="p-tag">Konto</span>
+        </p-divider>
+        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+          Kokpit
+        </a>
+        <a *ngIf="!isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold" routerLink="/login">
+          Login
+        </a>
+        <a *ngIf="isSignedIn" (click)="logout()" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold" routerLink="/login">
+          Wyloguj
+        </a>
       </div>
     </div>
   </nav>
-  <header class="nav-img w-full h-40 ">
-    <div class="max-w-7xl mx-auto h-40 ">
-
+  <header>
+    <div class="relative h-52 w-full">
+      <div class="nav-img w-full h-52 mt-2"></div>
+      <div class="absolute top-0 left-0 bg-black h-56 w-full opacity-60 -mt-2 z-10"></div>
+      <div class="absolute top-0 z-20 w-full h-52 flex justify-center items-center">
+        <h1 class="text-4xl text-center text-white md:text-7xl font-bold ">{{headerTitle}}</h1>
+      </div>
     </div>
-
   </header>
 </div>
