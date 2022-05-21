@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   showHamburgerDropdown: boolean = false;
   isSignedIn: boolean = false;
   headerTitle: string;
+  activeUrl: string;
 
   constructor(
     private authStateService: AuthStateService,
@@ -27,8 +28,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSignedIn = this.authStateService.isLoggedIn();
-
-    if(this.router.url === '/dashboard'){
+    this.activeUrl = this.router.url;
+    console.log('AKTYWNY URL = ', this.activeUrl);
+    if(this.activeUrl === '/dashboard'){
       this.headerTitle = 'Poszukują Opieki';
     }
   }

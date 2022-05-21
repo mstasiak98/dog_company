@@ -14,14 +14,19 @@ import {DashboardModule} from "./modules/dashboard/dashboard.module";
 const routes: Routes = [
 
   {
+    path: 'dog-profile/:id',
+    loadChildren: () =>
+      import('./modules/dog-profile/dog-profile.module').then(m => m.DogProfileModule),
+  },
+
+  {
     path: 'dashboard',
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
 
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard]},
+
   {
     path: 'register',
     component: RegisterComponent, canActivate: [NotLoggedGuard],
@@ -32,6 +37,8 @@ const routes: Routes = [
       { path: 'additional_info', component: AdditionalInfoComponent, canActivate: [AccountDataGuard, PersonalDataGuard]  },
     ],
   },
+
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

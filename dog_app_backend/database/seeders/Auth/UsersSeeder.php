@@ -53,5 +53,7 @@ class UsersSeeder extends Seeder
             $user->assignRole($adminRole);
         }
 
+        User::factory()->count(40)->create();
+
     }
 }

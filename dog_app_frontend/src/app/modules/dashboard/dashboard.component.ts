@@ -3,6 +3,12 @@ import {AuthStateService} from "../../shared/services/auth-state/auth-state.serv
 import {AuthService} from "../../shared/services/auth/auth.service";
 import {TokenService} from "../../shared/services/token/token.service";
 import {FormBuilder} from "@angular/forms";
+import {DogService} from "../../shared/services/API/dog/dog.service";
+import {DogProfile} from "../../shared/models/dogs/DogProfile";
+import {Link} from "../../shared/models/pagination/Link";
+import {forkJoin} from "rxjs";
+import {createLogErrorHandler} from "@angular/compiler-cli/ngcc/src/execution/tasks/completion";
+import {Breed} from "../../shared/models/dogs/Breed";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,38 +17,91 @@ import {FormBuilder} from "@angular/forms";
 })
 export class DashboardComponent implements OnInit {
 
-  showFilters = false;
+  //DOG PROFILES
+  dogProfiles: DogProfile[] = [];
 
-  results: string[];
+  //PAGINATION
+  links: Link[] = [];
+  currentPage: number = 1;
+  totalPages: number = 0;
+  profilesPerPage: number = 9;
+
+  //GUI
+  showFilters = false;
+  isContentLoading = false;
+
+  // FILTERS
+  breeds: Breed[];
   filters: any;
-  traits: any[] = [{name: 'Przyjazny psom', key: 'df'}, {name: 'Przyjazny dzieciom', key: 'chf'}, {name: 'Przyjazny kotom', key: 'cf'}, {name: 'Wytresowany', key: 't'}];
-  activities: any[] = [{name: 'Spacer', key: 'w'}, {name: 'Opieka w domu właściciela', key: 'o'}, {name: 'Opieka w domu opiekuna', key: 'b'}];
-  availabilities: any[] = [{name: 'Tydzień - do południa', key: 'dp'}, {name: 'Tydzień - po południu', key: 'pp'}, {name: 'Tydzień - wieczorem', key: 'tw'}, {name: 'Weekend', key: 'ww'}];
-  sizes: any[] = [{name: 'Mały (do 7kg)', key: 'm'}, {name: 'Średni', key: 'sr'}, {name: 'Duży', key: 'dz'}];
+  traits: any[];
+  activities: any[];
+  availabilities: any[];
+  sizes: any[];
+  suggestions: Breed[];
 
 
   constructor(
     public authStateService: AuthStateService,
     private authService: AuthService,
     private tokenService: TokenService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dogService: DogService
   ) {
   }
 
   ngOnInit(): void {
+    this.isContentLoading = true;
+    const filters = this.dogService.getDogProfileFilters();
+    const dogProfiles = this.dogService.getDogProfiles();
+
+    forkJoin([filters, dogProfiles]).subscribe(this.proccessCombinedResult());
+
     this.filters = this.formBuilder.group({
-      breed: [''],
-      trait: [''],
-      activity: [''],
-      availability: [''],
-      size: ['']
+      breed: [null],
+      trait: [null],
+      activity: [null],
+      availability: [null],
+      size: [null]
     });
   }
 
-  search(event: any) {
-    this.results = [
-      'test', 'test2'
-    ];
+  onPageChange(event: any): void {
+    const page = event.page + 1;
+    const link = this.links.find(link => link.label === page.toString())
+    this.dogService.getDogProfiles(link?.url).subscribe(this.processResult());
   }
 
+  private processResult() {
+    return (data:any) => {
+      this.dogProfiles = data.data;
+      this.links = data.meta.links;
+      this.totalPages = data.meta.total;
+      this.currentPage = data.meta.current_page;
+      this.profilesPerPage = data.meta.per_page;
+    }
+  }
+
+  searchFilters(): void {
+    const filters = this.filters.value;
+    this.dogService.getDogProfiles('http://127.0.0.1:8000/api/dogs', filters).subscribe(this.processResult());
+  }
+
+
+  private proccessCombinedResult() {
+    return (data:any) => {
+
+      this.dogProfiles = data[1].data;
+      this.links = data[1].meta.links;
+      this.totalPages = data[1].meta.total;
+      this.currentPage = data[1].meta.current_page;
+      this.profilesPerPage = data[1].meta.per_page;
+
+      this.traits = data[0].features;
+      this.sizes = data[0].sizes;
+      this.activities = data[0].activities;
+      this.availabilities = data[0].availabilities;
+      this.breeds = data[0].breeds;
+      this.isContentLoading = false;
+    }
+  }
 }

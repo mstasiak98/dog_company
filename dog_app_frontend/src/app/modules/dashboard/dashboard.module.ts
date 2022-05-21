@@ -11,6 +11,8 @@ import {CheckboxModule} from "primeng/checkbox";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {PaginatorModule} from "primeng/paginator";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {MultiSelectModule} from "primeng/multiselect";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent }
@@ -20,17 +22,19 @@ const routes: Routes = [
   declarations: [
     DashboardComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        CoreModule,
-        InputTextModule,
-        ReactiveFormsModule,
-        AutoCompleteModule,
-        CheckboxModule,
-        ButtonModule,
-        RippleModule,
-        PaginatorModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    CoreModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    AutoCompleteModule,
+    CheckboxModule,
+    ButtonModule,
+    RippleModule,
+    PaginatorModule,
+    ProgressSpinnerModule,
+    MultiSelectModule,
+  ]
 })
 export class DashboardModule { }

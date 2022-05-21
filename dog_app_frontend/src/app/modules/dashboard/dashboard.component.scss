@@ -1,14 +1,30 @@
-/*:host ::ng-deep .p-inputtext {
-  max-height: 2.5rem;
-}*/
-:host ::ng-deep .p-component {
-  max-height: 2.5rem;
-  max-width: 15rem;
+::ng-deep p-multiselect .p-multiselect-label{
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
 }
 
-:host ::ng-deep .pi {
-  font-size: 0.7rem;
+::ng-deep p-multiselect .p-multiselect-token{
+  margin-bottom: 4px;
 }
+
+::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-label {
+  overflow: hidden;
+}
+
+::ng-deep p-multiselect .p-multiselect-item {
+  color: yellow;
+}
+
+:host ::ng-deep .p-multiselect-token-label {
+  width: 100px;
+  overflow: hidden;
+}
+
+/*::ng-deep p-multiselect .p-multiselect-token {
+
+}*/
+
 
 :host ::ng-deep .p-paginator {
   max-width: 100% !important;
@@ -28,3 +44,12 @@
 .show {
   display: block;
 }
+
+.card-panel {
+  min-height: 400px;
+}
+
+.loaderBlock {
+  min-height: 600px;
+}
+
