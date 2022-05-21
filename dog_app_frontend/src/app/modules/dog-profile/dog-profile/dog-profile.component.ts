@@ -8,6 +8,7 @@ import {DogService} from "../../../shared/services/API/dog/dog.service";
 import {DogProfile} from "../../../shared/models/dogs/DogProfile";
 import {Owner} from "../../../shared/models/Owner";
 import {Sibling} from "../../../shared/models/dogs/Sibling";
+import {DialogService} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-dog-profile',
@@ -21,13 +22,8 @@ export class DogProfileComponent implements OnInit {
   owner: Owner;
   siblings: Sibling[];
 
-  features: Feature[] = [
-    {id: 1, name: "Przyjazny psom" },
-    {id: 2, name: "Przyjazny dzieciom" },
-  ]
 
-  activities: Activity[];
-  availabilities: Availability[];
+  isContentLoading = false;
 
   images: any = [
     {
@@ -65,11 +61,15 @@ export class DogProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private dogService: DogService,
-              private router: Router
+              private router: Router,
+              private dialogService: DialogService
+
   ) { }
 
 
   ngOnInit(): void {
+
+    this.isContentLoading = true;
 
     this.route.params.subscribe(parameter => {
       this.dogProfileId = parameter.id;
@@ -82,8 +82,15 @@ export class DogProfileComponent implements OnInit {
         error: (err) => {
           this.router.navigate(['/dashboard']);
         },
-        complete: () => {}
+        complete: () => {
+          this.isContentLoading = false;
+        }
       })
     });
+  }
+
+
+  makeProposal() {
+
   }
 }
