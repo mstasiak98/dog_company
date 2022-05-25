@@ -9,6 +9,8 @@ import {DogProfile} from "../../../shared/models/dogs/DogProfile";
 import {Owner} from "../../../shared/models/Owner";
 import {Sibling} from "../../../shared/models/dogs/Sibling";
 import {DialogService} from "primeng/dynamicdialog";
+import {ProposalDialogComponent} from "../proposal-dialog/proposal-dialog.component";
+import {AuthStateService} from "../../../shared/services/auth-state/auth-state.service";
 
 @Component({
   selector: 'app-dog-profile',
@@ -21,6 +23,7 @@ export class DogProfileComponent implements OnInit {
   dogProfile: DogProfile;
   owner: Owner;
   siblings: Sibling[];
+  isLoggedIn: boolean = false;
 
 
   isContentLoading = false;
@@ -62,12 +65,14 @@ export class DogProfileComponent implements OnInit {
               private route: ActivatedRoute,
               private dogService: DogService,
               private router: Router,
-              private dialogService: DialogService
+              private dialogService: DialogService,
+              private authStateService: AuthStateService
 
   ) { }
 
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authStateService.isLoggedIn();
 
     this.isContentLoading = true;
 
@@ -91,6 +96,21 @@ export class DogProfileComponent implements OnInit {
 
 
   makeProposal() {
+    if(!this.isLoggedIn){
+      return;
+    }
 
+    const ref = this.dialogService.open(ProposalDialogComponent, {
+      width: '50rem',
+      height: '60rem',
+      data: {
+        id: this.dogProfile.id,
+        activities: this.dogProfile.activity,
+      },
+    });
+
+    ref.onClose.subscribe(response => {
+      console.log('response = ', response);
+    });
   }
 }

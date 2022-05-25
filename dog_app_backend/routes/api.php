@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\DogCareController;
 use App\Http\Controllers\DogProfileController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\FilterController;
@@ -25,12 +26,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'logIn']);
 Route::post('register', [AuthController::class, 'register']);
 
-Route::post('/test', function (Request $request){
-    error_log($request);
-});
-
-
-
 
 //DOGS
 Route::get('/dogs', [DogProfileController::class, 'index']);
@@ -45,12 +40,26 @@ Route::get('/getActivities', [ActivityController::class, 'index']);
 Route::get('/getAvailabilities', [AvailabilityController::class, 'index']);
 
 
+//TEST - TEMPORARY
 Route::post('/save-photo', [PhotoController::class, 'save']);
 
+Route::controller(DogCareController::class)->group(function () {
+    Route::post('/makeProposal', 'storeProposal');
+});
+
+// AUTHENTICATED
 Route::middleware(['auth:sanctum'])->group(function () {
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::controller(DogCareController::class)->group(function () {
+        Route::post('/makeProposal', 'storeProposal');
+    });
+
+
+
 
     Route::post('logout', [AuthController::class, 'logout']);
 });

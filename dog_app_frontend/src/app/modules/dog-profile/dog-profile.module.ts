@@ -9,6 +9,12 @@ import {ImageModule} from "primeng/image";
 import {CheckboxModule} from "primeng/checkbox";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ProposalDialogComponent } from './proposal-dialog/proposal-dialog.component';
+import {MessageService} from "primeng/api";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RadioButtonModule} from "primeng/radiobutton";
+import {CalendarModule} from "primeng/calendar";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 const routes: Routes = [
   { path: '', component: DogProfileComponent }
@@ -16,18 +22,25 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    DogProfileComponent
+    DogProfileComponent,
+    ProposalDialogComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        CoreModule,
-        GalleriaModule,
-        CarouselModule,
-        ImageModule,
-        CheckboxModule,
-        ProgressSpinnerModule,
-        DynamicDialogModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    CoreModule,
+    GalleriaModule,
+    CarouselModule,
+    ImageModule,
+    CheckboxModule,
+    ProgressSpinnerModule,
+    DynamicDialogModule,
+    FormsModule,
+    RadioButtonModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    InputTextareaModule
+  ],
+  providers: []
 })
 export class DogProfileModule { }

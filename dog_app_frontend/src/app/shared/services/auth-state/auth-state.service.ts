@@ -25,6 +25,10 @@ export class AuthStateService {
     return localStorage.getItem('auth_state');
   }
 
+  userId(): number{
+    return this.userState.value.user.userId;
+  }
+
   isLoggedIn(){
     const state = this.getAuthState();
     if(state){

@@ -1,0 +1,92 @@
+<div class="w-full min-h-max">
+  <h1 class="text-center text-3xl font-bold text-black">Zaproponuj opiekę</h1>
+  <h6 class="text-center mt-12 font-bold text-base">Wybierz rodzaj opieki</h6>
+
+  <div class="w-full">
+    <form [formGroup]="proposal" (ngSubmit)="saveProposal()">
+      <div class="flex flex-col">
+        <div id="activities" class="mt-6 md:mt-12 flex flex-col px-12">
+          <div class="w-full flex flex-col md:flex-row md:justify-between">
+            <div *ngFor="let activity of activities" class="field-checkbox">
+              <div class="flex items-center">
+                <p-radioButton  [label]="activity.name" formControlName="proposalActivity" [value]="activity" [inputId]="activity.name"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="mt-1.5">
+            <small class="p-error" *ngIf="(f.proposalActivity.invalid && submitted) || (f.proposalActivity.dirty && f.proposalActivity.invalid)">Musisz wybrać aktywność.</small>
+          </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row px-12 mt-6 md:mt-12">
+          <div class=" w-full md:w-1/2 flex flex-col ">
+            <label for="startDate" class="font-bold">Dzień rozpoczęcia opieki</label>
+            <p-calendar id="startDate" inputId="startDate" formControlName="startDate" placeholder="Wybierz dzień"
+                        [ngClass]="{'ng-dirty': (f.startDate.invalid && submitted) || (f.startDate.dirty && f.startDate.invalid)}"></p-calendar>
+
+            <div *ngIf="(f.startDate.invalid && submitted) || (f.startDate.dirty && f.startDate.invalid)">
+              <small *ngIf="f.startDate.errors.required" class="p-error">
+                Musisz wybrać dzień rozpoczęcia opieki.
+              </small>
+            </div>
+          </div>
+
+          <div class="mt-2 md:mt-0 w-full md:w-1/2 flex flex-col md:items-end">
+            <div class="w-fit flex flex-col">
+              <label for="startTime" class="font-bold">Godzina rozpoczęcia</label>
+              <p-calendar formControlName="startTime" class="w-full" [timeOnly]="true" hourFormat="24" inputId="startTime" placeholder="Wybierz godzinę"
+                          [ngClass]="{'ng-dirty': (f.startTime.invalid && submitted) || (f.startTime.dirty && f.startTime.invalid)}"></p-calendar>
+              <div *ngIf="(f.startTime.invalid && submitted) || (f.startTime.dirty && f.startTime.invalid)">
+                <small *ngIf="f.startTime.errors.required" class="p-error">
+                  Musisz wybrać czas rozpoczęcia opieki.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col md:flex-row px-12 mt-6">
+          <div class="w-full md:w-1/2 flex flex-col ">
+            <label for="endDate" class="font-bold">Dzień zakończenia opieki</label>
+            <p-calendar id="endDate" inputId="startDate" formControlName="endDate" placeholder="Wybierz dzień"></p-calendar>
+            <div *ngIf="(f.endDate.invalid && submitted) || (f.endDate.dirty && f.endDate.invalid)">
+              <small *ngIf="f.endDate.errors.required" class="p-error">
+                Musisz wybrać dzień zakończenia opieki.
+              </small>
+            </div>
+          </div>
+
+          <div class="mt-2 md:mt-0 w-full md:w-1/2 flex flex-col md:items-end">
+            <div class="w-fit flex flex-col">
+              <label for="endTime" class="font-bold">Godzina zakończenia</label>
+              <p-calendar formControlName="endTime" class="w-full" [timeOnly]="true" hourFormat="24" inputId="endTime" placeholder="Wybierz godzinę"
+              ></p-calendar>
+              <div *ngIf="(f.endTime.invalid && submitted) || (f.endTime.dirty && f.endTime.invalid)">
+                <small *ngIf="f.endTime.errors.required" class="p-error">
+                  Musisz wybrać czas zakończenia opieki.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex px-12 mt-6">
+          <div class="w-fit flex flex-col">
+            <h5 class="font-bold">Informacje dodatkowe</h5>
+            <textarea rows="5" class="w-full" cols="100" pInputTextarea formControlName="additionalInfo"></textarea>
+          </div>
+        </div>
+
+        <div class="w-full flex px-12 mt-6">
+          <p-checkbox formControlName="siblings" [binary]="true" inputId="siblings"></p-checkbox>
+          <label class="ml-4" for="siblings">Zaproponuj opiekę dla wszystkich psów właściciela</label>
+        </div>
+      </div>
+
+      <div class="w-full px-12 mt-6 md:mt-20 flex justify-center">
+        <button type="submit" class="bg-custom-purple-medium py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-dark text-sm font-bold">ZAPROPONUJ OPIEKĘ</button>
+      </div>
+    </form>
+  </div>
+
+
+</div>

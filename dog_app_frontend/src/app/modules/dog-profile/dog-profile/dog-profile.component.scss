@@ -12,3 +12,11 @@
 .gallery {
   height: 450px;
 }
+
+:host::ng-deep .p-dialog-header{
+  border-radius: 15px 15px 0 0 !important;
+}
+
+:host::ng-deep .p-dialog-content{
+  border-radius: 0 0 15px 15px !important;
+}

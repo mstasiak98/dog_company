@@ -13,8 +13,6 @@ export class DogService {
 
   constructor(private http: HttpClient) { }
 
-
-
   getDogProfileDetails(dogProfileId: number): Observable<any>{
     const url = `${this.baseUrl}/dogDetails`;
     return this.http.get(url, {

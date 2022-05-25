@@ -21,6 +21,7 @@ import { AdditionalInfoComponent } from './components/register/additional-info/a
 import {KeyFilterModule} from "primeng/keyfilter";
 import {FileUploadModule} from "primeng/fileupload";
 import {AuthStateService} from "./shared/services/auth-state/auth-state.service";
+import {DialogService} from "primeng/dynamicdialog";
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {AuthStateService} from "./shared/services/auth-state/auth-state.service"
             useClass: AuthInterceptor,
             multi: true
         },
-        MessageService
+        MessageService,
+        DialogService
     ],
     bootstrap: [AppComponent]
 })
