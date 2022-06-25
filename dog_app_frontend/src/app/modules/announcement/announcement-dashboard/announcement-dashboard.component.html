@@ -1,1 +1,160 @@
-<p>announcement-dashboard works!</p>
+<app-navbar></app-navbar>
+<div class="w-full h-full mt-2">
+  <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <ng-template #content>
+    <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:flex-row md:justify-center md:items-start">
+      <div class="md:w-1/4 my-12 flex flex-col w-full items-center">
+        <h2 class="block font-bold text-2xl mb-4 text-custom-grey">Filtry</h2>
+        <div class="block py-6 md:hidden">
+          <p class="text-custom-purple-dark text-center font-bold text-md cursor-pointer" (click)="showFilters = !showFilters">
+            {{showFilters ? 'Schowaj filtry' : 'Pokaż filtry'}}
+          </p>
+        </div>
+
+        <div [ngClass]="{'show':showFilters}" class="hidden md:block">
+          <div class="w-full px-20 md:px-0">
+            <form [formGroup]="filters" >
+              <div class="field">
+                <label for="city" class="block font-bold text-lg text-custom-grey">Miejscowość</label>
+                <p-autoComplete id="city" formControlName="city" [suggestions]="['japan']" (completeMethod)="search()" placeholder="Wybierz miejscowość"></p-autoComplete>
+              </div>
+
+              <div class="mt-2 field">
+                <label for="activity" class="pt-4 block font-bold text-lg text-custom-grey">Potrzeba</label>
+                <div id="activity" class="mt-2">
+                  <div  class="field-checkbox">
+                    <div class="flex items-center">
+                      <p-checkbox name="activity" [formControl]="filters.controls['activity']" ></p-checkbox>
+                      <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" >Spacer</label>
+                    </div>
+                  </div>
+
+                  <div  class="field-checkbox">
+                    <div class="flex items-center">
+                      <p-checkbox name="activity" [formControl]="filters.controls['activity']" ></p-checkbox>
+                      <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" >Opieka w domu właściciela</label>
+                    </div>
+                  </div>
+
+                  <div  class="field-checkbox">
+                    <div class="flex items-center">
+                      <p-checkbox name="activity" [formControl]="filters.controls['activity']" ></p-checkbox>
+                      <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" >Opieka w domu opiekuna</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-2 field">
+                <label for="count" class="pt-4 block font-bold text-lg text-custom-grey">Ilość psów</label>
+                <div id="count" class="mt-2">
+                  <div  class="field-checkbox">
+                    <div class="flex items-center">
+                      <p-checkbox name="count" [formControl]="filters.controls['count']" ></p-checkbox>
+                      <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" >Jeden</label>
+                    </div>
+                  </div>
+
+                  <div  class="field-checkbox">
+                    <div class="flex items-center">
+                      <p-checkbox name="count" [formControl]="filters.controls['count']" ></p-checkbox>
+                      <label style="margin-left: 0.5rem" class="font-bold text-custom-grey inline-block align-middle" >Więcej</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 field">
+                <label for="startDate" class="font-bold text-custom-grey">Dzień rozpoczęcia opieki</label>
+                <p-calendar id="startDate" inputId="startDate" formControlName="start_date" placeholder="Dzień rozpoczęcia opieki"></p-calendar>
+              </div>
+
+              <div class="mt-4 field">
+                <label for="endDate" class="font-bold text-custom-grey">Dzień zakończenia opieki</label>
+                <p-calendar id="endDate" inputId="endDate" formControlName="start_date" placeholder="Dzień zakończenia opieki"></p-calendar>
+              </div>
+
+              <div class="mt-8 field flex justify-center md:justify-start">
+                <button style="min-width: 100%" pButton pRipple type="button" label="Szukaj" class="p-button-rounded"></button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <div class="md:ml-20 w-full items-center md:w-3/4 md:my-12 flex flex-col">
+        <h3 class="font-bold text-4xl">Znalezione ogłoszenia</h3>
+        <p-divider class="w-full"></p-divider>
+        <div class="w-full flex mt-4 flex flex-col">
+
+          <div class="w-full cursor-pointer flex flex-col md:flex-row mb-8 md:mb-4 shade rounded-lg px-2 py-2 hover:bg-gray-50">
+            <div class="w-full md:w-1/4 flex justify-center">
+              <div class="w-1/2 md:w-full">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-48 object-cover rounded-lg"/>
+              </div>
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col px-6 mt-4 md:mt-0 ">
+              <h2 class="font-bold text-2xl text-center md:text-left">Szukam opieki dla 3 letniego psa</h2>
+              <h5 class="text-justify mt-2 text-base"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.</h5>
+            </div>
+          </div>
+
+          <div class="w-full cursor-pointer flex flex-col md:flex-row mb-8 md:mb-4 shade rounded-lg px-2 py-2 hover:bg-gray-50">
+            <div class="w-full md:w-1/4 flex justify-center">
+              <div class="w-1/2 md:w-full">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-48 object-cover rounded-lg"/>
+              </div>
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col px-6 mt-4 md:mt-0 ">
+              <h2 class="font-bold text-2xl text-center md:text-left">Szukam opieki dla 3 letniego psa</h2>
+              <h5 class="text-justify mt-2 text-base"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.</h5>
+            </div>
+          </div>
+
+          <div class="w-full cursor-pointer flex flex-col md:flex-row mb-8 md:mb-4 shade rounded-lg px-2 py-2 hover:bg-gray-50">
+            <div class="w-full md:w-1/4 flex justify-center">
+              <div class="w-1/2 md:w-full">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-48 object-cover rounded-lg"/>
+              </div>
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col px-6 mt-4 md:mt-0 ">
+              <h2 class="font-bold text-2xl text-center md:text-left">Szukam opieki dla 3 letniego psa</h2>
+              <h5 class="text-justify mt-2 text-base"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.</h5>
+            </div>
+          </div>
+
+          <div class="w-full cursor-pointer flex flex-col md:flex-row mb-8 md:mb-4 shade rounded-lg px-2 py-2 hover:bg-gray-50">
+            <div class="w-full md:w-1/4 flex justify-center">
+              <div class="w-1/2 md:w-full">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-48 object-cover rounded-lg"/>
+              </div>
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col px-6 mt-4 md:mt-0 ">
+              <h2 class="font-bold text-2xl text-center md:text-left">Szukam opieki dla 3 letniego psa</h2>
+              <h5 class="text-justify mt-2 text-base"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.</h5>
+            </div>
+          </div>
+
+          <div class="w-full cursor-pointer flex flex-col md:flex-row mb-8 md:mb-4 shade rounded-lg px-2 py-2 hover:bg-gray-50">
+            <div class="w-full md:w-1/4 flex justify-center">
+              <div class="w-1/2 md:w-full">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-48 object-cover rounded-lg"/>
+              </div>
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col px-6 mt-4 md:mt-0 ">
+              <h2 class="font-bold text-2xl text-center md:text-left">Szukam opieki dla 3 letniego psa</h2>
+              <h5 class="text-justify mt-2 text-base"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.</h5>
+            </div>
+          </div>
+
+          <div class="w-full mt-4">
+            <p-paginator [rows]="5" [totalRecords]="5" [showFirstLastIcon]="false" ></p-paginator>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

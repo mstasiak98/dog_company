@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div class="w-full h-full mt-2">
+  <div *ngIf="false; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <ng-template #content>
+    <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center  md:items-start">
+      <div class="w-full mt-12 flex">
+        <div class="w-full md:w-1/4 px-2">
+            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-64 object-cover rounded-lg"/>
+        </div>
+        <div class="md:w-3/4 flex flex-col ml-6 shade rounded-lg p-4">
+          <h1 class="font-bold text-4xl">Szukam opieki dla 3 letniego psa</h1>
+          <div class="mt-4">
+            <h4 class="mt-2 text-xl">Miejscowość: <span class="font-bold">Kalisz</span></h4>
+            <h4 class="mt-2 text-xl">Początek: <span class="font-bold">10/04/2022 - 15:00</span></h4>
+            <h4 class="mt-2 text-xl">Koniec: <span class="font-bold">12/04/2022 - 13:00</span></h4>
+            <h4 class="mt-2 text-xl">Ilość psów: <span class="font-bold">jeden</span></h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full mt-12 flex">
+        <div class="w-full md:w-1/4 px-2">
+          <div class="py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
+            <div class="flex flex-col">
+              <h2 class="text-2xl font-semibold text-white text-center">Właściciel</h2>
+              <h3 class="mt-2 font-semibold text-lg text-white text-center">Mikołaj Stasiak</h3>
+              <h3 class="mt-2 font-semibold text-base text-white text-center">Kalisz, Śliwniki</h3>
+            </div>
+            <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
+              <div class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                <span class="text-sm font-bold ">AKCEPTUJ OGŁOSZENIE</span>
+              </div>
+            </div>
+
+            <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
+              <div class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-purple-700 ">
+                <span class="text-sm text-white font-bold ">WYŚLIJ WIADOMOŚĆ</span>
+              </div>
+            </div>
+
+            <div *ngIf="!isLoggedIn" class="w-full px-6 mt-4">
+              <div routerLink="/login" class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                <span class="text-sm font-bold ">ZALOGUJ SIĘ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-3/4 flex flex-col ml-6">
+          <div class="w-full">
+            <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Opis</h2>
+            <div class="mt-4 px-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum leo in condimentum euismod. Maecenas malesuada tristique semper. Nulla interdum nisl purus, quis ullamcorper odio suscipit sit amet. Vivamus ac erat nec dolor consequat suscipit eget ac odio. Nam a tellus pretium, eleifend magna nec, congue arcu.
+            </div>
+          </div>
+          <div class="w-full mt-6 ">
+            <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Potrzebna Opieka</h2>
+            <ul class="list-disc px-4 mt-4 data-list">
+              <li class="mt-1 text-black font-normal text-lg px-2">Spacer</li>
+              <li class="mt-1 text-black font-normal text-lg px-2">Opieka w domu właściciela</li>
+              <li class="mt-1 text-black font-normal text-lg px-2">Opieka w domu opiekuna</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </ng-template>
+</div>

@@ -32,6 +32,8 @@ export class NavbarComponent implements OnInit {
     console.log('AKTYWNY URL = ', this.activeUrl);
     if(this.activeUrl === '/dashboard'){
       this.headerTitle = 'Poszukują Opieki';
+    } else if(this.activeUrl.includes('/announcements')){
+      this.headerTitle = 'Ogłoszenia';
     }
   }
 

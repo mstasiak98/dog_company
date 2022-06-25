@@ -25,6 +25,12 @@ const routes: Routes = [
       import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
 
+  {
+    path: 'announcements',
+    loadChildren: () =>
+      import('./modules/announcement/announcement.module').then(m => m.AnnouncementModule),
+  },
+
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard]},
 
   {

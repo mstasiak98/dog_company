@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-announcement-dashboard',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnnouncementDashboardComponent implements OnInit {
 
-  constructor() { }
+  //GUI
+  showFilters = false;
+  isContentLoading = false;
+
+
+  filters: any;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.filters = this.formBuilder.group({
+      city: [null],
+      activity: [null],
+      count: [null],
+      start_date: [null],
+      end_date: [null],
+    });
+  }
+
+  search(){
+
   }
 
 }

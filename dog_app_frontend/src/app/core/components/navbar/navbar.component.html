@@ -14,7 +14,7 @@
                 <a routerLinkActive="active" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " routerLink="/dashboard">
                   Potrzebują Opieki
                 </a>
-                <a class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " href="/#">
+                <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md">
                   Ogłoszenia
                 </a>
                 <a class="text-gray-800 font-medium hover:text-gray-300  px-3 py-2 rounded-md text-md " href="/#">
@@ -69,10 +69,10 @@
     </div>
     <div class="md:hidden" [hidden]="!showHamburgerDropdown">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+        <a routerLinkActive="active" routerLink="/dashboard" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
           Potrzebują opieki
         </a>
-        <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium" href="/#">
+        <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
           Ogłoszenia
         </a>
         <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
@@ -94,7 +94,7 @@
     </div>
   </nav>
 
-  <header *ngIf="activeUrl === '/dashboard'">
+  <header *ngIf="!activeUrl.includes('/dog-profile')">
     <div class="relative h-52 w-full">
       <div class="nav-img w-full h-52 mt-2"></div>
       <div class="absolute top-0 left-0 bg-black h-56 w-full opacity-60 -mt-2 z-10"></div>
