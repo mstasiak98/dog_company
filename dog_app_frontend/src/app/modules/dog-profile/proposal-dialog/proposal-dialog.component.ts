@@ -1,32 +1,34 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {Activity} from "../../../shared/models/dogs/Activity";
-import {FormBuilder, ValidatorFn, Validators, AbstractControl} from "@angular/forms";
-import {CareProposal} from "../../../shared/models/CareProposal";
-import {debounce, debounceTime} from "rxjs";
-import {ProposalService} from "../../../shared/services/API/proposal/proposal.service";
-import {UserState} from "../../../shared/models/UserState";
-import {DatePipe} from "@angular/common";
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Activity } from '../../../shared/models/dogs/Activity';
+import {
+  FormBuilder,
+  ValidatorFn,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
+import { CareProposal } from '../../../shared/models/CareProposal';
+import { ProposalService } from '../../../shared/services/API/proposal/proposal.service';
 
 @Component({
   selector: 'app-proposal-dialog',
   templateUrl: './proposal-dialog.component.html',
   styleUrls: ['./proposal-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProposalDialogComponent implements OnInit {
-
   activities: Activity[];
   dogProfileId: number;
   proposal: any;
   submitted: boolean = false;
 
-  constructor( private config: DynamicDialogConfig,
-               public ref: DynamicDialogRef,
-               private messageService: MessageService,
-               private formBuilder: FormBuilder,
-               private proposalService: ProposalService
+  constructor(
+    private config: DynamicDialogConfig,
+    public ref: DynamicDialogRef,
+    private messageService: MessageService,
+    private formBuilder: FormBuilder,
+    private proposalService: ProposalService
   ) {
     this.activities = this.config.data.activities;
     this.dogProfileId = this.config.data.id;
@@ -40,17 +42,16 @@ export class ProposalDialogComponent implements OnInit {
       startTime: ['', [Validators.required]],
       endTime: ['', [Validators.required]],
       additionalInfo: [''],
-      siblings: [false]
+      siblings: [false],
     });
 
     this.proposal.get('startDate').valueChanges.subscribe((value: any) => {
       this.proposal.get('endDate').setValue(value);
-    })
-
+    });
   }
 
-  saveProposal(){
-    if(this.proposal.invalid){
+  saveProposal() {
+    if (this.proposal.invalid) {
       this.submitted = true;
       return;
     }
@@ -59,33 +60,49 @@ export class ProposalDialogComponent implements OnInit {
     console.log('TEST DANYCH = ', proposal);
 
     this.proposalService.makeProposal(proposal).subscribe({
-      next: (result) => {
-        if(result.success){
+      next: result => {
+        if (result.success) {
           this.showSuccessMessage(result.start_date);
-          console.log('SUCCESS', result)
-        }else{
+          console.log('SUCCESS', result);
+        } else {
           this.showErrorMessage();
         }
       },
-      error: (error) => {
+      error: error => {
         console.log('ERROR = ', error);
         this.showErrorMessage();
       },
       complete: () => {
         this.proposal.reset();
         this.ref.close();
-      }
-    })
-
+      },
+    });
   }
 
   private prepareProposalData(): CareProposal {
+    const start = new Date(
+      this.getDate(
+        this.proposal.get('startDate').value,
+        this.proposal.get('startTime').value
+      )
+    );
+    const end = new Date(
+      this.getDate(
+        this.proposal.get('endDate').value,
+        this.proposal.get('endTime').value
+      )
+    );
 
-    const start = new Date(this.getDate(this.proposal.get('startDate').value, this.proposal.get('startTime').value));
-    const end = new Date(this.getDate(this.proposal.get('endDate').value, this.proposal.get('endTime').value));
-
-    const newStart = new Date(start.getTime() - (start.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' ');
-    const newEnd = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' ');
+    const newStart = new Date(
+      start.getTime() - start.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0, 19)
+      .replace('T', ' ');
+    const newEnd = new Date(end.getTime() - end.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 19)
+      .replace('T', ' ');
 
     const proposal: CareProposal = {
       dog_profile_id: this.dogProfileId,
@@ -96,6 +113,7 @@ export class ProposalDialogComponent implements OnInit {
       additional_info: this.proposal.get('additionalInfo').value,
     };
 
+    console.log('PROPOSAL DATA = ', proposal);
     return proposal;
   }
 
@@ -108,7 +126,7 @@ export class ProposalDialogComponent implements OnInit {
     return day.getTime();
   }
 
-  get f(){
+  get f() {
     return this.proposal.controls;
   }
 

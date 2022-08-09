@@ -76,25 +76,34 @@
         </div>
       </div>
       <div class="w-full items-center md:w-3/4 my-8 flex flex-col">
-        <div class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 card-panel">
-          <div *ngFor="let profile of dogProfiles" class="card shade w-full cursor-pointer bg-white rounded-lg">
-            <a routerLink="/dog-profile/{{profile.id}}" class="w-full block ">
-              <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
-              <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
-                <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2 truncate">
-                  {{profile.name}}
-                </p>
-                <p class="text-custom-purple-dark text-center font-regular text-md truncate">
-                  {{profile.size.name}} - {{profile.breed.name}}
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="w-full mt-4">
-          <p-paginator [rows]="profilesPerPage" [totalRecords]="totalPages" [showFirstLastIcon]="false" (onPageChange)="onPageChange($event)"></p-paginator>
+
+        <div *ngIf="isPageChanging; else profilesContent" class="w-full flex justify-center loaderBlock items-center">
+          <p-progressSpinner></p-progressSpinner>
         </div>
 
+        <ng-template #profilesContent>
+          <div *ngIf="dogProfiles.length <= 0" class="w-full text-4xl font-bold text-center ">
+            Brak profili
+          </div>
+          <div *ngIf="dogProfiles.length >= 1" class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 card-panel">
+            <div *ngFor="let profile of dogProfiles" class="card shade w-full cursor-pointer bg-white rounded-lg">
+              <a routerLink="/dog-profile/{{profile.id}}" class="w-full block ">
+                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+                <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+                  <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2 truncate">
+                    {{profile.name}}
+                  </p>
+                  <p class="text-custom-purple-dark text-center font-regular text-md truncate">
+                    {{profile.size.name}} - {{profile.breed.name}}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+        <div *ngIf="totalPages > 0" class="w-full mt-4">
+          <p-paginator [rows]="profilesPerPage" [totalRecords]="totalPages" [showFirstLastIcon]="false" (onPageChange)="onPageChange($event)"></p-paginator>
+        </div>
       </div>
     </div>
   </ng-template>

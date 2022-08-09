@@ -1,0 +1,24 @@
+<div class="w-full">
+  <p-tabView >
+    <p-tabPanel header="Twoje propozycje">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Nadchodzące opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Zakończone opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Odrzucone propozycje">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</div>

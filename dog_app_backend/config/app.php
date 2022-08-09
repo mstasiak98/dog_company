@@ -238,5 +238,5 @@ return [
     'user_role' => env('USER_ROLE', 'user'),
 
     'default_page_size' => 9,
-
+    'default_announcements_page_size' => 5,
 ];

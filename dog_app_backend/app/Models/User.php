@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function dogProfiles() {
         return $this->hasMany(DogProfile::class);
     }
+
+    public function announcements() {
+        return $this->hasMany(Announcement::class);
+    }
 }

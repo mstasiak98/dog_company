@@ -27,4 +27,25 @@ html {
   filter: blur();
   -webkit-filter: blur(4px);
 }
+app-owner-care {
+  width: 100%;
+}
+app-guardian-care {
+  width: 100%;
+}
 
+.btn {
+  @apply py-3 px-5 rounded-2xl text-sm font-bold text-white
+}
+
+.btn-default {
+  @apply btn bg-custom-purple-medium hover:bg-custom-purple-dark
+}
+
+.btn-red {
+  @apply btn bg-red-600 hover:bg-red-700
+}
+
+.loaderBlock {
+  min-height: 600px;
+}

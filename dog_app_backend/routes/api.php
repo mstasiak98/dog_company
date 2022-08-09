@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\DogCareController;
@@ -31,6 +32,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('/dogs', [DogProfileController::class, 'index']);
 Route::get('/dogDetails', [DogProfileController::class, 'details']);
 
+//ANNOUNCEMENTS
+Route::get('/announcements', [AnnouncementController::class, 'index']);
+Route::get('/announcementDetails', [AnnouncementController::class, 'details']);
+
 //FILTERS
 Route::get('/getDogProfileFilters', [FilterController::class, 'getDogProfileFilters']);
 
@@ -43,9 +48,9 @@ Route::get('/getAvailabilities', [AvailabilityController::class, 'index']);
 //TEST - TEMPORARY
 Route::post('/save-photo', [PhotoController::class, 'save']);
 
-Route::controller(DogCareController::class)->group(function () {
+/*Route::controller(DogCareController::class)->group(function () {
     Route::post('/makeProposal', 'storeProposal');
-});
+});*/
 
 // AUTHENTICATED
 Route::middleware(['auth:sanctum'])->group(function () {

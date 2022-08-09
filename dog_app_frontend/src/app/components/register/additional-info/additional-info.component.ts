@@ -1,29 +1,28 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {RegistrationFormService} from "../../../shared/services/registration-form/registration-form.service";
-import {Router} from "@angular/router";
-import {AuthService} from "../../../shared/services/auth/auth.service";
-import {RegistrationData} from "../../../shared/models/RegistrationData";
-import {UserState} from "../../../shared/models/UserState";
-import {AuthStateService} from "../../../shared/services/auth-state/auth-state.service";
-import {TokenService} from "../../../shared/services/token/token.service";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { RegistrationData } from '../../../shared/models/RegistrationData';
+import { UserState } from '../../../shared/models/UserState';
+import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
+import { TokenService } from '../../../shared/services/token/token.service';
 
 @Component({
   selector: 'app-additional-info',
   templateUrl: './additional-info.component.html',
   styleUrls: ['./additional-info.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdditionalInfoComponent implements OnInit {
-
   additionalData: any;
   imgUploaded = false;
   file: File;
-  imgUrl:any;
+  imgUrl: any;
   errors: any = null;
 
   registrationData: any;
-  test:any;
+  test: any;
 
   constructor(
     private registrationFormService: RegistrationFormService,
@@ -32,7 +31,7 @@ export class AdditionalInfoComponent implements OnInit {
     private authService: AuthService,
     private authStateService: AuthStateService,
     private tokenService: TokenService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.additionalData = this.formBuilder.group({
@@ -40,41 +39,52 @@ export class AdditionalInfoComponent implements OnInit {
       file: [''],
     });
 
-    this.additionalData.get("info").patchValue( this.registrationFormService.registrationFormData.get("additionalData")?.get("info")?.value);
+    this.additionalData
+      .get('info')
+      .patchValue(
+        this.registrationFormService.registrationFormData
+          .get('additionalData')
+          ?.get('info')?.value
+      );
 
     this.registrationData = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        phoneNo: '',
-        city: '',
-        street: '',
-        zipCode: '',
-        houseNo: '',
-        flatNo: '',
-        info: '',
-    }
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      phoneNo: '',
+      city: '',
+      street: '',
+      zipCode: '',
+      houseNo: '',
+      flatNo: '',
+      info: '',
+    };
   }
 
-
-  previousPage(){
-    this.registrationFormService.registrationFormData.get("additionalData")?.patchValue(this.additionalData.value, {emitEvent: false, onlySelf: true});
+  previousPage() {
+    this.registrationFormService.registrationFormData
+      .get('additionalData')
+      ?.patchValue(this.additionalData.value, {
+        emitEvent: false,
+        onlySelf: true,
+      });
     this.router.navigate(['/register/personal_info']);
   }
 
-  save(){
-    this.registrationFormService.registrationFormData.get('additionalData')?.patchValue(this.additionalData.value);
-    if(
-      this.registrationFormService.registrationFormData.valid
-      &&
-      !this.registrationFormService.registrationFormData.errors)
-    {
+  save() {
+    this.registrationFormService.registrationFormData
+      .get('additionalData')
+      ?.patchValue(this.additionalData.value);
+    if (
+      this.registrationFormService.registrationFormData.valid &&
+      !this.registrationFormService.registrationFormData.errors
+    ) {
       this.setFormDataToSend();
-      console.log('DANE OSTATECZNE OSTATECZNE = ', this.registrationData)
+      console.log('DANE OSTATECZNE OSTATECZNE = ', this.registrationData);
 
       let formData = new FormData();
-      if(this.imgUploaded){
+      if (this.imgUploaded) {
         formData.append('photo', this.file);
       }
       formData.append('data', JSON.stringify(this.registrationData));
@@ -82,47 +92,50 @@ export class AdditionalInfoComponent implements OnInit {
       console.log('TEST = ', formData.get('data'));
 
       this.authService.register(formData).subscribe({
-        next: (result: any) =>{
+        next: (result: any) => {
           console.log('RESULT', result);
-          if(result.success){
+          if (result.success) {
             this.tokenService.handleData(result.data.access_token);
-            const userState: UserState = {authenticated: true, user: {userId: result.data.user_id, userName: result.data.name}};
+            const userState: UserState = {
+              authenticated: true,
+              user: { userId: result.data.user_id, userName: result.data.name },
+            };
             this.authStateService.setAuthState(userState);
             this.router.navigate(['/dashboard']);
-          }else{
+          } else {
             this.errors = result.error;
           }
         },
-        error: (error) => {},
+        error: error => {},
         complete: () => {
           this.additionalData.reset();
           this.registrationFormService.registrationFormData.reset();
-        }
-      })
+        },
+      });
     }
   }
 
-  onChange(event: any){
+  onChange(event: any) {
     const files = event.target.files;
-    if(FileReader && files && files.length > 0){
-      this.file=files[0];
+    if (FileReader && files && files.length > 0) {
+      this.file = files[0];
       let reader = new FileReader();
       reader.readAsDataURL(this.file);
-      reader.onload = (_event) => {
+      reader.onload = _event => {
         this.imgUrl = reader.result;
         this.imgUploaded = true;
-      }
-    }else{
+      };
+    } else {
       this.imgUploaded = false;
     }
   }
 
-  unloadPhoto(){
+  unloadPhoto() {
     this.imgUrl = null;
     this.imgUploaded = false;
   }
 
-  setFormDataToSend(){
+  setFormDataToSend() {
     const formGroupData = this.registrationFormService.registrationFormData;
     this.registrationData = {
       first_name: formGroupData.get('firstName')?.value,
@@ -135,7 +148,7 @@ export class AdditionalInfoComponent implements OnInit {
       street: formGroupData.get('personalData')!.get('street')?.value,
       house_number: formGroupData.get('personalData')!.get('houseNo')?.value,
       flat_number: formGroupData.get('personalData')!.get('flatNo')?.value,
-      description: formGroupData.get('additionalData')!.get('info')?.value
+      description: formGroupData.get('additionalData')!.get('info')?.value,
     };
   }
 }

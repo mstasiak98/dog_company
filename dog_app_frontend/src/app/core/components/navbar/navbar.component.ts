@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {MenuItem} from "primeng/api";
-import {AuthStateService} from "../../../shared/services/auth-state/auth-state.service";
-import {TokenService} from "../../../shared/services/token/token.service";
-import {AuthService} from "../../../shared/services/auth/auth.service";
-import {Route, Router} from "@angular/router";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
+import { TokenService } from '../../../shared/services/token/token.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,6 @@ import {Route, Router} from "@angular/router";
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-
   items: MenuItem[];
   showDropdown: boolean = false;
   showHamburgerDropdown: boolean = false;
@@ -24,16 +23,18 @@ export class NavbarComponent implements OnInit {
     private tokenService: TokenService,
     private authService: AuthService,
     private router: Router
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isSignedIn = this.authStateService.isLoggedIn();
     this.activeUrl = this.router.url;
     console.log('AKTYWNY URL = ', this.activeUrl);
-    if(this.activeUrl === '/dashboard'){
+    if (this.activeUrl === '/dashboard') {
       this.headerTitle = 'Poszukują Opieki';
-    } else if(this.activeUrl.includes('/announcements')){
+    } else if (this.activeUrl.includes('/announcements')) {
       this.headerTitle = 'Ogłoszenia';
+    } else if (this.activeUrl.includes('/opieka')) {
+      this.headerTitle = 'Propozycje opieki';
     }
   }
 
@@ -42,7 +43,7 @@ export class NavbarComponent implements OnInit {
     this.authStateService.removeAuthState();
     this.isSignedIn = false;
     this.authStateService.userAuthState.subscribe(state => {
-      if(state.authenticated){
+      if (state.authenticated) {
         this.authService.logout();
       }
     });

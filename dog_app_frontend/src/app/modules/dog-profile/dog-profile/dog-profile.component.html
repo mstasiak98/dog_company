@@ -106,7 +106,7 @@
         </div>
         <div class="flex flex-col">
           <div class="py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
-            <div class="flex flex-col">
+            <div class="flex flex-col px-2">
               <h2 class="text-2xl font-semibold text-white text-center">Właściciel</h2>
               <h3 class="mt-2 font-semibold text-lg text-white text-center">{{owner.firstName}} {{owner.lastName}}</h3>
               <h3 class="mt-2 font-semibold text-base text-white text-center">{{owner.city}}, {{owner.street}}</h3>
@@ -132,8 +132,8 @@
 
           <div class="mt-5 py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
             <div class="flex flex-col">
-              <h3 class="mt-2 font-semibold text-xl text-white text-center cur">Rodzeństwo</h3>
-              <h4 *ngFor="let sibling of siblings" class="mt-2 font-semibold text-lg text-white text-center cursor-pointer">
+              <h3 class="mt-2 font-semibold text-2xl text-white text-center cur">Rodzeństwo</h3>
+              <h4 *ngFor="let sibling of siblings" routerLink="/dog-profile/{{sibling.id}}" class="mt-2 font-semibold text-lg text-white text-center cursor-pointer hover:text-gray-300">
                 {{sibling.name}}</h4>
               <h4 *ngIf="siblings.length === 0" class="mt-2 font-semibold text-lg text-white text-center">
                 Brak</h4>

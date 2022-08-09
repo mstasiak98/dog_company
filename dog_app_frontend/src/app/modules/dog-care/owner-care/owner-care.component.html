@@ -1,0 +1,39 @@
+<div class="w-full">
+  <p-tabView >
+    <p-tabPanel header="Otrzymane propozycje">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Nadchodzące opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Zakończone opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Odrzucone opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+
+
+
+<!--  <p-tabView >
+    <p-tabPanel header="Otrzymane propozycje" [cache]="false" >
+    </p-tabPanel>
+    <p-tabPanel header="Nadchodzące opieki" [cache]="false">
+      <app-upcoming-care></app-upcoming-care>
+    </p-tabPanel>
+    <p-tabPanel header="Zakończone opieki" [cache]="false" >
+    </p-tabPanel>
+    <p-tabPanel header="Odrzucone opieki" [cache]="false" >
+      <app-proposition-view></app-proposition-view>
+    </p-tabPanel>
+  </p-tabView>-->
+</div>

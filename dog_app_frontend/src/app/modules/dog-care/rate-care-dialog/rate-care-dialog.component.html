@@ -1,0 +1,22 @@
+<div class="w-full min-h-max">
+  <h1 class="text-center text-3xl font-bold text-black">Wystaw ocenę</h1>
+
+  <form [formGroup]="ratingData">
+    <div class="flex flex-col justify-center items-center">
+      <h6 class="text-center mt-4 font-bold text-xl">Ocena: </h6>
+      <p-rating class="mt-2" formControlName="value" [cancel]="false"></p-rating>
+
+      <div class="mt-4 w-fit flex flex-col items-center justify-center">
+        <h5 class="text-center mt-2 font-bold text-xl">Komentarz: </h5>
+        <textarea rows="5" class="w-3/4"  cols="100" pInputTextarea formControlName="comment"></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-4 w-full flex justify-center">
+    <button type="submit" class="btn-default" (click)="save()"
+            [disabled]="f.value.invalid">
+      WYSTAW
+    </button>
+  </div>
+</div>

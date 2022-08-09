@@ -1,0 +1,157 @@
+<div class="w-full flex flex-col md:flex-row">
+
+  <div class="w-full mt-4 md:w-2/6 flex flex-col">
+    <div class="w-full flex justify-center text-3xl">Nadchodzące opieki</div>
+    <app-calendar class="mt-8" [data]="'test'"></app-calendar>
+  </div>
+  <div class="w-full mt-4 ml-12 md:w-4/6 flex flex-col">
+    <div class="w-full flex justify-center text-3xl">Otrzymane propozycje</div>
+    <div class="w-full mt-8">
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div *ngIf="type" class="cursor-pointer underline font-bold hover:text-black">Oceń</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div  class="cursor-pointer underline font-bold hover:text-black">Szczegóły</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div  class="cursor-pointer underline font-bold hover:text-black">Szczegóły</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div  class="cursor-pointer underline font-bold hover:text-black">Szczegóły</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div  class="cursor-pointer underline font-bold hover:text-black">Szczegóły</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-gray-300 border-b-2 border-solid mb-2">
+        <div class="flex mb-2 flex-col md:flex-row rounded-xl" >
+          <div class="w-2/6 ">
+            <div class="w-full flex flex-row">
+              <div class="w-1/2">
+                <img alt="dog photo" src="../../../assets/background/card.png" style="height: 100px; width: 100px;" class="rounded-lg"/>
+              </div>
+              <div class="w-1/2 flex flex-col justify-evenly">
+                <div class="text-xl font-bold">Mikołaj Stasiak</div>
+                <div class="cursor-pointer underline hover:text-black">Zobacz profil</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-3/6  flex flex-col justify-evenly">
+            <div class="text-xl font-bold">Typ:</div><div><span class="">Opieka w domu opiekuna</span></div>
+            <div class="text-xl font-bold">Termin:</div><div><span class="">15.07.2022 13:00 - 15.07.2022 14:00</span></div>
+          </div>
+          <div class="w-1/6  flex flex-col justify-center items-center">
+            <div  class="cursor-pointer underline font-bold hover:text-black" (click)="showPropositionDetailsDialog()">Szczegóły</div>
+            <div  class="cursor-pointer underline font-bold hover:text-black">Szczegóły</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
