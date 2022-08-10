@@ -41,7 +41,7 @@
               <h3 class="mt-2 font-semibold text-base text-white text-center">{{announcement.user.city}}, {{announcement.user.street}}</h3>
             </div>
             <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
-              <div (click)="acceptAnnouncement()" class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+              <div (click)="makeAnnouncementProposal()" class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
                 <span class="text-sm font-bold ">AKCEPTUJ OGŁOSZENIE</span>
               </div>
             </div>

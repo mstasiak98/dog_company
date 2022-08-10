@@ -30,9 +30,10 @@ class CreateDogCaresTable extends Migration
             $table->unsignedBigInteger('state_id');
             $table->foreign('state_id')
                 ->references('id')->on('care_states')->onDelete('no action');
-            $table->unsignedBigInteger('dog_profile_id');
-            $table->foreign('dog_profile_id')
+            $table->foreignId('dog_profile_id')->nullable()
                 ->references('id')->on('dog_profiles')->onDelete('no action');
+            $table->foreignId('announcement_id')->nullable()
+                ->references('id')->on('announcements')->onDelete('no action');
             $table->timestamps();
         });
     }

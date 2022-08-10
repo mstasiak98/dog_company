@@ -11,6 +11,7 @@ import { Sibling } from '../../../shared/models/dogs/Sibling';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProposalDialogComponent } from '../proposal-dialog/proposal-dialog.component';
 import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
+import { MakeProposalDialogComponent } from '../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 
 @Component({
   selector: 'app-dog-profile',
@@ -99,11 +100,11 @@ export class DogProfileComponent implements OnInit {
       return;
     }
 
-    const ref = this.dialogService.open(ProposalDialogComponent, {
+    const ref = this.dialogService.open(MakeProposalDialogComponent, {
       width: '50rem',
       height: '60rem',
       data: {
-        id: this.dogProfile.id,
+        dogProfileId: this.dogProfile.id,
         activities: this.dogProfile.activity,
       },
     });

@@ -18,6 +18,7 @@ class DogCare extends Model
         'activity_id',
         'dog_profile_id',
         'guardian_id',
+        'announcement_id'
     ];
 
     protected $guarded = ['rating', 'comment'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\DogCare;
 
 use App\Models\DogProfile;
 use Carbon\Carbon;

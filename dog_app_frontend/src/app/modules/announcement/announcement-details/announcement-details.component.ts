@@ -3,6 +3,8 @@ import { AuthStateService } from '../../../shared/services/auth-state/auth-state
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnnouncementService } from '../../../shared/services/API/announcement/announcement.service';
 import { Announcement } from '../../../shared/models/announcements/announcement';
+import { MakeProposalDialogComponent } from '../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-announcement-details',
@@ -20,7 +22,8 @@ export class AnnouncementDetailsComponent implements OnInit {
     private authStateService: AuthStateService,
     private route: ActivatedRoute,
     private announcementService: AnnouncementService,
-    private router: Router
+    private router: Router,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -47,5 +50,24 @@ export class AnnouncementDetailsComponent implements OnInit {
     });
   }
 
-  acceptAnnouncement(): void {}
+  makeAnnouncementProposal(): void {
+    if (!this.isLoggedIn) {
+      return;
+    }
+
+    const ref = this.dialogService.open(MakeProposalDialogComponent, {
+      width: '50rem',
+      height: '60rem',
+      data: {
+        announcementId: this.announcement.id,
+        activities: this.announcement.activity,
+        startDate: this.announcement.start_date,
+        endDate: this.announcement.end_date,
+      },
+    });
+
+    ref.onClose.subscribe(response => {
+      console.log('response = ', response);
+    });
+  }
 }

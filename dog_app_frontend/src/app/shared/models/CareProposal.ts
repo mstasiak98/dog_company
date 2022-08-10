@@ -5,4 +5,5 @@ export interface CareProposal {
   end_date: any;
   siblings: boolean;
   additional_info: string;
+  announcement_id: number;
 }
