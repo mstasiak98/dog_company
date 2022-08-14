@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DogCareComponent } from './dog-care.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CoreModule } from '../../core/core.module';
+import { CoreModule } from '../../../core/core.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
 import { OwnerCareComponent } from './owner-care/owner-care.component';

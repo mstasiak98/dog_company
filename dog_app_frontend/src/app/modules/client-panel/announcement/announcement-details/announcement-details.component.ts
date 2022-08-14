@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AnnouncementService } from '../../../shared/services/API/announcement/announcement.service';
-import { Announcement } from '../../../shared/models/announcements/announcement';
-import { MakeProposalDialogComponent } from '../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
+import { AnnouncementService } from '../../../../shared/services/API/announcement/announcement.service';
+import { Announcement } from '../../../../shared/models/announcements/announcement';
+import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({

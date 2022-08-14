@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Feature } from '../../../shared/models/dogs/Feature';
-import { Activity } from '../../../shared/models/dogs/Activity';
-import { Availability } from '../../../shared/models/dogs/Availability';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DogService } from '../../../shared/services/API/dog/dog.service';
-import { DogProfile } from '../../../shared/models/dogs/DogProfile';
-import { Owner } from '../../../shared/models/Owner';
-import { Sibling } from '../../../shared/models/dogs/Sibling';
+import { DogService } from '../../../../shared/services/API/dog/dog.service';
+import { DogProfile } from '../../../../shared/models/dogs/DogProfile';
+import { Owner } from '../../../../shared/models/Owner';
+import { Sibling } from '../../../../shared/models/dogs/Sibling';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ProposalDialogComponent } from '../proposal-dialog/proposal-dialog.component';
-import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
-import { MakeProposalDialogComponent } from '../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
+import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 
 @Component({
   selector: 'app-dog-profile',

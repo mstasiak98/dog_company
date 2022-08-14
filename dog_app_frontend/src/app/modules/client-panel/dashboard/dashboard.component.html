@@ -1,6 +1,6 @@
-<app-navbar></app-navbar>
 <div class="w-full h-full mt-2">
-  <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+  <app-header headerTitle="Poszukują Opieki"></app-header>
+  <div *ngIf="isContentLoading; else content" class="w-full h-full mx-auto max-h-96 flex justify-center loaderBlock items-center">
     <p-progressSpinner></p-progressSpinner>
   </div>
   <ng-template #content>
@@ -88,7 +88,7 @@
           <div *ngIf="dogProfiles.length >= 1" class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 card-panel">
             <div *ngFor="let profile of dogProfiles" class="card shade w-full cursor-pointer bg-white rounded-lg">
               <a routerLink="/dog-profile/{{profile.id}}" class="w-full block ">
-                <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
+                <img alt="dog photo" src="../../../../assets/background/card.png" class="w-full max-h-56 object-cover rounded-lg "/>
                 <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
                   <p class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2 truncate">
                     {{profile.name}}

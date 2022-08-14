@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthStateService } from '../../shared/services/auth-state/auth-state.service';
-import { AuthService } from '../../shared/services/auth/auth.service';
-import { TokenService } from '../../shared/services/token/token.service';
+import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { TokenService } from '../../../shared/services/token/token.service';
 import { FormBuilder } from '@angular/forms';
-import { DogService } from '../../shared/services/API/dog/dog.service';
-import { DogProfile } from '../../shared/models/dogs/DogProfile';
-import { Link } from '../../shared/models/pagination/Link';
+import { DogService } from '../../../shared/services/API/dog/dog.service';
+import { DogProfile } from '../../../shared/models/dogs/DogProfile';
+import { Link } from '../../../shared/models/pagination/Link';
 import { forkJoin } from 'rxjs';
 import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
-import { Breed } from '../../shared/models/dogs/Breed';
+import { Breed } from '../../../shared/models/dogs/Breed';
 
 @Component({
   selector: 'app-dashboard',

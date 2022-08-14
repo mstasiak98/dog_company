@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnnouncementDashboardComponent } from './announcement-dashboard/announcement-dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CoreModule } from '../../core/core.module';
+import { CoreModule } from '../../../core/core.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';

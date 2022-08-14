@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Announcement } from '../../../shared/models/announcements/announcement';
-import { AnnouncementService } from '../../../shared/services/API/announcement/announcement.service';
+import { Announcement } from '../../../../shared/models/announcements/announcement';
+import { AnnouncementService } from '../../../../shared/services/API/announcement/announcement.service';
 import { forkJoin } from 'rxjs';
-import { Link } from '../../../shared/models/pagination/Link';
-import { DogQuantity } from '../../../shared/enums/dog-quantity';
+import { Link } from '../../../../shared/models/pagination/Link';
+import { DogQuantity } from '../../../../shared/enums/dog-quantity';
 
 @Component({
   selector: 'app-announcement-dashboard',

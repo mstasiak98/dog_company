@@ -2,9 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
 import plLocale from '@fullcalendar/core/locales/pl';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ProposalDialogComponent } from '../../dog-profile/proposal-dialog/proposal-dialog.component';
 import { ProposalDetailsDialogComponent } from '../proposal-details-dialog/proposal-details-dialog.component';
-import { RateCareDialogComponent } from '../rate-care-dialog/rate-care-dialog.component';
 @Component({
   selector: 'app-proposition-view',
   templateUrl: './proposition-view.component.html',
