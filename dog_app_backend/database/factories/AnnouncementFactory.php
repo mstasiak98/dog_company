@@ -37,7 +37,7 @@ class AnnouncementFactory extends Factory
         return [
             'title' => $this->faker->text(10),
             'description' => $this->faker->text(300),
-            'quantity' => $this->faker->numberBetween(0,1),
+            'quantity' => $this->faker->numberBetween(1,5),
             'city' => self::$polandBiggestCities[rand(0,14)],
             'start_date' => $this->faker->dateTimeBetween('-5 days', '+60 days'),
             'end_date' => $this->faker->dateTimeBetween('-5 days', '+60 days'),

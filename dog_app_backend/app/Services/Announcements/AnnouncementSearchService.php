@@ -21,8 +21,11 @@ class AnnouncementSearchService
         $announcements = Announcement::whereDate('end_date', '>=', Carbon::now());
 
         $announcements->where('city', 'like', '%'.$city.'%');
-        if($quantity){
-            $announcements->whereIn('quantity', (array) $quantity);
+        if($quantity && count($quantity)==1){
+            if($quantity[0] == 0)
+                $announcements->where('quantity', '=', 1);
+            else
+                $announcements->where('quantity', '>', 1);
         }
         if($start_date){
             $announcements->whereDate('start_date', '>=', Carbon::createFromFormat('Y-m-d H:i:s', $start_date));
@@ -31,7 +34,7 @@ class AnnouncementSearchService
             $announcements->whereDate('end_date', '<=', Carbon::createFromFormat('Y-m-d H:i:s', $end_date));
         }
         $announcements->whereHas('activities', function (Builder $query) use ($activities){
-            if (!is_null($activities)){
+            if (!is_null($activities) ){
                 $query->whereIn('activities.id', (array) $activities );
             }
         });

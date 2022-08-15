@@ -23,8 +23,6 @@ export class NavbarComponent implements OnInit {
   showDropdown: boolean = false;
   showHamburgerDropdown: boolean = false;
   isSignedIn: boolean = false;
-  headerTitle: string;
-  activeUrl: string;
 
   constructor(
     private authStateService: AuthStateService,
@@ -34,19 +32,6 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-        const url = event.url;
-        console.log('URL = ', url);
-        if (url === '/dashboard') {
-          this.headerTitle = 'Poszukują Opieki';
-        } else if (url.includes('/announcements')) {
-          this.headerTitle = 'Ogłoszenia';
-        } else if (url.includes('/opieka')) {
-          this.headerTitle = 'Propozycje opieki';
-        }
-      }
-    });
     this.isSignedIn = this.authStateService.isLoggedIn();
   }
 

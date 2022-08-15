@@ -5,6 +5,7 @@ import { AnnouncementService } from '../../../../shared/services/API/announcemen
 import { forkJoin } from 'rxjs';
 import { Link } from '../../../../shared/models/pagination/Link';
 import { DogQuantity } from '../../../../shared/enums/dog-quantity';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 
 @Component({
   selector: 'app-announcement-dashboard',
@@ -18,6 +19,7 @@ export class AnnouncementDashboardComponent implements OnInit {
   isPageChanging = false;
   activities: any[];
   dogUrl = 'http://127.0.0.1:8000/api/announcements';
+  isSignedIn: boolean = false;
 
   //ANNOUNCEMENTS
   announcements: Announcement[] = [];
@@ -31,11 +33,13 @@ export class AnnouncementDashboardComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private announcementService: AnnouncementService
+    private announcementService: AnnouncementService,
+    private authStateService: AuthStateService
   ) {}
 
   ngOnInit(): void {
     this.isContentLoading = true;
+    this.isSignedIn = this.authStateService.isLoggedIn();
     const announcements = this.announcementService.getAnnouncementList();
     const activities = this.announcementService.getAvailableActivities();
 

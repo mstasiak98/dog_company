@@ -8,16 +8,29 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { DividerModule } from 'primeng/divider';
 import { HeaderComponent } from './components/header/header.component';
+import { ImgPreviewUploadComponent } from './components/img-preview-upload/img-preview-upload.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [NavbarComponent, ClickOutsideDirective, HeaderComponent],
-  exports: [NavbarComponent, ClickOutsideDirective, HeaderComponent],
+  declarations: [
+    NavbarComponent,
+    ClickOutsideDirective,
+    HeaderComponent,
+    ImgPreviewUploadComponent,
+  ],
+  exports: [
+    NavbarComponent,
+    ClickOutsideDirective,
+    HeaderComponent,
+    ImgPreviewUploadComponent,
+  ],
   imports: [
     CommonModule,
     MenuModule,
     ButtonModule,
     RippleModule,
     DividerModule,
+    FormsModule,
   ],
 })
 export class CoreModule {}

@@ -24,7 +24,7 @@ import { AuthStateService } from './shared/services/auth-state/auth-state.servic
 import { DialogService } from 'primeng/dynamicdialog';
 
 import pl from '@angular/common/locales/pl';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { MakeProposalDialogComponent } from './shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
@@ -71,5 +71,6 @@ registerLocaleData(pl);
     DialogService,
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

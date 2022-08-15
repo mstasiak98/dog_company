@@ -20,7 +20,7 @@ class ActivityAnnouncement extends Migration
                 ->references('id')->on('activities')->onDelete('no action');
             $table->unsignedBigInteger('announcement_id');
             $table->foreign('announcement_id')
-                ->references('id')->on('announcements')->onDelete('no action');
+                ->references('id')->on('announcements')->onDelete('cascade');
         });
     }
 

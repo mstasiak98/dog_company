@@ -7,7 +7,9 @@
     <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:items-start">
       <div class="w-full mt-12 flex flex-col md:flex-row">
         <div class="w-full md:w-1/4 px-2">
-            <img alt="dog photo" src="../../../assets/background/card.png" class="w-full max-h-64 object-contain rounded-lg"/>
+            <img alt="dog photo" src="{{announcement.photo.length > 0 ?
+                          announcement.photo[0].url :
+                          '../../../assets/background/placeholder.png'}}" class="w-full h-full object-cover rounded-lg"/>
         </div>
         <div class="flex flex-col mt-4 shade rounded-lg p-4 md:ml-6 md:w-3/4 md:mt-0">
           <div class="flex w-full">
@@ -16,10 +18,14 @@
             </div>
             <div *ngIf="announcement.user.id === authenticatedUserId" class="w-1/4 flex justify-end">
               <div class="mr-1">
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" pTooltip="Edytuj" tooltipPosition="bottom"></button>
+                <button
+                  routerLink="../../edit/{{announcementId}}"
+                  [preserveFragment]="false"
+                  pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" pTooltip="Edytuj" tooltipPosition="bottom"></button>
               </div>
             <div class="ml-1">
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" pTooltip="Usuń" tooltipPosition="bottom"></button>
+              <button (click)="deleteAnnouncement()"
+                pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" pTooltip="Usuń" tooltipPosition="bottom"></button>
             </div>
             </div>
           </div>
@@ -27,7 +33,7 @@
             <h4 class="mt-2 text-xl">Miejscowość: <span class="font-bold">{{announcement.city}}</span></h4>
             <h4 class="mt-2 text-xl">Początek: <span class="font-bold">{{announcement.start_date | date: 'short'}}</span></h4>
             <h4 class="mt-2 text-xl">Koniec: <span class="font-bold">{{announcement.end_date | date: 'short'}}</span></h4>
-            <h4 class="mt-2 text-xl">Ilość psów: <span class="font-bold">{{announcement.quantity === 0 ? 'jeden' : 'więcej'}}</span></h4>
+            <h4 class="mt-2 text-xl">Ilość psów: <span class="font-bold">{{announcement.quantity}}</span></h4>
           </div>
         </div>
       </div>

@@ -64,6 +64,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/makeAnnouncementProposal', 'storeAnnouncementProposal');
     });
 
+    Route::controller(AnnouncementController::class)->group(function () {
+        Route::post('/storeAnnouncement', 'store');
+        Route::post('/updateAnnouncement', 'update');
+        Route::post('/deleteAnnouncement', 'destroy');
+    });
+
 
 
     Route::post('logout', [AuthController::class, 'logout']);

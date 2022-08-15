@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {RegistrationData} from "../../models/RegistrationData";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { RegistrationData } from '../../models/RegistrationData';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegistrationFormService {
-
   registrationFormData: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
@@ -26,15 +25,15 @@ export class RegistrationFormService {
       additionalData: this.formBuilder.group({
         file: [File],
         info: [''],
-      })
+      }),
     });
   }
 
-  getRegistrationData(): FormGroup{
+  getRegistrationData(): FormGroup {
     return this.registrationFormData;
   }
 
-  resetData(){
+  resetData() {
     this.registrationFormData.reset();
   }
 }

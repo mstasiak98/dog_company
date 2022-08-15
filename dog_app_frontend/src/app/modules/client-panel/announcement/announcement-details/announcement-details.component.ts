@@ -70,4 +70,20 @@ export class AnnouncementDetailsComponent implements OnInit {
       console.log('response = ', response);
     });
   }
+
+  deleteAnnouncement() {
+    this.announcementService
+      .deleteAnnouncement(this.announcement.id)
+      .subscribe({
+        next: data => {
+          console.log('ODP USUWANIE = ', data);
+        },
+        error: err => {
+          this.router.navigate(['/announcements']);
+        },
+        complete: () => {
+          this.router.navigate(['/announcements']);
+        },
+      });
+  }
 }

@@ -77,6 +77,7 @@ class AuthController extends BaseController
                 if(is_string($photo)) {
                     $user_photo = new Photo();
                     $user_photo->url = Storage::url($photo);
+                    $user_photo->filename = $photo;
                     $user_photo->photoable()->associate($user);
                     $user_photo->save();
                 }
