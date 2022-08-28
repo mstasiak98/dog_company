@@ -10,6 +10,7 @@ import { DividerModule } from 'primeng/divider';
 import { HeaderComponent } from './components/header/header.component';
 import { ImgPreviewUploadComponent } from './components/img-preview-upload/img-preview-upload.component';
 import { FormsModule } from '@angular/forms';
+import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
 
 @NgModule({
   declarations: [
@@ -17,12 +18,14 @@ import { FormsModule } from '@angular/forms';
     ClickOutsideDirective,
     HeaderComponent,
     ImgPreviewUploadComponent,
+    ClickStopPropagationDirective,
   ],
   exports: [
     NavbarComponent,
     ClickOutsideDirective,
     HeaderComponent,
     ImgPreviewUploadComponent,
+    ClickStopPropagationDirective,
   ],
   imports: [
     CommonModule,

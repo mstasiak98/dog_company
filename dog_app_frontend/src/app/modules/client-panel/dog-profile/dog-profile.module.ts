@@ -14,11 +14,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { UserDogProfileListComponent } from './user-dog-profile-list/user-dog-profile-list.component';
+import { DogProfilesDashboardComponent } from './dog-profiles-dashboard/dog-profiles-dashboard.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PaginatorModule } from 'primeng/paginator';
+import { DividerModule } from 'primeng/divider';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
-const routes: Routes = [{ path: '', component: DogProfileComponent }];
+const routes: Routes = [
+  { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
+  { path: 'dog-profiles', component: DogProfilesDashboardComponent },
+  { path: 'dog-profile/:id', component: DogProfileComponent },
+  { path: 'my-dog-profiles', component: UserDogProfileListComponent },
+];
 
 @NgModule({
-  declarations: [DogProfileComponent],
+  declarations: [
+    DogProfileComponent,
+    UserDogProfileListComponent,
+    DogProfilesDashboardComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -34,6 +50,11 @@ const routes: Routes = [{ path: '', component: DogProfileComponent }];
     ReactiveFormsModule,
     CalendarModule,
     InputTextareaModule,
+    MultiSelectModule,
+    PaginatorModule,
+    DividerModule,
+    RippleModule,
+    TooltipModule,
   ],
   providers: [],
 })

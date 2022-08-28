@@ -2,15 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { DogProfile } from '../../../models/dogs/DogProfile';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DogService {
-  private dogProfileBaseUrl = 'http://127.0.0.1:8000/api/dogs';
-  private baseUrl = 'http://127.0.0.1:8000/api';
+  private dogProfileBaseUrl = environment.dogProfileBaseUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
+
+  getUserDogProfiles(): Observable<DogProfile[]> {
+    const url = `${this.dogProfileBaseUrl}/user-dog-profiles`;
+    return this.http.get<DogProfile[]>(url);
+  }
 
   getDogProfileDetails(dogProfileId: number): Observable<any> {
     const url = `${this.baseUrl}/dogDetails`;

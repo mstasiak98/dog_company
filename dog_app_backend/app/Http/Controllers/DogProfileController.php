@@ -68,4 +68,9 @@ class DogProfileController extends Controller
         return response()->json($response);
     }
 
+    public function userDogProfiles(Request $request) {
+        $dogProfilesCollection = DogProfileResource::collection(DogProfile::where('user_id', auth()->user()->id)->get());
+        return response()->json($dogProfilesCollection);
+    }
+
 }

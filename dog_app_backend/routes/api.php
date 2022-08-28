@@ -66,10 +66,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(AnnouncementController::class)->group(function () {
         Route::get('/announcements/user', 'userAnnouncements');
-
         Route::post('/storeAnnouncement', 'store');
         Route::post('/updateAnnouncement', 'update');
         Route::post('/deleteAnnouncement', 'destroy');
+    });
+
+    Route::controller(DogProfileController::class)->group(function () {
+        Route::get('dogs/user-dog-profiles', 'userDogProfiles');
+
     });
 
 

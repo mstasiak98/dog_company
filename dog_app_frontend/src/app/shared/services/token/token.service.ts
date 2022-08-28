@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
+  private issuer = { login: 'http://127.0.0.1:8000/api/login' };
 
-  private issuer= {login: 'http://127.0.0.1:8000/api/login'};
+  constructor() {}
 
-  constructor() { }
-
-  handleData(token: any){
+  handleData(token: any) {
     console.log('USTAWILEM');
     localStorage.setItem('auth_token', token);
   }
 
-  getToken(){
+  getToken() {
     return localStorage.getItem('auth_token');
   }
 
-/*  isValidToken(){
+  /*  isValidToken(){
     const token = this.getToken();
     console.log('wzialem token = ', token);
     if(token){
@@ -43,7 +42,7 @@ export class TokenService {
     return this.isValidToken();
   }*/
 
-  removeToken(){
+  removeToken() {
     localStorage.removeItem('auth_token');
   }
 }

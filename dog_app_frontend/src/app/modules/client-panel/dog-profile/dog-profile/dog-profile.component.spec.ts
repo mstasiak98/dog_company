@@ -8,9 +8,8 @@ describe('DogProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DogProfileComponent ]
-    })
-    .compileComponents();
+      declarations: [DogProfileComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('OwnerCareComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnerCareComponent ]
-    })
-    .compileComponents();
+      declarations: [OwnerCareComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
