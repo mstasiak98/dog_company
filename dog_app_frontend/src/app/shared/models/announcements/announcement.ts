@@ -1,5 +1,6 @@
 import { Activity } from '../dogs/Activity';
 import { Owner } from '../Owner';
+import { Photo } from '../Photo';
 
 export interface Announcement {
   id: number;
@@ -11,4 +12,5 @@ export interface Announcement {
   end_date: any;
   user: Owner;
   activity: Activity[];
+  photo: Photo[];
 }

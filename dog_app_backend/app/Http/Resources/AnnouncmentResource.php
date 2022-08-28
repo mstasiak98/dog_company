@@ -24,6 +24,7 @@ class AnnouncmentResource extends JsonResource
             'end_date' => $this->end_date,
             'user' => new OwnerResource($this->user),
             'activity' => ActivityResource::collection($this->activities),
+            'photo' => PhotoResource::collection($this->photos)
         ];
     }
 }

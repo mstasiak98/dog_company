@@ -22,7 +22,6 @@ export class AdditionalInfoComponent implements OnInit {
   errors: any = null;
 
   registrationData: any;
-  test: any;
 
   constructor(
     private registrationFormService: RegistrationFormService,

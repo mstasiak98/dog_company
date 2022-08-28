@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {RegistrationFormService} from "../../../shared/services/registration-form/registration-form.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.scss']
+  styleUrls: ['./account-info.component.scss'],
 })
 export class AccountInfoComponent implements OnInit {
-
   submitted: boolean = false;
   disabled = false;
   accountData: any;
@@ -25,24 +24,27 @@ export class AccountInfoComponent implements OnInit {
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(6)]],
-      phoneNo: ['', [Validators.required]]
+      phoneNo: ['', [Validators.required]],
     });
 
-    this.accountData.patchValue(this.registrationFormService.registrationFormData.value);
-
+    this.accountData.patchValue(
+      this.registrationFormService.registrationFormData.value
+    );
   }
 
-  nextPage(){
+  nextPage() {
     console.log('DANE PO ZATWIERDZENIU= ', this.accountData.value);
-    if(this.accountData.valid && !this.accountData.errors){
-      this.registrationFormService.registrationFormData.patchValue(this.accountData.value, {emitEvent: false, onlySelf: true});
+    if (this.accountData.valid && !this.accountData.errors) {
+      this.registrationFormService.registrationFormData.patchValue(
+        this.accountData.value,
+        { emitEvent: false, onlySelf: true }
+      );
       this.router.navigate(['register/personal_info']);
     }
     this.submitted = true;
   }
 
-  get f(){
+  get f() {
     return this.accountData.controls;
   }
-
 }

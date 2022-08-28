@@ -26,7 +26,6 @@ class DogProfileController extends Controller
             return response()->json($dogResourceCollection->response()->getData());
         }
 
-
         $dogs = DogProfile::whereHas('activities', function (Builder $query) use ($activities){
             if (!is_null($activities)){
                 $query->whereIn('activities.id', (array) $activities );

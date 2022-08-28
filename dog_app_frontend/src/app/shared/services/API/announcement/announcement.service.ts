@@ -38,9 +38,32 @@ export class AnnouncementService {
     });
   }
 
+  getAnnouncementListForUser(): Observable<any> {
+    const url = `${this.announcementsUrl}/user`;
+    return this.http.get(url);
+  }
+
   getAvailableActivities(): Observable<any> {
     const url = `${this.baseUrl}/getActivities`;
     return this.http.get(url);
+  }
+
+  storeAnnouncement(data: FormData): Observable<any> {
+    const url = `${this.baseUrl}/storeAnnouncement`;
+
+    return this.http.post(url, data);
+  }
+
+  updateAnnouncement(data: FormData): Observable<any> {
+    const url = `${this.baseUrl}/updateAnnouncement`;
+
+    return this.http.post(url, data);
+  }
+
+  deleteAnnouncement(id: number): Observable<any> {
+    const url = `${this.baseUrl}/deleteAnnouncement`;
+
+    return this.http.post(url, { id: id });
   }
 
   private getUrlWithFilters(filters: any) {

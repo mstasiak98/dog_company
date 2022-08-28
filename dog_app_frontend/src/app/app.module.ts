@@ -24,7 +24,14 @@ import { AuthStateService } from './shared/services/auth-state/auth-state.servic
 import { DialogService } from 'primeng/dynamicdialog';
 
 import pl from '@angular/common/locales/pl';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { MakeProposalDialogComponent } from './shared/components/make-proposal-dialog/make-proposal-dialog.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmationService } from 'primeng/api';
+
 registerLocaleData(pl);
 
 @NgModule({
@@ -35,6 +42,7 @@ registerLocaleData(pl);
     AccountInfoComponent,
     PersonalInfoComponent,
     AdditionalInfoComponent,
+    MakeProposalDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,10 @@ registerLocaleData(pl);
     InputTextModule,
     KeyFilterModule,
     FileUploadModule,
+    CheckboxModule,
+    CalendarModule,
+    RadioButtonModule,
+    InputTextareaModule,
   ],
   providers: [
     {
@@ -59,7 +71,9 @@ registerLocaleData(pl);
     { provide: LOCALE_ID, useValue: 'pl-PL' },
     MessageService,
     DialogService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

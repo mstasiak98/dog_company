@@ -1,0 +1,93 @@
+<app-header headerTitle="Dodaj ogłoszenie"></app-header>
+<div class="max-w-full md:max-w-7xl h-full mt-2 flex flex-col mx-auto flex items-center loaderBlock ">
+  <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <ng-template #content>
+    <app-img-preview-upload *ngIf="!isEdit"
+      class="mt-10"
+      (fileChangedEvent)="addPhoto($event)"
+      (fileUnloadEvent)="unloadPhoto($event)"
+      [imgUrlEdit]="announcement && announcement.photo.length > 0 ? announcement.photo[0]?.url : undefined"></app-img-preview-upload>
+    <div class="w-3/4 md:w-1/2 mt-2">
+      <form [formGroup]="announcementForm" class="mt-6">
+        <div class="p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="title">Tytuł</label>
+            <input
+              id="title"
+              name="title"
+              type="text" required pInputText
+              formControlName="title">
+          </div>
+        </div>
+        <div class="mt-4 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="city">Miejscowość</label>
+            <input
+              id="city"
+              name="city"
+              type="text" required pInputText
+              formControlName="city">
+          </div>
+        </div>
+        <div id="start-container" class="mt-4 p-fluid grid grid-cols-1">
+          <label for="start_date">Początek opieki</label>
+          <p-calendar
+            id="start_date"
+            formControlName="start_date"
+            [showTime]="true"
+            inputId="start_date" >
+
+          </p-calendar>
+        </div>
+        <div id="end-container" class="mt-4 p-fluid grid grid-cols-1">
+          <label for="end_date">Koniec opieki</label>
+          <p-calendar id="end_date" formControlName="end_date" [showTime]="true" inputId="end_date"></p-calendar>
+        </div>
+        <div class="mt-4 p-fluid grid grid-cols-1">
+          <label for="activities-container">Aktywność</label>
+          <div id="activities-container">
+            <div *ngFor="let activity of activities" class="mt-1 field-checkbox">
+              <div class="flex items-center">
+                <p-checkbox name="activity" [value]="activity" [formControl]="announcementForm.controls['activity_id']" [inputId]="activity.name"></p-checkbox>
+                <label style="margin-left: 0.5rem" class="inline-block align-middle cursor-pointer" [for]="activity.name">{{activity.name}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="quantity">Ilość</label>
+            <input
+              id="quantity"
+              name="quantity"
+              type="number" required pInputText
+              formControlName="quantity">
+          </div>
+        </div>
+        <div class="p-fluid mt-4">
+          <label for="description-container">Opis ogłoszenia</label>
+          <div id="description-container" class="grid grid-cols-1 rounded-lg border-4 border-solid">
+            <textarea formControlName="description" id="description" class="h-40" name="description"></textarea>
+          </div>
+        </div>
+      </form>
+      <div class="flex my-6 w-full justify-center">
+        <div>
+          <button class="p-button-secondary" pButton type="button" label="Anuluj" (click)="navigateBack()"></button>
+        </div>
+        <div class="ml-4">
+          <button class="p-button-success"
+                  pButton type="button"
+                  label="{{isEdit ? 'Edytuj' : 'Dodaj'}}"
+                  (click)="saveAnnouncement()"
+                  [disabled]="announcementForm.pristine ||
+                  ! announcementForm.valid">
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

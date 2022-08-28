@@ -61,8 +61,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(DogCareController::class)->group(function () {
         Route::post('/makeProposal', 'storeProposal');
+        Route::post('/makeAnnouncementProposal', 'storeAnnouncementProposal');
     });
 
+    Route::controller(AnnouncementController::class)->group(function () {
+        Route::get('/announcements/user', 'userAnnouncements');
+
+        Route::post('/storeAnnouncement', 'store');
+        Route::post('/updateAnnouncement', 'update');
+        Route::post('/deleteAnnouncement', 'destroy');
+    });
 
 
 
