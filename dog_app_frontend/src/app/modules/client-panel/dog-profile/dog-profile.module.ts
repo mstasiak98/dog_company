@@ -21,12 +21,16 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { CreateDogProfileComponent } from './create-dog-profile/create-dog-profile.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
   { path: 'dog-profiles', component: DogProfilesDashboardComponent },
   { path: 'dog-profile/:id', component: DogProfileComponent },
   { path: 'my-dog-profiles', component: UserDogProfileListComponent },
+  { path: 'add-dog-profile', component: CreateDogProfileComponent },
 ];
 
 @NgModule({
@@ -34,6 +38,7 @@ const routes: Routes = [
     DogProfileComponent,
     UserDogProfileListComponent,
     DogProfilesDashboardComponent,
+    CreateDogProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +60,8 @@ const routes: Routes = [
     DividerModule,
     RippleModule,
     TooltipModule,
+    InputTextModule,
+    FileUploadModule,
   ],
   providers: [],
 })
