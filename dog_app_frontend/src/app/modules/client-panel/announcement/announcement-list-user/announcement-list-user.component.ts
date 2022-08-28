@@ -1,0 +1,92 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
+import { Router } from '@angular/router';
+import { Announcement } from '../../../../shared/models/announcements/announcement';
+import { Link } from '../../../../shared/models/pagination/Link';
+import { AnnouncementService } from '../../../../shared/services/API/announcement/announcement.service';
+import { ConfirmationService } from 'primeng/api';
+
+@Component({
+  selector: 'app-announcement-list-user',
+  templateUrl: './announcement-list-user.component.html',
+  styleUrls: ['./announcement-list-user.component.scss'],
+})
+export class AnnouncementListUserComponent implements OnInit {
+  isSignedIn: boolean;
+  authenticatedUserId: number;
+  isContentLoading: boolean = false;
+  isPageChanging: boolean = false;
+
+  //ANNOUNCEMENTS
+  announcements: Announcement[] = [];
+
+  //PAGINATION
+  links: Link[] = [];
+  currentPage: number = 1;
+  totalPages: number = 0;
+  announcementsPerPage: number = 5;
+
+  constructor(
+    private authStateService: AuthStateService,
+    private router: Router,
+    private announcementService: AnnouncementService,
+    private confirmationService: ConfirmationService
+  ) {}
+
+  ngOnInit(): void {
+    this.isContentLoading = true;
+    this.isSignedIn = this.authStateService.isLoggedIn();
+    this.authenticatedUserId = this.authStateService.userId();
+
+    this.announcementService
+      .getAnnouncementListForUser()
+      .subscribe(this.processResults());
+  }
+
+  private processResults() {
+    return (data: any) => {
+      this.announcements = data.data;
+      this.links = data.meta.links;
+      this.totalPages = data.meta.total;
+      this.currentPage = data.meta.current_page;
+      this.announcementsPerPage = data.meta.per_page;
+      this.isContentLoading = false;
+      this.isPageChanging = false;
+    };
+  }
+
+  onPageChange(event: any) {
+    const page = event.page + 1;
+    const link = this.links.find(link => link.label === page.toString());
+    this.announcementService
+      .getAnnouncementList(link?.url)
+      .subscribe(this.processResults());
+    this.isPageChanging = true;
+  }
+
+  delete(announcement: Announcement): void {
+    console.log('event = ', event);
+    this.confirmationService.confirm({
+      message: `Czy chesz usunąć ogłoszenie ${announcement.title}?`,
+      header: 'Potwierdzenie',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Tak',
+      rejectLabel: 'Nie',
+      accept: () => {
+        this.announcementService.deleteAnnouncement(announcement.id).subscribe({
+          next: data => {
+            this.announcementService
+              .getAnnouncementListForUser()
+              .subscribe(this.processResults());
+          },
+          error: err => {
+            this.router.navigate(['/announcements/my-announcements']);
+          },
+          complete: () => {
+            this.router.navigate(['/announcements/my-announcements']);
+          },
+        });
+      },
+    });
+  }
+}

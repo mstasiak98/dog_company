@@ -21,8 +21,6 @@ class AnnouncementController extends Controller
 {
 
     public function index(Request $request, AnnouncementSearchService $announcementSearchService){
-        /*$act = $announcementSearchService->search($request);
-        return response()->json($act);*/
         $announcements = new AnnouncmentCollection($announcementSearchService->search($request));
         return response()->json($announcements->response()->getData());
     }
@@ -30,6 +28,12 @@ class AnnouncementController extends Controller
     public function details(Request $request) {
         $dogResourceCollection = new AnnouncmentResource(Announcement::findOrFail($request->announcementId));
         return response()->json($dogResourceCollection);
+    }
+
+    public function userAnnouncements(Request $request) {
+        $announcements = Announcement::where('user_id', auth()->user()->id)->paginate(config('app.default_announcements_page_size'))->withQueryString();
+        $announcementsCollection = new AnnouncmentCollection($announcements);
+        return response()->json($announcementsCollection->response()->getData());
     }
 
     public function store(AnnouncementRequest $request, PhotoService $photoService) {
@@ -71,7 +75,6 @@ class AnnouncementController extends Controller
                 $announcement->activities()->sync($announcementActivities);
             });
         } catch (\Exception $e) {
-
             return response()->json(['success' => false, 'error' => $e]);
         }
         return response()->json(['success' => true, 'announcementId' => $request->id, 'title' => $request->title]);
@@ -86,11 +89,9 @@ class AnnouncementController extends Controller
                 $announcement->activities()->detach();
             });
         } catch (\Exception $e) {
-
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
         return response()->json(['success' => true]);
-
     }
 
     /*public function update(AnnouncementRequest $request, PhotoService $photoService) {

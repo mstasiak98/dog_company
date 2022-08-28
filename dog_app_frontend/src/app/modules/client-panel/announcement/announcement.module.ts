@@ -17,14 +17,16 @@ import { CardModule } from 'primeng/card';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { AnnouncementCreateComponent } from './announcement-create/announcement-create.component';
-import { AppModule } from '../../../app.module';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AnnouncementListUserComponent } from './announcement-list-user/announcement-list-user.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 const routes: Routes = [
   { path: '', component: AnnouncementDashboardComponent },
   { path: 'details/:id', component: AnnouncementDetailsComponent },
   { path: 'add', component: AnnouncementCreateComponent },
   { path: 'edit/:id', component: AnnouncementCreateComponent },
+  { path: 'my-announcements', component: AnnouncementListUserComponent },
 ];
 
 @NgModule({
@@ -32,6 +34,7 @@ const routes: Routes = [
     AnnouncementDashboardComponent,
     AnnouncementDetailsComponent,
     AnnouncementCreateComponent,
+    AnnouncementListUserComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ const routes: Routes = [
     RippleModule,
     TooltipModule,
     RadioButtonModule,
+    ConfirmDialogModule,
   ],
 })
 export class AnnouncementModule {}

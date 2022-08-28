@@ -121,12 +121,16 @@ export class AnnouncementCreateComponent implements OnInit {
     request.subscribe({
       next: result => {
         console.log('result = ', result);
-        this.router.navigate([
-          `announcements/details/${result?.announcementId}`,
-        ]);
+        let url;
+        if (this.isEdit) {
+          url = `announcements/details/${this.announcement.id}`;
+        } else {
+          url = `announcements/details/${result?.announcementId}`;
+        }
+        this.router.navigate([url]);
       },
       error: error => {
-        console.log('ERROR = ', error);
+        this.router.navigate(['announcements']);
       },
       complete: () => {
         this.announcementForm.reset();

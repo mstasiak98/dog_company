@@ -38,6 +38,11 @@ export class AnnouncementService {
     });
   }
 
+  getAnnouncementListForUser(): Observable<any> {
+    const url = `${this.announcementsUrl}/user`;
+    return this.http.get(url);
+  }
+
   getAvailableActivities(): Observable<any> {
     const url = `${this.baseUrl}/getActivities`;
     return this.http.get(url);

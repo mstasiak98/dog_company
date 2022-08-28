@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
   showDropdown: boolean = false;
   showHamburgerDropdown: boolean = false;
   isSignedIn: boolean = false;
+  authenticatedUserId: number;
 
   constructor(
     private authStateService: AuthStateService,
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSignedIn = this.authStateService.isLoggedIn();
+    this.authenticatedUserId = this.authStateService.userId();
   }
 
   logout() {

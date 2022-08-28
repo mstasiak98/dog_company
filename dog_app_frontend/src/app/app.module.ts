@@ -30,6 +30,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmationService } from 'primeng/api';
+
 registerLocaleData(pl);
 
 @NgModule({
@@ -69,6 +71,7 @@ registerLocaleData(pl);
     { provide: LOCALE_ID, useValue: 'pl-PL' },
     MessageService,
     DialogService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
   exports: [],
