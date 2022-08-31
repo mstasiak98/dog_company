@@ -8,6 +8,8 @@ import { Activity } from '../../../../shared/models/dogs/Activity';
 import { Availability } from '../../../../shared/models/dogs/Availability';
 import { Breed } from '../../../../shared/models/dogs/Breed';
 import { DogService } from '../../../../shared/services/API/dog/dog.service';
+import { ToastService } from '../../../../shared/services/toast/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-dog-profile',
@@ -24,8 +26,14 @@ export class CreateDogProfileComponent implements OnInit {
   availabilities: Availability[];
   breeds: Breed[];
   photos: any[] = [];
+  isEdit: boolean = false;
 
-  constructor(private builder: FormBuilder, private dogService: DogService) {}
+  constructor(
+    private builder: FormBuilder,
+    private dogService: DogService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dogService.getDogProfileFilters().subscribe(this.processFilters());
@@ -57,9 +65,36 @@ export class CreateDogProfileComponent implements OnInit {
     return this.dogProfileForm.controls;
   }
 
-  test() {
+  saveProfile(): void {
     console.log('test = ', this.dogProfileForm.value);
     console.log('photo = ', this.photos);
+
+    this.dogService
+      .storeDogProfile(this.dogProfileForm.value, this.photos)
+      .subscribe({
+        next: result => {
+          console.log('result = ', result);
+          if (result.success) {
+            this.router.navigate(['my-dog-profiles']);
+          } else {
+            this.router.navigate(['my-dog-profiles']).then(() => {
+              this.toastService.showErrorMessage(
+                'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
+              );
+            });
+          }
+        },
+        error: error => {
+          this.router.navigate(['my-dog-profiles']).then(() => {
+            this.toastService.showErrorMessage(
+              'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
+            );
+          });
+        },
+        complete: () => {
+          this.dogProfileForm.reset();
+        },
+      });
   }
 
   handleCancelFile() {
@@ -67,7 +102,10 @@ export class CreateDogProfileComponent implements OnInit {
   }
 
   handleSelectFile(event: any) {
-    this.photos.push(event?.files[0]);
+    console.log('event', event);
+    Array.from(event.files).forEach(file => {
+      this.photos.push(file);
+    });
   }
 
   handleRemoveFile(event: any) {

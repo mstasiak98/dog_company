@@ -73,7 +73,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(DogProfileController::class)->group(function () {
         Route::get('dogs/user-dog-profiles', 'userDogProfiles');
-
+        Route::post('dogs/store', 'store');
     });
 
 

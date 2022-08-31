@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\DogProfile\StoreDogProfileRequest;
 use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -17,6 +18,25 @@ class PhotoService
         }
 
         return $photo;
+    }
+
+    public function storePhotos(StoreDogProfileRequest $request) {
+        $paths = [];
+        foreach ($request->file('photo') as $file) {
+            $filePath = $file->store('photos');
+            if($filePath === false) {
+                $this->revertSaveFile($paths);
+                return false;
+            }
+            $paths[] = $filePath;
+        }
+        return $paths;
+    }
+
+    public function revertSaveFile(array $fileUrls) {
+        foreach ($fileUrls as $fileUrl) {
+            Storage::delete($fileUrl);
+        }
     }
 
     public function replacePhotoOnDisk(UploadedFile $file, string $filePath) {
@@ -64,6 +84,16 @@ class PhotoService
         $newPhoto->filename = $photo;
         $newPhoto->photoable()->associate($model);
         $newPhoto->save();
+    }
+
+    public function storePhotosInBD(array $filePaths, Model $model): void {
+        foreach ($filePaths as $filePath){
+            $photo = new Photo();
+            $photo->url = Storage::url($filePath);
+            $photo->filename = $filePath;
+            $photo->photoable()->associate($model);
+            $photo->save();
+        }
     }
 
     public function updatePhotoInDB(string $photo, Model $model, Photo $oldPhoto): void{

@@ -53,9 +53,9 @@
               <div class="w-full bg-purple-100 p-2">
                 <span class="text-xl font-bold text-custom-purple-dark">CECHY OSOBOWOŚCI</span>
               </div>
-              <div class=" w-full p-2" *ngIf="dogProfile.features; else emptyFeature">
+              <div class=" w-full p-2" *ngIf="dogProfile.feature; else emptyFeature">
                 <ul class="list-disc px-4 data-list">
-                  <li class="mt-1 text-black font-normal text-lg px-2" *ngFor="let feature of dogProfile.features" >{{feature.name}}</li>
+                  <li class="mt-1 text-black font-normal text-lg px-2" *ngFor="let feature of dogProfile.feature" >{{feature.name}}</li>
                 </ul>
               </div>
               <ng-template #emptyFeature>

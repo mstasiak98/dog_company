@@ -13,6 +13,23 @@ export class DogService {
 
   constructor(private http: HttpClient) {}
 
+  storeDogProfile(data: any, files: File[]): Observable<any> {
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+
+    console.log('files =', files);
+
+    files.forEach((file: File) => {
+      formData.append('photo[]', file);
+    });
+
+    console.log('TEST = ', formData.get('data'));
+    console.log('TEST = ', formData.get('photo'));
+    const url = `${this.dogProfileBaseUrl}/store`;
+
+    return this.http.post(url, formData);
+  }
+
   getUserDogProfiles(): Observable<DogProfile[]> {
     const url = `${this.dogProfileBaseUrl}/user-dog-profiles`;
     return this.http.get<DogProfile[]>(url);
