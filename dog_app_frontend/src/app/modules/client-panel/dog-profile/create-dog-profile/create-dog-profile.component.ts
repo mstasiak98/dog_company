@@ -9,7 +9,8 @@ import { Availability } from '../../../../shared/models/dogs/Availability';
 import { Breed } from '../../../../shared/models/dogs/Breed';
 import { DogService } from '../../../../shared/services/API/dog/dog.service';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DogProfile } from '../../../../shared/models/dogs/DogProfile';
 
 @Component({
   selector: 'app-create-dog-profile',
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
 export class CreateDogProfileComponent implements OnInit {
   dogProfileForm: any;
   isContentLoading = false;
+  dogProfile: DogProfile;
 
   features: Feature[];
   sizes: Size[];
@@ -32,11 +34,15 @@ export class CreateDogProfileComponent implements OnInit {
     private builder: FormBuilder,
     private dogService: DogService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.dogService.getDogProfileFilters().subscribe(this.processFilters());
+
+    this.isContentLoading = true;
+    this.retrieveExistingProfileData();
 
     this.dogProfileForm = this.builder.group({
       name: [null, Validators.required],
@@ -58,7 +64,50 @@ export class CreateDogProfileComponent implements OnInit {
       this.breeds = data.breeds;
       this.activities = data.activities;
       this.availabilities = data.availabilities;
+
+      this.isContentLoading = false;
     };
+  }
+
+  private retrieveExistingProfileData(): void {
+    if (this.router.url.includes('edit')) {
+      this.isEdit = true;
+      this.route.params.subscribe(parameter => {
+        this.dogService.getDogProfileDetails(parameter.id).subscribe({
+          next: data => {
+            this.dogProfile = data.dog;
+            console.log('profil = ', this.dogProfile);
+
+            this.setFormEditData();
+            console.log(
+              'ustawiona data do edycji = ',
+              this.dogProfileForm.value
+            );
+          },
+          error: err => {
+            this.router.navigate([`my-dog-profiles`]);
+          },
+          complete: () => {
+            this.isContentLoading = false;
+          },
+        });
+      });
+    }
+  }
+
+  private setFormEditData(): void {
+    let dogProfile = {
+      name: this.dogProfile.name,
+      color: this.dogProfile.color,
+      breed_id: this.dogProfile.breed.id,
+      size_id: this.dogProfile.size.id,
+      activities: this.dogProfile.activity.map(value => value.id),
+      availabilities: this.dogProfile.availability.map(value => value.id),
+      features: this.dogProfile.feature.map(value => value.id),
+      description: this.dogProfile.description,
+    };
+
+    this.dogProfileForm.setValue(dogProfile);
   }
 
   get f() {
@@ -69,32 +118,45 @@ export class CreateDogProfileComponent implements OnInit {
     console.log('test = ', this.dogProfileForm.value);
     console.log('photo = ', this.photos);
 
-    this.dogService
-      .storeDogProfile(this.dogProfileForm.value, this.photos)
-      .subscribe({
-        next: result => {
-          console.log('result = ', result);
-          if (result.success) {
-            this.router.navigate(['my-dog-profiles']);
-          } else {
-            this.router.navigate(['my-dog-profiles']).then(() => {
-              this.toastService.showErrorMessage(
-                'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
-              );
-            });
-          }
-        },
-        error: error => {
+    let dogProfile;
+    if (this.isEdit) {
+      console.log('jest edit wartosc przed = ', this.dogProfileForm.value);
+      dogProfile = {
+        ...this.dogProfileForm.value,
+        id: this.dogProfile.id,
+      };
+    } else {
+      dogProfile = this.dogProfileForm.value;
+    }
+    console.log('wysylam, = ', dogProfile);
+    let request = !this.isEdit
+      ? this.dogService.storeDogProfile(dogProfile, this.photos)
+      : this.dogService.updateDogProfile(dogProfile);
+
+    request.subscribe({
+      next: result => {
+        console.log('result = ', result);
+        if (result.success) {
+          this.router.navigate(['my-dog-profiles']);
+        } else {
           this.router.navigate(['my-dog-profiles']).then(() => {
             this.toastService.showErrorMessage(
               'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
             );
           });
-        },
-        complete: () => {
-          this.dogProfileForm.reset();
-        },
-      });
+        }
+      },
+      error: error => {
+        this.router.navigate(['my-dog-profiles']).then(() => {
+          this.toastService.showErrorMessage(
+            'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
+          );
+        });
+      },
+      complete: () => {
+        this.dogProfileForm.reset();
+      },
+    });
   }
 
   handleCancelFile() {

@@ -20,6 +20,7 @@ export class DogProfileComponent implements OnInit {
   owner: Owner;
   siblings: Sibling[];
   isLoggedIn: boolean = false;
+  authenticatedUserId: number;
 
   isContentLoading = false;
 
@@ -69,7 +70,7 @@ export class DogProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authStateService.isLoggedIn();
-
+    this.authenticatedUserId = this.authStateService.userId();
     this.isContentLoading = true;
 
     this.route.params.subscribe(parameter => {

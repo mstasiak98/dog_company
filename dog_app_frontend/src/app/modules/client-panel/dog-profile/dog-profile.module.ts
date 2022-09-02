@@ -24,13 +24,15 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CreateDogProfileComponent } from './create-dog-profile/create-dog-profile.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
+  { path: 'edit-dog-profile/:id', component: CreateDogProfileComponent },
   { path: 'dog-profiles', component: DogProfilesDashboardComponent },
   { path: 'dog-profile/:id', component: DogProfileComponent },
   { path: 'my-dog-profiles', component: UserDogProfileListComponent },
   { path: 'add-dog-profile', component: CreateDogProfileComponent },
+  { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -62,6 +64,7 @@ const routes: Routes = [
     TooltipModule,
     InputTextModule,
     FileUploadModule,
+    ConfirmDialogModule,
   ],
   providers: [],
 })

@@ -78,7 +78,7 @@
 
         <div class="mt-2 p-fluid grid grid-cols-1">
           <div class="">
-            <label for="activity">Cechy osobowości psa</label>
+            <label for="features">Cechy osobowości psa</label>
             <p-multiSelect
               id="features"
               [options]="features"
@@ -143,7 +143,7 @@
           </div>
         </div>
       </form>
-      <div class="mt-4 p-fluid grid grid-cols-1">
+      <div *ngIf="!isEdit" class="mt-4 p-fluid grid grid-cols-1">
         <label class="mb-1" for="photo">Wybierz zdjęcia</label>
         <p-fileUpload
           id="photo"
@@ -168,7 +168,9 @@
         <div class="ml-4">
           <button class="p-button-success"
                   pButton type="button"
-                  label="save" (click)="saveProfile()">
+                  label="save" (click)="saveProfile()"
+                  [disabled]="dogProfileForm.pristine ||
+                  !dogProfileForm.valid">
           </button>
         </div>
       </div>

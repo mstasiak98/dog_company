@@ -1,3 +1,4 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 <app-header headerTitle="Moje Psy"></app-header>
 <div class="max-w-full md:max-w-7xl h-full mt-2 flex mx-auto flex justify-center loaderBlock ">
   <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto flex justify-center loaderBlock items-center">
@@ -34,7 +35,7 @@
               </div>
               <div class="ml-4 md:ml-6">
                 <button
-                  routerLink=""
+                  routerLink='/edit-dog-profile/{{dog.id}}'
                   pButton pRipple icon="pi pi-pencil"
                   class="p-button-rounded p-button-success" pTooltip="Edytuj" tooltipPosition="bottom">
                 </button>
@@ -42,7 +43,7 @@
               <div class="ml-1">
                 <button
                   pButton pRipple icon="pi pi-trash"
-                  class="p-button-rounded p-button-warning" pTooltip="Usuń" tooltipPosition="bottom">
+                  class="p-button-rounded p-button-warning" pTooltip="Usuń" tooltipPosition="bottom" (click)="deleteDogProfile(dog)">
                 </button>
               </div>
             </div>

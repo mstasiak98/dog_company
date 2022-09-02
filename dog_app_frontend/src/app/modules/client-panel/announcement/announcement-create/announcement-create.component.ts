@@ -78,6 +78,8 @@ export class AnnouncementCreateComponent implements OnInit {
   }
 
   setFormEditData(): void {
+    console.log('options = ');
+
     let announcement = {
       title: this.announcement.title,
       city: this.announcement.city,

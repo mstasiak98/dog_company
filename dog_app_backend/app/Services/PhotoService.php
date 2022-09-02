@@ -86,7 +86,7 @@ class PhotoService
         $newPhoto->save();
     }
 
-    public function storePhotosInBD(array $filePaths, Model $model): void {
+    public function storePhotosInDB(array $filePaths, Model $model): void {
         foreach ($filePaths as $filePath){
             $photo = new Photo();
             $photo->url = Storage::url($filePath);

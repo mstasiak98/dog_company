@@ -14,4 +14,5 @@ export interface DogProfile {
   activity: Activity[];
   availability: Availability[];
   feature: Feature[];
+  description: string;
 }

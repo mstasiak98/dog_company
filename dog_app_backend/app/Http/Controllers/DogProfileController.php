@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DogProfile\StoreDogProfileRequest;
+use App\Http\Requests\DogProfile\UpdateDogProfileRequest;
 use App\Http\Resources\DogDetailsResource;
 use App\Http\Resources\DogProfileCollection;
 use App\Http\Resources\DogProfileResource;
@@ -104,7 +105,7 @@ class DogProfileController extends Controller
                 $dogProfile->features()->sync($dogProfileFeatures);
 
                 if(!is_null($filePaths)) {
-                    $photoService->storePhotosInBD($filePaths, $dogProfile);
+                    $photoService->storePhotosInDB($filePaths, $dogProfile);
                 }
                 return $dogProfile->id;
             });
@@ -116,6 +117,41 @@ class DogProfileController extends Controller
             return response()->json(['success' => false, 'error' => $e]);
         }
         return response()->json(['success' => true, 'dogProfileId'=>$dogProfileId, 'name' => $request->name]);
+    }
+
+    public function update(UpdateDogProfileRequest $request) {
+        try {
+
+            $dogProfile = DogProfile::findOrFail($request->id);
+            DB::transaction(function () use ($request, $dogProfile){
+                $dogProfile->fill($request->all())->save();
+                $dogProfileActivities = $request->input('activities', []);
+                $dogProfileAvailabilities = $request->input('availabilities', []);
+                $dogProfileFeatures = $request->input('features', []);
+                $dogProfile->activities()->sync($dogProfileActivities);
+                $dogProfile->availabilities()->sync($dogProfileAvailabilities);
+                $dogProfile->features()->sync($dogProfileFeatures);
+            });
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e]);
+        }
+        return response()->json(['success' => true, 'announcementId' => $request->id, 'title' => $request->title]);
+    }
+
+    public function destroy(Request $request) {
+        try {
+            $dogProfile = DogProfile::findOrFail($request->id);
+            DB::transaction(function () use ($request, $dogProfile){
+                $dogProfile->delete();
+                $dogProfile->photos()->delete();
+                $dogProfile->activities()->detach();
+                $dogProfile->availabilities()->detach();
+                $dogProfile->features()->detach();
+            });
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+        return response()->json(['success' => true]);
     }
 
 }

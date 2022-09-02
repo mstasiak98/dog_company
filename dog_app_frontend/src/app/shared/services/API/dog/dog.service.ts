@@ -30,6 +30,16 @@ export class DogService {
     return this.http.post(url, formData);
   }
 
+  updateDogProfile(data: any): Observable<any> {
+    const url = `${this.dogProfileBaseUrl}/update`;
+    return this.http.post(url, data);
+  }
+
+  deleteDogProfile(dogProfileId: number): Observable<any> {
+    const url = `${this.dogProfileBaseUrl}/destroy`;
+    return this.http.post(url, { id: dogProfileId });
+  }
+
   getUserDogProfiles(): Observable<DogProfile[]> {
     const url = `${this.dogProfileBaseUrl}/user-dog-profiles`;
     return this.http.get<DogProfile[]>(url);
