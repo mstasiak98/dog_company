@@ -12,21 +12,19 @@ const routes: Routes = [
     component: ClientPanelComponent,
 
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
       {
-        path: 'dog-profile/:id',
+        path: '',
         loadChildren: () =>
           import('./dog-profile/dog-profile.module').then(
             m => m.DogProfileModule
           ),
       },
 
-      {
+      /*  {
         path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-      },
+      },*/
 
       {
         path: 'announcements',

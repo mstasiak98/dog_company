@@ -1,0 +1,181 @@
+<app-header headerTitle="Stwórz profil psa"></app-header>
+<div class="max-w-full md:max-w-7xl h-full mt-2 flex flex-col mx-auto flex items-center loaderBlock ">
+  <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <ng-template #content>
+
+    <div class="w-3/4 md:w-1/2 mt-2">
+      <form [formGroup]="dogProfileForm" class="mt-6">
+        <div class="p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="name">Imię</label>
+            <input
+              id="name"
+              name="name"
+              type="text" required pInputText
+              formControlName="name" [ngClass]="{'ng-invalid ng-dirty': (f.name.touched && f.name.invalid)}">
+          </div>
+          <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+            <div *ngIf="f.name.errors && f.name.errors.required" class="p-error text-sm">Nazwa jest wymagana</div>
+          </div>
+        </div>
+
+        <div class="mt-2 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="color">Kolor</label>
+            <input
+              id="color"
+              name="color"
+              type="text" required pInputText
+              formControlName="color" [ngClass]="{'ng-invalid ng-dirty': (f.color.touched && f.color.invalid)}">
+          </div>
+          <div *ngIf="f.color.touched && f.color.invalid" class="alert alert-danger">
+            <div *ngIf="f.color.errors && f.color.errors.required" class="p-error text-sm">Kolor jest wymagany</div>
+          </div>
+        </div>
+
+        <div class="mt-2 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="breed">Rasa</label>
+            <p-dropdown
+              id="breed"
+              [options]="breeds"
+              [required]="true"
+              [showClear]="true"
+              [filter]="true"
+              filterBy="name"
+              [ngClass]="{'ng-invalid ng-dirty': (f.breed_id.touched && f.breed_id.invalid)}"
+              formControlName="breed_id"
+              placeholder="Wybierz rasę"
+              optionLabel="name"
+              optionValue="id"
+            ></p-dropdown>
+          </div>
+          <div *ngIf="f.breed_id.touched && f.breed_id.invalid" class="alert alert-danger">
+            <div *ngIf="f.breed_id.errors && f.breed_id.errors.required" class="p-error text-sm">Rasa jest wymagana</div>
+          </div>
+        </div>
+
+        <div class="mt-2 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="size">Wielkość</label>
+            <p-dropdown
+              [options]="sizes"
+              [required]="true"
+              [ngClass]="{'ng-invalid ng-dirty': (f.size_id.touched && f.size_id.invalid)}"
+              formControlName="size_id"
+              placeholder="Wybierz wielkość"
+              optionLabel="name"
+              optionValue="id"
+              id="size"
+            ></p-dropdown>
+          </div>
+          <div *ngIf="f.size_id.touched && f.size_id.invalid" class="alert alert-danger">
+            <div *ngIf="f.size_id.errors && f.size_id.errors.required" class="p-error text-sm">Wielkość jest wymagana</div>
+          </div>
+        </div>
+
+        <div class="mt-2 p-fluid grid grid-cols-1">
+          <div class="">
+            <label for="features">Cechy osobowości psa</label>
+            <p-multiSelect
+              id="features"
+              [options]="features"
+              formControlName="features"
+              optionLabel="name"
+              optionValue="id"
+              display="chip"
+              [filter]="false"
+              placeholder="Wybierz cechę"
+              [required]="true"
+              [ngClass]="{'ng-invalid ng-dirty': (f.features.touched && f.features.invalid)}"
+            ></p-multiSelect>
+          </div>
+          <div *ngIf="f.features.touched && f.features.invalid" class="alert alert-danger">
+            <div *ngIf="f.features.errors && f.features.errors.required" class="p-error">Przynajmniej jedna cecha osobowości jest wymagana</div>
+          </div>
+        </div>
+
+        <div class="mt-4 p-fluid grid grid-cols-1">
+          <label for="activities-container">Jakiej aktywności poszukuje pies?</label>
+          <div id="activities-container">
+            <div *ngFor="let activity of activities" class="mt-1 field-checkbox">
+              <div class="flex items-center">
+                <p-checkbox
+                  name="activity"
+                  [formControl]="dogProfileForm.controls['activities']"
+                  [inputId]="activity.name"
+                  [value]="activity.id">
+                </p-checkbox>
+                <label style="margin-left: 0.5rem" class="inline-block align-middle cursor-pointer" [for]="activity.name">{{activity.name}}</label>
+              </div>
+            </div>
+            <div *ngIf="f.activities.touched && f.activities.invalid" class="alert alert-danger mt-1">
+              <div *ngIf="f.activities.errors && f.activities.errors.required" class="p-error text-sm">Przynajmniej jedna aktywność jest wymagana</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 p-fluid grid grid-cols-1">
+          <label for="availabilities-container">Kiedy pies będzie dostępny?</label>
+          <div id="availabilities-container">
+            <div *ngFor="let availability of availabilities" class="mt-1 field-checkbox">
+              <div class="flex items-center">
+                <p-checkbox
+                  name="availability"
+                  [formControl]="dogProfileForm.controls['availabilities']"
+                  [inputId]="availability.name"
+                  [value]="availability.id">
+                </p-checkbox>
+                <label style="margin-left: 0.5rem" class="inline-block align-middle cursor-pointer" [for]="availability.name">{{availability.name}}</label>
+              </div>
+            </div>
+            <div *ngIf="f.availabilities.touched && f.availabilities.invalid" class="alert alert-danger mt-1">
+              <div *ngIf="f.availabilities.errors && f.availabilities.errors.required" class="p-error text-sm">Musisz podać przynajmniej jedną dostępność</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-fluid mt-4">
+          <label for="description-container">Opis</label>
+          <div id="description-container" class="grid grid-cols-1 rounded-lg border-4 border-solid">
+            <textarea id="description" class="h-40" name="description" formControlName="description"></textarea>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="!isEdit" class="mt-4 p-fluid grid grid-cols-1">
+        <label class="mb-1" for="photo">Wybierz zdjęcia</label>
+        <p-fileUpload
+          id="photo"
+          name="photo[]"
+          [multiple]="true"
+          [showUploadButton]="false"
+          chooseLabel="Wybierz"
+          cancelLabel="Anuluj"
+          accept="image/*"
+          [maxFileSize]="1000000"
+          [customUpload]="true"
+          (onSelect)="handleSelectFile($event)"
+          (onRemove)="handleRemoveFile($event)"
+          (onClear)="handleCancelFile()"
+        ></p-fileUpload>
+
+      </div>
+      <div class="flex my-6 w-full justify-center">
+        <div>
+          <button class="p-button-secondary" pButton type="button" label="Anuluj" ></button>
+        </div>
+        <div class="ml-4">
+          <button class="p-button-success"
+                  pButton type="button"
+                  label="save" (click)="saveProfile()"
+                  [disabled]="dogProfileForm.pristine ||
+                  !dogProfileForm.valid">
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
+
+</div>

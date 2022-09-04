@@ -1,31 +1,30 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {MenuItem} from "primeng/api";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegisterComponent implements OnInit {
-
   steps: MenuItem[];
   activeIndex: number = 0;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.steps = [
       {
-        label: "Dane konta",
+        label: 'Dane konta',
         routerLink: 'account_info',
       },
       {
-        label: "Miejsce zamieszkania",
+        label: 'Miejsce zamieszkania',
         routerLink: 'personal_info',
       },
       {
-        label: "Dane dodatkowe",
+        label: 'Dane dodatkowe',
         routerLink: 'additional_info',
       },
     ];

@@ -20,7 +20,7 @@ class ActivityDogProfile extends Migration
                 ->references('id')->on('activities')->onDelete('no action');
             $table->unsignedBigInteger('dog_profile_id');
             $table->foreign('dog_profile_id')
-                ->references('id')->on('dog_profiles')->onDelete('no action');
+                ->references('id')->on('dog_profiles')->onDelete('cascade');
         });
     }
 

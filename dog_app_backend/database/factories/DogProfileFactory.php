@@ -24,6 +24,7 @@ class DogProfileFactory extends Factory
             'name'=>$this->faker->name(),
             'color'=>$this->faker->colorName(),
             'visible'=>1,
+            'description'=>$this->faker->text(200),
             'user_id'=>User::select('id')->orderByRaw("RAND()")->first()->id,
             'breed_id'=>Breed::select('id')->orderByRaw("RAND()")->first()->id,
             'size_id'=>Size::select('id')->orderByRaw("RAND()")->first()->id,

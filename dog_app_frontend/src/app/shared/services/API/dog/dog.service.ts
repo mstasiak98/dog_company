@@ -2,15 +2,48 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { DogProfile } from '../../../models/dogs/DogProfile';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DogService {
-  private dogProfileBaseUrl = 'http://127.0.0.1:8000/api/dogs';
-  private baseUrl = 'http://127.0.0.1:8000/api';
+  private dogProfileBaseUrl = environment.dogProfileBaseUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
+
+  storeDogProfile(data: any, files: File[]): Observable<any> {
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+
+    console.log('files =', files);
+
+    files.forEach((file: File) => {
+      formData.append('photo[]', file);
+    });
+
+    console.log('TEST = ', formData.get('data'));
+    console.log('TEST = ', formData.get('photo'));
+    const url = `${this.dogProfileBaseUrl}/store`;
+
+    return this.http.post(url, formData);
+  }
+
+  updateDogProfile(data: any): Observable<any> {
+    const url = `${this.dogProfileBaseUrl}/update`;
+    return this.http.post(url, data);
+  }
+
+  deleteDogProfile(dogProfileId: number): Observable<any> {
+    const url = `${this.dogProfileBaseUrl}/destroy`;
+    return this.http.post(url, { id: dogProfileId });
+  }
+
+  getUserDogProfiles(): Observable<DogProfile[]> {
+    const url = `${this.dogProfileBaseUrl}/user-dog-profiles`;
+    return this.http.get<DogProfile[]>(url);
+  }
 
   getDogProfileDetails(dogProfileId: number): Observable<any> {
     const url = `${this.baseUrl}/dogDetails`;

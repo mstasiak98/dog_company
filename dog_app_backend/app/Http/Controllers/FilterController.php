@@ -20,18 +20,13 @@ class FilterController extends Controller
 
 
     public function getDogProfileFilters() {
-        $sizeCollection = SizeResource::collection(Size::all());
-        $featureCollection = FeatureResource::collection(Feature::all());
-        $activityCollection = ActivityResource::collection(Activity::all());
-        $availabilityCollection = AvailabilityResource::collection(Availability::all());
-        $breedCollection = BreedResource::collection(Breed::all());
 
         $filters = [
-            'sizes' => $sizeCollection,
-            'features' => $featureCollection,
-            'activities' => $activityCollection,
-            'availabilities' => $availabilityCollection,
-            'breeds' => $breedCollection
+            'sizes' => SizeResource::collection(Size::all()),
+            'features' => FeatureResource::collection(Feature::all()),
+            'activities' => ActivityResource::collection(Activity::all()),
+            'availabilities' => AvailabilityResource::collection(Availability::all()),
+            'breeds' => BreedResource::collection(Breed::all())
         ];
 
         return response()->json($filters);

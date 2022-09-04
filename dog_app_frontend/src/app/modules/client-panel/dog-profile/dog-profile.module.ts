@@ -14,11 +14,34 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { UserDogProfileListComponent } from './user-dog-profile-list/user-dog-profile-list.component';
+import { DogProfilesDashboardComponent } from './dog-profiles-dashboard/dog-profiles-dashboard.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PaginatorModule } from 'primeng/paginator';
+import { DividerModule } from 'primeng/divider';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { CreateDogProfileComponent } from './create-dog-profile/create-dog-profile.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-const routes: Routes = [{ path: '', component: DogProfileComponent }];
+const routes: Routes = [
+  { path: 'edit-dog-profile/:id', component: CreateDogProfileComponent },
+  { path: 'dog-profiles', component: DogProfilesDashboardComponent },
+  { path: 'dog-profile/:id', component: DogProfileComponent },
+  { path: 'my-dog-profiles', component: UserDogProfileListComponent },
+  { path: 'add-dog-profile', component: CreateDogProfileComponent },
+  { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
+];
 
 @NgModule({
-  declarations: [DogProfileComponent],
+  declarations: [
+    DogProfileComponent,
+    UserDogProfileListComponent,
+    DogProfilesDashboardComponent,
+    CreateDogProfileComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -34,6 +57,14 @@ const routes: Routes = [{ path: '', component: DogProfileComponent }];
     ReactiveFormsModule,
     CalendarModule,
     InputTextareaModule,
+    MultiSelectModule,
+    PaginatorModule,
+    DividerModule,
+    RippleModule,
+    TooltipModule,
+    InputTextModule,
+    FileUploadModule,
+    ConfirmDialogModule,
   ],
   providers: [],
 })

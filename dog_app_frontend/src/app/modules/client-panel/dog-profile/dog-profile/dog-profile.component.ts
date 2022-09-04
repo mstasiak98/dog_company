@@ -20,6 +20,7 @@ export class DogProfileComponent implements OnInit {
   owner: Owner;
   siblings: Sibling[];
   isLoggedIn: boolean = false;
+  authenticatedUserId: number;
 
   isContentLoading = false;
 
@@ -69,13 +70,14 @@ export class DogProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authStateService.isLoggedIn();
-
+    this.authenticatedUserId = this.authStateService.userId();
     this.isContentLoading = true;
 
     this.route.params.subscribe(parameter => {
       this.dogProfileId = parameter.id;
       this.dogService.getDogProfileDetails(parameter.id).subscribe({
         next: data => {
+          console.log('data = ', data);
           this.dogProfile = data.dog;
           this.owner = data.owner;
           this.siblings = data.siblings;

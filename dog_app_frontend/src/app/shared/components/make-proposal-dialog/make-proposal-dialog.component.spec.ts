@@ -8,9 +8,8 @@ describe('MakeProposalDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MakeProposalDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [MakeProposalDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

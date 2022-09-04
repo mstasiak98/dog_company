@@ -14,6 +14,7 @@ class DogProfile extends Model
         'name',
         'color',
         'visible',
+        'description',
         'breed_id',
         'size_id',
         'user_id'

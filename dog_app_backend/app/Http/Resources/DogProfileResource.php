@@ -23,7 +23,8 @@ class DogProfileResource extends JsonResource
             'size' => new SizeResource($this->size),
             'activity' => ActivityResource::collection($this->activities),
             'availability' => AvailabilityResource::collection($this->availabilities),
-            'feature' => FeatureResource::collection($this->features)
+            'feature' => FeatureResource::collection($this->features),
+            'description' => $this->description
         ];
     }
 }

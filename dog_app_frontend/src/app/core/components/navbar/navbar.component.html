@@ -11,7 +11,7 @@
           <div class="ml-4 flex items-center md:ml-6">
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <a routerLinkActive="active" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " routerLink="/dashboard">
+                <a routerLinkActive="active" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " routerLink="/dog-profiles">
                   Potrzebują Opieki
                 </a>
                 <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md">
@@ -55,6 +55,13 @@
                             </span>
                         </span>
                     </a>
+                    <a href="my-dog-profiles" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                        <span class="flex flex-col">
+                            <span>
+                                Profile psów
+                            </span>
+                        </span>
+                    </a>
                     <a (click)="logout()" class="cursor-pointer block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 " role="menuitem">
                         <span class="flex flex-col">
                             <span>
@@ -83,7 +90,7 @@
     </div>
     <div class="md:hidden" [hidden]="!showHamburgerDropdown">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a routerLinkActive="active" routerLink="/dashboard" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
+        <a routerLinkActive="active" routerLink="/dog-profiles" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
           Potrzebują opieki
         </a>
         <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
@@ -96,7 +103,16 @@
           <span class="p-tag">Konto</span>
         </p-divider>
         <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
-          Kokpit
+          Konto
+        </a>
+        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="my-dog-profiles">
+          Profile psów
+        </a>
+        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+          Moje opieki
+        </a>
+        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+          Moje ogłoszenia
         </a>
         <a *ngIf="!isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold" routerLink="/login">
           Login

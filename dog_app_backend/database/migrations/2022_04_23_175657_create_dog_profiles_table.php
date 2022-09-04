@@ -17,7 +17,8 @@ class CreateDogProfilesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('color');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(true);
+            $table->text('description');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('breed_id');
             $table->unsignedBigInteger('size_id');

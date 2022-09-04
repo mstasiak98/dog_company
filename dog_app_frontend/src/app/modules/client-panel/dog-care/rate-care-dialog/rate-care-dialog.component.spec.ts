@@ -8,9 +8,8 @@ describe('RateCareDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RateCareDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [RateCareDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
