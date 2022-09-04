@@ -1,6 +1,6 @@
 <div class="w-full">
   <p-tabView >
-    <p-tabPanel header="Twoje propozycje">
+    <p-tabPanel header="{{userType === 0 ? 'Otrzymane propozycje' : 'Twoje propozycje'}}">
       <ng-template pTemplate="content">
         <app-proposition-view></app-proposition-view>
       </ng-template>
@@ -15,7 +15,7 @@
         <app-proposition-view></app-proposition-view>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="Odrzucone propozycje">
+    <p-tabPanel header="{{userType === 0 ? 'Odrzucone opieki' : 'Odrzucone propozycje'}}">
       <ng-template pTemplate="content">
         <app-proposition-view></app-proposition-view>
       </ng-template>

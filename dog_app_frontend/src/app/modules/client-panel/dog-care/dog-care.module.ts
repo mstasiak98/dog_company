@@ -5,10 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '../../../core/core.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabViewModule } from 'primeng/tabview';
-import { OwnerCareComponent } from './owner-care/owner-care.component';
-import { GuardianCareComponent } from './guardian-care/guardian-care.component';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropositionViewComponent } from './proposition-view/proposition-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -21,6 +18,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RateCareDialogComponent } from './rate-care-dialog/rate-care-dialog.component';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DogCareUserViewComponent } from './dog-care-user-view/dog-care-user-view.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -42,13 +40,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DogCareComponent,
-    OwnerCareComponent,
-    GuardianCareComponent,
     PropositionViewComponent,
     UpcomingCareComponent,
     CalendarComponent,
     ProposalDetailsDialogComponent,
     RateCareDialogComponent,
+    DogCareUserViewComponent,
   ],
   imports: [
     CommonModule,

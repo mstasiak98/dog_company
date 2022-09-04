@@ -4,7 +4,6 @@ import { Announcement } from '../../../../shared/models/announcements/announceme
 import { AnnouncementService } from '../../../../shared/services/API/announcement/announcement.service';
 import { forkJoin } from 'rxjs';
 import { Link } from '../../../../shared/models/pagination/Link';
-import { DogQuantity } from '../../../../shared/enums/dog-quantity';
 import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 
 @Component({

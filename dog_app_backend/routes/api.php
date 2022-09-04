@@ -62,6 +62,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(DogCareController::class)->group(function () {
         Route::post('/makeProposal', 'storeProposal');
         Route::post('/makeAnnouncementProposal', 'storeAnnouncementProposal');
+        Route::get('/dogCares', 'getDogCares');
     });
 
     Route::controller(AnnouncementController::class)->group(function () {

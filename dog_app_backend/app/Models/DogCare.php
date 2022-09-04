@@ -34,4 +34,8 @@ class DogCare extends Model
     public function dogProfile() {
         return $this->belongsTo(DogProfile::class);
     }
+
+    public function careState() {
+        return $this->belongsTo(CareState::class);
+    }
 }

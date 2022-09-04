@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CareState extends Model
 {
     use HasFactory;
+
+
+
+    public function dogCares() {
+        return $this->hasMany(DogCare::class);
+    }
 }
