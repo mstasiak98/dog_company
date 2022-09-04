@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DogCare\DogCareAnnouncementRequest;
 use App\Http\Requests\DogCare\DogCareRequest;
 use App\Http\Requests\DogCare\GetDogCareRequest;
+use App\Http\Resources\CareStateResource;
 use App\Http\Resources\DogCareCollection;
 use App\Http\Resources\DogCareResource;
 use App\Models\DogCare;
@@ -48,8 +49,9 @@ class DogCareController extends Controller
     }
 
     public function getDogCares(GetDogCareRequest $request, DogCareService $dogCareService) {
-        $data = new DogCareCollection($dogCareService->getDogCares($request));
-        return response()->json($data->response()->getData());
+        $dogCareCollection = new DogCareCollection($dogCareService->getDogCares($request));
+        return response()->json($dogCareCollection->response()->getData());
     }
+
 
 }

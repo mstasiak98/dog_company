@@ -1,23 +1,23 @@
 <div class="w-full">
   <p-tabView >
-    <p-tabPanel header="{{userType === 0 ? 'Otrzymane propozycje' : 'Twoje propozycje'}}">
+    <p-tabPanel header="{{userType === 1 ? 'Otrzymane propozycje' : 'Twoje propozycje'}}">
       <ng-template pTemplate="content">
-        <app-proposition-view></app-proposition-view>
+        <app-proposition-view [careType]="careTypes.RECEIVED" [userType]="userType"></app-proposition-view>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="Nadchodzące opieki">
       <ng-template pTemplate="content">
-        <app-proposition-view></app-proposition-view>
+        <app-proposition-view [careType]="careTypes.OWNER_ACCEPTED" [userType]="userType"></app-proposition-view>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="Zakończone opieki">
       <ng-template pTemplate="content">
-        <app-proposition-view></app-proposition-view>
+        <app-proposition-view [careType]="careTypes.DONE" [userType]="userType"></app-proposition-view>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="{{userType === 0 ? 'Odrzucone opieki' : 'Odrzucone propozycje'}}">
+    <p-tabPanel header="{{userType === 1 ? 'Odrzucone opieki' : 'Odrzucone propozycje'}}">
       <ng-template pTemplate="content">
-        <app-proposition-view></app-proposition-view>
+        <app-proposition-view [careType]="careTypes.OWNER_REJECTED" [userType]="userType"></app-proposition-view>
       </ng-template>
     </p-tabPanel>
   </p-tabView>

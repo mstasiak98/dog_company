@@ -1,6 +1,6 @@
 export enum DogCareUserType {
-  OWNER = 0,
-  GUARDIAN = 1,
+  GUARDIAN = 0,
+  OWNER = 1,
 }
 
 export enum DogCarePropositionViewType {

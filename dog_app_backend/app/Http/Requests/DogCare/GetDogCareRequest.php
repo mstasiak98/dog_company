@@ -25,8 +25,8 @@ class GetDogCareRequest extends FormRequest
     {
         return [
            'care_state_id' => ['required', 'exists:care_states,id'],
-           'guardian_id' => ['nullable', 'exists:users,id'],
-           'owner_id' => ['nullable', 'exists:users,id'],
+           'user_id' => ['required', 'exists:users,id'],
+           'is_owner' => ['required', 'boolean'],
         ];
     }
 }

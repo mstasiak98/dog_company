@@ -36,6 +36,6 @@ class DogCare extends Model
     }
 
     public function careState() {
-        return $this->belongsTo(CareState::class);
+        return $this->belongsTo(CareState::class, 'state_id');
     }
 }

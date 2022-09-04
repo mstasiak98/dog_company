@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DogCareUserType } from '../../../../shared/enums/dog-care-enums';
+import {
+  DogCarePropositionViewType,
+  DogCareUserType,
+} from '../../../../shared/enums/dog-care-enums';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 
 @Component({
   selector: 'app-dog-care-user-view',
@@ -8,6 +12,7 @@ import { DogCareUserType } from '../../../../shared/enums/dog-care-enums';
 })
 export class DogCareUserViewComponent implements OnInit {
   @Input() userType: DogCareUserType;
+  careTypes = DogCarePropositionViewType;
 
   constructor() {}
 
