@@ -63,6 +63,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/makeProposal', 'storeProposal');
         Route::post('/makeAnnouncementProposal', 'storeAnnouncementProposal');
         Route::get('/dogCares', 'getDogCares');
+        Route::post('/dogCares/cancel', 'cancel');
+        Route::post('/dogCares/accept', 'accept');
+        Route::post('/dogCares/reject', 'reject');
+        Route::post('/dogCares/rate-care', 'rate');
     });
 
     Route::controller(AnnouncementController::class)->group(function () {

@@ -28,6 +28,7 @@ export class DogCareUserViewComponent implements OnInit {
       .getDogCares(this.userType, DogCarePropositionViewType.OWNER_ACCEPTED)
       .subscribe((res: any) => {
         this.incomingDogCares = res.data;
+        console.log('incm cares = ', this.incomingDogCares);
       });
   }
 }

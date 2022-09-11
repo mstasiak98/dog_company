@@ -13,7 +13,7 @@ export class RateCareDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.ratingData = this.formBuilder.group({
-      value: ['', Validators.required],
+      rating: ['', Validators.required],
       comment: ['', Validators.required],
     });
   }
@@ -24,5 +24,6 @@ export class RateCareDialogComponent implements OnInit {
 
   save() {
     console.log('TEST = ', this.f.value.invalid);
+    console.log(this.ratingData.value);
   }
 }

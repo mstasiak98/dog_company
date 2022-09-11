@@ -23,5 +23,6 @@ export class ProposalDetailsDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dogCare = this.config.data.dogCare;
     this.userType = this.config.data.userType;
+    console.log('id = ', this.dogCare.id);
   }
 }

@@ -1,26 +1,44 @@
 <div class="w-full min-h-max">
-  <h1 class="text-center text-3xl font-bold text-black">{{dogCare.guardian.name}}</h1>
+  <h1 class="text-center text-3xl font-bold text-black">
+    {{ dogCare.guardian.name }}
+  </h1>
   <div class="w-full mt-4 flex flex-col items-center">
-    <img alt="dog photo" src="../../../assets/background/card.png" style="height: 150px; width: 150px;" class="rounded-lg"/>
-    <span class="mt-2 underline font-bold cursor-pointer hover:text-black">Zobacz profil</span>
+    <img
+      alt="dog photo"
+      src="../../../assets/background/card.png"
+      style="height: 150px; width: 150px"
+      class="rounded-lg" />
+    <span class="mt-2 underline font-bold cursor-pointer hover:text-black"
+      >Zobacz profil</span
+    >
   </div>
-  <h6 class="text-center mt-4  text-xl">Proponuje opiekę: </h6>
-  <h6 class="text-center mt-2 font-bold text-lg">{{dogCare.activity.name}}</h6>
-
-  <h6 class="text-center mt-4  text-xl">Opieka dotyczy: </h6>
-  <h6 class="text-center mt-2 font-bold text-lg">{{dogCare.dog_name}} ({{dogCare.dog_breed.name}})</h6>
-
-  <h6 class="text-center mt-4  text-xl">Proponowany termin: </h6>
+  <h6 class="text-center mt-4 text-xl">Proponuje opiekę:</h6>
   <h6 class="text-center mt-2 font-bold text-lg">
-    {{dogCare.start_date | date: 'short'}} - {{dogCare.end_date | date: 'short'}}
+    {{ dogCare.activity.name }}
+  </h6>
+
+  <h6 class="text-center mt-4 text-xl">Opieka dotyczy:</h6>
+  <h6 class="text-center mt-2 font-bold text-lg">
+    {{ dogCare.dog_name }} ({{ dogCare.dog_breed.name }})
+  </h6>
+
+  <h6 class="text-center mt-4 text-xl">Proponowany termin:</h6>
+  <h6 class="text-center mt-2 font-bold text-lg">
+    {{ dogCare.start_date | date: 'short' }} -
+    {{ dogCare.end_date | date: 'short' }}
   </h6>
   <div *ngIf="dogCare.siblings">
-    <h6 class="text-center mt-4  text-xl">Informacje dodatkowe: </h6>
-    <h6 class="text-center mt-2 font-bold text-lg">{{dogCare.guardian.name}} z chęcią zaopiekuje się Twoimi pozostałymi psami</h6>
+    <h6 class="text-center mt-4 text-xl">Informacje dodatkowe:</h6>
+    <h6 class="text-center mt-2 font-bold text-lg">
+      {{ dogCare.guardian.name }} z chęcią zaopiekuje się Twoimi pozostałymi
+      psami
+    </h6>
   </div>
   <div class="mt-4 w-fit flex flex-col items-center justify-center">
-    <h5 class="text-center mt-2 text-xl">Uwagi opiekuna: </h5>
-    <textarea rows="5" class="w-3/4"  cols="100" pInputTextarea>{{dogCare.additional_info}}</textarea>
+    <h5 class="text-center mt-2 text-xl">Uwagi opiekuna:</h5>
+    <textarea rows="5" class="w-3/4" cols="100" pInputTextarea readonly>{{
+      dogCare.additional_info
+    }}</textarea>
   </div>
 
   <div *ngIf="userType === 1" class="mt-4 w-full flex justify-center">
