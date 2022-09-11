@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full my-4">
   <p-tabView >
     <p-tabPanel header="{{userType === 1 ? 'Otrzymane propozycje' : 'Twoje propozycje'}}">
       <ng-template pTemplate="content">
@@ -7,7 +7,7 @@
     </p-tabPanel>
     <p-tabPanel header="Nadchodzące opieki">
       <ng-template pTemplate="content">
-        <app-proposition-view [careType]="careTypes.OWNER_ACCEPTED" [userType]="userType"></app-proposition-view>
+          <app-calendar [data]="incomingDogCares" [userType]="userType"></app-calendar>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="Zakończone opieki">

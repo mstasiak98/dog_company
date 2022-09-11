@@ -23,7 +23,7 @@ class DogCareService
         if(!$request->is_owner) {
             $dogCares->where('guardian_id', '=', $request->user_id);
         } else {
-            $dogCares = DogCare::whereHas('dogProfile', function (Builder $query) use ($request) {
+            $dogCares->whereHas('dogProfile', function (Builder $query) use ($request) {
                 $query->where('user_id', '=', $request->user_id);
             });
         }

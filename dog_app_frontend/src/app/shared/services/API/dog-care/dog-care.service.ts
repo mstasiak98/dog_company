@@ -6,6 +6,9 @@ import {
   DogCarePropositionViewType,
   DogCareUserType,
 } from '../../../enums/dog-care-enums';
+import { ProposalDetailsDialogComponent } from '../../../../modules/client-panel/dog-care/proposal-details-dialog/proposal-details-dialog.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DogCare } from '../../../models/dog-care/DogCare';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,8 @@ export class DogCareService {
   authUserId: number;
   constructor(
     private http: HttpClient,
-    private authStateService: AuthStateService
+    private authStateService: AuthStateService,
+    private dialogService: DialogService
   ) {
     this.authUserId = authStateService.userId();
   }
@@ -39,6 +43,21 @@ export class DogCareService {
         user_id: this.authUserId,
         is_owner: userType,
       },
+    });
+  }
+
+  public openDetailsDialog(dogCare: DogCare, userType: DogCareUserType) {
+    const ref = this.dialogService.open(ProposalDetailsDialogComponent, {
+      width: '50rem',
+      height: '60rem',
+      data: {
+        dogCare: dogCare,
+        userType: userType,
+      },
+    });
+
+    ref.onClose.subscribe(response => {
+      console.log('response = ', response);
     });
   }
 }

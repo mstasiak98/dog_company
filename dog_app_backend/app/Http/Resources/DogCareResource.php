@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Breed;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DogCareResource extends JsonResource
@@ -17,7 +18,7 @@ class DogCareResource extends JsonResource
         return [
             'id' => $this->id,
             'start_date' => $this->start_date,
-            'end_date' => $this->start_date,
+            'end_date' => $this->end_date,
             'additional_info' => $this->additional_info,
             'siblings' => $this->siblings,
             'rating' => $this->rating,
@@ -25,7 +26,9 @@ class DogCareResource extends JsonResource
             'activity' => new ActivityResource($this->activity),
             'state' => new CareStateResource($this->careState),
             'guardian' => new UserResource($this->guardian),
-            'owner' => new UserResource($this->dogProfile->user)
+            'owner' => new UserResource($this->dogProfile->user),
+            'dog_name' => $this->dogProfile->name,
+            'dog_breed' => new BreedResource($this->dogProfile->breed)
         ];
     }
 }

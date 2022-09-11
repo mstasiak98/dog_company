@@ -8,6 +8,9 @@ import {
   DogCareUserType,
 } from '../../../../shared/enums/dog-care-enums';
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
+import { Link } from '../../../../shared/models/pagination/Link';
+import { DogCare } from '../../../../shared/models/dog-care/DogCare';
+import { RateCareDialogComponent } from '../rate-care-dialog/rate-care-dialog.component';
 @Component({
   selector: 'app-proposition-view',
   templateUrl: './proposition-view.component.html',
@@ -16,51 +19,91 @@ import { DogCareService } from '../../../../shared/services/API/dog-care/dog-car
 export class PropositionViewComponent implements OnInit, OnDestroy {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  //TODO: replace any with enum
   @Input() careType: DogCarePropositionViewType;
   @Input() userType: DogCareUserType;
 
+  dogCarePropositionViewTypes = DogCarePropositionViewType;
+  dogCares: DogCare[] = [];
+  incomingDogCares: DogCare[] = [];
+
+  //PAGINATION
+  links: Link[] = [];
+  currentPage: number = 1;
+  totalPages: number = 0;
+  caresPerPage: number = 5;
+
   events: any[];
-
   options: any;
-
   header: any;
+
+  //GUI
+  isContentLoading: boolean;
 
   constructor(
     public dialogService: DialogService,
     private dogCareService: DogCareService
   ) {}
 
+  onPageChange(event: any): void {
+    const page = event.page + 1;
+    const link = this.links.find(link => link.label === page.toString());
+    console.log('link = ', link);
+    this.dogCareService
+      .getDogCares(this.userType, this.careType, link?.url)
+      .subscribe(this.processResult());
+  }
+
   ngOnInit(): void {
-    console.log('init');
+    console.log('init prop vieww ', this.careType);
+    this.isContentLoading = true;
     this.initDogCares();
+    this.getIncomingCares();
+    console.log('titak pages = ', this.totalPages);
   }
 
   ngOnDestroy(): void {
-    console.log('destroy');
+    console.log('destroy prop view');
+  }
+
+  private processResult() {
+    return (data: any) => {
+      console.log('DATA PRZYSZLA = ', data);
+      console.log('DATA BYLA = ', this.dogCares);
+      this.dogCares = data.data;
+      this.links = data.meta.links;
+      this.totalPages = data.meta.total;
+      this.currentPage = data.meta.current_page;
+      this.caresPerPage = data.meta.per_page;
+      this.isContentLoading = false;
+      console.log('DATA PO ZMIANIE = ', this.dogCares);
+    };
   }
 
   private initDogCares(): void {
     this.dogCareService
       .getDogCares(this.userType, this.careType)
-      .subscribe(res => {
-        console.log('cares = ', res);
-      });
+      .subscribe(this.processResult());
   }
 
   private getIncomingCares(): void {
     this.dogCareService
       .getDogCares(this.userType, DogCarePropositionViewType.OWNER_ACCEPTED)
-      .subscribe(res => {
-        console.log('incoming cares = ', res);
+      .subscribe((res: any) => {
+        this.incomingDogCares = res.data;
       });
   }
 
-  showPropositionDetailsDialog() {
-    const ref = this.dialogService.open(ProposalDetailsDialogComponent, {
+  showPropositionDetailsDialog(dogCare: DogCare) {
+    this.dogCareService.openDetailsDialog(dogCare, this.userType);
+  }
+
+  showRateCareDialog(dogCare: DogCare) {
+    const ref = this.dialogService.open(RateCareDialogComponent, {
       width: '50rem',
-      height: '60rem',
-      data: {},
+      height: '40rem',
+      data: {
+        dogCareId: dogCare.id,
+      },
     });
 
     ref.onClose.subscribe(response => {
