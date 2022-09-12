@@ -10,3 +10,9 @@ export enum DogCarePropositionViewType {
   DONE = 4,
   CANCELLED = 5,
 }
+
+export enum PropositionAction {
+  ACCEPT = 'accept',
+  REJECT = 'reject',
+  CANCEL = 'cancel',
+}

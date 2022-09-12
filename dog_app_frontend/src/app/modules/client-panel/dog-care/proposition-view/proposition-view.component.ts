@@ -23,6 +23,7 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
   @Input() userType: DogCareUserType;
 
   dogCarePropositionViewTypes = DogCarePropositionViewType;
+  dogCareUserTypes = DogCareUserType;
   dogCares: DogCare[] = [];
   incomingDogCares: DogCare[] = [];
 
@@ -57,12 +58,19 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
     console.log('init prop vieww ', this.careType);
     this.isContentLoading = true;
     this.initDogCares();
-    this.getIncomingCares();
-    console.log('titak pages = ', this.totalPages);
+    // this.getIncomingCares();
+    this.listenOnDataReloadTrigger();
   }
 
   ngOnDestroy(): void {
     console.log('destroy prop view');
+  }
+
+  private listenOnDataReloadTrigger() {
+    this.dogCareService.subject.subscribe(() => {
+      this.initDogCares();
+      //this.getIncomingCares();
+    });
   }
 
   private processResult() {
@@ -94,15 +102,19 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
   }
 
   showPropositionDetailsDialog(dogCare: DogCare) {
-    this.dogCareService.openDetailsDialog(dogCare, this.userType);
+    this.dogCareService.openDetailsDialog(
+      dogCare,
+      this.userType,
+      this.careType
+    );
   }
 
   showRateCareDialog(dogCare: DogCare) {
     const ref = this.dialogService.open(RateCareDialogComponent, {
       width: '50rem',
-      height: '40rem',
+      height: '35rem',
       data: {
-        dogCareId: dogCare.id,
+        dogCare: dogCare,
       },
     });
 

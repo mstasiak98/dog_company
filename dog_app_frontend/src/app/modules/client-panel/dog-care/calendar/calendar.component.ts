@@ -1,9 +1,20 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { DialogService } from 'primeng/dynamicdialog';
 import plLocale from '@fullcalendar/core/locales/pl';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
-import { DogCareUserType } from '../../../../shared/enums/dog-care-enums';
+import {
+  DogCarePropositionViewType,
+  DogCareUserType,
+} from '../../../../shared/enums/dog-care-enums';
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 
 @Component({
@@ -11,10 +22,11 @@ import { DogCareService } from '../../../../shared/services/API/dog-care/dog-car
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnChanges {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
   @Input() data: DogCare[];
   @Input() userType: DogCareUserType;
+  @Input() careType: DogCarePropositionViewType;
 
   events: CalendarEvent[];
 
@@ -47,6 +59,16 @@ export class CalendarComponent implements OnInit {
     };
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('zmiana = ', changes);
+    this.initEvents();
+    if (this.calendarComponent) {
+      this.calendarComponent.getApi().removeAllEvents();
+      this.calendarComponent.getApi().addEventSource(this.events);
+      this.calendarComponent.getApi().render();
+    }
+  }
+
   private initEvents(): void {
     const events: CalendarEvent[] = [];
     this.data.forEach(dogCare => {
@@ -69,7 +91,11 @@ export class CalendarComponent implements OnInit {
     if (!eventId) return;
     const dogCare = this.data.find(dogCare => dogCare.id === eventId);
     if (!dogCare) return;
-    this.dogCareService.openDetailsDialog(dogCare, this.userType);
+    this.dogCareService.openDetailsDialog(
+      dogCare,
+      this.userType,
+      this.careType
+    );
   }
 }
 

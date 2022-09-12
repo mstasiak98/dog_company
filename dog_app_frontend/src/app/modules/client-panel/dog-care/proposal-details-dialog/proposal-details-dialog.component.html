@@ -1,5 +1,27 @@
 <div class="w-full min-h-max">
-  <h1 class="text-center text-3xl font-bold text-black">
+  <div
+    *ngIf="
+      !(
+        careType === careTypes.RECEIVED || careType === careTypes.OWNER_ACCEPTED
+      )
+    ">
+    <h6 class="text-center text-2xl font-bold text-red-800">Status opieki:</h6>
+    <h6 class="text-center mt-2 mb-2 font-bold text-lg">
+      <span *ngIf="dogCare.state.id === careTypes.DONE">Zakończona</span>
+      <span *ngIf="dogCare.state.id === careTypes.OWNER_REJECTED">{{
+        userType === userTypes.OWNER
+          ? 'Odrzucona przez ciebie'
+          : 'Odrzucona przez właściciela'
+      }}</span>
+      <span *ngIf="dogCare.state.id === careTypes.CANCELLED">{{
+        userType === userTypes.OWNER
+          ? 'Anulowana przez opiekuna'
+          : 'Anulowana przez ciebie'
+      }}</span>
+    </h6>
+  </div>
+
+  <h1 class="text-center text-3xl mt-4 font-bold text-black">
     {{ dogCare.guardian.name }}
   </h1>
   <div class="w-full mt-4 flex flex-col items-center">
@@ -41,12 +63,40 @@
     }}</textarea>
   </div>
 
-  <div *ngIf="userType === 1" class="mt-4 w-full flex justify-center">
-    <button type="submit" class="btn-default">AKCEPTUJ PROPOZYCJĘ</button>
-    <button type="submit" class="ml-4 btn-red">ODRZUĆ PROPOZYCJĘ</button>
+  <div
+    *ngIf="
+      userType === 1 &&
+      careType !== careTypes.DONE &&
+      careType !== careTypes.OWNER_REJECTED
+    "
+    class="mt-4 w-full flex justify-center">
+    <button
+      *ngIf="careType === careTypes.RECEIVED"
+      (click)="changePropositionStatus(propositionActions.ACCEPT)"
+      type="submit"
+      class="btn-default">
+      AKCEPTUJ PROPOZYCJĘ
+    </button>
+    <button
+      (click)="changePropositionStatus(propositionActions.REJECT)"
+      type="submit"
+      class="ml-4 btn-red">
+      ODRZUĆ PROPOZYCJĘ
+    </button>
   </div>
 
-  <div *ngIf="userType === 0" class="mt-4 w-full flex justify-center">
-    <button type="submit" class="ml-4 btn-red">ANULUJ PROPOZYCJĘ</button>
+  <div
+    *ngIf="
+      userType === 0 &&
+      careType !== careTypes.DONE &&
+      careType !== careTypes.OWNER_REJECTED
+    "
+    class="mt-4 w-full flex justify-center">
+    <button
+      (click)="changePropositionStatus(propositionActions.CANCEL)"
+      type="submit"
+      class="ml-4 btn-red">
+      ANULUJ PROPOZYCJĘ
+    </button>
   </div>
 </div>

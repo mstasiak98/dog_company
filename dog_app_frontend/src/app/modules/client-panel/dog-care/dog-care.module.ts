@@ -20,6 +20,7 @@ import { RatingModule } from 'primeng/rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DogCareUserViewComponent } from './dog-care-user-view/dog-care-user-view.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { DividerModule } from 'primeng/divider';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -62,6 +63,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     PaginatorModule,
+    DividerModule,
   ],
 })
 export class DogCareModule {}

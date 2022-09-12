@@ -6,7 +6,7 @@
       <h6 class="text-center mt-4 font-bold text-xl">Ocena:</h6>
       <p-rating
         class="mt-2"
-        formControlName="value"
+        formControlName="rating"
         [cancel]="false"></p-rating>
 
       <div class="mt-4 w-fit flex flex-col items-center justify-center">
@@ -21,13 +21,14 @@
     </div>
   </form>
 
-  <div class="mt-4 w-full flex justify-center">
+  <div class="mt-4 w-full flex justify-center uppercase">
     <button
       type="submit"
-      class="btn-default"
+      class="btn-default uppercase"
+      [ngClass]="{ disabled: ratingData.invalid }"
       (click)="save()"
-      [disabled]="f.value.invalid">
-      WYSTAW
+      [disabled]="ratingData.invalid">
+      {{ isEdit ? 'Zmień' : 'Wystaw' }}
     </button>
   </div>
 </div>

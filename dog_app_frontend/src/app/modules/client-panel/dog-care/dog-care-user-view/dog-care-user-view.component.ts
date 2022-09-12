@@ -6,6 +6,7 @@ import {
 import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
+import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
   selector: 'app-dog-care-user-view',
@@ -21,6 +22,7 @@ export class DogCareUserViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIncomingCares();
+    this.listenOnDataReloadTrigger();
   }
 
   private getIncomingCares(): void {
@@ -30,5 +32,12 @@ export class DogCareUserViewComponent implements OnInit {
         this.incomingDogCares = res.data;
         console.log('incm cares = ', this.incomingDogCares);
       });
+  }
+
+  private listenOnDataReloadTrigger() {
+    this.dogCareService.subject.subscribe(() => {
+      console.log('pobrane nowe dane');
+      this.getIncomingCares();
+    });
   }
 }

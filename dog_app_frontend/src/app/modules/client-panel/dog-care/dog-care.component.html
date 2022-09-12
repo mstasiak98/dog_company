@@ -1,28 +1,26 @@
 <app-header headerTitle="Twoje Opieki"></app-header>
 <div class="w-full h-full mt-2">
-    <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full mt-4 px-8 flex flex-col  md:flex-row  md:items-start">
-      <div class="flex flex-col w-full">
-        <div class="w-full flex justify-center ">
-
-          <p-tabView class="w-full  ">
-            <p-tabPanel header="Panel właściciela">
-              <ng-template pTemplate="content">
-                <div class="w-full ">
-                  <!--<app-owner-care></app-owner-care>-->
-                  <app-dog-care-user-view [userType]="1"></app-dog-care-user-view>
-                </div>
-
-              </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Panel opiekuna">
-              <ng-template pTemplate="content">
-               <!-- <app-guardian-care></app-guardian-care>-->
-                <app-dog-care-user-view [userType]="0"></app-dog-care-user-view>
-              </ng-template>
-            </p-tabPanel>
-          </p-tabView>
-        </div>
-
+  <div
+    class="max-w-full md:max-w-7xl mx-auto bg-white h-full mt-4 px-8 flex flex-col md:flex-row md:items-start">
+    <div class="flex flex-col w-full">
+      <div class="w-full flex justify-center">
+        <p-tabView class="w-full">
+          <p-tabPanel header="Panel właściciela">
+            <ng-template pTemplate="content">
+              <div class="w-full">
+                <!--<app-owner-care></app-owner-care>-->
+                <app-dog-care-user-view [userType]="1"></app-dog-care-user-view>
+              </div>
+            </ng-template>
+          </p-tabPanel>
+          <p-tabPanel header="Panel opiekuna">
+            <ng-template pTemplate="content">
+              <!-- <app-guardian-care></app-guardian-care>-->
+              <app-dog-care-user-view [userType]="0"></app-dog-care-user-view>
+            </ng-template>
+          </p-tabPanel>
+        </p-tabView>
       </div>
     </div>
+  </div>
 </div>

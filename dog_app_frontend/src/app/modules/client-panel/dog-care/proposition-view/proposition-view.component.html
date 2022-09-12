@@ -7,8 +7,32 @@
   <ng-template #content>
     <div class="w-full mt-4 ml-12 flex flex-col">
       <div class="w-full flex justify-center text-3xl">
-        Otrzymane propozycje
+        <span
+          *ngIf="
+            userType === dogCareUserTypes.OWNER &&
+            careType === dogCarePropositionViewTypes.RECEIVED
+          "
+          >Otrzymane propozycje</span
+        >
+        <span
+          *ngIf="
+            careType === dogCarePropositionViewTypes.OWNER_REJECTED ||
+            careType === dogCarePropositionViewTypes.CANCELLED
+          "
+          >Opieki odrzucone</span
+        >
+        <span *ngIf="careType === dogCarePropositionViewTypes.DONE"
+          >Opieki zakończone</span
+        >
+        <span
+          *ngIf="
+            userType === dogCareUserTypes.GUARDIAN &&
+            careType === dogCarePropositionViewTypes.RECEIVED
+          "
+          >Twoje propozycje</span
+        >
       </div>
+      <p-divider></p-divider>
       <div class="w-full mt-8">
         <div
           *ngFor="let dogCare of dogCares"
@@ -66,7 +90,10 @@
                 Szczegóły
               </div>
               <div
-                *ngIf="careType !== dogCarePropositionViewTypes.DONE"
+                *ngIf="
+                  careType === dogCarePropositionViewTypes.DONE &&
+                  userType !== dogCareUserTypes.GUARDIAN
+                "
                 (click)="showRateCareDialog(dogCare)"
                 class="cursor-pointer underline font-bold hover:text-black">
                 Oceń

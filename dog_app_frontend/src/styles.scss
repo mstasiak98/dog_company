@@ -49,3 +49,9 @@ app-guardian-care {
 .loaderBlock {
   min-height: 600px;
 }
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: rgb(175, 174, 174) !important;
+}
