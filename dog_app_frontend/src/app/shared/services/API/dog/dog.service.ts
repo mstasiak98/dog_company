@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { DogProfile } from '../../../models/dogs/DogProfile';
 import { environment } from '../../../../../environments/environment';
 
@@ -8,8 +8,10 @@ import { environment } from '../../../../../environments/environment';
   providedIn: 'root',
 })
 export class DogService {
-  private dogProfileBaseUrl = environment.dogProfileBaseUrl;
-  private baseUrl = environment.baseUrl;
+  readonly DOG_PROFILE_BASE_URL = environment.dogProfileBaseUrl;
+  readonly BASE_URL = environment.baseUrl;
+
+  subject = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -25,28 +27,35 @@ export class DogService {
 
     console.log('TEST = ', formData.get('data'));
     console.log('TEST = ', formData.get('photo'));
-    const url = `${this.dogProfileBaseUrl}/store`;
+    const url = `${this.DOG_PROFILE_BASE_URL}/store`;
 
     return this.http.post(url, formData);
   }
 
+  changeVisibility(dogProfileId: number, visible: boolean): Observable<any> {
+    const url = `${this.DOG_PROFILE_BASE_URL}/changeVisibility`;
+
+    console.log({ id: dogProfileId, visible: visible });
+    return this.http.post(url, { id: dogProfileId, visible: visible });
+  }
+
   updateDogProfile(data: any): Observable<any> {
-    const url = `${this.dogProfileBaseUrl}/update`;
+    const url = `${this.DOG_PROFILE_BASE_URL}/update`;
     return this.http.post(url, data);
   }
 
   deleteDogProfile(dogProfileId: number): Observable<any> {
-    const url = `${this.dogProfileBaseUrl}/destroy`;
+    const url = `${this.DOG_PROFILE_BASE_URL}/destroy`;
     return this.http.post(url, { id: dogProfileId });
   }
 
   getUserDogProfiles(): Observable<DogProfile[]> {
-    const url = `${this.dogProfileBaseUrl}/user-dog-profiles`;
+    const url = `${this.DOG_PROFILE_BASE_URL}/user-dog-profiles`;
     return this.http.get<DogProfile[]>(url);
   }
 
   getDogProfileDetails(dogProfileId: number): Observable<any> {
-    const url = `${this.baseUrl}/dogDetails`;
+    const url = `${this.BASE_URL}/dogDetails`;
     return this.http.get(url, {
       params: {
         dogProfileId,
@@ -57,7 +66,7 @@ export class DogService {
   //return dog profile info
   getDogProfiles(searchUrl?: string, filters?: any): Observable<any> {
     if (!searchUrl) {
-      return this.http.get(this.dogProfileBaseUrl);
+      return this.http.get(this.DOG_PROFILE_BASE_URL);
     }
 
     if (!filters) {
@@ -71,7 +80,7 @@ export class DogService {
   }
 
   getDogProfileFilters() {
-    const url = `${this.baseUrl}/getDogProfileFilters`;
+    const url = `${this.BASE_URL}/getDogProfileFilters`;
     return this.http.get(url);
   }
 
@@ -128,6 +137,14 @@ export class DogService {
       filterUrl += breeds + '&';
     }
 
-    return `${this.dogProfileBaseUrl}?${filterUrl}`.slice(0, -1);
+    return `${this.DOG_PROFILE_BASE_URL}?${filterUrl}`.slice(0, -1);
+  }
+
+  public triggerDataReload(): void {
+    this.subject.next(true);
+  }
+
+  public getTriggerObservable(): Observable<boolean> {
+    return this.subject.asObservable();
   }
 }

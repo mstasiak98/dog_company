@@ -41,7 +41,7 @@ class AnnouncementController extends Controller
         try {
             $photo = null;
             if($request->hasFile('photo')) {
-                $photo = $photoService->storePhotoOnDisk($request->file('photo'));
+                $photo = $photoService->savePhotoOnDisk($request->file('photo'));
                 if(!is_string($photo)){
                     return response()->json(['success' => false, 'error' => 'Wystąpił problem podczas dodawania ogłoszenia']);
                 }

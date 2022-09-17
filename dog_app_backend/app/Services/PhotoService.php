@@ -5,13 +5,56 @@ namespace App\Services;
 use App\Http\Requests\DogProfile\StoreDogProfileRequest;
 use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use mysql_xdevapi\Exception;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PhotoService
 {
 
-    public function storePhotoOnDisk(UploadedFile $file) {
+
+
+    public function uploadPhoto(Request $request) {
+        $model = $this->getModelFromRouteName($request)::find($request->modelId);
+
+        $filePaths = $this->savePhotosOnDisk($request);
+        if ($filePaths === false || count($filePaths) === 0) {
+            throw new HttpResponseException(response()->json([
+                'error' => 'Wystąpił błąd podczas dodawania zdjęcia.'
+            ], Response::HTTP_BAD_REQUEST));
+        }
+
+        try {
+            DB::transaction(function () use ($filePaths, $model){
+                $this->storePhotosInDB($filePaths, $model);
+            });
+        } catch (\Exception $e) {
+            if(is_array($filePaths)){
+                $this->revertSavePhotosOnDisk($filePaths);
+            }
+
+            throw new HttpResponseException(response()->json([
+                'error' => 'Wystąpił błąd podczas dodawania zdjęcia.'
+            ], Response::HTTP_BAD_REQUEST));
+        }
+
+        return true;
+    }
+
+    public function deletePhoto(Request $request) {
+        $photo = Photo::find($request->photoId);
+        $filePath = $photo->filename;
+        $photo->delete();
+        Storage::delete($filePath);
+
+        return true;
+    }
+
+    public function savePhotoOnDisk(UploadedFile $file) {
         $photo = false;
         if($file->isValid()) {
             $photo = $file->store('photos');
@@ -20,12 +63,12 @@ class PhotoService
         return $photo;
     }
 
-    public function storePhotos(StoreDogProfileRequest $request) {
+    public function savePhotosOnDisk(Request $request) {
         $paths = [];
         foreach ($request->file('photo') as $file) {
             $filePath = $file->store('photos');
             if($filePath === false) {
-                $this->revertSaveFile($paths);
+                $this->revertSavePhotosOnDisk($paths);
                 return false;
             }
             $paths[] = $filePath;
@@ -33,48 +76,9 @@ class PhotoService
         return $paths;
     }
 
-    public function revertSaveFile(array $fileUrls) {
+    public function revertSavePhotosOnDisk(array $fileUrls) {
         foreach ($fileUrls as $fileUrl) {
             Storage::delete($fileUrl);
-        }
-    }
-
-    public function replacePhotoOnDisk(UploadedFile $file, string $filePath) {
-        $deleteResult = Storage::delete($filePath);
-        $addResult = $this->storePhotoOnDisk($file);
-
-        if($deleteResult && is_string($addResult)){
-            return $addResult;
-        }
-
-        return false;
-    }
-
-    public function deletePhotoFromDisk(string $filePath): bool {
-        return Storage::delete($filePath);
-    }
-
-    public function handlePhotoStorageReplace(UploadedFile | null $file, string | null $filePath, bool | null $isDeletePhoto): bool | string | null {
-        $photo = null;
-        if(!is_null($file)) {
-            if(is_null($filePath)) {
-                $photo = $this->storePhotoOnDisk($file);
-            } else {
-                $photo = $this->replacePhotoOnDisk($file, $filePath);
-            }
-        } else if (!is_null($filePath) && $isDeletePhoto === true) {
-            $photo = $this->deletePhotoFromDisk($filePath);
-        }
-        return $photo;
-    }
-
-    public function handlePhotoDbReplace(string | bool $photo, Model $model, Photo | null $oldPhoto): void {
-        if($photo === true) {
-            $this->deletePhotoFromDB($oldPhoto);
-        } else if(is_string($photo) && is_null($oldPhoto)) {
-            $this->storePhotoInDB($photo, $model);
-        } else {
-            $this->updatePhotoInDB($photo, $model, $oldPhoto);
         }
     }
 
@@ -96,14 +100,13 @@ class PhotoService
         }
     }
 
-    public function updatePhotoInDB(string $photo, Model $model, Photo $oldPhoto): void{
-        $oldPhoto->url = Storage::url($photo);
-        $oldPhoto->filename = $photo;
-        $oldPhoto->photoable()->associate($model);
-        $oldPhoto->save();
-    }
     public function deletePhotoFromDB(Photo $oldPhoto): void {
         $oldPhoto->delete();
+    }
+
+    public function getModelFromRouteName(Request $request): Model {
+        $modelName =  'App\\Models\\'.$request->route()->getName();
+        return new $modelName;
     }
 
 }

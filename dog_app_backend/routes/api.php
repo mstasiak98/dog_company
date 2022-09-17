@@ -81,6 +81,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('dogs/store', 'store');
         Route::post('dogs/update', 'update');
         Route::post('dogs/destroy', 'destroy');
+        Route::post('dogs/changeVisibility', 'changeVisibility');
+    });
+
+    Route::controller(PhotoController::class)->group(function () {
+        Route::post('dogProfile/uploadPhoto', 'savePhoto')->name('DogProfile');
+        Route::post('announcement/uploadPhoto', 'savePhoto')->name('Announcement');
+        Route::post('user/uploadPhoto', 'savePhoto')->name('User');
+        Route::post('deletePhoto', 'deletePhoto');
     });
 
 
