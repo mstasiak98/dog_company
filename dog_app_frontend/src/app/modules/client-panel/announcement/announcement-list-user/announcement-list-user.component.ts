@@ -5,6 +5,9 @@ import { Announcement } from '../../../../shared/models/announcements/announceme
 import { Link } from '../../../../shared/models/pagination/Link';
 import { AnnouncementService } from '../../../../shared/services/API/announcement/announcement.service';
 import { ConfirmationService } from 'primeng/api';
+import { AddPhotoDialogComponent } from '../../../../shared/components/add-photo-dialog/add-photo-dialog.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { PhotoEndpointsEnum } from '../../../../shared/enums/photo-endpoints-enum';
 
 @Component({
   selector: 'app-announcement-list-user',
@@ -30,7 +33,8 @@ export class AnnouncementListUserComponent implements OnInit {
     private authStateService: AuthStateService,
     private router: Router,
     private announcementService: AnnouncementService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -38,9 +42,20 @@ export class AnnouncementListUserComponent implements OnInit {
     this.isSignedIn = this.authStateService.isLoggedIn();
     this.authenticatedUserId = this.authStateService.userId();
 
+    this.getAnnouncementsForUser();
+    this.listenOnTriggerReloadEvent();
+  }
+
+  private getAnnouncementsForUser(): void {
     this.announcementService
       .getAnnouncementListForUser()
       .subscribe(this.processResults());
+  }
+
+  private listenOnTriggerReloadEvent(): void {
+    this.announcementService.subject.subscribe(() => {
+      this.getAnnouncementsForUser();
+    });
   }
 
   private processResults() {
@@ -86,6 +101,18 @@ export class AnnouncementListUserComponent implements OnInit {
             this.router.navigate(['/announcements/my-announcements']);
           },
         });
+      },
+    });
+  }
+
+  public openChangePhotoDialog(photoId: number): void {
+    const ref = this.dialogService.open(AddPhotoDialogComponent, {
+      width: '40rem',
+      height: '30rem',
+      data: {
+        isAnnouncementChangePhoto: true,
+        photoId: photoId,
+        photoEndpoint: PhotoEndpointsEnum.ANNOUNCEMENT_PHOTO,
       },
     });
   }

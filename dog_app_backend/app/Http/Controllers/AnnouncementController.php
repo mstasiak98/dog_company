@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AnnouncementRequest;
+use App\Http\Requests\Photo\ReplacePhotoRequest;
 use App\Http\Resources\AnnouncmentCollection;
 use App\Http\Resources\AnnouncmentResource;
 use App\Models\Announcement;
@@ -11,11 +12,13 @@ use App\Models\User;
 use App\Services\Announcements\AnnouncementSearchService;
 use App\Services\PhotoService;
 use Carbon\Carbon;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class AnnouncementController extends Controller
 {
@@ -94,51 +97,17 @@ class AnnouncementController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /*public function update(AnnouncementRequest $request, PhotoService $photoService) {
-        $oldPhoto = Photo::find($request->photo_id);
-        $filename = $oldPhoto ? $oldPhoto->filename : null;
-        $isDeletePhoto = $request->is_delete_photo;
-        if($filename) {
-            $oldFile = Storage::get($filename);
+    public function replacePhoto(ReplacePhotoRequest $request, PhotoService $photoService) {
+        $res = $photoService->replacePhoto($request);
+
+        if($res) {
+            return response()->json(['success' => true]);
         }
 
-        try {
-            $photo = null;
-            if($request->hasFile('photo') || !is_null($filename)) {
-                $photo = $photoService->handlePhotoStorageReplace($request->file('photo'), $filename, $isDeletePhoto);
-            }
-            if($photo === false) {
-                return response()->json(['success' => false, 'error' => 'Wystąpił problem podczas edycji ogłoszenia']);
-            }
-
-            $announcement = Announcement::findOrFail($request->id);
-            DB::transaction(function () use ($request, $photo, $photoService, $announcement, $oldPhoto){
-                $announcement->fill($request->all())->save();
-                $announcementActivities = $request->input('activity_id', []);
-                $announcement->activities()->sync($announcementActivities);
-                if(!is_null($photo)){
-                    $photoService->handlePhotoDbReplace($photo, $announcement, $oldPhoto);
-                }
-            });
-
-        } catch (\Exception $e) {
-            if(is_string($photo) && is_null($filename)) {
-                Storage::delete($photo);
-            }
-
-            if(is_string($photo) && !is_null($filename)) {
-                Storage::delete($photo);
-                $oldFile->store('photos');
-            }
-
-            if($isDeletePhoto) {
-                $oldFile->store('photos');
-            }
-
-            return response()->json(['success' => false, 'error' => $e]);
-        }
-        return response()->json(['success' => true, 'title' => $oldFile]);
-    }*/
+        throw new HttpResponseException(response()->json([
+            'error' => 'Wystąpił błąd podczas zmiany zdjęcia.'
+        ], Response::HTTP_BAD_REQUEST));
+    }
 
 
 }

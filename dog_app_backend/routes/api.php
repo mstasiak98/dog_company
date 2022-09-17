@@ -34,7 +34,7 @@ Route::get('/dogDetails', [DogProfileController::class, 'details']);
 
 //ANNOUNCEMENTS
 Route::get('/announcements', [AnnouncementController::class, 'index']);
-Route::get('/announcementDetails', [AnnouncementController::class, 'details']);
+Route::get('/announcements/announcementDetails', [AnnouncementController::class, 'details']);
 
 //FILTERS
 Route::get('/getDogProfileFilters', [FilterController::class, 'getDogProfileFilters']);
@@ -71,9 +71,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(AnnouncementController::class)->group(function () {
         Route::get('/announcements/user', 'userAnnouncements');
-        Route::post('/storeAnnouncement', 'store');
-        Route::post('/updateAnnouncement', 'update');
-        Route::post('/deleteAnnouncement', 'destroy');
+        Route::post('/announcements/storeAnnouncement', 'store');
+        Route::post('/announcements/updateAnnouncement', 'update');
+        Route::post('/announcements/deleteAnnouncement', 'destroy');
+        Route::post('/announcements/replacePhoto', 'replacePhoto');
     });
 
     Route::controller(DogProfileController::class)->group(function () {
@@ -85,9 +86,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::controller(PhotoController::class)->group(function () {
-        Route::post('dogProfile/uploadPhoto', 'savePhoto')->name('DogProfile');
-        Route::post('announcement/uploadPhoto', 'savePhoto')->name('Announcement');
-        Route::post('user/uploadPhoto', 'savePhoto')->name('User');
+        Route::post('dogs/uploadPhoto', 'savePhoto')->name('DogProfile');
+        Route::post('announcements/uploadPhoto', 'savePhoto')->name('Announcement');
+        Route::post('users/uploadPhoto', 'savePhoto')->name('User');
         Route::post('deletePhoto', 'deletePhoto');
     });
 

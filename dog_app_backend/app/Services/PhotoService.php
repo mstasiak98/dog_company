@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\DogProfile\StoreDogProfileRequest;
+use App\Models\Announcement;
 use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -20,6 +21,12 @@ class PhotoService
 
     public function uploadPhoto(Request $request) {
         $model = $this->getModelFromRouteName($request)::find($request->modelId);
+
+        if(is_null($model)) {
+            throw new HttpResponseException(response()->json([
+                'error' => 'Wystąpił błąd podczas dodawania zdjęcia.'
+            ], Response::HTTP_BAD_REQUEST));
+        }
 
         $filePaths = $this->savePhotosOnDisk($request);
         if ($filePaths === false || count($filePaths) === 0) {
@@ -51,6 +58,34 @@ class PhotoService
         $photo->delete();
         Storage::delete($filePath);
 
+        return true;
+    }
+
+    public function replacePhoto(Request $request) {
+        $photo = Photo::find($request->photoId);
+        $oldFilename = $photo->filename;
+        $filePaths = $this->savePhotosOnDisk($request);
+
+        if($filePaths === false || count($filePaths) === 0) {
+            throw new HttpResponseException(response()->json([
+                'error' => 'Wystąpił błąd podczas zmiany zdjęcia.'
+            ], Response::HTTP_BAD_REQUEST));
+        }
+
+        try {
+            $photo->filename = $filePaths[0];
+            $photo->url = Storage::url($filePaths[0]);
+            $photo->save();
+        } catch (\Exception $e) {
+            if(is_array($filePaths)){
+                $this->revertSavePhotosOnDisk($filePaths);
+            }
+            throw new HttpResponseException(response()->json([
+                'error' => 'Wystąpił błąd podczas zmiany zdjęcia.'
+            ], Response::HTTP_BAD_REQUEST));
+        }
+
+        Storage::delete($oldFilename);
         return true;
     }
 

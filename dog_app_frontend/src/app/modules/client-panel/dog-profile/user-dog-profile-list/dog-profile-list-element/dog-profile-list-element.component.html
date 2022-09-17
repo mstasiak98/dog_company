@@ -24,7 +24,7 @@
         <span
           *ngIf="this.dogProfile.photos.length > 0; else noPhotos"
           class="text-normal font-bold hover:text-gray-600"
-          (click)="displayBasic2 = true"
+          (click)="displayGallery = true"
           >Zdjęcia</span
         >
         <ng-template #noPhotos>
@@ -69,9 +69,12 @@
         Czy profil ma być wyświetlany?
       </div>
       <div class="ml-4 flex">
-        <p-inputSwitch
-          (onChange)="changeProfileVisibility($event)"
-          [(ngModel)]="checked"></p-inputSwitch>
+        <app-input-switch
+          #visibleSwitchElement
+          [checked]="checked"
+          (stateChangedEvent)="
+            changeProfileVisibility($event)
+          "></app-input-switch>
       </div>
     </div>
   </div>
@@ -81,7 +84,7 @@
 
 <p-galleria
   [value]="images"
-  [visible]="displayBasic2 && images.length > 0"
+  [(visible)]="displayGallery"
   [responsiveOptions]="responsiveOptions"
   [containerStyle]="{ 'max-width': '600px' }"
   [numVisible]="7"
@@ -106,38 +109,3 @@
     </div>
   </ng-template>
 </p-galleria>
-
-<!--<h5>Custom Contents</h5>
-<p-galleria
-  [value]="images"
-  [(visible)]="displayBasic2"
-  [(activeIndex)]="activeIndex"
-  [responsiveOptions]="responsiveOptions"
-  [containerStyle]="{ 'max-width': '850px' }"
-  [numVisible]="7"
-  [circular]="true"
-  [fullScreen]="true"
-  [showItemNavigators]="true"
-  [showThumbnails]="false"
-  [baseZIndex]="100000">
-  <ng-template pTemplate="item" let-item>
-    <img [src]="item.previewImageSrc" style="width: 100%; display: block" />
-  </ng-template>
-  <ng-template pTemplate="thumbnail" let-item>
-    <div class="grid grid-nogutter justify-content-center">
-      <img [src]="item.thumbnailImageSrc" style="display: block" />
-    </div>
-  </ng-template>
-</p-galleria>
-<div *ngIf="images" class="grid" style="max-width: 300px">
-  <div
-    *ngFor="let image of images; let index = index"
-    class="col-3"
-    key="index">
-    <img
-      [src]="image.thumbnailImageSrc"
-      [alt]="image.alt"
-      style="cursor: pointer"
-      (click)="imageClick(index)" />
-  </div>
-</div>-->

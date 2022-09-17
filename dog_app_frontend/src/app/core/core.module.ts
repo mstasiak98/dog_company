@@ -11,7 +11,7 @@ import { ImgPreviewUploadComponent } from './components/img-preview-upload/img-p
 import { FormsModule } from '@angular/forms';
 import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
 import { GalleriaModule } from 'primeng/galleria';
-import { AddPhotoDialogComponent } from './components/add-photo-dialog/add-photo-dialog.component';
+import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/add-photo-dialog.component';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { DogProfile } from '../../../../../shared/models/dogs/DogProfile';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { DogService } from '../../../../../shared/services/API/dog/dog.service';
@@ -7,8 +13,11 @@ import { Router } from '@angular/router';
 import { ContextMenu } from 'primeng/contextmenu';
 import { MakeProposalDialogComponent } from '../../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AddPhotoDialogComponent } from '../../../../../core/components/add-photo-dialog/add-photo-dialog.component';
+import { AddPhotoDialogComponent } from '../../../../../shared/components/add-photo-dialog/add-photo-dialog.component';
 import { InputSwitch } from 'primeng/inputswitch';
+import { InputSwitchComponent } from '../../../../../shared/components/input-switch/input-switch.component';
+import { PhotoService } from '../../../../../shared/services/API/photo/photo.service';
+import { PhotoEndpointsEnum } from '../../../../../shared/enums/photo-endpoints-enum';
 
 @Component({
   selector: 'app-dog-profile-list-element',
@@ -17,9 +26,10 @@ import { InputSwitch } from 'primeng/inputswitch';
 })
 export class DogProfileListElementComponent implements OnInit {
   @ViewChild('targetContextMenu') contextMenu: ContextMenu;
+  @ViewChild('visibleSwitchElement') switchElement: InputSwitchComponent;
   @Input() dogProfile: DogProfile;
-  checked: boolean = true;
-  displayBasic2: boolean;
+  checked: boolean;
+  displayGallery: boolean = false;
   activeIndex: number = 0;
   items: MenuItem[];
   images: any[] = [];
@@ -29,7 +39,8 @@ export class DogProfileListElementComponent implements OnInit {
     private dogService: DogService,
     private toastService: ToastService,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private photoService: PhotoService
   ) {}
 
   responsiveOptions: any[] = [
@@ -62,14 +73,25 @@ export class DogProfileListElementComponent implements OnInit {
 
   doAction(data: any) {
     console.log('do action =', data);
+    this.photoService.deletePhoto(data.id).subscribe({
+      next: resp => {
+        console.log('de;ete photo resp = ', resp);
+        this.toastService.showSuccessMessage('Zdjęcie zostało usunięte');
+        this.displayGallery = false;
+        this.dogService.triggerDataReload();
+      },
+      error: () => {
+        this.toastService.showErrorMessage(
+          'Wystąpił błąd podczas usuwania zdjęcia'
+        );
+      },
+    });
   }
 
   ngOnInit(): void {
-    console.log('dog = ', this.dogProfile.photos);
-
+    this.checked = !!this.dogProfile.visible;
     this.initPhotos();
-    this.checked = this.dogProfile.visible;
-    console.log('checked = ', this.checked);
+    console.log('zdjecia = ', this.dogProfile.photos);
   }
 
   private initPhotos(): void {
@@ -79,13 +101,12 @@ export class DogProfileListElementComponent implements OnInit {
         thumbnailImageSrc: photo.url,
         alt: `Zdjęcie psa ${this.dogProfile.name}`,
         title: this.dogProfile.name,
+        id: photo.id,
       });
     });
   }
-
   imageClick(index: number) {
     this.activeIndex = index;
-    this.displayBasic2 = true;
   }
 
   deleteDogProfile(): void {
@@ -128,16 +149,14 @@ export class DogProfileListElementComponent implements OnInit {
   changeProfileVisibility(event: any): void {
     console.log('ev = ', event);
     console.log('dog id ', this.dogProfile.id);
-    this.dogService
-      .changeVisibility(this.dogProfile.id, event.checked)
-      .subscribe({
-        next: resp => {
-          console.log('res- = ', resp);
-        },
-        error: () => {
-          this.checked = this.dogProfile.visible;
-        },
-      });
+    this.dogService.changeVisibility(this.dogProfile.id, event).subscribe({
+      next: resp => {
+        console.log('res- = ', resp);
+      },
+      error: () => {
+        this.checked = !!this.dogProfile.visible;
+      },
+    });
   }
 
   openImageUploadDialog(): void {
@@ -145,7 +164,9 @@ export class DogProfileListElementComponent implements OnInit {
       width: '40rem',
       height: '30rem',
       data: {
-        dogProfileId: this.dogProfile.id,
+        id: this.dogProfile.id,
+        isAnnouncementChangePhoto: false,
+        photoEndpoint: PhotoEndpointsEnum.DOG_PROFILE_PHOTO,
       },
     });
   }

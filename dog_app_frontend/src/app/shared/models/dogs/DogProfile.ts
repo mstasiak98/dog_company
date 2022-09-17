@@ -11,6 +11,7 @@ export interface DogProfile {
   color: string;
   visible: boolean;
   breed: Breed;
+
   size: Size;
   activity: Activity[];
   availability: Availability[];

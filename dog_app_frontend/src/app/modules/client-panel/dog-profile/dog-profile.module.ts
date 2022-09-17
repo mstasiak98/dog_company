@@ -28,6 +28,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DogProfileListElementComponent } from './user-dog-profile-list/dog-profile-list-element/dog-profile-list-element.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [
   { path: 'edit-dog-profile/:id', component: CreateDogProfileComponent },
@@ -71,6 +72,7 @@ const routes: Routes = [
     ConfirmDialogModule,
     InputSwitchModule,
     ContextMenuModule,
+    SharedModule,
   ],
   providers: [],
 })
