@@ -1,66 +1,121 @@
 <app-header headerTitle="Ogłoszenia"></app-header>
 <div class="w-full h-full mt-2">
-  <div *ngIf="isContentLoading; else content" class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
+  <div
+    *ngIf="isContentLoading; else content"
+    class="max-w-full md:max-w-7xl mx-auto max-h-96 flex justify-center loaderBlock items-center">
     <p-progressSpinner></p-progressSpinner>
   </div>
   <ng-template #content>
-    <div class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:items-start">
+    <div
+      class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:items-start">
       <div class="w-full mt-12 flex flex-col md:flex-row">
         <div class="w-full md:w-1/4 px-2">
-            <img alt="dog photo" src="{{announcement.photo.length > 0 ?
-                          announcement.photo[0].url :
-                          '../../../assets/background/placeholder.png'}}" class="w-full h-full object-cover rounded-lg"/>
+          <img
+            alt="dog photo"
+            src="{{
+              announcement.photo.length > 0
+                ? announcement.photo[0].url
+                : '../../../assets/background/placeholder.png'
+            }}"
+            class="w-full h-full object-cover rounded-lg" />
         </div>
-        <div class="flex flex-col mt-4 shade rounded-lg p-4 md:ml-6 md:w-3/4 md:mt-0">
+        <div
+          class="flex flex-col mt-4 shade rounded-lg p-4 md:ml-6 md:w-3/4 md:mt-0">
           <div class="flex w-full">
             <div class="w-3/4">
-              <h1 class="font-bold text-4xl">{{announcement.title}}</h1>
+              <h1 class="font-bold text-4xl">{{ announcement.title }}</h1>
             </div>
-            <div *ngIf="announcement.user.id === authenticatedUserId" class="w-1/4 flex justify-end">
+            <div
+              *ngIf="announcement.user.id === authenticatedUserId"
+              class="w-1/4 flex justify-end">
               <div class="mr-1">
                 <button
-                  routerLink="../../edit/{{announcementId}}"
+                  routerLink="../../edit/{{ announcementId }}"
                   [preserveFragment]="false"
-                  pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" pTooltip="Edytuj" tooltipPosition="bottom"></button>
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success"
+                  pTooltip="Edytuj"
+                  tooltipPosition="bottom"></button>
               </div>
-            <div class="ml-1">
-              <button (click)="deleteAnnouncement()"
-                pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" pTooltip="Usuń" tooltipPosition="bottom"></button>
-            </div>
+              <div class="ml-1">
+                <button
+                  (click)="deleteAnnouncement()"
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  pTooltip="Usuń"
+                  tooltipPosition="bottom"></button>
+              </div>
             </div>
           </div>
           <div class="mt-4">
-            <h4 class="mt-2 text-xl">Miejscowość: <span class="font-bold">{{announcement.city}}</span></h4>
-            <h4 class="mt-2 text-xl">Początek: <span class="font-bold">{{announcement.start_date | date: 'short'}}</span></h4>
-            <h4 class="mt-2 text-xl">Koniec: <span class="font-bold">{{announcement.end_date | date: 'short'}}</span></h4>
-            <h4 class="mt-2 text-xl">Ilość psów: <span class="font-bold">{{announcement.quantity}}</span></h4>
+            <h4 class="mt-2 text-xl">
+              Miejscowość:
+              <span class="font-bold">{{ announcement.city }}</span>
+            </h4>
+            <h4 class="mt-2 text-xl">
+              Początek:
+              <span class="font-bold">{{
+                announcement.start_date | date: 'short'
+              }}</span>
+            </h4>
+            <h4 class="mt-2 text-xl">
+              Koniec:
+              <span class="font-bold">{{
+                announcement.end_date | date: 'short'
+              }}</span>
+            </h4>
+            <h4 class="mt-2 text-xl">
+              Ilość psów:
+              <span class="font-bold">{{ announcement.quantity }}</span>
+            </h4>
           </div>
         </div>
       </div>
 
       <div class="w-full flex flex-col-reverse mt-4 md:flex-row md:mt-12">
         <div class="w-full px-2 mt-4 mb-4 md:w-1/4 md:mt-0">
-          <div *ngIf="announcement.user.id !== authenticatedUserId" class="py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
+          <div
+            *ngIf="announcement.user.id !== authenticatedUserId"
+            class="py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
             <div class="flex flex-col px-2">
-              <h2 class="text-2xl font-semibold text-white text-center">Właściciel</h2>
-              <h3 class="mt-2 font-semibold text-lg text-white text-center">{{announcement.user.firstName.concat(announcement.user.lastName)}}</h3>
-              <h3 class="mt-2 font-semibold text-base text-white text-center">{{announcement.user.city}}, {{announcement.user.street}}</h3>
+              <h2 class="text-2xl font-semibold text-white text-center">
+                Właściciel
+              </h2>
+              <h3 class="mt-2 font-semibold text-lg text-white text-center">
+                {{
+                  announcement.user.firstName.concat(announcement.user.lastName)
+                }}
+              </h3>
+              <h3 class="mt-2 font-semibold text-base text-white text-center">
+                {{ announcement.user.city }}, {{ announcement.user.street }}
+              </h3>
             </div>
             <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
-              <div (click)="makeAnnouncementProposal()" class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
-                <span class="text-sm font-bold ">AKCEPTUJ OGŁOSZENIE</span>
+              <div
+                (click)="makeAnnouncementProposal()"
+                class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                <span class="text-sm font-bold">AKCEPTUJ OGŁOSZENIE</span>
               </div>
             </div>
 
             <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
-              <div class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-purple-700 ">
-                <span class="text-sm text-white font-bold ">WYŚLIJ WIADOMOŚĆ</span>
+              <div
+                class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-purple-700">
+                <span class="text-sm text-white font-bold"
+                  >WYŚLIJ WIADOMOŚĆ</span
+                >
               </div>
             </div>
 
             <div *ngIf="!isLoggedIn" class="w-full px-6 mt-4">
-              <div routerLink="/login" class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
-                <span class="text-sm font-bold ">ZALOGUJ SIĘ</span>
+              <div
+                routerLink="/login"
+                class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                <span class="text-sm font-bold">ZALOGUJ SIĘ</span>
               </div>
             </div>
           </div>
@@ -69,14 +124,19 @@
           <div class="w-full">
             <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Opis</h2>
             <div class="mt-4 px-2">
-              {{announcement.description}}
+              {{ announcement.description }}
             </div>
           </div>
-          <div class="w-full mt-6 ">
-            <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Potrzebna Opieka</h2>
+          <div class="w-full mt-6">
+            <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">
+              Potrzebna Opieka
+            </h2>
             <ul class="list-disc px-4 mt-4 data-list">
-              <li class="mt-1 text-black font-normal text-lg px-2" *ngFor="let activity of announcement.activity">
-                {{activity.name}}</li>
+              <li
+                class="mt-1 text-black font-normal text-lg px-2"
+                *ngFor="let activity of announcement.activity">
+                {{ activity.name }}
+              </li>
             </ul>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 import { DogService } from '../../services/API/dog/dog.service';
 import { PhotoEndpointsEnum } from '../../enums/photo-endpoints-enum';
 import { AnnouncementService } from '../../services/API/announcement/announcement.service';
+import { UsersService } from '../../services/API/users/users.service';
 
 @Component({
   selector: 'app-add-photo-dialog',
@@ -28,7 +29,8 @@ export class AddPhotoDialogComponent implements OnInit {
     private toastService: ToastService,
     private photoService: PhotoService,
     private dogService: DogService,
-    private announcementService: AnnouncementService
+    private announcementService: AnnouncementService,
+    private usersService: UsersService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,7 @@ export class AddPhotoDialogComponent implements OnInit {
     const requestObservable = this.isAnnouncementChangePhoto
       ? this.photoService.announcementChangePhoto(this.photoId, this.file)
       : this.photoService.uploadPhoto(
-          this.modelId,
+          Number(this.modelId),
           this.file,
           this.photoEndpoint
         );
@@ -86,8 +88,12 @@ export class AddPhotoDialogComponent implements OnInit {
 
             if (this.isAnnouncementChangePhoto) {
               this.announcementService.triggerDataReload();
-            } else {
+            } else if (
+              this.photoEndpoint === PhotoEndpointsEnum.DOG_PROFILE_PHOTO
+            ) {
               this.dogService.triggerDataReload();
+            } else if (this.photoEndpoint === PhotoEndpointsEnum.USER_PHOTO) {
+              this.usersService.triggerDataReload();
             }
           }
           this.ref.close();

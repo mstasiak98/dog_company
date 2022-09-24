@@ -31,7 +31,7 @@ class DogCare extends Model
     }
 
     public function guardian() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'guardian_id');
     }
 
     public function dogProfile() {

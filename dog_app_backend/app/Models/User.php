@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this->hasMany(DogProfile::class);
     }
 
+    public function dogCares() {
+        return $this->hasMany(DogCare::class, 'guardian_id');
+    }
+
     public function announcements() {
         return $this->hasMany(Announcement::class);
     }

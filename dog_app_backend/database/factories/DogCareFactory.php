@@ -21,14 +21,18 @@ class DogCareFactory extends Factory
 
         $start= Carbon::createFromTimeStamp($this->faker->dateTimeBetween('-30 days', '+30 days')->getTimestamp());
         $end = Carbon::createFromFormat('Y-m-d H:i:s', $start)->addHour();
-
+        $careState = CareState::select('id')->orderByRaw("RAND()")->first()->id;
+        $rating = $careState == 4 ? $this->faker->numberBetween(1,5) : null;
+        $comment = $careState == 4 ? $this->faker->text(150) : null;
         return [
             'start_date' => $start,
             'end_date' => $end,
             'guardian_id'=>User::select('id')->orderByRaw("RAND()")->first()->id,
             'activity_id'=>Activity::select('id')->orderByRaw("RAND()")->first()->id,
-            'state_id'=>CareState::select('id')->orderByRaw("RAND()")->first()->id,
+            'state_id'=>$careState,
             'dog_profile_id'=>DogProfile::select('id')->orderByRaw("RAND()")->first()->id,
+            'rating'=>$rating,
+            'comment'=>$comment,
         ];
     }
 }

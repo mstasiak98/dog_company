@@ -20,7 +20,7 @@ class CreateDogCaresTable extends Migration
             $table->string('additional_info')->nullable();
             $table->boolean('siblings')->nullable();
             $table->double('rating')->nullable();
-            $table->string('comment')->nullable();
+            $table->text('comment')->nullable();
             $table->unsignedBigInteger('activity_id');
             $table->foreign('activity_id')
                 ->references('id')->on('activities')->onDelete('no action');

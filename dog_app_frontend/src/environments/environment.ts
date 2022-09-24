@@ -7,6 +7,7 @@ export const environment = {
   baseUrl: 'http://127.0.0.1:8000/api',
   dogProfileBaseUrl: 'http://127.0.0.1:8000/api/dogs',
   announcementsBaseUrl: 'http://127.0.0.1:8000/api/announcements',
+  usersBaseUrl: 'http://127.0.0.1:8000/api/users',
 };
 
 /*

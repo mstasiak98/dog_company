@@ -2,87 +2,130 @@
   <nav class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-8">
       <div class="flex items-center justify-between h-16">
-        <div class=" flex items-center">
-          <a class="flex-shrink-0 text-md font-bold" href="/">
-            DogCompany
-          </a>
+        <div class="flex items-center">
+          <a class="flex-shrink-0 text-md font-bold" href="/"> DogCompany </a>
         </div>
         <div class="block">
           <div class="ml-4 flex items-center md:ml-6">
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <a routerLinkActive="active" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md " routerLink="/dog-profiles">
+                <a
+                  routerLinkActive="active"
+                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md"
+                  routerLink="/dog-profiles">
                   Potrzebują Opieki
                 </a>
-                <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md">
+                <a
+                  routerLinkActive="active"
+                  routerLink="/announcements"
+                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md">
                   Ogłoszenia
                 </a>
-                <a class="text-gray-800 font-medium hover:text-gray-300  px-3 py-2 rounded-md text-md " href="/#">
+                <a
+                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md"
+                  href="/#">
                   Forum
                 </a>
               </div>
             </div>
             <div *ngIf="isSignedIn" class="hidden md:block ml-3 relative">
-              <div class="relative inline-block text-left" (appClickOutside)="showDropdown = false">
+              <div
+                class="relative inline-block text-left"
+                (appClickOutside)="showDropdown = false">
                 <div>
-                  <button type="button" (click)="showDropdown = !showDropdown" class="flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500" id="options-menu">
-                    <svg width="20" fill="black" height="20" class="text-gray-800" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z">
-                      </path>
+                  <button
+                    type="button"
+                    (click)="showDropdown = !showDropdown"
+                    class="flex items-center justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+                    id="options-menu">
+                    <svg
+                      width="20"
+                      fill="black"
+                      height="20"
+                      class="text-gray-800"
+                      viewBox="0 0 1792 1792"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z"></path>
                     </svg>
                   </button>
                 </div>
-                <div [hidden]="!showDropdown" class="cursor-pointer absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 opacity-100">
-                  <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <a href="#" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                        <span class="flex flex-col">
-                            <span>
-                                Profil
-                            </span>
-                        </span>
+                <div
+                  [hidden]="!showDropdown"
+                  class="cursor-pointer absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 opacity-100">
+                  <div
+                    class="py-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu">
+                    <a
+                      href="#"
+                      class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <span class="flex flex-col">
+                        <span> Profil </span>
+                      </span>
                     </a>
-                    <a routerLink="/opieka" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                        <span class="flex flex-col">
-                            <span>
-                                Opieki
-                            </span>
-                        </span>
+                    <a
+                      routerLink="/opieka"
+                      class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <span class="flex flex-col">
+                        <span> Opieki </span>
+                      </span>
                     </a>
-                    <a href="announcements/my-announcements" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                        <span class="flex flex-col">
-                            <span>
-                                Moje Ogłoszenia
-                            </span>
-                        </span>
+                    <a
+                      href="announcements/my-announcements"
+                      class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <span class="flex flex-col">
+                        <span> Moje Ogłoszenia </span>
+                      </span>
                     </a>
-                    <a href="my-dog-profiles" class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                        <span class="flex flex-col">
-                            <span>
-                                Profile psów
-                            </span>
-                        </span>
+                    <a
+                      href="my-dog-profiles"
+                      class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <span class="flex flex-col">
+                        <span> Profile psów </span>
+                      </span>
                     </a>
-                    <a (click)="logout()" class="cursor-pointer block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 " role="menuitem">
-                        <span class="flex flex-col">
-                            <span>
-                                Wyloguj
-                            </span>
-                        </span>
+                    <a
+                      (click)="logout()"
+                      class="cursor-pointer block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <span class="flex flex-col">
+                        <span> Wyloguj </span>
+                      </span>
                     </a>
                   </div>
                 </div>
               </div>
             </div>
             <div *ngIf="!isSignedIn" class="hidden md:block">
-              <button  routerLink="/login" pButton pRipple type="button" label="Login" class="hidden p-button-sm p-button-raised p-button-help"></button>
+              <button
+                routerLink="/login"
+                pButton
+                pRipple
+                type="button"
+                label="Login"
+                class="hidden p-button-sm p-button-raised p-button-help"></button>
             </div>
           </div>
         </div>
         <div class="-mr-2 flex md:hidden">
-          <button (click)="showHamburgerDropdown = !showHamburgerDropdown" class="text-gray-800 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
-            <svg width="20" height="20" fill="black" class="h-8 w-8" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z">
-              </path>
+          <button
+            (click)="showHamburgerDropdown = !showHamburgerDropdown"
+            class="text-gray-800 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
+            <svg
+              width="20"
+              height="20"
+              fill="black"
+              class="h-8 w-8"
+              viewBox="0 0 1792 1792"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z"></path>
             </svg>
           </button>
         </div>
@@ -90,38 +133,64 @@
     </div>
     <div class="md:hidden" [hidden]="!showHamburgerDropdown">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a routerLinkActive="active" routerLink="/dog-profiles" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
+        <a
+          routerLinkActive="active"
+          routerLink="/dog-profiles"
+          class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
           Potrzebują opieki
         </a>
-        <a routerLinkActive="active" routerLink="/announcements" class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
+        <a
+          routerLinkActive="active"
+          routerLink="/announcements"
+          class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
           Ogłoszenia
         </a>
-        <a class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+        <a
+          class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="/#">
           Forum
         </a>
         <p-divider align="center">
           <span class="p-tag">Konto</span>
         </p-divider>
-        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+        <a
+          *ngIf="isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="/#">
           Konto
         </a>
-        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="my-dog-profiles">
+        <a
+          *ngIf="isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="my-dog-profiles">
           Profile psów
         </a>
-        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+        <a
+          *ngIf="isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="/#">
           Moje opieki
         </a>
-        <a *ngIf="isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium" href="/#">
+        <a
+          *ngIf="isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="/#">
           Moje ogłoszenia
         </a>
-        <a *ngIf="!isSignedIn" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold" routerLink="/login">
+        <a
+          *ngIf="!isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold"
+          routerLink="/login">
           Login
         </a>
-        <a *ngIf="isSignedIn" (click)="logout()" class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold" routerLink="/login">
+        <a
+          *ngIf="isSignedIn"
+          (click)="logout()"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold"
+          routerLink="/login">
           Wyloguj
         </a>
       </div>
     </div>
   </nav>
 </div>
-

@@ -10,6 +10,7 @@ use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,13 +45,11 @@ Route::get('/getDogSizes', [SizeController::class, 'index']);
 Route::get('/getActivities', [ActivityController::class, 'index']);
 Route::get('/getAvailabilities', [AvailabilityController::class, 'index']);
 
-
-//TEST - TEMPORARY
-Route::post('/save-photo', [PhotoController::class, 'save']);
-
-/*Route::controller(DogCareController::class)->group(function () {
-    Route::post('/makeProposal', 'storeProposal');
-});*/
+//USERS
+Route::controller(UserController::class)->group(function () {
+    Route::get('users/userDetails', 'userDetails');
+    Route::get('users/comments', 'getUserComments');
+});
 
 // AUTHENTICATED
 Route::middleware(['auth:sanctum'])->group(function () {

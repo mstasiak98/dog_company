@@ -94,6 +94,11 @@ export class DogProfileListElementComponent implements OnInit {
     console.log('zdjecia = ', this.dogProfile.photos);
   }
 
+  change(event: any) {
+    console.log('odebralem = ');
+    this.displayGallery = !this.displayGallery;
+  }
+
   private initPhotos(): void {
     this.dogProfile.photos.forEach(photo => {
       this.images.push({
@@ -104,9 +109,6 @@ export class DogProfileListElementComponent implements OnInit {
         id: photo.id,
       });
     });
-  }
-  imageClick(index: number) {
-    this.activeIndex = index;
   }
 
   deleteDogProfile(): void {
