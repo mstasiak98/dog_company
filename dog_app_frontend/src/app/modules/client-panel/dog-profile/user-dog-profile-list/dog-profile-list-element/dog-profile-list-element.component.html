@@ -1,0 +1,116 @@
+<div class="w-full flex flex-col">
+  <div
+    class="cursor-pointer w-full flex flex-col md:flex-row md:justify-between"
+    routerLink="../dog-profile/{{ dogProfile.id }}">
+    <div class="flex flex-col">
+      <div class="flex flex-row pt-4">
+        <div>
+          <img
+            alt="dog photo"
+            src="../../../assets/background/paw.png"
+            class="w-full h-full object-contain rounded-lg" />
+        </div>
+        <div class="pl-4 flex flex-col">
+          <span class="font-bold text-lg">{{ dogProfile.name }}</span>
+          <span>{{ dogProfile.breed.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-row pt-4 md:justify-center md:items-center"
+      appClickStopPropagation>
+      <div class="text-center flex items-center">
+        <span
+          *ngIf="this.dogProfile.photos.length > 0; else noPhotos"
+          class="text-normal font-bold hover:text-gray-600"
+          (click)="displayGallery = true"
+          >Zdjęcia</span
+        >
+        <ng-template #noPhotos>
+          <span class="mt-4 text-normal font-bold text-red-600 cursor-default"
+            >Brak zdjęć</span
+          >
+        </ng-template>
+      </div>
+      <div class="ml-4 md:ml-6">
+        <button
+          routerLink="/edit-dog-profile/{{ dogProfile.id }}"
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success"
+          pTooltip="Edytuj"
+          tooltipPosition="bottom"></button>
+      </div>
+      <div class="ml-1">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          pTooltip="Usuń"
+          tooltipPosition="bottom"
+          (click)="deleteDogProfile()"></button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="mt-4 flex flex-col md:flex-row md:items-center md:justify-between">
+    <div class="pt-4 flex items-center">
+      <p-button
+        (onClick)="openImageUploadDialog()"
+        icon="pi pi-image"
+        label="Dodaj zdjęcie"
+        styleClass="p-button-sm"></p-button>
+    </div>
+    <div class="flex flex-row items-center">
+      <div class="text-normal font-bold text-black">
+        Czy profil ma być wyświetlany?
+      </div>
+      <div class="ml-4 flex">
+        <app-input-switch
+          #visibleSwitchElement
+          [checked]="checked"
+          (stateChangedEvent)="
+            changeProfileVisibility($event)
+          "></app-input-switch>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-divider class="w-full"></p-divider>
+
+<!--<app-fullscreen-gallery
+  (displayGalleryChange)="change($event)"
+  [photos]="dogProfile.photos"
+  [(displayGallery)]="displayGallery"></app-fullscreen-gallery>-->
+
+<p-galleria
+  [value]="images"
+  [(visible)]="displayGallery"
+  [responsiveOptions]="responsiveOptions"
+  [containerStyle]="{ 'max-width': '600px' }"
+  [numVisible]="7"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+  [baseZIndex]="100000">
+  <ng-template pTemplate="item" let-item>
+    <p-contextMenu
+      appendTo="body"
+      #targetContextMenu
+      [model]="items"></p-contextMenu>
+    <img
+      (contextmenu)="onContextMenu($event, item)"
+      [src]="item.previewImageSrc"
+      style="width: 100%; display: block" />\
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="grid grid-nogutter justify-content-center">
+      <img [src]="item.thumbnailImageSrc" style="display: block" />
+    </div>
+  </ng-template>
+</p-galleria>

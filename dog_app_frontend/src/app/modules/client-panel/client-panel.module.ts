@@ -20,18 +20,18 @@ const routes: Routes = [
           ),
       },
 
-      /*  {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-      },*/
-
       {
         path: 'announcements',
         loadChildren: () =>
           import('./announcement/announcement.module').then(
             m => m.AnnouncementModule
           ),
+      },
+
+      {
+        path: 'user/:id',
+        loadChildren: () =>
+          import('./user/user.module').then(m => m.UserModule),
       },
 
       {

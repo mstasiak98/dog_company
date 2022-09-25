@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnnouncementService {
-  private announcementsUrl = 'http://127.0.0.1:8000/api/announcements';
-  private baseUrl = 'http://127.0.0.1:8000/api';
+  readonly ANNOUNCEMENTS_BASE_URL = environment.announcementsBaseUrl;
+  readonly BASE_URL = environment.baseUrl;
+
+  subject = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
   getAnnouncementList(searchUrl?: string, filters?: any): Observable<any> {
     // page initialization
     if (!searchUrl) {
-      return this.http.get(this.announcementsUrl);
+      return this.http.get(this.ANNOUNCEMENTS_BASE_URL);
     }
 
     // pagination without filters - passed url with query parameters
@@ -30,7 +33,7 @@ export class AnnouncementService {
   }
 
   getAnnouncementDetails(announcementId: number): Observable<any> {
-    const url = `${this.baseUrl}/announcementDetails`;
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/announcementDetails`;
     return this.http.get(url, {
       params: {
         announcementId: announcementId,
@@ -39,29 +42,29 @@ export class AnnouncementService {
   }
 
   getAnnouncementListForUser(): Observable<any> {
-    const url = `${this.announcementsUrl}/user`;
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/user`;
     return this.http.get(url);
   }
 
   getAvailableActivities(): Observable<any> {
-    const url = `${this.baseUrl}/getActivities`;
+    const url = `${this.BASE_URL}/getActivities`;
     return this.http.get(url);
   }
 
   storeAnnouncement(data: FormData): Observable<any> {
-    const url = `${this.baseUrl}/storeAnnouncement`;
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/storeAnnouncement`;
 
     return this.http.post(url, data);
   }
 
   updateAnnouncement(data: FormData): Observable<any> {
-    const url = `${this.baseUrl}/updateAnnouncement`;
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/updateAnnouncement`;
 
     return this.http.post(url, data);
   }
 
   deleteAnnouncement(id: number): Observable<any> {
-    const url = `${this.baseUrl}/deleteAnnouncement`;
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/deleteAnnouncement`;
 
     return this.http.post(url, { id: id });
   }
@@ -95,7 +98,7 @@ export class AnnouncementService {
       }
     });
 
-    return `${this.announcementsUrl}?${urlWithFilters}`.slice(0, -1);
+    return `${this.ANNOUNCEMENTS_BASE_URL}?${urlWithFilters}`.slice(0, -1);
   }
 
   private formatDateType(date: Date): string {
@@ -103,5 +106,9 @@ export class AnnouncementService {
       .toISOString()
       .slice(0, 19)
       .replace('T', ' ');
+  }
+
+  public triggerDataReload(): void {
+    this.subject.next(true);
   }
 }

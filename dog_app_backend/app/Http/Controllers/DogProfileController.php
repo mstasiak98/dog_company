@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DogProfile\ChangeVisibilityRequest;
 use App\Http\Requests\DogProfile\StoreDogProfileRequest;
 use App\Http\Requests\DogProfile\UpdateDogProfileRequest;
 use App\Http\Resources\DogDetailsResource;
@@ -81,7 +82,7 @@ class DogProfileController extends Controller
         try {
             $filePaths = null;
             if ($request->hasFile('photo')) {
-                $filePaths = $photoService->storePhotos($request);
+                $filePaths = $photoService->savePhotosOnDisk($request);
                 if($filePaths === false || count($filePaths) === 0){
                     return response()->json(['success' => false, 'error' => 'Wystąpił problem podczas zapisywania zdjęć.']);
                 }
@@ -112,7 +113,7 @@ class DogProfileController extends Controller
 
         }catch (\Exception $e) {
             if(!is_null($filePaths)) {
-                $photoService->revertSaveFile($filePaths);
+                $photoService->revertSavePhotosOnDisk($filePaths);
             }
             return response()->json(['success' => false, 'error' => $e]);
         }
@@ -152,6 +153,15 @@ class DogProfileController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
         return response()->json(['success' => true]);
+    }
+
+    public function changeVisibility(ChangeVisibilityRequest $request) {
+        $dogProfile = DogProfile::find($request->id);
+        $dogProfile->visible = $request->visible;
+        $dogProfile->save();
+
+        return response()->json(['success' => true]);
+
     }
 
 }

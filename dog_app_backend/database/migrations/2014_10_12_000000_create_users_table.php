@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('zip_code');
             $table->string('flat_number')->nullable();
             $table->string('house_number');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

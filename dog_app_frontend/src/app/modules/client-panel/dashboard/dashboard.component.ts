@@ -9,6 +9,7 @@ import { Link } from '../../../shared/models/pagination/Link';
 import { forkJoin } from 'rxjs';
 import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import { Breed } from '../../../shared/models/dogs/Breed';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -85,7 +86,7 @@ export class DashboardComponent implements OnInit {
     this.isPageChanging = true;
     const filters = this.filters.value;
     this.dogService
-      .getDogProfiles('http://127.0.0.1:8000/api/dogs', filters)
+      .getDogProfiles(environment.dogProfileBaseUrl, filters)
       .subscribe(this.processResult());
   }
 

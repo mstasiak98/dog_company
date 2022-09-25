@@ -106,9 +106,5 @@ export class DogProfileComponent implements OnInit {
         activities: this.dogProfile.activity,
       },
     });
-
-    ref.onClose.subscribe(response => {
-      console.log('response = ', response);
-    });
   }
 }

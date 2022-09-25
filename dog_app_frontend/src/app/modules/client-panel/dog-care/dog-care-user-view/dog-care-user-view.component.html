@@ -1,0 +1,39 @@
+<div class="w-full my-4">
+  <p-tabView>
+    <p-tabPanel
+      header="{{
+        userType === 1 ? 'Otrzymane propozycje' : 'Twoje propozycje'
+      }}">
+      <ng-template pTemplate="content">
+        <app-proposition-view
+          [careType]="careTypes.RECEIVED"
+          [userType]="userType"></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Nadchodzące opieki">
+      <ng-template pTemplate="content">
+        <app-calendar
+          [data]="incomingDogCares"
+          [userType]="userType"
+          [careType]="careTypes.OWNER_ACCEPTED"></app-calendar>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Zakończone opieki">
+      <ng-template pTemplate="content">
+        <app-proposition-view
+          [careType]="careTypes.DONE"
+          [userType]="userType"></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel
+      header="{{
+        userType === 1 ? 'Odrzucone opieki' : 'Odrzucone propozycje'
+      }}">
+      <ng-template pTemplate="content">
+        <app-proposition-view
+          [careType]="careTypes.OWNER_REJECTED"
+          [userType]="userType"></app-proposition-view>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</div>

@@ -24,6 +24,7 @@ export class UserDogProfileListComponent implements OnInit {
   ngOnInit(): void {
     this.isContentLoading = true;
     this.getDogProfiles();
+    this.listenOnTriggerReloadEvent();
   }
 
   private getDogProfiles(): void {
@@ -34,7 +35,14 @@ export class UserDogProfileListComponent implements OnInit {
     return (data: any) => {
       this.dogProfiles = data;
       this.isContentLoading = false;
+      console.log('data = ', this.dogProfiles);
     };
+  }
+
+  private listenOnTriggerReloadEvent(): void {
+    this.dogService.getTriggerObservable().subscribe(() => {
+      this.getDogProfiles();
+    });
   }
 
   deleteDogProfile(dogProfile: DogProfile): void {

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MenuModule } from 'primeng/menu';
-import { AppModule } from '../app.module';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -11,6 +10,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { ImgPreviewUploadComponent } from './components/img-preview-upload/img-preview-upload.component';
 import { FormsModule } from '@angular/forms';
 import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
+import { GalleriaModule } from 'primeng/galleria';
+import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/add-photo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ClickStopPropagationDirective } from './directives/click-stop-propagati
     HeaderComponent,
     ImgPreviewUploadComponent,
     ClickStopPropagationDirective,
+    AddPhotoDialogComponent,
   ],
   exports: [
     NavbarComponent,
@@ -34,6 +36,7 @@ import { ClickStopPropagationDirective } from './directives/click-stop-propagati
     RippleModule,
     DividerModule,
     FormsModule,
+    GalleriaModule,
   ],
 })
 export class CoreModule {}

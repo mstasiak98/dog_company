@@ -1,0 +1,13 @@
+<div class="w-full flex flex-col items-center">
+  <app-img-preview-upload
+    (fileChangedEvent)="addPhoto($event)"
+    (fileUnloadEvent)="unloadPhoto($event)"></app-img-preview-upload>
+  <div class="mt-8">
+    <p-button
+      [disabled]="!file"
+      label="{{ isAnnouncementChangePhoto ? 'Zmień' : 'Zapisz' }}"
+      icon="pi pi-check"
+      [loading]="isLoading"
+      (onClick)="save()"></p-button>
+  </div>
+</div>

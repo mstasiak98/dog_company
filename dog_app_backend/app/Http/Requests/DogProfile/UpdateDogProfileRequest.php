@@ -67,6 +67,7 @@ class UpdateDogProfileRequest extends FormRequest
         });
 
         return [
+            'id' => ['required', 'exists:dog_profiles,id'],
             'name'=>['required'],
             'color'=>['required'],
             'breed_id'=>['required', 'exists:breeds,id'],

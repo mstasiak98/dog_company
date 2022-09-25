@@ -1,0 +1,27 @@
+<p-galleria
+  [value]="images"
+  [(visible)]="displayGallery"
+  [responsiveOptions]="responsiveOptions"
+  [containerStyle]="{ 'max-width': '600px' }"
+  [numVisible]="7"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+  [showThumbnails]="false"
+  [baseZIndex]="100000">
+  <ng-template pTemplate="item" let-item>
+    <p-contextMenu
+      appendTo="body"
+      #targetContextMenu
+      [model]="items"></p-contextMenu>
+    <img
+      (contextmenu)="onContextMenu($event, item)"
+      [src]="item.previewImageSrc"
+      style="width: 100%; display: block" />\
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="grid grid-nogutter justify-content-center">
+      <img [src]="item.thumbnailImageSrc" style="display: block" />
+    </div>
+  </ng-template>
+</p-galleria>

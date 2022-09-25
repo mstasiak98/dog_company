@@ -48,4 +48,8 @@ class DogProfile extends Model
         return $this->morphMany(Photo::class, 'photoable');
     }
 
+    public function dogCares() {
+        return $this->hasMany(DogCare::class);
+    }
+
 }

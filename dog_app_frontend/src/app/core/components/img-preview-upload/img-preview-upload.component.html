@@ -1,24 +1,35 @@
 <div *ngIf="!imgUploaded && !imgUrlEdit; else imgPrev" class="w-full">
-  <label class="flex flex-col rounded-lg border-4 border-dashed  h-56 w-56 p-5 group text-center">
-    <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-      <div class="flex flex-auto max-h-48 w-2/5 mx-auto justify-center items-center">
+  <label
+    class="flex flex-col rounded-lg border-4 border-dashed h-56 w-56 p-5 group text-center">
+    <div
+      class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+      <div
+        class="flex flex-auto max-h-48 w-2/5 mx-auto justify-center items-center">
         <i class="pi pi-image" style="font-size: 3rem"></i>
       </div>
-      <p class="pointer-none text-gray-500 text-sm ">Wybierz zdjęcie</p>
+      <p class="pointer-none text-gray-500 text-sm">Wybierz zdjęcie</p>
     </div>
-    <input type="file" class="hidden" (change)="onFileChange($event)">
+    <input type="file" class="hidden" (change)="onFileChange($event)" />
   </label>
 </div>
 <ng-template #imgPrev>
   <div class="flex flex-col text-center">
     <label class="flex flex-col rounded-lg w-56 h-56 group text-center">
-      <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-        <div class="flex flex-auto h-full w-full mx-auto justify-center items-center">
-          <img [src]="imgUrlEdit ? imgUrlEdit : imgUrl" class="h-full w-full object-cover rounded-lg" />
+      <div
+        class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+        <div
+          class="flex flex-auto h-full w-full mx-auto justify-center items-center">
+          <img
+            [src]="imgUrlEdit ? imgUrlEdit : imgUrl"
+            class="h-full w-full object-cover rounded-lg" />
         </div>
       </div>
-      <input type="file" class="hidden" (change)="onFileChange($event)">
+      <input type="file" class="hidden" (change)="onFileChange($event)" />
     </label>
-    <p class="cursor-pointer text-gray-500 text-sm hover:text-red-600 hover:font-bold underline" (click)="unloadPhoto()">Usuń</p>
+    <p
+      class="cursor-pointer text-gray-500 text-sm hover:text-red-600 hover:font-bold underline"
+      (click)="unloadPhoto()">
+      Usuń
+    </p>
   </div>
 </ng-template>

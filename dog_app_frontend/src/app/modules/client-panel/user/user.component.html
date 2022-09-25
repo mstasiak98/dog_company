@@ -1,0 +1,132 @@
+<app-header headerTitle="Profil Opiekuna"></app-header>
+<div
+  class="max-w-full md:max-w-7xl h-full mt-2 flex mx-auto flex justify-center">
+  <ng-container *ngIf="isContentLoading">
+    <div
+      class="max-w-full md:max-w-7xl mx-auto flex justify-center loaderBlock items-center">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!isContentLoading">
+    <div class="w-full flex flex-col items-center">
+      <div
+        class="w-full md:w-5/6 flex flex-col-reverse items-center md:flex-row justify-center md:justify-between">
+        <div class="flex flex-col md:flex-row my-12 md:px-6 justify-center">
+          <div class="flex flex-col justify-center items-center">
+            <img
+              alt="dog photo"
+              src="{{
+                userDetails.photo.length > 0
+                  ? userDetails.photo[0].url
+                  : '../../../assets/background/placeholder.png'
+              }}"
+              class="w-full object-contain rounded-lg block w-3/4 md:w-full"
+              style="max-width: 250px; max-height: 250px" />
+          </div>
+          <div
+            class="md:mt-0 md:px-0 md:ml-12 px-4 mt-4 flex flex-col items-center md:items-start">
+            <div class="text-6xl font-bold">
+              {{ userDetails.firstName }} {{ userDetails.lastName }}
+            </div>
+            <div class="mt-2 text-2xl font-bold">
+              {{ userDetails.city }}, {{ userDetails.street }}
+            </div>
+            <div
+              (click)="showContact = !showContact"
+              class="mt-2 text-lg font-bold cursor-pointer underline">
+              {{ showContact ? 'Ukryj' : 'Pokaż kontakt' }}
+            </div>
+            <ng-container *ngIf="showContact">
+              <div class="mt-0.5 text-lg font-bold cursor-pointer">
+                {{ userDetails.phone_number }}
+              </div>
+            </ng-container>
+
+            <div class="mt-2 flex flex-row items-center align-middle">
+              <p-rating
+                [ngModel]="rating"
+                [readonly]="true"
+                [stars]="5"
+                [cancel]="false"></p-rating>
+              <span class="ml-2 underline text-lg">{{
+                this.comments.length
+              }}</span>
+            </div>
+            <div class="mt-2">
+              <div
+                class="w-fit py-3 px-4 rounded-2xl border bg-custom-purple-medium border-solid border-white flex justify-center items-center hover:cursor-pointer hover:bg-custom-purple-light">
+                <span class="text-sm text-white font-bold"
+                  >WYŚLIJ WIADOMOŚĆ</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full px-4 md:px-0 md:w-5/6 flex">
+        <div class="w-full">
+          <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Opis</h2>
+          <div class="mt-4 px-2 break-all">
+            {{ userDetails.description }}
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 w-full px-4 md:px-0 md:w-5/6 flex">
+        <div class="w-full">
+          <h2 class="font-bold text-2xl w-full bg-gray-100 p-2">Opinie</h2>
+          <ng-container *ngIf="comments.length > 0">
+            <div *ngFor="let comment of comments">
+              <div class="mt-4 px-2 flex flex-col">
+                <div class="flex flex-row">
+                  <div>
+                    <svg
+                      width="40"
+                      fill="black"
+                      height="40"
+                      class="text-gray-800"
+                      viewBox="0 0 1792 1792"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-6">
+                    <div class="text-lg font-semibold">
+                      {{ comment.issuer_firstname }}
+                      {{ comment.issuer_lastname }} -
+                      {{ comment.end_date | date: 'shortDate' }}
+                    </div>
+                    <div class="mt-0.5">
+                      <p-rating
+                        [ngModel]="comment.rating"
+                        [readonly]="true"
+                        [stars]="5"
+                        [cancel]="false"></p-rating>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-1 break-all">
+                  {{ comment.comment }}
+                </div>
+              </div>
+              <p-divider></p-divider>
+            </div>
+
+            <ng-container *ngIf="totalPages > 1">
+              <p-paginator
+                [rows]="commentsPerPage"
+                [totalRecords]="totalPages"
+                [showFirstLastIcon]="false"
+                (onPageChange)="onPageChange($event)"></p-paginator>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!(comments.length > 0)">
+            <div class="py-4 w-full flex justify-center text-lg font-bold">
+              Użytkownik nie otrzymał jeszcze żadnych opinii.
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

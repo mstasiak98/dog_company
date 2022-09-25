@@ -24,7 +24,8 @@ class DogProfileResource extends JsonResource
             'activity' => ActivityResource::collection($this->activities),
             'availability' => AvailabilityResource::collection($this->availabilities),
             'feature' => FeatureResource::collection($this->features),
-            'description' => $this->description
+            'description' => $this->description,
+            'photos' => PhotoResource::collection($this->photos)
         ];
     }
 }

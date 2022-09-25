@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PropositionAction } from '../../../../shared/enums/dog-care-enums';
+import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
+import { ToastService } from '../../../../shared/services/toast/toast.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DogCare } from '../../../../shared/models/dog-care/DogCare';
 
 @Component({
   selector: 'app-rate-care-dialog',
@@ -8,13 +13,33 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RateCareDialogComponent implements OnInit {
   ratingData: any;
-
-  constructor(private formBuilder: FormBuilder) {}
+  dogCare: DogCare;
+  isEdit: boolean = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private dogCareService: DogCareService,
+    private toastService: ToastService,
+    private config: DynamicDialogConfig,
+    public ref: DynamicDialogRef
+  ) {}
 
   ngOnInit(): void {
+    this.dogCare = this.config.data.dogCare;
     this.ratingData = this.formBuilder.group({
-      value: ['', Validators.required],
+      rating: ['', Validators.required],
       comment: ['', Validators.required],
+    });
+
+    if (this.dogCare?.rating) {
+      this.isEdit = true;
+      this.setExisitngRating();
+    }
+  }
+
+  private setExisitngRating(): void {
+    this.ratingData.patchValue({
+      rating: this.dogCare.rating,
+      comment: this.dogCare.comment,
     });
   }
 
@@ -23,6 +48,24 @@ export class RateCareDialogComponent implements OnInit {
   }
 
   save() {
-    console.log('TEST = ', this.f.value.invalid);
+    if (this.ratingData.invalid) {
+      return;
+    }
+
+    this.dogCareService
+      .rateDogCare(this.dogCare.id, this.ratingData.value)
+      .subscribe({
+        next: res => {
+          this.toastService.showSuccessMessage(
+            'Ocena opieki została wystawiona'
+          );
+          this.dogCareService.triggerCareDataReload();
+          this.ref.close();
+        },
+        error: err => {
+          console.log('err = ', err.error);
+          this.toastService.showErrorMessage(err.error.error);
+        },
+      });
   }
 }

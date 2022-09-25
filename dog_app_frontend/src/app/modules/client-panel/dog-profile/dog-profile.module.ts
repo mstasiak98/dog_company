@@ -25,6 +25,10 @@ import { CreateDogProfileComponent } from './create-dog-profile/create-dog-profi
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DogProfileListElementComponent } from './user-dog-profile-list/dog-profile-list-element/dog-profile-list-element.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [
   { path: 'edit-dog-profile/:id', component: CreateDogProfileComponent },
@@ -41,6 +45,7 @@ const routes: Routes = [
     UserDogProfileListComponent,
     DogProfilesDashboardComponent,
     CreateDogProfileComponent,
+    DogProfileListElementComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +70,9 @@ const routes: Routes = [
     InputTextModule,
     FileUploadModule,
     ConfirmDialogModule,
+    InputSwitchModule,
+    ContextMenuModule,
+    SharedModule,
   ],
   providers: [],
 })
