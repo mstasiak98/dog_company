@@ -1,0 +1,38 @@
+<div class="w-full h-full flex flex-col items-center justify-center">
+  <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+    <div class="font-bold text-2xl text-center">Wyślij wiadomość</div>
+    <div class="w-full flex px-12 mt-6">
+      <div class="w-full flex flex-col">
+        <label for="subject" class="font-bold">Temat wiadomości</label>
+        <input
+          id="subject"
+          name="subject"
+          type="text"
+          required
+          pInputText
+          formControlName="subject" />
+      </div>
+    </div>
+    <div class="w-full flex px-12 mt-6">
+      <div class="w-fit flex flex-col">
+        <h5 class="font-bold">Treść wiadomości</h5>
+        <textarea
+          rows="5"
+          class="w-full"
+          cols="100"
+          pInputTextarea
+          required
+          formControlName="body"></textarea>
+      </div>
+    </div>
+    <div class="mt-6 w-full flex justify-center">
+      <button
+        [ngClass]="{ disabled: this.messageForm.invalid }"
+        (click)="sendMessage()"
+        type="submit"
+        class="bg-custom-purple-medium py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-dark text-sm font-bold">
+        WYŚLIJ
+      </button>
+    </div>
+  </form>
+</div>

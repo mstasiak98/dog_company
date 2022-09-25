@@ -1,0 +1,9 @@
+.messages-container {
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.your-message {
+  @apply text-blue-800
+}

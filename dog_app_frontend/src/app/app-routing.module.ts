@@ -18,6 +18,12 @@ const routes: Routes = [
       ),
   },
 
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./landing/landing.module').then(m => m.LandingModule),
+  },
+
   { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
 
   {

@@ -8,6 +8,7 @@ use App\Http\Controllers\DogCareController;
 use App\Http\Controllers\DogProfileController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UserController;
@@ -89,6 +90,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('announcements/uploadPhoto', 'savePhoto')->name('Announcement');
         Route::post('users/uploadPhoto', 'savePhoto')->name('User');
         Route::post('deletePhoto', 'deletePhoto');
+    });
+
+    Route::controller(MessagesController::class)->group(function () {
+        Route::get('messages/all', 'index');
+        Route::get('messages/show', 'show');
+        Route::post('messages/store', 'store');
+        Route::put('messages/update', 'update');
     });
 
 

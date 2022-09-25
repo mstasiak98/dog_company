@@ -1,0 +1,74 @@
+<app-header headerTitle="Twoje Wiadomości"></app-header>
+<div
+  class="max-w-full md:max-w-7xl h-full mt-2 flex mx-auto flex justify-center">
+  <ng-container *ngIf="isContentLoading">
+    <div
+      class="max-w-full md:max-w-7xl mx-auto flex justify-center loaderBlock items-center">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!isContentLoading">
+    <div class="mt-6 min-w-full">
+      <p-table
+        #dt
+        [value]="threads"
+        [responsive]="true"
+        dataKey="id"
+        styleClass="p-datatable-customers"
+        [rowHover]="true"
+        responsiveLayout="stack">
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>Nadawca</th>
+            <th>Temat</th>
+            <th>Data wysłania</th>
+            <th style="width: 8rem"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-thread>
+          <tr>
+            <td>
+              <img
+                [alt]="thread.thread_creator.name"
+                src="../../../assets/background/placeholder.png"
+                width="32"
+                style="vertical-align: middle" />
+            </td>
+            <td>
+              <span class="p-column-title">Nadawca</span>
+              {{ thread.thread_creator.name }}
+            </td>
+            <td>
+              <span class="p-column-title">Temat</span>
+              {{ thread.subject }}
+            </td>
+            <td>
+              <span class="p-column-title">Data</span>
+              {{ thread.updated_at | date: 'shortDate' }}
+            </td>
+            <td style="text-align: center">
+              <button
+                pButton
+                label="Pokaż"
+                type="button"
+                class="p-button-secondary"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">Brak wiadomości</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <ng-container *ngIf="totalPages > 1">
+        <p-paginator
+          [rows]="threadsPerPage"
+          [totalRecords]="totalThreads"
+          [showFirstLastIcon]="false"
+          (onPageChange)="onPageChange($event)"></p-paginator>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

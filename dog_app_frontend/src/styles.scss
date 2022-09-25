@@ -27,6 +27,13 @@ html {
   filter: blur();
   -webkit-filter: blur(4px);
 }
+
+.landing-header {
+  background-image: url("/assets/background/wall2.jpg") !important;
+  object-fit: cover;
+  background-repeat: no-repeat;
+}
+
 app-owner-care {
   width: 100%;
 }
@@ -54,4 +61,10 @@ app-guardian-care {
   cursor: not-allowed;
   pointer-events: none;
   background-color: rgb(175, 174, 174) !important;
+}
+
+.shade {
+  -moz-box-shadow: 0px 0px 4px rgb(122, 122, 122);
+  -webkit-box-shadow: 0px 0px 4px rgb(122, 122, 122);
+  box-shadow: 0px 0px 4px rgb(122, 122, 122);
 }
