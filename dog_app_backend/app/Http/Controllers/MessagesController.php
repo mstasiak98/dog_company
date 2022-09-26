@@ -25,7 +25,7 @@ class MessagesController extends Controller
     public function index()
     {
         $currentUserId = auth()->user()->id;
-        $threads = Thread::forUser($currentUserId)->paginate(10)->withQueryString();
+        $threads = Thread::forUser($currentUserId)->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
         $threadsCollection = ThreadResource::collection($threads);
         return response()->json($threadsCollection->response()->getData());
     }

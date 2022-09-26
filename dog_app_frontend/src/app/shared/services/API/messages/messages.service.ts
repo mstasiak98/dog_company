@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { MakeProposalDialogComponent } from '../../../components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CreateMessageDialogComponent } from '../../../components/create-message-dialog/create-message-dialog.component';
+import { Message } from '../../../models/messages/messages';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,33 @@ export class MessagesService {
 
     const url = `${this.BASE_MESSAGES_URL}/all`;
     return this.http.get(url);
+  }
+
+  public getThreadMessages(threadId: number): Observable<Message[]> {
+    const url = `${this.BASE_MESSAGES_URL}/show`;
+    return this.http.get<Message[]>(url, {
+      params: {
+        threadId: threadId,
+      },
+    });
+  }
+
+  public respondToMessage(threadId: number, body: string): Observable<any> {
+    const url = `${this.BASE_MESSAGES_URL}/update`;
+    return this.http.put(url, { threadId: threadId, body: body });
+  }
+
+  public createThread(
+    subject: string,
+    message: string,
+    recipient: number
+  ): Observable<any> {
+    const url = `${this.BASE_MESSAGES_URL}/store`;
+    return this.http.post(url, {
+      subject: subject,
+      message: message,
+      recipient: recipient,
+    });
   }
 
   public openSendMessageDialog(recipientId: number) {

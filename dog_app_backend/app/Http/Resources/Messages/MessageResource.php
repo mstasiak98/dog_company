@@ -23,7 +23,9 @@ class MessageResource extends JsonResource
             'user_id' => $this->user_id,
             'body' => $this->body,
             'updated_at' => $this->updated_at,
-            'sender' => new UserResource(User::findOrFail($this->user_id))
+            'created_at' => $this->created_at,
+            'sender' => new UserResource(User::findOrFail($this->user_id)),
+            'thread_name' => Thread::findOrFail($this->thread_id)->subject
         ];
     }
 }

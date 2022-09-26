@@ -1,4 +1,4 @@
-<app-header headerTitle="Temat wiadomości"></app-header>
+<app-header headerTitle="{{ messages[0].thread_name }}"></app-header>
 <div
   class="max-w-full md:max-w-7xl h-full mt-2 flex mx-auto flex justify-center">
   <ng-container *ngIf="isContentLoading">
@@ -11,72 +11,17 @@
     <div class="w-full mt-6 shade rounded p-6 mb-6">
       <div class="messages-container">
         <div
+          *ngFor="let message of messages"
+          [ngClass]="{ sender: authenticatedUserId === message.user_id }"
           class="w-full p-4 mb-2 border-2 rounded border-gray-200 flex flex-col">
           <div class="font-bold">
-            Mikołaj Stasiak - <span class="text-xs">10.20.2022 - 10:30</span>
+            {{ message.sender.name }} -
+            <span class="text-xs">{{
+              message.created_at | date: 'short'
+            }}</span>
           </div>
           <div class="mt-0.5 w-full break-all">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum
-            gravida dui at egestas. Aliquam sit amet massa urna. Morbi quis elit
-            sed nisi auctor bibendum nec eu purus. Maecenas lectus sem,
-            ullamcorper viverra imperdiet sed, venenatis et eros. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Mauris gravida est
-            convallis quam aliquet porttitor. Aenean efficitur ipsum quis dui
-            semper egestas. Nullam eget velit vehicula, maximus risus vel,
-            consequat orci. Phasellus egestas arcu efficitur dolor tristique,
-            vel lacinia mauris aliquet. Proin ac tortor pulvinar, aliquet orci
-            ultricies, ullamcorper sapien. Mauris commodo molestie dui, in
-            finibus mauris sodales ac. Quisque sit amet dui est. Sed tempus
-            pellentesque felis, non viverra nisi pretium vitae. Nunc malesuada
-            vulputate volutpat. Morbi congue, sapien non faucibus lobortis, ante
-            neque vestibulum leo, ut suscipit mi lorem quis est. Praesent
-            eleifend faucibus aliquet.
-          </div>
-        </div>
-        <div
-          class="w-full p-4 mb-4 border-2 rounded border-gray-200 flex flex-col">
-          <div class="font-bold your-message">
-            Mikołaj Stasiak - <span class="text-xs">10.20.2022 - 10:30</span>
-          </div>
-          <div class="mt-0.5 w-full break-all">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum
-            gravida dui at egestas. Aliquam sit amet massa urna. Morbi quis elit
-            sed nisi auctor bibendum nec eu purus. Maecenas lectus sem,
-            ullamcorper viverra imperdiet sed, venenatis et eros. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Mauris gravida est
-            convallis quam aliquet porttitor. Aenean efficitur ipsum quis dui
-            semper egestas. Nullam eget velit vehicula, maximus risus vel,
-            consequat orci. Phasellus egestas arcu efficitur dolor tristique,
-            vel lacinia mauris aliquet. Proin ac tortor pulvinar, aliquet orci
-            ultricies, ullamcorper sapien. Mauris commodo molestie dui, in
-            finibus mauris sodales ac. Quisque sit amet dui est. Sed tempus
-            pellentesque felis, non viverra nisi pretium vitae. Nunc malesuada
-            vulputate volutpat. Morbi congue, sapien non faucibus lobortis, ante
-            neque vestibulum leo, ut suscipit mi lorem quis est. Praesent
-            eleifend faucibus aliquet.
-          </div>
-        </div>
-        <div
-          class="w-full p-4 mb-4 border-2 rounded border-gray-200 flex flex-col">
-          <div class="font-bold">
-            Mikołaj Stasiak - <span class="text-xs">10.20.2022 - 10:30</span>
-          </div>
-          <div class="mt-0.5 w-full break-all">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum
-            gravida dui at egestas. Aliquam sit amet massa urna. Morbi quis elit
-            sed nisi auctor bibendum nec eu purus. Maecenas lectus sem,
-            ullamcorper viverra imperdiet sed, venenatis et eros. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus. Mauris gravida est
-            convallis quam aliquet porttitor. Aenean efficitur ipsum quis dui
-            semper egestas. Nullam eget velit vehicula, maximus risus vel,
-            consequat orci. Phasellus egestas arcu efficitur dolor tristique,
-            vel lacinia mauris aliquet. Proin ac tortor pulvinar, aliquet orci
-            ultricies, ullamcorper sapien. Mauris commodo molestie dui, in
-            finibus mauris sodales ac. Quisque sit amet dui est. Sed tempus
-            pellentesque felis, non viverra nisi pretium vitae. Nunc malesuada
-            vulputate volutpat. Morbi congue, sapien non faucibus lobortis, ante
-            neque vestibulum leo, ut suscipit mi lorem quis est. Praesent
-            eleifend faucibus aliquet.
+            {{ message.body }}
           </div>
         </div>
       </div>
@@ -90,6 +35,7 @@
             id="description-container"
             class="grid grid-cols-1 rounded-lg border-4 border-solid">
             <textarea
+              [(ngModel)]="body"
               id="description"
               class="h-40"
               name="description"></textarea>
@@ -97,6 +43,9 @@
         </div>
         <div class="mt-2">
           <button
+            [disabled]="!body || body.trim().length <= 0"
+            (click)="replyMessage()"
+            [loading]="isMessageSending"
             pButton
             type="button"
             label="Wyślij"

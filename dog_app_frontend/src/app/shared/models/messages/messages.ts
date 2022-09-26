@@ -6,7 +6,9 @@ export interface Message {
   user_id: number;
   body: string;
   updated_at: Date;
+  created_at: Date;
   sender: User;
+  thread_name: string;
 }
 
 export interface Thread {

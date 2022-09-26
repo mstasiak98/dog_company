@@ -10,6 +10,7 @@ import { DividerModule } from 'primeng/divider';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { PaginatorModule } from 'primeng/paginator';
 import { MessageDetailsComponent } from './message-details/message-details.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: MessagesComponent },
@@ -28,6 +29,8 @@ const routes: Routes = [
     DividerModule,
     VirtualScrollerModule,
     PaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class MessagesModule {}

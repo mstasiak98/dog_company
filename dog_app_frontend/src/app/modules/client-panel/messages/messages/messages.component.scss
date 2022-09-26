@@ -9,3 +9,14 @@
 .thread-row {
   max-height: 80px;
 }
+
+.unread-message {
+  @apply font-bold
+}
+
+td {
+  white-space:nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @apply max-w-sm
+}
