@@ -19,3 +19,9 @@ export interface Thread {
   is_unread: boolean;
   thread_creator: User;
 }
+
+export interface CreateThreadModel {
+  subject: string;
+  message: string;
+  recipient: number;
+}

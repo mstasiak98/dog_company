@@ -1,7 +1,7 @@
-<div class="w-full h-full flex flex-col items-center justify-center">
+<div class="w-full h-full flex flex-col items-center justify-center p-5">
   <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
     <div class="font-bold text-2xl text-center">Wyślij wiadomość</div>
-    <div class="w-full flex px-12 mt-6">
+    <div class="w-full flex px-12">
       <div class="w-full flex flex-col">
         <label for="subject" class="font-bold">Temat wiadomości</label>
         <input
@@ -22,13 +22,14 @@
           cols="100"
           pInputTextarea
           required
-          formControlName="body"></textarea>
+          formControlName="message"></textarea>
       </div>
     </div>
     <div class="mt-6 w-full flex justify-center">
       <button
-        [ngClass]="{ disabled: this.messageForm.invalid }"
-        (click)="sendMessage()"
+        [ngClass]="{
+          disabled: this.messageForm.invalid || this.messageForm.pristine
+        }"
         type="submit"
         class="bg-custom-purple-medium py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-dark text-sm font-bold">
         WYŚLIJ
