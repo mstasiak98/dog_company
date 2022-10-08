@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Resources\Messages\MessageResource;
 use App\Http\Resources\Messages\ThreadCollection;
 use App\Http\Resources\Messages\ThreadResource;
@@ -65,13 +66,13 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
 
-        DB::transaction(function () use ($request){
+        $message = DB::transaction(function () use ($request){
             $thread = Thread::create([
                 'subject' => $request->subject,
             ]);
 
             // Message
-            Message::create([
+            $message = Message::create([
                 'thread_id' => $thread->id,
                 'user_id' => auth()->user()->id,
                 'body' => $request->message,
@@ -86,8 +87,10 @@ class MessagesController extends Controller
 
             // Recipients
             $thread->addParticipant($request->recipient);
+            return $message;
         });
 
+        MessageSent::dispatch($message);
         return response()->json(['success' => true]);
 
     }
@@ -110,7 +113,7 @@ class MessagesController extends Controller
 
         $thread->activateAllParticipants();
 
-        DB::transaction(function () use ($request, $thread){
+        $message = DB::transaction(function () use ($request, $thread){
             // Message
             $message = Message::create(
                 [
@@ -134,10 +137,29 @@ class MessagesController extends Controller
             if ($request->recipient) {
                 $thread->addParticipant($request->recipient);
             }
+
+            return $message;
         });
 
-        return response()->json(['success' => true]);
+        MessageSent::dispatch($message);
+        return response()->json(['success' => true, 'message'=> new MessageResource($message)]);
+    }
 
-        //$this->oooPushIt($message);
+    /**
+     * Zwróć ilość nieprzeczytanych wiadomości
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getUnreadCount() {
+
+        $threads = auth()->user()->threads;
+        $count = 0;
+        foreach ($threads as $thread) {
+            $threadUnread = $thread->userUnreadMessagesCount(auth()->user()->id);
+            $count = $count + $threadUnread;
+        }
+
+        return response()->json(['count' => $count]);
     }
 }

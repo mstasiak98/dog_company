@@ -93,7 +93,7 @@ export class AddPhotoDialogComponent implements OnInit {
             ) {
               this.dogService.triggerDataReload();
             } else if (this.photoEndpoint === PhotoEndpointsEnum.USER_PHOTO) {
-              this.usersService.triggerDataReload();
+              this.usersService.triggerAccountDataReload();
             }
           }
           this.ref.close();

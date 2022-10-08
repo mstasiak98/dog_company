@@ -1,0 +1,31 @@
+.zoom {
+  transition: transform .2s;
+
+  @apply drop-shadow-2xl;
+
+}
+
+.zoom:hover {
+  transform: scale(1.1)
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+  width: 100px;
+  margin: auto;
+  @apply border-purple-800
+}
+
+.scroll-top-button {
+  position: fixed;
+  float: right;
+  cursor: pointer;
+  right: 30px;
+  bottom: 30px;
+  z-index: 100;
+  opacity: 0.8;
+}
+
+.scroll-top-button:hover {
+  opacity: 1;
+}

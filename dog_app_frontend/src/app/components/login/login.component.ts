@@ -44,10 +44,15 @@ export class LoginComponent implements OnInit {
         console.log('RESULT', result);
         if (result.success) {
           this.responseHandler(result.data.access_token);
+          console.log('result = ', result.data.name);
           const userState: UserState = {
             authenticated: true,
+            user: result.data.user,
+            /*
             user: { userId: result.data.user_id, userName: result.data.name },
+*/
           };
+          console.log('user state = ', userState);
           this.authStateService.setAuthState(userState);
           this.router.navigate(['/dashboard']);
         } else {

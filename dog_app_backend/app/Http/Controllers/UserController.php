@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\Comments\CommentCollection;
 use App\Http\Resources\Comments\CommentResource;
+use App\Http\Resources\FullUserResource;
 use App\Http\Resources\GuardianResource;
 use App\Models\User;
 use App\Services\Users\UserService;
@@ -23,4 +26,17 @@ class UserController extends Controller
         $comments = new CommentCollection($userService->getCommentsForGuardian($user));
         return response()->json($comments->response()->getData());
     }
+
+    public function accountDetails()
+    {
+        $accountDetails = new FullUserResource(auth()->user());
+        return response()->json($accountDetails);
+    }
+
+    public function update(UpdateUserRequest $request) {
+        $user = auth()->user();
+        $user->fill($request->all())->save();
+    }
+
+
 }

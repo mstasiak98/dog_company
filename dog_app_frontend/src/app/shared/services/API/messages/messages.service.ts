@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthStateService } from '../../auth-state/auth-state.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MakeProposalDialogComponent } from '../../../components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CreateMessageDialogComponent } from '../../../components/create-message-dialog/create-message-dialog.component';
@@ -14,6 +14,8 @@ import { CreateThreadModel, Message } from '../../../models/messages/messages';
 export class MessagesService {
   private readonly BASE_MESSAGES_URL = environment.messagesBaseUrl;
   constructor(private http: HttpClient, private dialogService: DialogService) {}
+
+  threadOpenedSubject = new Subject<boolean>();
 
   public getThreads(urlWithParameters?: string): Observable<any> {
     if (urlWithParameters) {
@@ -54,5 +56,14 @@ export class MessagesService {
         recipientId: recipientId,
       },
     });
+  }
+
+  public getUnreadCount() {
+    const url = `${this.BASE_MESSAGES_URL}/getUnreadCount`;
+    return this.http.get<{ count: number }>(url);
+  }
+
+  public triggerThreadOpenedEvent() {
+    this.threadOpenedSubject.next(true);
   }
 }

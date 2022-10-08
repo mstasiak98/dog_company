@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Comment, UserDetails } from '../../../../shared/models/User';
 import { Link } from '../../../../shared/models/pagination/Link';
 import { UsersService } from '../../../../shared/services/API/users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { finalize, forkJoin } from 'rxjs';
+import { finalize, forkJoin, Subscription } from 'rxjs';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
+import PhotoHelper from '../../../../shared/helpers/PhotoHelper';
 
 @Component({
   selector: 'app-guardian-profile-view',
   templateUrl: './guardian-profile-view.component.html',
   styleUrls: ['./guardian-profile-view.component.scss'],
 })
-export class GuardianProfileViewComponent implements OnInit {
+export class GuardianProfileViewComponent implements OnInit, OnDestroy {
   isContentLoading: boolean = false;
   rating = 3;
   isContent: boolean = true;
@@ -20,6 +21,10 @@ export class GuardianProfileViewComponent implements OnInit {
   userId: number;
   userDetails: UserDetails;
   comments: Comment[];
+  displayBasic: boolean = false;
+  images: any[] = [];
+  responsiveOptions: any[] = [];
+  triggerReloadSubscription: Subscription;
 
   //PAGINATION
   links: Link[] = [];
@@ -42,8 +47,18 @@ export class GuardianProfileViewComponent implements OnInit {
     this.listenOnTriggerDataReload();
   }
 
+  ngOnDestroy() {
+    this.triggerReloadSubscription.unsubscribe();
+  }
+
+  private initPhotoGallery(): void {
+    this.responsiveOptions = PhotoHelper.getGalleryResponsiveOptions();
+    console.log('photos = ', this.userDetails.photo);
+    this.images = PhotoHelper.getImagesArrayFromPhoto(this.userDetails.photo);
+  }
+
   private listenOnTriggerDataReload(): void {
-    this.usersService.subject.subscribe(() => {
+    this.triggerReloadSubscription = this.usersService.subject.subscribe(() => {
       this.loadUserData(this.userId);
     });
   }
@@ -63,6 +78,7 @@ export class GuardianProfileViewComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.isContentLoading = false;
+          this.initPhotoGallery();
         })
       )
       .subscribe(this.processCombinedRequestResults());

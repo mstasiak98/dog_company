@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'logIn']);
 Route::post('register', [AuthController::class, 'register']);
+Route::post('changePassword', [AuthController::class, 'changePassword']);
+
 
 
 //DOGS
@@ -97,8 +99,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('messages/show', 'show');
         Route::post('messages/store', 'store');
         Route::put('messages/update', 'update');
+        Route::get('messages/getUnreadCount', 'getUnreadCount');
     });
 
+    Route::controller(UserController::class)->group(function () {
+        Route::get('users/accountDetails', 'accountDetails');
+        Route::post('users/update', 'update');
+    });
 
 
     Route::post('logout', [AuthController::class, 'logout']);

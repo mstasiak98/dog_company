@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Photo;
 use App\Models\User;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,19 +17,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends BaseController
 {
+
     public function logIn(LoginRequest $request){
-
-        /*$validator = Validator::make($request->all(),[
-            'email'=>'required|email',
-            'password'=>'required',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendErrorResponse('Validation errors', $validator->errors());
-        }*/
 
         $reqUser=User::where("email", $request->email)->first();
 
@@ -37,8 +33,9 @@ class AuthController extends BaseController
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $data['access_token'] = $user->createToken('access_token')->plainTextToken;
-            $data['first_name'] = $user->first_name;
-            $data['user_id'] = $user->id;
+            $data['user'] = new UserResource($user);
+            /*$data['first_name'] = $user->first_name;
+            $data['user_id'] = $user->id;*/
 
             return $this->sendResponse($data, 'Success');
         }else{
@@ -70,8 +67,9 @@ class AuthController extends BaseController
                 //prepare user data for message to front
                 $data = [];
                 $data['access_token'] = $user->createToken('access_token')->plainTextToken;
-                $data['name'] = $user->first_name;
-                $data['user_id'] = $user->id;
+                $data['user'] = new UserResource($user);
+                /*$data['name'] = $user->first_name;
+                $data['user_id'] = $user->id;*/
 
                 // if photo exists save it to database
                 if(is_string($photo)) {
@@ -97,6 +95,27 @@ class AuthController extends BaseController
     public function logout() {
         auth()->user()->currentAccessToken()->delete();
         return $this->sendResponse(null, 'Success');
+    }
+
+    public function changePassword(ChangePasswordRequest $request) {
+
+        $reqUser=User::where("email", $request->email)->first();
+
+        if(is_null($reqUser)) {
+            throw new HttpResponseException(response()->json([
+                'error' => 'Niepoprawne dane konta'
+            ], Response::HTTP_UNAUTHORIZED));
+        }
+
+
+        if (auth()->attempt(['email' => $request->email, 'password' => $request->old_password])){
+            $user = Auth::user();
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return response()->json(['success' => true]);
+        }else{
+            return $this->sendErrorResponse('Not authorized', ['unauthorized'=>'Niepoprawne dane logowania']);
+        }
     }
 
 }

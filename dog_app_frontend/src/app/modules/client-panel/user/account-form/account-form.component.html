@@ -1,0 +1,46 @@
+<div>
+  <div class="text-4xl font-bold">Dane konta</div>
+  <p-divider></p-divider>
+  <form [formGroup]="accountForm" (ngSubmit)="changePassword()">
+    <div class="flex w-full flex-col md:flex-row gap-x-4">
+      <div class="md:w-1/2 flex flex-col">
+        <label for="email">Email</label>
+        <input id="email" type="text" pInputText formControlName="email" />
+      </div>
+    </div>
+
+    <div class="flex w-full flex-col md:flex-row gap-x-4 mt-4">
+      <div class="md:w-1/2 flex flex-col">
+        <label for="old_password">Stare hasło</label>
+        <input
+          id="old_password"
+          type="password"
+          pInputText
+          formControlName="old_password" />
+      </div>
+    </div>
+
+    <div class="flex w-full flex-col md:flex-row gap-x-4 mt-4">
+      <div class="md:w-1/2 flex flex-col">
+        <label for="new_password">Nowe hasło</label>
+        <input
+          id="new_password"
+          type="password"
+          pInputText
+          formControlName="new_password" />
+      </div>
+    </div>
+
+    <div class="flex w-full md:w-1/2 mt-4">
+      <div class="w-full flex">
+        <button
+          [loading]="isSaving"
+          pButton
+          pRipple
+          type="submit"
+          label="Zmień hasło"
+          class="p-button-help"></button>
+      </div>
+    </div>
+  </form>
+</div>

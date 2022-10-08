@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { UserState } from '../../models/UserState';
+import { User } from '../../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { UserState } from '../../models/UserState';
 export class AuthStateService {
   userState = new BehaviorSubject({
     authenticated: false,
-    user: { userId: -1, userName: '' },
+    user: <User>{ id: -1, name: '', lastname: '', photo: [] },
   });
   userAuthState = this.userState.asObservable();
   constructor() {
@@ -28,7 +29,7 @@ export class AuthStateService {
   }
 
   userId(): number {
-    return this.userState.value.user.userId;
+    return this.userState.value.user.id;
   }
 
   isLoggedIn() {

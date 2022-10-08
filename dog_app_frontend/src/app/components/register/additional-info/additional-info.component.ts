@@ -97,7 +97,8 @@ export class AdditionalInfoComponent implements OnInit {
             this.tokenService.handleData(result.data.access_token);
             const userState: UserState = {
               authenticated: true,
-              user: { userId: result.data.user_id, userName: result.data.name },
+              user: result.data.user,
+              /*user: { userId: result.data.user_id, userName: result.data.name },*/
             };
             this.authStateService.setAuthState(userState);
             this.router.navigate(['/dashboard']);

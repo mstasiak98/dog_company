@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
 import { GalleriaModule } from 'primeng/galleria';
 import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/add-photo-dialog.component';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/a
     DividerModule,
     FormsModule,
     GalleriaModule,
+    BadgeModule,
   ],
 })
 export class CoreModule {}

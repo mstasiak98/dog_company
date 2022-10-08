@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class FullUserResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'first_name'=>$this->first_name,
+            'last_name'=>$this->last_name,
+            'phone_number' => $this->phone_number,
+            'city'=>$this->city,
+            'zip_code'=>$this->zip_code,
+            'house_number'=>$this->house_number,
+            'flat_number'=>$this->flat_number,
+            'street'=>$this->street,
+            'description' => $this->description,
+            'email' => $this->email,
+            'photos' => PhotoResource::collection($this->photos),
+        ];
+    }
+}

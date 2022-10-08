@@ -1,7 +1,7 @@
 import { User } from '../User';
 
 export interface Message {
-  id: number;
+  id?: number;
   thread_id: number;
   user_id: number;
   body: string;

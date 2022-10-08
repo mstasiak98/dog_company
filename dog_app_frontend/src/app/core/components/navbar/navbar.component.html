@@ -7,25 +7,46 @@
         </div>
         <div class="block">
           <div class="ml-4 flex items-center md:ml-6">
-            <div class="hidden md:block">
+            <div class="hidden md:flex items-center">
               <div class="ml-10 flex items-baseline space-x-4">
                 <a
                   routerLinkActive="active"
-                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md"
+                  class="text-gray-800 font-medium hover:text-gray-300 px-4 py-2 rounded-md text-md"
                   routerLink="/dog-profiles">
                   Potrzebują Opieki
                 </a>
                 <a
                   routerLinkActive="active"
                   routerLink="/announcements"
-                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md">
+                  class="text-gray-800 font-medium hover:text-gray-300 px-4 py-2 rounded-md text-md">
                   Ogłoszenia
                 </a>
-                <a
-                  class="text-gray-800 font-medium hover:text-gray-300 px-3 py-2 rounded-md text-md"
-                  href="/#">
-                  Forum
-                </a>
+              </div>
+              <div *ngIf="isSignedIn">
+                <div class="flex items-center">
+                  <ng-container
+                    *ngIf="
+                      +unreadMessages <= 0 || !unreadMessages;
+                      else withBadge
+                    ">
+                    <i
+                      routerLink="/messages"
+                      tooltipPosition="bottom"
+                      class="pi pi-envelope px-3 text-black cursor-pointer"
+                      style="font-size: 1.5rem"
+                      severity="danger"></i
+                  ></ng-container>
+                  <ng-template #withBadge>
+                    <i
+                      routerLink="/messages"
+                      tooltipPosition="bottom"
+                      class="pi pi-envelope pl-3 pr-2 mr-1 text-black cursor-pointer"
+                      pBadge
+                      style="font-size: 1.5rem"
+                      severity="danger"
+                      [value]="unreadMessages"></i>
+                  </ng-template>
+                </div>
               </div>
             </div>
             <div *ngIf="isSignedIn" class="hidden md:block ml-3 relative">
@@ -59,11 +80,11 @@
                     aria-orientation="vertical"
                     aria-labelledby="options-menu">
                     <a
-                      href="#"
+                      href="/user"
                       class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <span class="flex flex-col">
-                        <span> Profil </span>
+                        <span> Konto </span>
                       </span>
                     </a>
                     <a
@@ -145,11 +166,6 @@
           class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
           Ogłoszenia
         </a>
-        <a
-          class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/#">
-          Forum
-        </a>
         <p-divider align="center">
           <span class="p-tag">Konto</span>
         </p-divider>
@@ -162,19 +178,25 @@
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+          href="/messages">
+          Wiadomości
+        </a>
+        <a
+          *ngIf="isSignedIn"
+          class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
           href="my-dog-profiles">
           Profile psów
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/#">
+          href="/opieka">
           Moje opieki
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/#">
+          href="/announcements/my-announcements">
           Moje ogłoszenia
         </a>
         <a

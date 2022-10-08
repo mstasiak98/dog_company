@@ -1,4 +1,6 @@
-<app-header headerTitle="{{ messages[0].thread_name }}"></app-header>
+<app-header
+  *ngIf="!isContentLoading"
+  headerTitle="{{ messages[0]?.thread_name }}"></app-header>
 <div
   class="max-w-full md:max-w-7xl h-full mt-2 flex mx-auto flex justify-center">
   <ng-container *ngIf="isContentLoading">
@@ -8,20 +10,33 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!isContentLoading">
-    <div class="w-full mt-6 shade rounded p-6 mb-6">
-      <div class="messages-container">
-        <div
-          *ngFor="let message of messages"
-          [ngClass]="{ sender: authenticatedUserId === message.user_id }"
-          class="w-full p-4 mb-2 border-2 rounded border-gray-200 flex flex-col">
-          <div class="font-bold">
-            {{ message.sender.name }} -
-            <span class="text-xs">{{
-              message.created_at | date: 'short'
-            }}</span>
-          </div>
-          <div class="mt-0.5 w-full break-all">
-            {{ message.body }}
+    <div class="w-3/4 mt-6 shade rounded p-6 mb-6">
+      <div
+        #messageContainer
+        class="messages-container flex flex-col items-center md:px-4">
+        <div class="w-full">
+          <div
+            *ngFor="let message of messages"
+            [ngClass]="{
+              'sender-container': authenticatedUserId === message.user_id
+            }"
+            class="w-full mb-2 flex flex-col items-start">
+            <div
+              class="w-3/5 rounded-md p-4 reciever-body text-black"
+              [ngClass]="{
+                'sender-body': authenticatedUserId === message.user_id
+              }">
+              <div class="mt-0.5 w-full break-all">
+                {{ message.body }}
+              </div>
+            </div>
+            <div class="font-bold text-xs">
+              {{ message.sender.name }} -
+              <span class="text-xs">{{
+                message.created_at | date: 'short'
+              }}</span>
+            </div>
+            <!--border-2 rounded border-gray-200-->
           </div>
         </div>
       </div>

@@ -3,12 +3,19 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-
 .your-message {
   @apply text-blue-800
 }
 
-.sender {
-  text-align: right;
+.sender-container {
+  @apply items-end text-right;
 }
 
+.reciever-body {
+  background-color: #f1f0f0;
+}
+
+.sender-body {
+  background-color: #0084ff;
+  color: white;
+}

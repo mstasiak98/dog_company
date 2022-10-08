@@ -40,9 +40,6 @@ export class DogCareService {
       return this.http.get(urlWithFilters);
     }
 
-    console.log('USER TYPE = ', userType);
-    console.log('TYPE =', type);
-
     return this.http.get(url, {
       params: {
         care_state_id: type,
@@ -86,10 +83,6 @@ export class DogCareService {
         userType: userType,
         careType: careType,
       },
-    });
-
-    ref.onClose.subscribe(response => {
-      console.log('response = ', response);
     });
   }
 }

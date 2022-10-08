@@ -1,0 +1,99 @@
+<div class="w-full">
+  <div class="text-4xl font-bold">Dane profilowe</div>
+  <p-divider></p-divider>
+  <form [formGroup]="profileForm" (ngSubmit)="update()">
+    <div class="flex w-full flex-col md:flex-row gap-x-4">
+      <div class="md:w-1/2 flex flex-col">
+        <label for="first_name">Imię</label>
+        <input
+          id="first_name"
+          type="text"
+          pInputText
+          formControlName="first_name" />
+      </div>
+
+      <div class="md:w-1/2 flex flex-col">
+        <label for="last_name">Nazwisko</label>
+        <input
+          id="last_name"
+          type="text"
+          pInputText
+          formControlName="last_name" />
+      </div>
+    </div>
+
+    <div class="flex w-full flex-col md:flex-row gap-x-4 mt-6">
+      <div class="w-full md:w-1/2 flex flex-col">
+        <label for="phone_number">Numer telefonu</label>
+        <p-inputMask
+          id="phone_number"
+          mask="(+48) 999-999-999"
+          placeholder="(+99) 999-999-999"
+          formControlName="phone_number"></p-inputMask>
+      </div>
+
+      <div class="w-full md:w-1/2 flex flex-col">
+        <label for="city">Miasto</label>
+        <input id="city" type="text" pInputText formControlName="city" />
+      </div>
+    </div>
+    <div class="flex w-full flex-col md:flex-row gap-x-4 mt-6">
+      <div class="w-full md:w-1/2 flex flex-col profile-form">
+        <label for="zip_code">Kod pocztowy</label>
+        <p-inputMask
+          id="zip_code"
+          mask="99-999"
+          placeholder="99-999"
+          formControlName="zip_code"></p-inputMask>
+      </div>
+
+      <div class="w-full md:w-1/2 flex flex-col">
+        <label for="street">Ulica</label>
+        <input id="street" type="text" pInputText formControlName="street" />
+      </div>
+    </div>
+    <div class="flex w-full flex-col md:flex-row gap-x-4 mt-6">
+      <div class="w-full md:w-1/2 flex flex-col">
+        <label for="house_number">Numer domu</label>
+        <input
+          id="house_number"
+          type="text"
+          pInputText
+          formControlName="house_number" />
+      </div>
+
+      <div class="w-full md:w-1/2 flex flex-col">
+        <label for="flat_number">Numer mieszkania</label>
+        <input
+          id="flat_number"
+          type="text"
+          pInputText
+          formControlName="flat_number" />
+      </div>
+    </div>
+
+    <div class="w-fit flex flex-col mt-6">
+      <label for="description">Opis</label>
+      <textarea
+        id="description"
+        rows="5"
+        class="w-full"
+        cols="100"
+        pInputTextarea
+        required
+        formControlName="description"></textarea>
+    </div>
+
+    <div class="flex w-full mt-4">
+      <div class="w-full flex justify-end">
+        <button
+          [loading]="isSaving"
+          pButton
+          pRipple
+          type="submit"
+          label="Zapisz"
+          class="p-button-help"></button>
+      </div>
+    </div>
+  </form>
+</div>
