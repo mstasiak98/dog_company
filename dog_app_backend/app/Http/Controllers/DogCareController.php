@@ -97,8 +97,4 @@ class DogCareController extends Controller
             'error' => 'Błąd podczas wystawiania oceny'
         ], Response::HTTP_BAD_REQUEST));
     }
-
-
-
-
 }

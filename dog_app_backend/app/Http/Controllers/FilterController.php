@@ -18,7 +18,9 @@ use Illuminate\Http\Request;
 class FilterController extends Controller
 {
 
-
+    /**
+     * Zwróć listę wszystkich filtrów.
+     */
     public function getDogProfileFilters() {
 
         $filters = [

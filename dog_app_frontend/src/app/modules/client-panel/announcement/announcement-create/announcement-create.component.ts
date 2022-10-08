@@ -6,6 +6,7 @@ import { Activity } from '../../../../shared/models/dogs/Activity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Announcement } from '../../../../shared/models/announcements/announcement';
 import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
+import { ToastService } from '../../../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-announcement-create',
@@ -28,7 +29,8 @@ export class AnnouncementCreateComponent implements OnInit {
     private announcementService: AnnouncementService,
     private router: Router,
     private route: ActivatedRoute,
-    private authStateService: AuthStateService
+    private authStateService: AuthStateService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -133,6 +135,7 @@ export class AnnouncementCreateComponent implements OnInit {
       },
       error: error => {
         this.router.navigate(['announcements']);
+        this.toastService.showErrorMessage(`Wystąpił błąd.`);
       },
       complete: () => {
         this.announcementForm.reset();

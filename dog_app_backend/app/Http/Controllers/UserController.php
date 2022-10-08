@@ -38,5 +38,4 @@ class UserController extends Controller
         $user->fill($request->all())->save();
     }
 
-
 }

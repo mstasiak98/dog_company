@@ -2,15 +2,13 @@
 
 namespace App\Services;
 
-use App\Http\Requests\DogProfile\StoreDogProfileRequest;
-use App\Models\Announcement;
+use App\Helpers\AuthorizationHelper;
 use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use mysql_xdevapi\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,9 +20,11 @@ class PhotoService
     public function uploadPhoto(Request $request) {
         $model = $this->getModelFromRouteName($request)::find($request->modelId);
 
+        AuthorizationHelper::checkAuthorization($model, 'addPhoto');
+
         if(is_null($model)) {
             throw new HttpResponseException(response()->json([
-                'error' => 'Wystąpił błąd podczas dodawania zdjęcia.'
+                'error' => 'Model nie istnieje.'
             ], Response::HTTP_BAD_REQUEST));
         }
 
@@ -43,7 +43,6 @@ class PhotoService
             if(is_array($filePaths)){
                 $this->revertSavePhotosOnDisk($filePaths);
             }
-
             throw new HttpResponseException(response()->json([
                 'error' => 'Wystąpił błąd podczas dodawania zdjęcia.'
             ], Response::HTTP_BAD_REQUEST));
@@ -54,6 +53,8 @@ class PhotoService
 
     public function deletePhoto(Request $request) {
         $photo = Photo::find($request->photoId);
+        AuthorizationHelper::checkAuthorization($photo, 'delete');
+
         $filePath = $photo->filename;
         $photo->delete();
         Storage::delete($filePath);
@@ -63,6 +64,9 @@ class PhotoService
 
     public function replacePhoto(Request $request) {
         $photo = Photo::find($request->photoId);
+
+        AuthorizationHelper::checkAuthorization($photo, 'replacePhoto');
+
         $oldFilename = $photo->filename;
         $filePaths = $this->savePhotosOnDisk($request);
 
@@ -135,9 +139,9 @@ class PhotoService
         }
     }
 
-    public function deletePhotoFromDB(Photo $oldPhoto): void {
+/*    public function deletePhotoFromDB(Photo $oldPhoto): void {
         $oldPhoto->delete();
-    }
+    }*/
 
     public function getModelFromRouteName(Request $request): Model {
         $modelName =  'App\\Models\\'.$request->route()->getName();

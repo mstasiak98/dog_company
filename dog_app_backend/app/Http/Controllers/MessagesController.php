@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Helpers\AuthorizationHelper;
 use App\Http\Resources\Messages\MessageResource;
 use App\Http\Resources\Messages\ThreadCollection;
 use App\Http\Resources\Messages\ThreadResource;
@@ -47,9 +48,9 @@ class MessagesController extends Controller
             ], Response::HTTP_BAD_REQUEST));
         }
 
-        // don't show the current user in list
+        AuthorizationHelper::checkAuthorization($thread, 'show');
+
         $userId = auth()->user()->id;
-        //$users = User::whereNotIn('id', $thread->participantsUserIds($userId))->get();
         $thread->markAsRead($userId);
 
         $messages = $thread->messages;
@@ -111,6 +112,7 @@ class MessagesController extends Controller
             ], Response::HTTP_BAD_REQUEST));
         }
 
+        AuthorizationHelper::checkAuthorization($thread, 'update');
         $thread->activateAllParticipants();
 
         $message = DB::transaction(function () use ($request, $thread){
@@ -162,4 +164,5 @@ class MessagesController extends Controller
 
         return response()->json(['count' => $count]);
     }
+
 }

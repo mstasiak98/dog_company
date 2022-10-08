@@ -31,7 +31,7 @@ class MessageSent implements ShouldBroadcast
     }
 
     /**
-     * The event's broadcast name.
+     * Nazwa eventu na który jest wysyłana wiadomość.
      *
      * @return string
      */
@@ -41,7 +41,7 @@ class MessageSent implements ShouldBroadcast
     }
 
     /**
-     * Get the data to broadcast.
+     * Wysyłaj informacje o wiadomości i wątku.
      *
      * @return array
      */
@@ -54,7 +54,7 @@ class MessageSent implements ShouldBroadcast
     }
 
     /**
-     * Get the channels the event should broadcast on.
+     * Wysyłaj wiadomość tylko na kanał jej adresata
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */

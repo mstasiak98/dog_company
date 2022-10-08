@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AuthorizationHelper;
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Requests\Photo\ReplacePhotoRequest;
 use App\Http\Resources\AnnouncmentCollection;
@@ -33,7 +34,7 @@ class AnnouncementController extends Controller
         return response()->json($dogResourceCollection);
     }
 
-    public function userAnnouncements(Request $request) {
+    public function userAnnouncements() {
         $announcements = Announcement::where('user_id', auth()->user()->id)->paginate(config('app.default_announcements_page_size'))->withQueryString();
         $announcementsCollection = new AnnouncmentCollection($announcements);
         return response()->json($announcementsCollection->response()->getData());
@@ -70,30 +71,29 @@ class AnnouncementController extends Controller
     }
 
     public function update(AnnouncementRequest $request) {
-        try {
-            $announcement = Announcement::findOrFail($request->id);
-            DB::transaction(function () use ($request, $announcement){
-                $announcement->fill($request->all())->save();
-                $announcementActivities = $request->input('activity_id', []);
-                $announcement->activities()->sync($announcementActivities);
-            });
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e]);
-        }
+        $announcement = Announcement::findOrFail($request->id);
+        AuthorizationHelper::checkAuthorization($announcement, 'update');
+
+        DB::transaction(function () use ($request, $announcement){
+            $announcement->fill($request->all())->save();
+            $announcementActivities = $request->input('activity_id', []);
+            $announcement->activities()->sync($announcementActivities);
+        });
         return response()->json(['success' => true, 'announcementId' => $request->id, 'title' => $request->title]);
+
     }
 
     public function destroy(Request $request) {
-        try {
-            $announcement = Announcement::findOrFail($request->id);
-            DB::transaction(function () use ($request, $announcement){
-                $announcement->delete();
-                $announcement->photos()->delete();
-                $announcement->activities()->detach();
-            });
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage()]);
-        }
+        $announcement = Announcement::findOrFail($request->id);
+
+        AuthorizationHelper::checkAuthorization($announcement, 'destroy');
+
+        DB::transaction(function () use ($request, $announcement){
+            $announcement->delete();
+            $announcement->photos()->delete();
+            $announcement->activities()->detach();
+        });
+
         return response()->json(['success' => true]);
     }
 
@@ -108,6 +108,5 @@ class AnnouncementController extends Controller
             'error' => 'Wystąpił błąd podczas zmiany zdjęcia.'
         ], Response::HTTP_BAD_REQUEST));
     }
-
 
 }

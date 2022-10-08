@@ -17,7 +17,7 @@ class AnnouncementSearchService
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        // eliminate old announcements
+        // nie wyświetlaj starych ogłoszeń
         $announcements = Announcement::whereDate('end_date', '>=', Carbon::now());
 
         $announcements->where('city', 'like', '%'.$city.'%');
