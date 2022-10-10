@@ -1,68 +1,163 @@
 <div class="mt-8">
   <p-card>
     <ng-template pTemplate="title">
-      <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Rejestracja</h1>
+      <h1 class="text-center text-4xl font-bold font-sans pb-2">
+        Dane osobowe
+      </h1>
     </ng-template>
     <ng-template pTemplate="subtitle">
-      <h6 class="text-center text-md mb-6 text-gray-600 font-sans">Wprowadź dane konta</h6>
+      <h6 class="text-center text-lg font-sans pb-6">
+        Wprowadź swoje dane osobowe
+      </h6>
     </ng-template>
     <ng-template pTemplate="content">
       <form [formGroup]="accountData">
         <div class="p-fluid">
-            <label for="personal_info">Imię i nazwisko</label>
-            <div id="personal_info" class="grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-4">
-              <div>
-                <input formControlName="firstName" id="firstName" class="form-control" type="text"
-                       placeholder="Wprowadź imię" required pInputText
-                       [ngClass]="{'ng-dirty': (f.firstName.invalid && submitted) || (f.firstName.dirty && f.firstName.invalid)}">
-                <small *ngIf="(f.firstName.invalid && submitted) || (f.firstName.dirty && f.firstName.invalid)" class="p-error">Pole <strong>imię</strong> jest wymagane.</small>
-              </div>
-              <div>
-                <input id="lastName" type="text" formControlName="lastName" placeholder="Wprowadź nazwisko" required pInputText
-                       [ngClass]="{'ng-dirty': (f.lastName.invalid && submitted) || (f.lastName.dirty && f.lastName.invalid)}">
-                <small class="p-error" *ngIf="(f.lastName.invalid && submitted )|| (f.lastName.dirty && f.lastName.invalid)">Pole <strong>nazwisko</strong> jest wymagane.</small>
-              </div>
+          <div
+            id="personal_info"
+            class="grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-4">
+            <div>
+              <label for="firstName">Imię</label>
+              <input
+                formControlName="firstName"
+                id="firstName"
+                class="form-control"
+                type="text"
+                placeholder="Imię"
+                required
+                pInputText
+                [ngClass]="{
+                  'ng-dirty':
+                    (f.firstName.invalid && submitted) ||
+                    (f.firstName.dirty && f.firstName.invalid)
+                }" />
+              <small
+                *ngIf="
+                  (f.firstName.invalid && submitted) ||
+                  (f.firstName.dirty && f.firstName.invalid)
+                "
+                class="p-error"
+                >Pole <strong>imię</strong> jest wymagane.</small
+              >
             </div>
+            <div>
+              <label for="lastName">Nazwisko</label>
+              <input
+                id="lastName"
+                type="text"
+                formControlName="lastName"
+                placeholder="Nazwisko"
+                required
+                pInputText
+                [ngClass]="{
+                  'ng-dirty':
+                    (f.lastName.invalid && submitted) ||
+                    (f.lastName.dirty && f.lastName.invalid)
+                }" />
+              <small
+                class="p-error"
+                *ngIf="
+                  (f.lastName.invalid && submitted) ||
+                  (f.lastName.dirty && f.lastName.invalid)
+                "
+                >Pole <strong>nazwisko</strong> jest wymagane.</small
+              >
+            </div>
+          </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1">
           <div class="">
             <label for="email">Adres email</label>
-            <input id="email" type="email" required pInputText
-                   formControlName="email"
-                   [ngClass]="{'ng-dirty': (f.email.invalid && submitted) || (f.email.dirty && f.email.invalid)}">
-            <small class="p-error" *ngIf="(f.email.invalid && submitted) || (f.email.dirty && f.email.invalid)">Pole <strong>email</strong> jest wymagane.</small>
+            <input
+              id="email"
+              type="email"
+              required
+              pInputText
+              formControlName="email"
+              placeholder="Adres email"
+              [ngClass]="{
+                'ng-dirty':
+                  (f.email.invalid && submitted) ||
+                  (f.email.dirty && f.email.invalid)
+              }" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.email.invalid && submitted) ||
+                (f.email.dirty && f.email.invalid)
+              "
+              >Pole <strong>email</strong> jest wymagane.</small
+            >
           </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1">
           <div class="">
             <label for="password">Hasło</label>
-            <input id="password" type="password" required pInputText
-                   formControlName="password"
-                   [ngClass]="{'ng-dirty': (f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)}">
-            <small class="p-error" *ngIf="(f.password.invalid && submitted) || (f.password.dirty && f.password.invalid)">Pole <strong>hasło</strong> jest wymagane.</small>
+            <input
+              id="password"
+              type="password"
+              required
+              pInputText
+              formControlName="password"
+              placeholder="*********"
+              [ngClass]="{
+                'ng-dirty':
+                  (f.password.invalid && submitted) ||
+                  (f.password.dirty && f.password.invalid)
+              }" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.password.invalid && submitted) ||
+                (f.password.dirty && f.password.invalid)
+              "
+              >Pole <strong>hasło</strong> jest wymagane.</small
+            >
           </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1">
           <div class="">
             <label for="phoneNo">Numer telefonu</label>
-            <input id="phoneNo" type="text" required pInputText
-                   formControlName="phoneNo"
-                   [ngClass]="{'ng-dirty': (f.phoneNo.invalid && submitted) || (f.phoneNo.dirty && f.phoneNo.invalid)}">
-            <small class="p-error" *ngIf="(f.phoneNo.invalid && submitted) || (f.phoneNo.dirty && f.phoneNo.invalid)">Pole <strong>numer telefonu</strong> jest wymagane.</small>
+            <p-inputMask
+              id="phoneNo"
+              [required]="true"
+              mask="999-999-999"
+              formControlName="phoneNo"
+              placeholder="999-999-999"
+              [ngClass]="{
+                'ng-dirty':
+                  (f.phoneNo.invalid && submitted) ||
+                  (f.phoneNo.dirty && f.phoneNo.invalid)
+              }"></p-inputMask>
+            <small
+              class="p-error"
+              *ngIf="
+                (f.phoneNo.invalid && submitted) ||
+                (f.phoneNo.dirty && f.phoneNo.invalid)
+              "
+              >Pole <strong>numer telefonu</strong> jest wymagane.</small
+            >
           </div>
         </div>
       </form>
     </ng-template>
-<ng-template pTemplate="footer">
-  <div class="flex justify-end">
-    <button pButton
-            [disabled]="f.firstName.invalid ||
-             f.lastName.invalid ||
-             f.email.invalid ||
-             f.password.invalid ||
-             f.phoneNo.invalid
-" type="button" icon="pi pi-angle-right" iconPos="right" label="Dalej" (click)="nextPage()"></button>
-  </div>
-</ng-template>
-</p-card>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-end">
+        <button
+          [ngClass]="{
+            disabled:
+              f.firstName.invalid ||
+              f.lastName.invalid ||
+              f.email.invalid ||
+              f.password.invalid ||
+              f.phoneNo.invalid
+          }"
+          type="button"
+          class="register-button"
+          (click)="nextPage()">
+          Następny etap
+        </button>
+      </div>
+    </ng-template>
+  </p-card>
 </div>

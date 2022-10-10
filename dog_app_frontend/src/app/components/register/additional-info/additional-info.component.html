@@ -1,45 +1,72 @@
 <div class="mt-8">
   <p-card>
     <ng-template pTemplate="title">
-      <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Rejestracja</h1>
+      <h1 class="text-center text-4xl mb-6 font-bold font-sans">
+        Dane dodatkowe
+      </h1>
     </ng-template>
     <ng-template pTemplate="subtitle">
-      <h6 class="text-center text-md mb-6 text-gray-600 font-sans">Uzupełnij swój profil zdjęciem i opisem</h6>
+      <h6 class="text-center text-lg mb-6 text-gray-600 font-sans">
+        Uzupełnij swój profil zdjęciem i opisem
+      </h6>
     </ng-template>
     <ng-template pTemplate="content">
-
-      <form [formGroup]="additionalData" enctype="multipart/form-data" id="additionalData" name="additionalData">
+      <form
+        [formGroup]="additionalData"
+        enctype="multipart/form-data"
+        id="additionalData"
+        name="additionalData">
         <div class="grid grid-cols-1">
           <div class="flex items-center justify-center mx-auto w-2/5">
             <div *ngIf="!imgUploaded; else imgPrev" class="w-full">
-              <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
-                <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-                  <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10 justify-center items-center">
+              <label
+                class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                <div
+                  class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+                  <div
+                    class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10 justify-center items-center">
                     <i class="pi pi-image" style="font-size: 3rem"></i>
                   </div>
-                  <p class="pointer-none text-gray-500 text-sm ">Wybierz zdjęcie</p>
+                  <p class="pointer-none text-gray-500 text-sm">
+                    Wybierz zdjęcie
+                  </p>
                 </div>
-                <input type="file" class="hidden" formControlName="file" (change)="onChange($event)">
+                <input type="file" class="hidden" (change)="onChange($event)" />
               </label>
             </div>
             <ng-template #imgPrev>
               <div class="flex flex-col text-center">
-                <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 group text-center">
-                  <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-                    <div class="flex flex-auto h-full w-full mx-auto justify-center items-center">
-                      <img [src]="imgUrl" class="h-full w-full object-cover rounded-lg" />
+                <label
+                  class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 group text-center">
+                  <div
+                    class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+                    <div
+                      class="flex flex-auto h-full w-full mx-auto justify-center items-center">
+                      <img
+                        [src]="imgUrl"
+                        class="h-full w-full object-cover rounded-lg" />
                     </div>
                   </div>
-                  <input type="file" class="hidden" formControlName="file" (change)="onChange($event)">
+                  <input
+                    type="file"
+                    class="hidden"
+                    formControlName="file"
+                    (change)="onChange($event)" />
                 </label>
-                <p class="cursor-pointer text-gray-500 text-sm hover:text-red-600 hover:font-bold underline" (click)="unloadPhoto()">Usuń</p>
+                <p
+                  class="cursor-pointer text-gray-500 text-sm hover:text-red-600 hover:font-bold underline"
+                  (click)="unloadPhoto()">
+                  Usuń
+                </p>
               </div>
             </ng-template>
           </div>
         </div>
         <div class="p-fluid">
           <label for="info-box">O mnie</label>
-          <div id="info-box" class="grid grid-cols-1 h-40 rounded-lg border-4 border-solid">
+          <div
+            id="info-box"
+            class="grid grid-cols-1 h-40 rounded-lg border-4 border-solid">
             <textarea formControlName="info" id="info" name="info"></textarea>
           </div>
         </div>
@@ -47,8 +74,13 @@
     </ng-template>
     <ng-template pTemplate="footer">
       <div class="flex justify-between">
-        <button class="mr-2" pButton type="button" icon="pi pi-angle-left" iconPos="left" label="Powrót" (click)="previousPage()"></button>
-        <button class="pl-5" pButton type="button" icon="pi pi-angle-right" iconPos="right" label="Załóż konto" (click)="save()"></button>
+        <button type="button" class="register-button" (click)="previousPage()">
+          Powrót
+        </button>
+
+        <button type="button" class="register-button" (click)="save()">
+          Zarejestruj się
+        </button>
       </div>
     </ng-template>
   </p-card>

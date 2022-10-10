@@ -12,12 +12,12 @@
                 <a
                   routerLinkActive="active"
                   class="text-gray-800 font-medium hover:text-gray-300 px-4 py-2 rounded-md text-md"
-                  routerLink="/dog-profiles">
+                  routerLink="/aplikacja/poszukuja-opieki">
                   Potrzebują Opieki
                 </a>
                 <a
                   routerLinkActive="active"
-                  routerLink="/announcements"
+                  routerLink="/aplikacja/ogloszenia"
                   class="text-gray-800 font-medium hover:text-gray-300 px-4 py-2 rounded-md text-md">
                   Ogłoszenia
                 </a>
@@ -30,7 +30,7 @@
                       else withBadge
                     ">
                     <i
-                      routerLink="/messages"
+                      routerLink="/aplikacja/wiadomosci"
                       tooltipPosition="bottom"
                       class="pi pi-envelope px-3 text-black cursor-pointer"
                       style="font-size: 1.5rem"
@@ -38,7 +38,7 @@
                   ></ng-container>
                   <ng-template #withBadge>
                     <i
-                      routerLink="/messages"
+                      routerLink="/aplikacja/wiadomosci"
                       tooltipPosition="bottom"
                       class="pi pi-envelope pl-3 pr-2 mr-1 text-black cursor-pointer"
                       pBadge
@@ -80,7 +80,7 @@
                     aria-orientation="vertical"
                     aria-labelledby="options-menu">
                     <a
-                      href="/user"
+                      href="/aplikacja/uzytkownik"
                       class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <span class="flex flex-col">
@@ -88,7 +88,7 @@
                       </span>
                     </a>
                     <a
-                      routerLink="/opieka"
+                      routerLink="/aplikacja/opieka"
                       class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <span class="flex flex-col">
@@ -96,7 +96,7 @@
                       </span>
                     </a>
                     <a
-                      href="announcements/my-announcements"
+                      href="/aplikacja/ogloszenia/moje-ogloszenia"
                       class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <span class="flex flex-col">
@@ -104,7 +104,7 @@
                       </span>
                     </a>
                     <a
-                      href="my-dog-profiles"
+                      href="/aplikacja/moje-psy"
                       class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <span class="flex flex-col">
@@ -125,7 +125,7 @@
             </div>
             <div *ngIf="!isSignedIn" class="hidden md:block">
               <button
-                routerLink="/login"
+                routerLink="/logowanie"
                 pButton
                 pRipple
                 type="button"
@@ -156,13 +156,13 @@
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <a
           routerLinkActive="active"
-          routerLink="/dog-profiles"
+          routerLink="/aplikacja/poszukuja-opieki"
           class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
           Potrzebują opieki
         </a>
         <a
           routerLinkActive="active"
-          routerLink="/announcements"
+          routerLink="/aplikacja/ogloszenia"
           class="text-gray-800 hover:text-gray-300 block px-3 py-2 rounded-md font-medium">
           Ogłoszenia
         </a>
@@ -172,44 +172,44 @@
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/#">
+          href="/aplikacja/uzytkownik">
           Konto
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/messages">
+          href="/aplikacja/wiadomosci">
           Wiadomości
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="my-dog-profiles">
+          href="/aplikacja/moje-psy">
           Profile psów
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/opieka">
+          href="/aplikacja/opieka">
           Moje opieki
         </a>
         <a
           *ngIf="isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          href="/announcements/my-announcements">
+          href="/aplikacja/ogloszenia/moje-ogloszenia">
           Moje ogłoszenia
         </a>
         <a
           *ngIf="!isSignedIn"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold"
-          routerLink="/login">
+          routerLink="/logowanie">
           Login
         </a>
         <a
           *ngIf="isSignedIn"
           (click)="logout()"
           class="text-black hover:text-gray-300 block px-3 py-2 rounded-md text-base font-bold"
-          routerLink="/login">
+          routerLink="/logowanie">
           Wyloguj
         </a>
       </div>

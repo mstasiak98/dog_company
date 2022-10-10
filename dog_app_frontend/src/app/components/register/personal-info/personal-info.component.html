@@ -1,67 +1,150 @@
 <div class="mt-8">
   <p-card>
     <ng-template pTemplate="title">
-      <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Rejestracja</h1>
+      <h1 class="text-center text-4xl pb-2 font-bold font-sans">
+        Dane adresowe
+      </h1>
     </ng-template>
     <ng-template pTemplate="subtitle">
-      <h6 class="text-center text-md mb-6 text-gray-600 font-sans">Wprowadź dane zamieszkania</h6>
+      <h6 class="text-center text-lg mb-6 text-gray-600 font-sans">
+        Wprowadź dane zamieszkania
+      </h6>
     </ng-template>
     <ng-template pTemplate="content">
       <form [formGroup]="personalData">
         <div class="p-fluid">
-          <label for="city_info">Miejscowość</label>
-          <div id="city_info" class="grid grid-cols-1 gap-y-4 md:grid-cols-3 md:gap-4">
+          <div
+            id="city_info"
+            class="grid grid-cols-1 gap-y-4 md:grid-cols-3 md:gap-4">
             <div class="md:col-span-2">
-              <input formControlName="city" id="city" class="form-control" type="text"
-                     placeholder="Wprowadź miejscowość" required pInputText
-                     [ngClass]="{'ng-dirty': (f.city.invalid && submitted) || (f.city.dirty && f.city.invalid)}">
-              <small *ngIf="(f.city.invalid && submitted) || (f.city.dirty && f.city.invalid)" class="p-error">Pole <strong>miejscowość</strong> jest wymagane.</small>
+              <label for="city_info">Miejscowość</label>
+              <input
+                formControlName="city"
+                id="city"
+                class="form-control"
+                type="text"
+                placeholder="Wprowadź miejscowość"
+                required
+                pInputText
+                [ngClass]="{
+                  'ng-dirty':
+                    (f.city.invalid && submitted) ||
+                    (f.city.dirty && f.city.invalid)
+                }" />
+              <small
+                *ngIf="
+                  (f.city.invalid && submitted) ||
+                  (f.city.dirty && f.city.invalid)
+                "
+                class="p-error"
+                >Pole <strong>miejscowość</strong> jest wymagane.</small
+              >
             </div>
-            <div>
-              <input id="zipCode" type="text" formControlName="zipCode" placeholder="Kod pocztowy" required pInputText
-                     [ngClass]="{'ng-dirty': (f.zipCode.invalid && submitted) || (f.zipCode.dirty && f.zipCode.invalid)}">
-              <small class="p-error" *ngIf="(f.zipCode.invalid && submitted )|| (f.zipCode.dirty && f.zipCode.invalid)">Pole <strong>kod pocztowy</strong> jest wymagane.</small>
+            <div class="flex flex-col">
+              <label for="zipCode">Kod pocztowy</label>
+              <p-inputMask
+                id="zipCode"
+                [required]="true"
+                mask="99-999"
+                formControlName="zipCode"
+                placeholder="99-999"
+                [ngClass]="{
+                  'ng-dirty':
+                    (f.zipCode.invalid && submitted) ||
+                    (f.zipCode.dirty && f.zipCode.invalid)
+                }"></p-inputMask>
+
+              <small
+                class="p-error"
+                *ngIf="
+                  (f.zipCode.invalid && submitted) ||
+                  (f.zipCode.dirty && f.zipCode.invalid)
+                "
+                >Pole <strong>kod pocztowy</strong> jest wymagane.</small
+              >
             </div>
           </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1">
           <div class="">
             <label for="street">Ulica</label>
-            <input id="street" type="text" required pInputText
-                   formControlName="street"
-                   placeholder="Wprowadź ulicę"
-                   [ngClass]="{'ng-dirty': (f.street.invalid && submitted) || (f.street.dirty && f.street.invalid)}">
-            <small class="p-error" *ngIf="(f.street.invalid && submitted) || (f.street.dirty && f.street.invalid)">Pole <strong>ulica</strong> jest wymagane.</small>
+            <input
+              id="street"
+              type="text"
+              required
+              pInputText
+              formControlName="street"
+              placeholder="Wprowadź ulicę"
+              [ngClass]="{
+                'ng-dirty':
+                  (f.street.invalid && submitted) ||
+                  (f.street.dirty && f.street.invalid)
+              }" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.street.invalid && submitted) ||
+                (f.street.dirty && f.street.invalid)
+              "
+              >Pole <strong>ulica</strong> jest wymagane.</small
+            >
           </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <div class="">
             <label for="houseNo">Numer domu</label>
-            <input id="houseNo" type="text" required pInputText
-                   formControlName="houseNo"
-                   placeholder="Wprowadź nr domu"
-                   [ngClass]="{'ng-dirty': (f.houseNo.invalid && submitted) || (f.houseNo.dirty && f.houseNo.invalid)}">
-            <small class="p-error" *ngIf="(f.houseNo.invalid && submitted) || (f.houseNo.dirty && f.houseNo.invalid)">Pole <strong>Nr domu</strong> jest wymagane.</small>
+            <input
+              id="houseNo"
+              type="text"
+              required
+              pInputText
+              formControlName="houseNo"
+              placeholder="Wprowadź nr domu"
+              [ngClass]="{
+                'ng-dirty':
+                  (f.houseNo.invalid && submitted) ||
+                  (f.houseNo.dirty && f.houseNo.invalid)
+              }" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.houseNo.invalid && submitted) ||
+                (f.houseNo.dirty && f.houseNo.invalid)
+              "
+              >Pole <strong>Nr domu</strong> jest wymagane.</small
+            >
           </div>
           <div class="">
             <label for="flatNo">Numer mieszkania</label>
-            <input id="flatNo" type="text" pInputText
-                   formControlName="flatNo"
-                   placeholder="Wprowadź nr mieszkania">
+            <input
+              id="flatNo"
+              type="text"
+              pInputText
+              formControlName="flatNo"
+              placeholder="Wprowadź nr mieszkania" />
           </div>
         </div>
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
       <div class="flex justify-between">
-        <button class="mr-2" pButton type="button" icon="pi pi-angle-left" iconPos="left" label="Powrót" (click)="previousPage()"></button>
-        <button class="pl-5" pButton type="button" icon="pi pi-angle-right" iconPos="right" label="Dalej"
-                [disabled]="
-                f.city.invalid ||
-                f.zipCode.invalid ||
-                f.street.invalid ||
-                f.houseNo.invalid"
-                (click)="nextPage()"></button>
+        <button type="button" class="register-button" (click)="previousPage()">
+          Powrót
+        </button>
+
+        <button
+          [ngClass]="{
+            disabled:
+              f.city.invalid ||
+              f.zipCode.invalid ||
+              f.street.invalid ||
+              f.houseNo.invalid
+          }"
+          type="button"
+          class="register-button"
+          (click)="nextPage()">
+          Dalej
+        </button>
       </div>
     </ng-template>
   </p-card>

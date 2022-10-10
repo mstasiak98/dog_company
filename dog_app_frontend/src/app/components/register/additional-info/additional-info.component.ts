@@ -7,6 +7,7 @@ import { RegistrationData } from '../../../shared/models/RegistrationData';
 import { UserState } from '../../../shared/models/UserState';
 import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
 import { TokenService } from '../../../shared/services/token/token.service';
+import { ToastService } from '../../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-additional-info',
@@ -29,7 +30,8 @@ export class AdditionalInfoComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private authStateService: AuthStateService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class AdditionalInfoComponent implements OnInit {
         emitEvent: false,
         onlySelf: true,
       });
-    this.router.navigate(['/register/personal_info']);
+    this.router.navigate(['/rejestracja/dane_profilowe']);
   }
 
   save() {
@@ -98,15 +100,16 @@ export class AdditionalInfoComponent implements OnInit {
             const userState: UserState = {
               authenticated: true,
               user: result.data.user,
-              /*user: { userId: result.data.user_id, userName: result.data.name },*/
             };
             this.authStateService.setAuthState(userState);
-            this.router.navigate(['/dashboard']);
-          } else {
-            this.errors = result.error;
+            this.router.navigate(['/aplikacja']);
           }
         },
-        error: error => {},
+        error: error => {
+          this.toastService.showErrorMessage(
+            'Wystąpił błąd podczas rejestracji'
+          );
+        },
         complete: () => {
           this.additionalData.reset();
           this.registrationFormService.registrationFormData.reset();

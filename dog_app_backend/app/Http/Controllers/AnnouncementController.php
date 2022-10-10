@@ -30,8 +30,15 @@ class AnnouncementController extends Controller
     }
 
     public function details(Request $request) {
-        $dogResourceCollection = new AnnouncmentResource(Announcement::findOrFail($request->announcementId));
-        return response()->json($dogResourceCollection);
+        return response()->json(
+            new AnnouncmentResource(Announcement::findOrFail($request->announcementId))
+        );
+    }
+
+    public function edit(Request $request) {
+        $announcement = Announcement::findOrFail($request->announcementId);
+        AuthorizationHelper::checkAuthorization($announcement,'edit');
+        return response()->json(new AnnouncmentResource($announcement));
     }
 
     public function userAnnouncements() {
@@ -108,5 +115,4 @@ class AnnouncementController extends Controller
             'error' => 'Wystąpił błąd podczas zmiany zdjęcia.'
         ], Response::HTTP_BAD_REQUEST));
     }
-
 }

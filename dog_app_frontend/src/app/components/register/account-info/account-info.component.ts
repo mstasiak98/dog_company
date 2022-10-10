@@ -39,7 +39,7 @@ export class AccountInfoComponent implements OnInit {
         this.accountData.value,
         { emitEvent: false, onlySelf: true }
       );
-      this.router.navigate(['register/personal_info']);
+      this.router.navigate(['rejestracja/dane_profilowe']);
     }
     this.submitted = true;
   }

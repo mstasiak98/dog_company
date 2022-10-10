@@ -6,23 +6,13 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
-    <!--<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <script>
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-
-      var pusher = new Pusher('d404806fb04dc022f740', {
-        cluster: 'eu',
-      });
-
-      var channel = pusher.subscribe('my-channel');
-      channel.bind('my-event', function (data) {
-        alert(JSON.stringify(data));
-      });
-    </script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTNnVtuTxZzjydjQyl7Wsq9pVUGJTmyhs"></script>
   </head>
   <body>
-    <app-root></app-root>
+    <div class="min-h-screen">
+      <div class="min-h-full flex flex-col flex-grow">
+        <app-root></app-root>
+      </div>
+    </div>
   </body>
 </html>

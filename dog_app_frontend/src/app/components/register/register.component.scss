@@ -1,6 +1,10 @@
 
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  @apply bg-custom-purple-low text-white
+}
+
 .p-steps ul{
-  @apply bg-white flex-col md:flex-row border border-2 border-solid rounded-2xl border-gray-600
+  @apply bg-white flex-col md:flex-row
 }
 
 .p-steps .p-steps-item .p-menuitem-link:not(.p-disabled):focus {
@@ -11,11 +15,25 @@
   @apply py-2
 }
 
-.p-card .p-card-body {
+/*.p-card .p-card-body {
   @apply border border-0 border-solid rounded-2xl border-black bg-indigo-50
-}
+}*/
 
-p-card .p-card{
+/*p-card .p-card{
   @apply border border-2 border-solid rounded-2xl border-gray-600
+}*/
+
+.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+  border: none !important;
 }
 
+.p-steps .p-steps-item::before {
+  display: none;
+}
+
+.p-card {
+  background: #ffffff;
+  color: black;
+  box-shadow: none !important;
+  border: none !important;
+}

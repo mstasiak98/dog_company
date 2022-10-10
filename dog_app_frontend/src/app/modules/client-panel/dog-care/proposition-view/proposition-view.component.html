@@ -63,7 +63,11 @@
                         : dogCare.owner.name
                     }}
                   </div>
-                  <div class="cursor-pointer underline hover:text-black">
+                  <div
+                    routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+                      userType === 1 ? dogCare.guardian.id : dogCare.owner.id
+                    }}"
+                    class="cursor-pointer underline hover:text-black">
                     Zobacz profil
                   </div>
                 </div>

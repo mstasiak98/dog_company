@@ -19,7 +19,7 @@
             <h3 class="font-bold text-4xl">Moje ogłoszenia</h3>
             <div
               *ngIf="isSignedIn"
-              routerLink="../add"
+              routerLink="../dodaj-ogloszenie"
               class="flex items-center cursor-pointer hover:text-gray-600">
               <i class="pi pi-plus-circle" style="font-size: 1.75rem"></i>
               <span class="ml-1 font-bold text-base">Dodaj</span>
@@ -80,7 +80,7 @@
                     class="w-full md:w-1/4 mt-4 md:mt-0 flex flex-row justify-center items-center">
                     <div class="flex flex-col text-center">
                       <span
-                        routerLink="../details/{{ announcement.id }}"
+                        routerLink="../detale-ogloszenia/{{ announcement.id }}"
                         class="text-normal font-bold hover:text-gray-600 cursor-pointer"
                         >Pokaż</span
                       >
@@ -96,7 +96,7 @@
                     </div>
                     <div class="ml-4 md:ml-6">
                       <button
-                        routerLink="../edit/{{ announcement.id }}"
+                        routerLink="../edytuj-ogloszenie/{{ announcement.id }}"
                         [preserveFragment]="false"
                         pButton
                         pRipple

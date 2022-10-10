@@ -5,6 +5,7 @@ import { AnnouncementService } from '../../../../shared/services/API/announcemen
 import { Announcement } from '../../../../shared/models/announcements/announcement';
 import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
 
 @Component({
   selector: 'app-announcement-details',
@@ -23,7 +24,8 @@ export class AnnouncementDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private announcementService: AnnouncementService,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    public messagesService: MessagesService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class AnnouncementDetailsComponent implements OnInit {
           console.log('OGLOSZENIE = ', this.announcement);
         },
         error: err => {
-          this.router.navigate(['/announcements']);
+          this.router.navigate(['/aplikacja/ogloszenia']);
         },
         complete: () => {
           this.isContentLoading = false;
@@ -79,10 +81,10 @@ export class AnnouncementDetailsComponent implements OnInit {
           console.log('ODP USUWANIE = ', data);
         },
         error: err => {
-          this.router.navigate(['/announcements']);
+          this.router.navigate(['/aplikacja/ogloszenia']);
         },
         complete: () => {
-          this.router.navigate(['/announcements']);
+          this.router.navigate(['/aplikacja/ogloszenia']);
         },
       });
   }

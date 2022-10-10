@@ -55,6 +55,12 @@ app-guardian-care {
   @apply btn bg-red-600 hover:bg-red-700
 }
 
+
+.register-button {
+  @apply cursor-pointer bg-custom-purple-low rounded px-5 py-3 text-lg text-white tracking-wide font-semibold font-sans hover:bg-custom-purple-light
+
+}
+
 .loaderBlock {
   min-height: 600px;
 }

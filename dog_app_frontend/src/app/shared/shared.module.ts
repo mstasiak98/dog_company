@@ -9,12 +9,15 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { CreateMessageDialogComponent } from './components/create-message-dialog/create-message-dialog.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { MapComponent } from './components/map/map.component';
+import { GMapModule } from 'primeng/gmap';
 
 @NgModule({
   declarations: [
     InputSwitchComponent,
     FullscreenGalleryComponent,
     CreateMessageDialogComponent,
+    MapComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ContextMenuModule,
     InputTextareaModule,
     InputTextModule,
+    GMapModule,
   ],
-  exports: [InputSwitchComponent, FullscreenGalleryComponent],
+  exports: [InputSwitchComponent, FullscreenGalleryComponent, MapComponent],
 })
 export class SharedModule {}

@@ -24,6 +24,18 @@ class AnnouncementPolicy
     }
 
     /**
+     * Determine whether the user can get data to edit the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Announcement  $announcement
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function edit(User $user, Announcement $announcement)
+    {
+        return $user->id === $announcement->user_id;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user

@@ -32,6 +32,6 @@ export class PersonalDataGuard implements CanActivate {
     ) {
       return true;
     }
-    return this.router.navigate(['/register']);
+    return this.router.navigate(['/rejestracja']);
   }
 }

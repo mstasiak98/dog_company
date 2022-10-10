@@ -21,10 +21,11 @@ import { UserPhotosComponent } from './user-photos/user-photos.component';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AuthGuard } from '../../../shared/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'profile/:id', component: GuardianProfileViewComponent },
-  { path: '', component: UserComponent },
+  { path: 'profil-uzytkownika/:id', component: GuardianProfileViewComponent },
+  { path: '', component: UserComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

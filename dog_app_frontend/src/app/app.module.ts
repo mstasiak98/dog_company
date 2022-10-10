@@ -31,6 +31,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
+import { InputMaskModule } from 'primeng/inputmask';
 
 registerLocaleData(pl);
 
@@ -61,6 +62,7 @@ registerLocaleData(pl);
     CalendarModule,
     RadioButtonModule,
     InputTextareaModule,
+    InputMaskModule,
   ],
   providers: [
     {

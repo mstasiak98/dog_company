@@ -13,33 +13,37 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
+      import('./landing/landing.module').then(m => m.LandingModule),
+  },
+
+  {
+    path: 'aplikacja',
+    loadChildren: () =>
       import('./modules/client-panel/client-panel.module').then(
         m => m.ClientPanelModule
       ),
   },
 
   {
-    path: 'home',
-    loadChildren: () =>
-      import('./landing/landing.module').then(m => m.LandingModule),
+    path: 'logowanie',
+    component: LoginComponent,
+    canActivate: [NotLoggedGuard],
   },
 
-  { path: 'login', component: LoginComponent, canActivate: [NotLoggedGuard] },
-
   {
-    path: 'register',
+    path: 'rejestracja',
     component: RegisterComponent,
     canActivate: [NotLoggedGuard],
     children: [
-      { path: '', redirectTo: 'account_info', pathMatch: 'full' },
-      { path: 'account_info', component: AccountInfoComponent },
+      { path: '', redirectTo: 'dane_konta', pathMatch: 'full' },
+      { path: 'dane_konta', component: AccountInfoComponent },
       {
-        path: 'personal_info',
+        path: 'dane_profilowe',
         component: PersonalInfoComponent,
         canActivate: [AccountDataGuard],
       },
       {
-        path: 'additional_info',
+        path: 'dodatkowe_informacje',
         component: AdditionalInfoComponent,
         canActivate: [AccountDataGuard, PersonalDataGuard],
       },

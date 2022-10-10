@@ -6,6 +6,7 @@ import { TokenService } from '../../shared/services/token/token.service';
 import { AuthStateService } from '../../shared/services/auth-state/auth-state.service';
 import { UserState } from '../../shared/models/UserState';
 import { MessageService } from 'primeng/api';
+import { ToastService } from '../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private tokenService: TokenService,
     private authStateService: AuthStateService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private toastService: ToastService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -38,28 +40,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.loginForm.value));
+    if (this.loginForm.invalid) return;
+
     this.authService.signIn(this.loginForm.value).subscribe({
       next: result => {
-        console.log('RESULT', result);
         if (result.success) {
           this.responseHandler(result.data.access_token);
-          console.log('result = ', result.data.name);
           const userState: UserState = {
             authenticated: true,
             user: result.data.user,
-            /*
-            user: { userId: result.data.user_id, userName: result.data.name },
-*/
           };
-          console.log('user state = ', userState);
           this.authStateService.setAuthState(userState);
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.errors = result.error;
+          this.router.navigate(['/aplikacja']);
         }
       },
-      error: error => {},
+      error: error => {
+        this.toastService.showErrorMessage('Wystąpił błąd podczas logowania');
+      },
       complete: () => {
         this.loginForm.reset();
       },
@@ -70,21 +67,5 @@ export class LoginComponent implements OnInit {
     if (data) {
       this.tokenService.handleData(data);
     }
-  }
-
-  test() {
-    this.authService.test().subscribe({
-      next: res => {
-        console.log('res', res);
-      },
-      error: err => {
-        console.log('ERROR =', err);
-      },
-    });
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Service Message',
-      detail: 'Via MessageService',
-    });
   }
 }

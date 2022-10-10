@@ -24,6 +24,18 @@ class DogProfilePolicy
     }
 
     /**
+     * Determine whether the user can get the edit data for a dog profile.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\DogProfile  $dogProfile
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function edit(User $user, DogProfile $dogProfile)
+    {
+        return $user->id === $dogProfile->user->id;
+    }
+
+    /**
      * Determine whether the user can delete dog profile
      *
      * @param  \App\Models\User  $user

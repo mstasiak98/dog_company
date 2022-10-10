@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../../components/login/login.component';
 import { NotLoggedGuard } from '../../shared/guards/not-logged.guard';
 import { CoreModule } from '../../core/core.module';
+import { AuthGuard } from '../../shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'announcements',
+        path: 'ogloszenia',
         loadChildren: () =>
           import('./announcement/announcement.module').then(
             m => m.AnnouncementModule
@@ -29,13 +30,14 @@ const routes: Routes = [
       },
 
       {
-        path: 'messages',
+        path: 'wiadomosci',
         loadChildren: () =>
           import('./messages/messages.module').then(m => m.MessagesModule),
+        canActivate: [AuthGuard],
       },
 
       {
-        path: 'user',
+        path: 'uzytkownik',
         loadChildren: () =>
           import('./user/user.module').then(m => m.UserModule),
       },
@@ -44,6 +46,7 @@ const routes: Routes = [
         path: 'opieka',
         loadChildren: () =>
           import('./dog-care/dog-care.module').then(m => m.DogCareModule),
+        canActivate: [AuthGuard],
       },
     ],
   },

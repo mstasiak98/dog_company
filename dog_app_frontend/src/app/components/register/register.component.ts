@@ -16,16 +16,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.steps = [
       {
-        label: 'Dane konta',
-        routerLink: 'account_info',
+        routerLink: 'dane_konta',
       },
       {
-        label: 'Miejsce zamieszkania',
-        routerLink: 'personal_info',
+        routerLink: 'dane_profilowe',
       },
       {
-        label: 'Dane dodatkowe',
-        routerLink: 'additional_info',
+        routerLink: 'dodatkowe_informacje',
       },
     ];
   }

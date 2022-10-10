@@ -51,7 +51,7 @@ export class PersonalInfoComponent implements OnInit {
         'DANE PO NOWYM ZATWIERDZENIU',
         this.registrationFormService.registrationFormData.value
       );
-      this.router.navigate(['register/additional_info']);
+      this.router.navigate(['rejestracja/dodatkowe_informacje']);
     }
     this.submitted = true;
   }
@@ -63,6 +63,6 @@ export class PersonalInfoComponent implements OnInit {
         emitEvent: false,
         onlySelf: true,
       });
-    this.router.navigate(['register']);
+    this.router.navigate(['rejestracja']);
   }
 }

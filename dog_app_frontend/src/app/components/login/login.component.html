@@ -1,39 +1,25 @@
-<!--
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-  <div>
-    <label>Email</label>
-    <input type="email" formControlName="email">
-  </div>
-
-  <div>
-    <label>Password</label>
-    <input type="password" formControlName="password">
-  </div>
-  <button type="submit">Log in</button>
-</form>
-
-<button (click)="test()">TEST</button>
-
-<p-toast position="top-left"></p-toast>
--->
-
-<div class="bg-img">
+<div class="">
   <div class="container h-screen mx-auto">
-    <div class="w-2/3 lg:w-2/5 md:2-3/5 h-fit mx-auto py-20">
-      <div
-        class="h-full bg-indigo-50 rounded-2xl px-5 border border-2 border-solid border-gray-600">
-        <form [formGroup]="loginForm">
+    <div class="w-full md:w-2/6 h-fit mx-auto py-20">
+      <div class="h-full px-5 flex flex-col items-center">
+        <div class="flex flex-row items-center gap-x-4 pr-6">
+          <img
+            src="/assets/background/logo_hr.png"
+            style="display: block; width: 50px; height: 50px" />
+          <div class="text-2xl font-bold">DogCompany</div>
+        </div>
+
+        <form [formGroup]="loginForm" class="w-full">
           <h1
-            class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans pt-10">
+            class="text-center text-black text-4xl mb-6 text-gray-600 font-bold font-sans pt-8">
             Logowanie
           </h1>
-          <h6 class="text-center text-md mb-6 text-gray-600 font-sans">
+          <h6 class="text-center text-lg mb-6 text-gray-600 font-sans">
             Wprowadź dane swojego konta
           </h6>
           <div class="pt-4 p-fluid grid grid-cols-1">
             <div>
-              <label for="email">Adres email</label>
+              <label for="email" class="font-semibold">Adres email</label>
               <input
                 id="email"
                 type="email"
@@ -42,7 +28,7 @@
                 formControlName="email"
                 [ngClass]="{
                   'ng-dirty':
-                    (f.password.invalid && submitted) ||
+                    (f.email.invalid && submitted) ||
                     (f.email.dirty && f.email.invalid)
                 }" />
               <div
@@ -61,7 +47,7 @@
           </div>
           <div class="pt-4 p-fluid grid grid-cols-1">
             <div>
-              <label for="password">Hasło</label>
+              <label for="password" class="font-semibold">Hasło</label>
               <input
                 id="password"
                 type="password"
@@ -85,17 +71,20 @@
             </div>
           </div>
           <button
+            [ngClass]="{ disabled: loginForm.invalid }"
             type="submit"
             (click)="onSubmit()"
-            class="w-full mt-6 bg-indigo-600 rounded-2xl px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans hover:bg-indigo-500">
-            Logowanie
+            class="w-full mt-6 bg-custom-purple-low rounded px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans hover:bg-custom-purple-light">
+            Zaloguj się
           </button>
-          <button
-            type="submit"
-            routerLink="/register"
-            class="mb-7 w-full mt-6 mb-3 bg-white rounded-2xl border border-2 border-solid border-indigo-200 px-4 py-2 text-lg text-gray-800 tracking-wide font-semibold font-sans hover:bg-indigo-600 hover:text-white">
-            Rejestracja
-          </button>
+          <div class="pt-4">
+            <div class="w-fit cursor-pointer hover:text-blue-800">
+              <span class="">Nie masz konta?</span
+              ><span routerLink="/rejestracja" class="font-bold">
+                Zarejestruj się!</span
+              >
+            </div>
+          </div>
         </form>
       </div>
     </div>

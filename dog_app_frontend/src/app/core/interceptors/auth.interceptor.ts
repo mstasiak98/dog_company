@@ -4,13 +4,20 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { TokenService } from '../../shared/services/token/token.service';
+import { Router } from '@angular/router';
+import { AuthStateService } from '../../shared/services/auth-state/auth-state.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private tokenService: TokenService) {}
+  constructor(
+    private tokenService: TokenService,
+    private router: Router,
+    private authStateService: AuthStateService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const accessToken = this.tokenService.getToken();
@@ -21,6 +28,26 @@ export class AuthInterceptor implements HttpInterceptor {
       },
     });
 
-    return next.handle(req);
+    return next
+      .handle(req)
+      .pipe(catchError(x => this.handleUnauthorizedError(x)))
+      .pipe(catchError(x => this.handleForbiddenError(x)));
+  }
+
+  private handleForbiddenError(err: HttpErrorResponse): Observable<any> {
+    if (err.status === 403) {
+      this.router.navigateByUrl(`/aplikacja`);
+
+      return of(err.message);
+    }
+    return throwError(() => err);
+  }
+
+  private handleUnauthorizedError(err: HttpErrorResponse): Observable<any> {
+    if (err.status === 401) {
+      this.authStateService.handleLogout();
+      return of(err.message);
+    }
+    return throwError(() => err);
   }
 }

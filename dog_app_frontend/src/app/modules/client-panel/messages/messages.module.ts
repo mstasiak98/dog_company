@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: MessagesComponent },
-  { path: 'details/:id', component: MessageDetailsComponent },
+  { path: 'temat/:id', component: MessageDetailsComponent },
 ];
 
 @NgModule({

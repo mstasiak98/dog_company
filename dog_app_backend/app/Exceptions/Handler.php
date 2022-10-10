@@ -42,10 +42,10 @@ class Handler extends ExceptionHandler
 
     protected function invalidJson($request, ValidationException $exception)
     {
-        return response()->json([
+       /* return response()->json([
             'message' => $exception->getMessage(),
             'errors' => $exception->errors(),
-        ], 200); //parent method return 422
-        //return parent::invalidJson($request, $exception);
+        ], 200); //parent method return 422*/
+        return parent::invalidJson($request, $exception);
     }
 }

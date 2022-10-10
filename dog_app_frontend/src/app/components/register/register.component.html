@@ -1,11 +1,16 @@
-<div class="bg-img">
-  <div class="container h-screen mx-auto flex items-center">
-    <div class="w-2/3 lg:w-2/5 md:2-1/2 h-full mx-auto pt-10 ">
-      <p-steps [model]="steps"
-               [readonly]="true">
-      </p-steps>
+<div class="pt-10">
+  <div class="mx-auto flex items-center flex-col">
+    <div class="flex flex-row items-center gap-x-4 pr-6 pb-12">
+      <img
+        src="/assets/background/logo_hr.png"
+        style="display: block; width: 50px; height: 50px" />
+      <div class="text-2xl font-bold">DogCompany</div>
+    </div>
+    <div class="w-full md:w-2/6 mx-auto">
+      <div class="pb-6">
+        <p-steps [model]="steps" [readonly]="true"> </p-steps>
+      </div>
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { data } from 'autoprefixer';
-import { Trait } from '@angular/compiler-cli/src/ngtsc/transform';
 import { Feature } from '../../../../shared/models/dogs/Feature';
 import { Size } from '../../../../shared/models/dogs/Size';
 import { Activity } from '../../../../shared/models/dogs/Activity';
@@ -70,10 +68,10 @@ export class CreateDogProfileComponent implements OnInit {
   }
 
   private retrieveExistingProfileData(): void {
-    if (this.router.url.includes('edit')) {
+    if (this.router.url.includes('edytuj')) {
       this.isEdit = true;
       this.route.params.subscribe(parameter => {
-        this.dogService.getDogProfileDetails(parameter.id).subscribe({
+        this.dogService.getDogProfileEditData(parameter.id).subscribe({
           next: data => {
             this.dogProfile = data.dog;
             console.log('profil = ', this.dogProfile);
@@ -85,7 +83,7 @@ export class CreateDogProfileComponent implements OnInit {
             );
           },
           error: err => {
-            this.router.navigate([`my-dog-profiles`]);
+            this.router.navigate([`/aplikacja/moje-psy`]);
           },
           complete: () => {
             this.isContentLoading = false;
@@ -115,12 +113,8 @@ export class CreateDogProfileComponent implements OnInit {
   }
 
   saveProfile(): void {
-    console.log('test = ', this.dogProfileForm.value);
-    console.log('photo = ', this.photos);
-
     let dogProfile;
     if (this.isEdit) {
-      console.log('jest edit wartosc przed = ', this.dogProfileForm.value);
       dogProfile = {
         ...this.dogProfileForm.value,
         id: this.dogProfile.id,
@@ -128,7 +122,7 @@ export class CreateDogProfileComponent implements OnInit {
     } else {
       dogProfile = this.dogProfileForm.value;
     }
-    console.log('wysylam, = ', dogProfile);
+
     let request = !this.isEdit
       ? this.dogService.storeDogProfile(dogProfile, this.photos)
       : this.dogService.updateDogProfile(dogProfile);
@@ -137,17 +131,11 @@ export class CreateDogProfileComponent implements OnInit {
       next: result => {
         console.log('result = ', result);
         if (result.success) {
-          this.router.navigate(['my-dog-profiles']);
-        } else {
-          this.router.navigate(['my-dog-profiles']).then(() => {
-            this.toastService.showErrorMessage(
-              'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
-            );
-          });
+          this.router.navigate(['/aplikacja/moje-psy']);
         }
       },
       error: error => {
-        this.router.navigate(['my-dog-profiles']).then(() => {
+        this.router.navigate(['/aplikacja/moje-psy']).then(() => {
           this.toastService.showErrorMessage(
             'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
           );

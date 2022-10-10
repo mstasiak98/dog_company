@@ -77,6 +77,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/announcements/updateAnnouncement', 'update');
         Route::post('/announcements/deleteAnnouncement', 'destroy');
         Route::post('/announcements/replacePhoto', 'replacePhoto');
+        Route::get('/announcements/edit', 'edit');
     });
 
     Route::controller(DogProfileController::class)->group(function () {
@@ -85,6 +86,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('dogs/update', 'update');
         Route::post('dogs/destroy', 'destroy');
         Route::post('dogs/changeVisibility', 'changeVisibility');
+        Route::get('dogs/edit', 'edit');
     });
 
     Route::controller(PhotoController::class)->group(function () {

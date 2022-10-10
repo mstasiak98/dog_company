@@ -41,6 +41,15 @@ export class AnnouncementService {
     });
   }
 
+  getAnnouncementEditData(announcementId: number): Observable<any> {
+    const url = `${this.ANNOUNCEMENTS_BASE_URL}/edit`;
+    return this.http.get(url, {
+      params: {
+        announcementId: announcementId,
+      },
+    });
+  }
+
   getAnnouncementListForUser(): Observable<any> {
     const url = `${this.ANNOUNCEMENTS_BASE_URL}/user`;
     return this.http.get(url);

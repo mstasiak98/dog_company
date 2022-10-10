@@ -1,4 +1,4 @@
-<app-header headerTitle="Stwórz profil psa"></app-header>
+<app-header headerTitle="Profil psa"></app-header>
 <div
   class="max-w-full md:max-w-7xl h-full mt-2 flex flex-col mx-auto flex items-center loaderBlock">
   <div
@@ -245,7 +245,7 @@
       <div class="flex my-6 w-full justify-center">
         <div>
           <button
-            routerLink="/my-dog-profiles"
+            routerLink="/aplikacja/moje-psy"
             class="p-button-secondary"
             pButton
             type="button"
@@ -256,7 +256,7 @@
             class="p-button-success"
             pButton
             type="button"
-            label="save"
+            label="Zapisz"
             (click)="saveProfile()"
             [disabled]="
               dogProfileForm.pristine || !dogProfileForm.valid

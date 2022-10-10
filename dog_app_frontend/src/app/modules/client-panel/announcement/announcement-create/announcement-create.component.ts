@@ -34,11 +34,11 @@ export class AnnouncementCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.router.url.includes('edit')) {
+    if (this.router.url.includes('edytuj-ogloszenie')) {
       this.isEdit = true;
       this.route.params.subscribe(parameter => {
         this.announcementService
-          .getAnnouncementDetails(parameter.id)
+          .getAnnouncementEditData(parameter.id)
           .subscribe({
             next: data => {
               this.announcement = data;
@@ -51,7 +51,9 @@ export class AnnouncementCreateComponent implements OnInit {
               );
             },
             error: err => {
-              this.router.navigate([`/announcements/details/${parameter.id}`]);
+              this.router.navigate([
+                `/aplikacja/ogloszenia/detale-ogloszenia/${parameter.id}`,
+              ]);
             },
             complete: () => {
               this.isContentLoading = false;
@@ -127,9 +129,9 @@ export class AnnouncementCreateComponent implements OnInit {
         console.log('result = ', result);
         let url;
         if (this.isEdit) {
-          url = `announcements/details/${this.announcement.id}`;
+          url = `/aplikacja/ogloszenia/detale-ogloszenia/${this.announcement.id}`;
         } else {
-          url = `announcements/details/${result?.announcementId}`;
+          url = `/aplikacja/ogloszenia/detale-ogloszenia/${result?.announcementId}`;
         }
         this.router.navigate([url]);
       },
@@ -207,9 +209,11 @@ export class AnnouncementCreateComponent implements OnInit {
 
   navigateBack(): void {
     if (this.isEdit) {
-      this.router.navigate([`announcements/details/${this.announcement.id}`]);
+      this.router.navigate([
+        `/aplikacja/ogloszenia/detale-ogloszenia/${this.announcement.id}`,
+      ]);
     } else {
-      this.router.navigate(['announcements']);
+      this.router.navigate(['/aplikacja/ogloszenia']);
     }
   }
 }

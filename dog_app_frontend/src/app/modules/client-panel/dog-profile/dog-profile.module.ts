@@ -29,14 +29,27 @@ import { DogProfileListElementComponent } from './user-dog-profile-list/dog-prof
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SharedModule } from '../../../shared/shared.module';
+import { AuthGuard } from '../../../shared/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'edit-dog-profile/:id', component: CreateDogProfileComponent },
-  { path: 'dog-profiles', component: DogProfilesDashboardComponent },
-  { path: 'dog-profile/:id', component: DogProfileComponent },
-  { path: 'my-dog-profiles', component: UserDogProfileListComponent },
-  { path: 'add-dog-profile', component: CreateDogProfileComponent },
-  { path: '', redirectTo: 'dog-profiles', pathMatch: 'full' },
+  {
+    path: 'edytuj-profil-psa/:id',
+    component: CreateDogProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'poszukuja-opieki', component: DogProfilesDashboardComponent },
+  { path: 'profil-psa/:id', component: DogProfileComponent },
+  {
+    path: 'moje-psy',
+    component: UserDogProfileListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'dodaj-profil-psa',
+    component: CreateDogProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: '', redirectTo: 'poszukuja-opieki', pathMatch: 'full' },
 ];
 
 @NgModule({

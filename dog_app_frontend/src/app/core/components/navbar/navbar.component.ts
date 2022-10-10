@@ -3,18 +3,8 @@ import { MenuItem } from 'primeng/api';
 import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
 import { TokenService } from '../../../shared/services/token/token.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Route,
-  Router,
-  RouterEvent,
-} from '@angular/router';
-import { Event } from '@angular/router';
+import { Router } from '@angular/router';
 import { PusherServiceService } from '../../../shared/services/API/pusher-service.service';
-import { environment } from '../../../../environments/environment';
-import Echo from 'laravel-echo';
 import { Subscription } from 'rxjs';
 import { MessagesService } from '../../../shared/services/API/messages/messages.service';
 
@@ -92,7 +82,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.authService.logout();
       }
     });
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
     /*
     location.reload();
 */

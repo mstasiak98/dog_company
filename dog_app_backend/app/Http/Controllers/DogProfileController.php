@@ -61,19 +61,15 @@ class DogProfileController extends Controller
         return response()->json($dogResourceCollection->response()->getData());
     }
 
-    public function details(Request $request){
+    public function details(Request $request) {
         $dog = DogProfile::findOrFail($request->dogProfileId);
-        $dogResource = new DogProfileResource($dog);
-        $owner = new OwnerResource($dog->user);
-        $siblings = DogProfile::where('user_id', '=', $owner->id)->where('id', '!=', $dog->id)->get();
+        return response()->json($this->getDogProfileData($dog));
+    }
 
-        $response = [
-            'dog' => $dogResource,
-            'owner' => $owner,
-            'siblings' => $siblings
-        ];
-
-        return response()->json($response);
+    public function edit(Request $request) {
+        $dog = DogProfile::findOrFail($request->dogProfileId);
+        AuthorizationHelper::checkAuthorization($dog, 'edit');
+        return response()->json($this->getDogProfileData($dog));
     }
 
     public function userDogProfiles(Request $request) {
@@ -170,6 +166,19 @@ class DogProfileController extends Controller
 
         return response()->json(['success' => true]);
 
+    }
+
+    private function getDogProfileData(DogProfile $dogProfile): array {
+        $dogResource = new DogProfileResource($dogProfile);
+        $owner = new OwnerResource($dogProfile->user);
+        $siblings = DogProfile::where('user_id', '=', $owner->id)->where('id', '!=', $dogProfile->id)->get();
+
+        $response = [
+            'dog' => $dogResource,
+            'owner' => $owner,
+            'siblings' => $siblings
+        ];
+        return $response;
     }
 
 }

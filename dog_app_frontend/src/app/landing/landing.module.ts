@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [{ path: '', component: LandingComponent }];
 
@@ -16,6 +17,7 @@ const routes: Routes = [{ path: '', component: LandingComponent }];
     CoreModule,
     ButtonModule,
     RippleModule,
+    SharedModule,
   ],
 })
 export class LandingModule {}

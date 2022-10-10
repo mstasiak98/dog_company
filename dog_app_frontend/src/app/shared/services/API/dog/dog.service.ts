@@ -63,6 +63,15 @@ export class DogService {
     });
   }
 
+  getDogProfileEditData(dogProfileId: number): Observable<any> {
+    const url = `${this.DOG_PROFILE_BASE_URL}/edit`;
+    return this.http.get(url, {
+      params: {
+        dogProfileId,
+      },
+    });
+  }
+
   //return dog profile info
   getDogProfiles(searchUrl?: string, filters?: any): Observable<any> {
     if (!searchUrl) {

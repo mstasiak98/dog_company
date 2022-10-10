@@ -20,13 +20,26 @@ import { AnnouncementCreateComponent } from './announcement-create/announcement-
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AnnouncementListUserComponent } from './announcement-list-user/announcement-list-user.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AuthGuard } from '../../../shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: AnnouncementDashboardComponent },
-  { path: 'details/:id', component: AnnouncementDetailsComponent },
-  { path: 'add', component: AnnouncementCreateComponent },
-  { path: 'edit/:id', component: AnnouncementCreateComponent },
-  { path: 'my-announcements', component: AnnouncementListUserComponent },
+  { path: 'detale-ogloszenia/:id', component: AnnouncementDetailsComponent },
+  {
+    path: 'dodaj-ogloszenie',
+    component: AnnouncementCreateComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edytuj-ogloszenie/:id',
+    component: AnnouncementCreateComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'moje-ogloszenia',
+    component: AnnouncementListUserComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

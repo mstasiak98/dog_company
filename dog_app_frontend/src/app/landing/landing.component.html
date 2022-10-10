@@ -10,10 +10,16 @@
       <div class="cursor-pointer">Misja</div>
       <div class="flex gap-4">
         <div>
-          <button pButton pRipple type="button" label="Rejestracja"></button>
+          <button
+            routerLink="/rejestracja"
+            pButton
+            pRipple
+            type="button"
+            label="Rejestracja"></button>
         </div>
         <div>
           <button
+            routerLink="/logowanie"
             pButton
             pRipple
             type="button"
@@ -29,7 +35,12 @@
       <a class="flex-shrink-0 text-lg font-bold" href="/"> DogCompany </a>
       <div class="flex gap-4">
         <div>
-          <button pButton pRipple type="button" label="Dołącz"></button>
+          <button
+            routerLink="/rejestracja"
+            pButton
+            pRipple
+            type="button"
+            label="Dołącz"></button>
         </div>
       </div>
     </div>
@@ -253,6 +264,9 @@
       </div>
     </div>
   </div>
+
+  <app-map></app-map>
+
   <div class="w-full bg-purple-700 text-white">
     <div
       class="max-w-7xl flex flex-col md:flex-row p-6 mx-auto justify-between">

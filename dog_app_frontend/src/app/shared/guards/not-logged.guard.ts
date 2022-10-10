@@ -30,7 +30,7 @@ export class NotLoggedGuard implements CanActivate {
     const isAuthenticated = this.authStateService.isLoggedIn();
 
     if (isAuthenticated) {
-      this.router.navigate(['']);
+      this.router.navigate(['/aplikacja']);
     }
 
     return !isAuthenticated;

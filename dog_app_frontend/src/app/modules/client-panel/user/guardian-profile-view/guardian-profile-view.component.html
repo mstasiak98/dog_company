@@ -25,8 +25,8 @@
                   ? userDetails.photo[0].url
                   : '../../../assets/background/placeholder.png'
               }}"
-              class="w-full object-contain rounded-lg block w-3/4 md:w-full"
-              style="width: 200px; height: 200px; object-fit: cover" />
+              class="rounded-lg block"
+              style="width: 200px; height: 200px; object-fit: contain" />
           </div>
           <div
             class="md:mt-0 md:px-0 md:ml-12 px-4 mt-4 flex flex-col items-center md:items-start">
@@ -47,16 +47,6 @@
               </div>
             </ng-container>
 
-            <div class="mt-2 flex flex-row items-center align-middle">
-              <p-rating
-                [ngModel]="rating"
-                [readonly]="true"
-                [stars]="5"
-                [cancel]="false"></p-rating>
-              <span class="ml-2 underline text-lg">{{
-                this.comments.length
-              }}</span>
-            </div>
             <div class="mt-2">
               <div
                 (click)="messagesService.openSendMessageDialog(userDetails.id)"

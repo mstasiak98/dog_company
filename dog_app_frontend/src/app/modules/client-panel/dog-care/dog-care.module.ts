@@ -32,10 +32,6 @@ const routes: Routes = [
   {
     path: '',
     component: DogCareComponent,
-    /*   children: [
-      { path: 'opiekun', component: GuardianCareComponent },
-      { path: 'wlasciciel', component: OwnerCareComponent },
-    ],*/
   },
 ];
 

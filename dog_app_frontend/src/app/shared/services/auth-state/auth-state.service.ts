@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { UserState } from '../../models/UserState';
 import { User } from '../../models/User';
+import { TokenService } from '../token/token.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,11 @@ export class AuthStateService {
     user: <User>{ id: -1, name: '', lastname: '', photo: [] },
   });
   userAuthState = this.userState.asObservable();
-  constructor() {
+  constructor(
+    private tokenService: TokenService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     const cacheData = this.getAuthState();
     if (cacheData) {
       this.userState.next(JSON.parse(cacheData));
@@ -42,5 +49,16 @@ export class AuthStateService {
 
   removeAuthState() {
     localStorage.removeItem('auth_state');
+  }
+
+  handleLogout() {
+    this.tokenService.removeToken();
+    this.removeAuthState();
+    this.userAuthState.subscribe(state => {
+      if (state.authenticated) {
+        this.authService.logout();
+      }
+    });
+    this.router.navigate(['/']);
   }
 }
