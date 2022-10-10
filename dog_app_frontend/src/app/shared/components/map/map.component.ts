@@ -9,20 +9,12 @@ import { MapPoint } from '../../models/MapPoint';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  options: any;
-
   overlays: any[];
-
-  @Input()
-  addressParams: AddressParameters;
-
+  @Input() addressParams: AddressParameters;
   mapPoint: MapPoint;
   // @ts-ignore
   map: google.maps.Map;
 
-  /*
-  geocoder = new google.maps.Geocoder();
-*/
   constructor(private nominatimService: NominatimService) {}
 
   ngOnInit() {
