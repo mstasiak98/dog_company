@@ -12,6 +12,7 @@ export const environment = {
   usersBaseUrl: 'http://127.0.0.1:8000/api/users',
   messagesBaseUrl: 'http://127.0.0.1:8000/api/messages',
   broadcastAuthenticationUrl: 'http://127.0.0.1:8000/broadcasting/auth',
+  nominatimUrl: 'https://nominatim.openstreetmap.org',
 };
 
 /*

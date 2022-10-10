@@ -23,10 +23,11 @@ class OwnerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'firstName'=>$this->first_name,
-            'lastName'=>$this->last_name,
-            'city'=>$this->city,
-            'street'=>$this->street,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
+            'city' => $this->city,
+            'street' => $this->street,
+            'zipCode' => $this->zip_code
         ];
 
     }

@@ -228,5 +228,13 @@
         </div>
       </div>
     </div>
+    <div class="pt-6">
+      <app-map
+        [addressParams]="{
+          city: owner.city,
+          street: owner.street,
+          postalcode: owner.zipCode
+        }"></app-map>
+    </div>
   </ng-template>
 </div>

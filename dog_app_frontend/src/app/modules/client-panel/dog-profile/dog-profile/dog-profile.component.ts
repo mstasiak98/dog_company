@@ -77,11 +77,10 @@ export class DogProfileComponent implements OnInit {
       this.dogProfileId = parameter.id;
       this.dogService.getDogProfileDetails(parameter.id).subscribe({
         next: data => {
-          console.log('data = ', data);
           this.dogProfile = data.dog;
           this.owner = data.owner;
           this.siblings = data.siblings;
-          console.log('rodzenstwo = ', this.siblings);
+          console.log('owner = ', this.owner);
         },
         error: err => {
           this.router.navigate(['/dashboard']);

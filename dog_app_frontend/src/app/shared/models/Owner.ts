@@ -4,4 +4,5 @@ export interface Owner {
   lastName: string;
   city: string;
   street: string;
+  zipCode: string;
 }

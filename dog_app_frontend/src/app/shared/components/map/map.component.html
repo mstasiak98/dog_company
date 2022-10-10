@@ -1,1 +1,5 @@
-<p>map works!</p>
+<p-gmap
+  (onMapReady)="setMap($event)"
+  [options]="options"
+  [overlays]="overlays"
+  [style]="{ width: '100%', height: '320px' }"></p-gmap>
