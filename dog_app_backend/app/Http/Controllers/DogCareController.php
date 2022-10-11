@@ -10,8 +10,11 @@ use App\Http\Requests\DogCare\DogCareStatusRequest;
 use App\Http\Requests\DogCare\GetDogCareRequest;
 use App\Http\Resources\DogCareCollection;
 use App\Models\DogCare;
+use App\Models\User;
+use App\Notifications\DogCareAccepted;
 use App\Services\DogCares\DogCareService;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 
 

@@ -5,9 +5,13 @@ namespace App\Services\DogCares;
 use App\Enums\CareStateEnum;
 use App\Http\Requests\DogCare\GetDogCareRequest;
 use App\Models\DogCare;
+use App\Notifications\DogCareAccepted;
+use App\Notifications\DogCareCancelled;
+use App\Notifications\DogCareRejected;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -63,6 +67,8 @@ class DogCareService
         $dogCare->state_id = CareStateEnum::OWNER_ACCEPTED->value;
         $dogCare->save();
 
+        Notification::send($dogCare->guardian, new DogCareAccepted($dogCare));
+
         return true;
     }
 
@@ -86,8 +92,12 @@ class DogCareService
         $dogCare->state_id = $state->value;
         $dogCare->save();
 
+        if($state == CareStateEnum::OWNER_REJECTED) {
+            Notification::send($dogCare->guardian, new DogCareRejected($dogCare));
+        } else {
+            Notification::send($dogCare->dogProfile->user, new DogCareCancelled($dogCare));
+        }
         return true;
-
     }
 
     public function rateCare($request) {

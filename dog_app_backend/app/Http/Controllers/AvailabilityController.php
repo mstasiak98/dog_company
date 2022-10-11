@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\AvailabilityResource;
 use App\Models\Availability;
+use App\Models\DogCare;
+use App\Models\User;
+use App\Notifications\DogCareAccepted;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class AvailabilityController extends Controller
 {
@@ -16,6 +20,14 @@ class AvailabilityController extends Controller
     {
         $availabilityCollection = AvailabilityResource::collection(Availability::all());
         return response()->json($availabilityCollection);
+    }
+
+    public function test() {
+
+        $care = DogCare::find(1);
+
+        $user = User::findOrFail(2);
+        Notification::send($user, new DogCareAccepted($care));
     }
 
 }

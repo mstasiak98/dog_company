@@ -30,7 +30,7 @@ Route::post('login', [AuthController::class, 'logIn']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('changePassword', [AuthController::class, 'changePassword']);
 
-
+Route::get('/test', [AvailabilityController::class, 'test']);
 
 //DOGS
 Route::get('/dogs', [DogProfileController::class, 'index']);

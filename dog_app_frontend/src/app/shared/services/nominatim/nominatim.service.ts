@@ -13,7 +13,7 @@ export class NominatimService {
 
   constructor(private http: HttpClient) {}
 
-  addressLokup(req: AddressParameters): Observable<any> {
+  addressLookup(req: AddressParameters): Observable<any> {
     const url = `${this.BASE_NOMINATIM_URL}/search?format=json&city=${req.city}&postalcode=${req.postalcode}&street=${req.street}`;
     return this.http.get(url);
   }
