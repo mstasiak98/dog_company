@@ -100,3 +100,11 @@ li.paw-li {
   background-image: url("assets/background/paw_item.png");
   background-size: 35px;
 }
+
+p-image {
+  img {
+    height: 500px !important;
+    object-fit: contain;
+    padding: 0;
+  }
+}

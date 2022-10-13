@@ -59,7 +59,6 @@ export class AnnouncementDetailsComponent implements OnInit {
 
     const ref = this.dialogService.open(MakeProposalDialogComponent, {
       width: '50rem',
-      height: '60rem',
       data: {
         announcementId: this.announcement.id,
         activities: this.announcement.activity,

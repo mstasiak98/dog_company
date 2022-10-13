@@ -177,9 +177,19 @@
                 class="w-full block">
                 <img
                   alt="dog photo"
-                  src="../../../assets/background/card.png"
-                  class="w-full max-h-56 object-cover rounded-lg" />
-                <div class="bg-white w-full px-4 py-0 max-h-22 rounded-lg">
+                  src="{{
+                    profile.photos.length > 0
+                      ? profile.photos[0].url
+                      : '../../../assets/background/placeholder.png'
+                  }}"
+                  style="
+                    display: block;
+                    width: 100%;
+                    height: 230px;
+                    object-fit: cover;
+                  "
+                  class="w-full rounded-lg" />
+                <div class="bg-white w-full px-4 py-0 rounded-lg">
                   <p
                     class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2 truncate">
                     {{ profile.name }}

@@ -1,4 +1,4 @@
-<div class="w-full h-screen">
+<div class="border-t-2 border-black w-full h-screen">
   <div
     class="w-full h-screen flex items-center justify-center"
     *ngIf="isContentLoading === true; else content">
@@ -15,7 +15,30 @@
       </div>
     </div>-->
     <div class="w-full bg-gray-500">
-      <div class="max-w-full md:max-w-7xl mx-auto h-full px-8">
+      <div class="flex flex-row justify-center">
+        <p-galleria
+          [value]="images"
+          [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
+          [numVisible]="5"
+          [circular]="true"
+          [showItemNavigators]="true"
+          [showThumbnails]="false">
+          <ng-template pTemplate="item" let-item>
+            <p-image
+              [src]="item.previewImageSrc"
+              alt="Image"
+              width="640"
+              height="500"
+              [preview]="true">
+              <ng-template pTemplate="indicator">
+                <i class="pi pi-eye" style="font-size: 4rem"></i>
+              </ng-template>
+            </p-image>
+          </ng-template>
+        </p-galleria>
+      </div>
+
+      <!--<div class="max-w-full md:max-w-7xl mx-auto h-full px-8">
         <div class="w-full md:w-3/4 mx-auto gallery">
           <p-carousel [value]="images" [showIndicators]="false">
             <ng-template let-image pTemplate="item">
@@ -28,7 +51,7 @@
             </ng-template>
           </p-carousel>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="max-w-full md:max-w-7xl mx-auto px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 mt-10 gap-4 mb-4">
