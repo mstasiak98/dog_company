@@ -8,6 +8,8 @@ import { Sibling } from '../../../../shared/models/dogs/Sibling';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
+import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
+import PhotoHelper from '../../../../shared/helpers/PhotoHelper';
 
 @Component({
   selector: 'app-dog-profile',
@@ -24,40 +26,7 @@ export class DogProfileComponent implements OnInit {
 
   isContentLoading = false;
 
-  images: any = [
-    {
-      previewImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      thumbnailImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      alt: 'Description for Image 1',
-      title: 'Title 1',
-    },
-    {
-      previewImageSrc:
-        'http://localhost:8000/storage/photos/TskIqukqoENONBqBa4gNG0qbsgp5u3aEPrKzJPbM.png',
-      thumbnailImageSrc:
-        'http://localhost:8000/storage/photos/TskIqukqoENONBqBa4gNG0qbsgp5u3aEPrKzJPbM.png',
-      alt: 'Description for Image 2',
-      title: 'Title 2',
-    },
-    {
-      previewImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      thumbnailImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      alt: 'Description for Image 3',
-      title: 'Title 3',
-    },
-    {
-      previewImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      thumbnailImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      alt: 'Description for Image 4',
-      title: 'Title 4',
-    },
-    {
-      previewImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      thumbnailImageSrc: 'http://localhost:8000/storage/photos/dog.png',
-      alt: 'Description for Image 5',
-      title: 'Title 5',
-    },
-  ];
+  images: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,7 +34,8 @@ export class DogProfileComponent implements OnInit {
     private dogService: DogService,
     private router: Router,
     private dialogService: DialogService,
-    private authStateService: AuthStateService
+    private authStateService: AuthStateService,
+    private messagesService: MessagesService
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +50,7 @@ export class DogProfileComponent implements OnInit {
           this.dogProfile = data.dog;
           this.owner = data.owner;
           this.siblings = data.siblings;
-          console.log('owner = ', this.owner);
+          this.initPhotoGallery();
         },
         error: err => {
           this.router.navigate(['/dashboard']);
@@ -92,6 +62,10 @@ export class DogProfileComponent implements OnInit {
     });
   }
 
+  private initPhotoGallery(): void {
+    this.images = PhotoHelper.getImagesArrayFromPhoto(this.dogProfile.photos);
+  }
+
   makeProposal() {
     if (!this.isLoggedIn) {
       return;
@@ -99,11 +73,14 @@ export class DogProfileComponent implements OnInit {
 
     const ref = this.dialogService.open(MakeProposalDialogComponent, {
       width: '50rem',
-      height: '60rem',
       data: {
         dogProfileId: this.dogProfile.id,
         activities: this.dogProfile.activity,
       },
     });
+  }
+
+  showMessageDialog(): void {
+    this.messagesService.openSendMessageDialog(this.owner.id);
   }
 }

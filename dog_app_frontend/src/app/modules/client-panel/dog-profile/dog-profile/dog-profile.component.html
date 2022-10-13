@@ -5,7 +5,7 @@
     <p-progressSpinner></p-progressSpinner>
   </div>
   <ng-template #content>
-    <div
+    <!--    <div
       class="w-full bg-custom-purple-medium mt-0.5 h-14 flex justify-between">
       <div class="px-4 text-white font-bold text-lg flex items-center">
         Powrót
@@ -13,7 +13,7 @@
       <div class="px-4 text-white font-bold text-lg flex items-center">
         Następny
       </div>
-    </div>
+    </div>-->
     <div class="w-full bg-gray-500">
       <div class="max-w-full md:max-w-7xl mx-auto h-full px-8">
         <div class="w-full md:w-3/4 mx-auto gallery">
@@ -44,14 +44,20 @@
             </div>
             <div class="w-full flex justify-center">
               <div
-                class="md:w-full flex flex-col md:flex-row md:justify-evenly">
-                <span class="text-purple-700 font-bold text-lg uppercase">{{
+                class="md:w-full flex flex-col md:flex-row md:justify-start gap-x-6 items-center text-custom-purple-dark">
+                <span class="font-bold text-lg uppercase block">{{
                   dogProfile.breed.name
                 }}</span>
-                <span class="text-purple-700 font-bold text-lg uppercase">{{
+                <p-divider
+                  layout="vertical"
+                  class="hidden md:block"></p-divider>
+                <span class="font-bold text-lg uppercase block">{{
                   dogProfile.size.name
                 }}</span>
-                <span class="text-purple-700 font-bold text-lg uppercase">{{
+                <p-divider
+                  layout="vertical"
+                  class="hidden md:block"></p-divider>
+                <span class="font-bold text-lg uppercase block">{{
                   dogProfile.color
                 }}</span>
               </div>
@@ -60,7 +66,7 @@
               <div class="w-full border-t border-gray-300"></div>
             </div>
             <div class="w-full mt-4">
-              <div class="w-full bg-purple-100 p-2">
+              <div class="w-full bg-gray-100 p-2">
                 <span class="text-xl font-bold text-custom-purple-dark"
                   >OPIS</span
                 >
@@ -81,7 +87,7 @@
               </div>
             </div>
             <div class="w-full mt-4">
-              <div class="w-full bg-purple-100 p-2">
+              <div class="w-full bg-gray-100 p-2">
                 <span class="text-xl font-bold text-custom-purple-dark"
                   >CECHY OSOBOWOŚCI</span
                 >
@@ -89,9 +95,9 @@
               <div
                 class="w-full p-2"
                 *ngIf="dogProfile.feature; else emptyFeature">
-                <ul class="list-disc px-4 data-list">
+                <ul class="paw-li">
                   <li
-                    class="mt-1 text-black font-normal text-lg px-2"
+                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
                     *ngFor="let feature of dogProfile.feature">
                     {{ feature.name }}
                   </li>
@@ -99,8 +105,8 @@
               </div>
               <ng-template #emptyFeature>
                 <div class="w-full p-2">
-                  <ul class="list-disc px-4 data-list">
-                    <li class="mt-1 text-black font-normal text-lg px-2">
+                  <ul class="paw-li">
+                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
                       Brak
                     </li>
                   </ul>
@@ -108,7 +114,7 @@
               </ng-template>
             </div>
             <div class="w-full mt-4">
-              <div class="w-full bg-purple-100 p-2">
+              <div class="w-full bg-gray-100 p-2">
                 <span class="text-xl font-bold text-custom-purple-dark"
                   >AKTYWNOŚĆ KTÓREJ POTRZEBUJE</span
                 >
@@ -116,9 +122,9 @@
               <div
                 class="w-full p-2"
                 *ngIf="dogProfile.activity; else emptyActivity">
-                <ul class="list-disc px-4 data-list">
+                <ul class="paw-li">
                   <li
-                    class="mt-1 text-black font-normal text-lg px-2"
+                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
                     *ngFor="let activity of dogProfile.activity">
                     {{ activity.name }}
                   </li>
@@ -126,8 +132,8 @@
               </div>
               <ng-template #emptyActivity>
                 <div class="w-full p-2">
-                  <ul class="list-disc px-4 data-list">
-                    <li class="mt-1 text-black font-normal text-lg px-2">
+                  <ul class="paw-li">
+                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
                       Brak
                     </li>
                   </ul>
@@ -135,7 +141,7 @@
               </ng-template>
             </div>
             <div class="w-full mt-4">
-              <div class="w-full bg-purple-100 p-2">
+              <div class="w-full bg-gray-100 p-2">
                 <span class="text-xl font-bold text-custom-purple-dark"
                   >JEST DOSTĘPNY</span
                 >
@@ -143,9 +149,9 @@
               <div
                 class="w-full p-2"
                 *ngIf="dogProfile.availability; else emptyAvailability">
-                <ul class="list-disc px-4 data-list">
+                <ul class="paw-li">
                   <li
-                    class="mt-1 text-black font-normal text-lg px-2"
+                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
                     *ngFor="let availability of dogProfile.availability">
                     {{ availability.name }}
                   </li>
@@ -153,8 +159,8 @@
               </div>
               <ng-template #emptyAvailability>
                 <div class="w-full p-2">
-                  <ul class="list-disc px-4 data-list">
-                    <li class="mt-1 text-black font-normal text-lg px-2">
+                  <ul class="paw-li">
+                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
                       Brak
                     </li>
                   </ul>
@@ -165,9 +171,10 @@
         </div>
         <div class="flex flex-col">
           <div
-            class="py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
+            class="py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
             <div class="flex flex-col px-2">
-              <h2 class="text-2xl font-semibold text-white text-center">
+              <h2
+                class="text-2xl font-semibold text-white text-center underline">
                 Właściciel
               </h2>
               <h3 class="mt-2 font-semibold text-lg text-white text-center">
@@ -181,14 +188,15 @@
               <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
                 <div
                   (click)="makeProposal()"
-                  class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                  class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-light hover:cursor-pointer hover:bg-custom-purple-light hover:text-white">
                   <span class="text-sm font-bold">ZAPROPONUJ OPIEKĘ</span>
                 </div>
               </div>
 
               <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
                 <div
-                  class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-purple-700">
+                  (click)="showMessageDialog()"
+                  class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-custom-purple-light">
                   <span class="text-sm text-white font-bold"
                     >WYŚLIJ WIADOMOŚĆ</span
                   >
@@ -206,16 +214,16 @@
           </div>
 
           <div
-            class="mt-5 py-4 bg-custom-purple-medium rounded-xl flex flex-col items-center">
+            class="mt-5 py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
             <div class="flex flex-col">
               <h3
-                class="mt-2 font-semibold text-2xl text-white text-center cur">
+                class="mt-2 font-semibold text-2xl text-white text-center underline">
                 Rodzeństwo
               </h3>
               <h4
                 *ngFor="let sibling of siblings"
                 routerLink="/aplikacja/profil-psa/{{ sibling.id }}"
-                class="mt-2 font-semibold text-lg text-white text-center cursor-pointer hover:text-gray-300">
+                class="mt-2 font-semibold text-lg text-white text-center cursor-pointer hover:text-custom-purple-dark">
                 {{ sibling.name }}
               </h4>
               <h4

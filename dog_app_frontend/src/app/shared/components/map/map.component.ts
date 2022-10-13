@@ -18,7 +18,6 @@ export class MapComponent implements OnInit {
   constructor(private nominatimService: NominatimService) {}
 
   ngOnInit() {
-    console.log('address params = ', this.addressParams);
     this.nominatimService
       .addressLookup(this.addressParams)
       .subscribe(this.processAddressLokupResponse());

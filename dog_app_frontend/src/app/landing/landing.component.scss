@@ -1,8 +1,6 @@
 .zoom {
   transition: transform .2s;
-
   @apply drop-shadow-2xl;
-
 }
 
 .zoom:hover {
@@ -13,7 +11,7 @@ hr.solid {
   border-top: 3px solid #bbb;
   width: 100px;
   margin: auto;
-  @apply border-purple-800
+  @apply border-custom-purple-light
 }
 
 .scroll-top-button {
@@ -29,3 +27,4 @@ hr.solid {
 .scroll-top-button:hover {
   opacity: 1;
 }
+

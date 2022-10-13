@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   loginForm: any;
   errors: any = null;
   submitted: boolean = false;
+  errorMessage: string = 'Niepoprawne dane logowania';
+  showErrorMessage: boolean = false;
 
   constructor(
     public router: Router,
@@ -42,8 +44,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.invalid) return;
 
+    console.log('wysylam');
     this.authService.signIn(this.loginForm.value).subscribe({
       next: result => {
+        console.log('result = ', result);
         if (result.success) {
           this.responseHandler(result.data.access_token);
           const userState: UserState = {
@@ -52,9 +56,12 @@ export class LoginComponent implements OnInit {
           };
           this.authStateService.setAuthState(userState);
           this.router.navigate(['/aplikacja']);
+        } else {
+          this.showErrorMessage = true;
         }
       },
       error: error => {
+        console.log('error = ', error);
         this.toastService.showErrorMessage('Wystąpił błąd podczas logowania');
       },
       complete: () => {

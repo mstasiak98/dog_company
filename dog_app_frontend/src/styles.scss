@@ -77,3 +77,26 @@ app-guardian-care {
   -webkit-box-shadow: 0px 0px 4px rgb(122, 122, 122);
   box-shadow: 0px 0px 4px rgb(122, 122, 122);
 }
+
+.p-button.purple-button {
+  @apply bg-custom-purple-low hover:bg-custom-purple-light
+}
+
+.p-button.purple-dark-button {
+  @apply bg-custom-purple-light hover:bg-custom-purple-light
+}
+
+ul.paw-li {
+  padding: 0;
+}
+
+li.paw-li {
+  padding:0.15rem 0 0.5rem 3rem !important;
+  margin-bottom:0.2em;
+  text-indent:0;
+  font-weight:bold;
+  list-style:none;
+  background-repeat:no-repeat;
+  background-image: url("assets/background/paw_item.png");
+  background-size: 35px;
+}

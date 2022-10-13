@@ -1,31 +1,53 @@
 <div class="w-full">
   <!--Navbar full-->
   <div class="hidden md:flex w-full px-20 items-center justify-between">
-    <div class="flex items-center">
-      <a class="flex-shrink-0 text-lg font-bold" href="/"> DogCompany </a>
+    <div class="flex items-center gap-x-4 cursor-pointer" routerLink="/">
+      <div>
+        <img
+          src="/assets/background/logo_hr.png"
+          style="display: block; width: 50px; height: 50px" />
+      </div>
+      <div>
+        <a class="flex-shrink-0 text-lg font-bold"> DogCompany </a>
+      </div>
     </div>
     <div class="flex items-center p-4 font-bold text-lg gap-x-8">
-      <div class="cursor-pointer">Dla kogo</div>
-      <div class="cursor-pointer">Jak to działa</div>
-      <div class="cursor-pointer">Misja</div>
+      <div class="cursor-pointer" (click)="scrollTo('who-for')">Dla kogo</div>
+      <div class="cursor-pointer" (click)="scrollTo('how-it-works')">
+        Jak to działa
+      </div>
+      <div class="cursor-pointer" (click)="scrollTo('mission')">Misja</div>
       <div class="flex gap-4">
-        <div>
-          <button
-            routerLink="/rejestracja"
-            pButton
-            pRipple
-            type="button"
-            label="Rejestracja"></button>
-        </div>
-        <div>
-          <button
-            routerLink="/logowanie"
-            pButton
-            pRipple
-            type="button"
-            label="Logowanie"
-            class="p-button-secondary"></button>
-        </div>
+        <ng-container *ngIf="!isLoggedIn; else logged">
+          <div>
+            <button
+              class="purple-button"
+              routerLink="/rejestracja"
+              pButton
+              pRipple
+              type="button"
+              label="Rejestracja"></button>
+          </div>
+          <div>
+            <button
+              routerLink="/logowanie"
+              pButton
+              pRipple
+              type="button"
+              label="Logowanie"
+              class="p-button-secondary"></button>
+          </div>
+        </ng-container>
+        <ng-template #logged>
+          <div>
+            <button
+              class="purple-button"
+              routerLink="/aplikacja"
+              pButton
+              pRipple
+              type="button"
+              label="Przejdź do aplikacji"></button></div
+        ></ng-template>
       </div>
     </div>
   </div>
@@ -36,6 +58,7 @@
       <div class="flex gap-4">
         <div>
           <button
+            class="purple-button"
             routerLink="/rejestracja"
             pButton
             pRipple
@@ -51,7 +74,9 @@
       <div class="md:col-6 px-20 text-center md:text-left flex items-center">
         <div class="py-6 md:py-0">
           <span class="block text-6xl font-bold mb-1">Dziel się miłością </span>
-          <div class="text-6xl text-purple-700 font-bold mb-3">swoich psów</div>
+          <div class="text-6xl text-custom-purple-low font-bold mb-3">
+            swoich psów
+          </div>
           <p class="mt-0 mb-4 text-700 line-height-3 text-lg">
             Łączymy właścicieli psów z opiekunami chcącymi zatroszczyć się ich
             pociechami na co dzień, podczas weekendów lub wakacji.
@@ -59,14 +84,16 @@
           <div class="flex gap-4 justify-center md:justify-start">
             <div>
               <button
+                routerLink="/rejestracja"
                 pButton
                 pRipple
                 label="Dołącz"
                 type="button"
-                class="p-button-raised"></button>
+                class="purple-button"></button>
             </div>
             <div>
               <button
+                (click)="scrollTo('mission')"
                 pButton
                 pRipple
                 label="Dowiedz się więcej"
@@ -78,7 +105,7 @@
       </div>
       <div class="md:col-6 overflow-hidden">
         <img
-          src="assets/background/wall1.jpg"
+          src="../../assets/landing/header_img.png"
           alt="Image"
           class="md:ml-auto block md:h-full"
           style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" />
@@ -86,8 +113,9 @@
     </div>
   </div>
 
-  <div class="w-full bg-gray-100 py-6">
-    <h2 class="text-center text-6xl text-purple-700 font-bold pt-12 pb-6">
+  <div id="who-for" class="w-full bg-gray-100 py-6">
+    <h2
+      class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
       Dla kogo
     </h2>
     <hr class="solid pb-6" />
@@ -135,9 +163,11 @@
   </div>
   <div class="w-full bg-white">
     <div
+      id="how-it-works"
       class="max-w-7xl mx-auto px-8 items-center flex flex-col items-center break-words text-center">
       <div>
-        <h2 class="text-center text-6xl text-purple-700 font-bold pt-12 pb-6">
+        <h2
+          class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
           Jak to działa
         </h2>
       </div>
@@ -151,17 +181,18 @@
       <div class="text-xl font-extrabold pt-6">Jak zacząć</div>
       <div
         class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="w-1/2 flex justify-center">
+        <div class="w-full md:w-1/2 flex justify-center">
           <div>
             <img
-              src="assets/background/owner.png"
+              src="assets/landing/id.png"
               alt="Image"
               class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
+              width="300px"
+              height="300px" />
           </div>
         </div>
-        <div class="flex flex-col w-1/2 flex justify-center items-center">
+        <div
+          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
           <div class="font-bold text-2xl py-2">Załóż darmowe konto</div>
           <div class="text-lg">
             Zacznij szukać przyjaznych psów z Twojej okolicy.
@@ -170,34 +201,36 @@
       </div>
       <div
         class="w-full flex flex-col-reverse md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="flex flex-col w-1/2 flex justify-center items-center">
+        <div
+          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
           <div class="font-bold text-2xl py-2">Poznaj nowe twarze</div>
           <div class="text-lg">Zacznij rozmawiać z właścicielami psów.</div>
         </div>
-        <div class="w-1/2 flex justify-center">
+        <div class="w-full md:w-1/2 flex justify-center">
           <div>
             <img
-              src="assets/background/owner.png"
+              src="assets/landing/new_people.png"
               alt="Image"
               class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
+              width="300px"
+              height="300px" />
           </div>
         </div>
       </div>
       <div
         class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="w-1/2 flex justify-center">
+        <div class="w-full md:w-1/2 flex justify-center">
           <div>
             <img
-              src="assets/background/owner.png"
+              src="assets/landing/meetup.png"
               alt="Image"
               class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
+              width="300px"
+              height="300px" />
           </div>
         </div>
-        <div class="flex flex-col w-1/2 flex justify-center items-center">
+        <div
+          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
           <div class="font-bold text-2xl py-2">Zaproponuj opiekę</div>
           <div class="text-lg">
             Spotkaj się twarzą w twarz z właścicielem psa.
@@ -205,46 +238,50 @@
         </div>
       </div>
       <div
-        class="w-full flex flex-col-reverse md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="flex flex-col w-1/2 flex justify-center items-center">
+        class="w-full flex flex-col-reverse md:flex-row items-center mt-2 py-8 justify-center">
+        <div
+          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
           <div class="font-bold text-2xl py-2">Dziel się miłością psów</div>
           <div class="text-lg text">
             Ciesz się z nowo powstałych przyjaźni z czworonogami oraz ich
             właścicielami.
           </div>
         </div>
-        <div class="w-1/2 flex justify-center">
+        <div class="w-full md:w-1/2 flex justify-center">
           <div>
             <img
-              src="assets/background/owner.png"
+              src="assets/landing/friends.png"
               alt="Image"
               class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
+              width="300px"
+              height="300px" />
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="w-full bg-gray-100 py-6">
-    <h2 class="text-center text-6xl text-purple-700 font-bold pt-12 pb-6">
+  <div id="mission" class="w-full bg-gray-100 py-6">
+    <h2
+      class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
       Misja
     </h2>
     <hr class="solid pb-6" />
     <div class="max-w-7xl mx-auto px-8 items-center flex flex-col break-words">
       <div
-        class="w-full flex flex-col md:flex-row items-center justify-center py-12">
-        <div class="w-1/2 flex justify-between">
+        class="w-full flex flex-col md:flex-row items-center justify-center py-10 md:py-20">
+        <div class="w-full md:w-1/2 flex justify-between md:mb-0">
           <div>
             <img
-              src="assets/background/owner.png"
+              style="clip-path: circle(70%)"
+              src="assets/landing/mission.jpg"
               alt="Image"
               class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
+              width="400px"
+              height="400px" />
           </div>
         </div>
-        <div class="w-full md:w-1/2 flex justify-center text-center text-xl">
+        <div
+          class="w-full md:w-1/2 flex justify-center text-center text-xl py-6 md:py-0">
           Celem DogCompany jest łączenie miłośników zwierząt mających więcej
           wolnego czasu, z lokalnymi właścicielami psów, którzy nie zawsze mają
           czas na zajmowanie się nimi tak dobrze, jakby tego chcieli. Naszą
@@ -253,9 +290,11 @@
           dla które osób nie mogą sobie pozwolić na ukochanego czworonoga.
         </div>
       </div>
-      <div>
+      <div class="py-10">
         <div>
           <button
+            routerLink="/aplikacja"
+            class="purple-dark-button"
             pButton
             pRipple
             type="button"
@@ -264,7 +303,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full bg-purple-700 text-white">
+  <div class="w-full bg-custom-purple-low text-white">
     <div
       class="max-w-7xl flex flex-col md:flex-row p-6 mx-auto justify-between">
       <div>DogCompany&copy;</div>

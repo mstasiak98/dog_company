@@ -30,6 +30,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SharedModule } from '../../../shared/shared.module';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
+import { SkeletonModule } from 'primeng/skeleton';
 
 const routes: Routes = [
   {
@@ -86,6 +87,7 @@ const routes: Routes = [
     InputSwitchModule,
     ContextMenuModule,
     SharedModule,
+    SkeletonModule,
   ],
   providers: [],
 })
