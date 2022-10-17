@@ -35,7 +35,7 @@ export class UserDogProfileListComponent implements OnInit {
     return (data: any) => {
       this.dogProfiles = data;
       this.isContentLoading = false;
-      console.log('data = ', this.dogProfiles);
+      console.log('data = ', JSON.stringify(this.dogProfiles[0]));
     };
   }
 

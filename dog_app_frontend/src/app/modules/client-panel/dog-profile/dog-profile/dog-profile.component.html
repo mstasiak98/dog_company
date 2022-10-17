@@ -14,28 +14,38 @@
         Następny
       </div>
     </div>-->
-    <div class="w-full bg-gray-500">
+    <div class="w-full bg-gray-500 gallery">
       <div class="flex flex-row justify-center">
-        <p-galleria
-          [value]="images"
-          [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
-          [numVisible]="5"
-          [circular]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false">
-          <ng-template pTemplate="item" let-item>
-            <p-image
-              [src]="item.previewImageSrc"
-              alt="Image"
-              width="640"
-              height="500"
-              [preview]="true">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-eye" style="font-size: 4rem"></i>
-              </ng-template>
-            </p-image>
-          </ng-template>
-        </p-galleria>
+        <ng-container *ngIf="dogProfile.photos.length > 0; else placeholder">
+          <p-galleria
+            [value]="images"
+            [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
+            [numVisible]="5"
+            [circular]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false">
+            <ng-template pTemplate="item" let-item>
+              <p-image
+                [src]="item.previewImageSrc"
+                alt="Image"
+                width="640"
+                height="500"
+                [preview]="true">
+                <ng-template pTemplate="indicator">
+                  <i class="pi pi-eye" style="font-size: 4rem"></i>
+                </ng-template>
+              </p-image>
+            </ng-template>
+          </p-galleria>
+        </ng-container>
+        <ng-template #placeholder>
+          <div class="gallery flex items-center">
+            <img
+              alt="placeholder"
+              style="display: block; height: 400px"
+              src="../../../assets/background/placeholder.png" />
+          </div>
+        </ng-template>
       </div>
 
       <!--<div class="max-w-full md:max-w-7xl mx-auto h-full px-8">
