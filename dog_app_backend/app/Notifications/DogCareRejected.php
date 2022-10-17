@@ -46,7 +46,8 @@ class DogCareRejected extends Notification
         $owner = $this->data->dogProfile->user;
 
         return (new MailMessage)
-            ->greeting('Hi '.$guardian->first_name.',')
+            ->subject('Opieka odrzucona')
+            ->greeting('Cześć '.$guardian->first_name.',')
             ->line('Niestety, ale użytkownik ' .$owner->first_name.' odrzucił twoją propozycję opieki dla '
                 .$this->data->dogProfile->name)
             ->line('Być może, zgodziłby się na opiekę w innym terminie.')

@@ -56,7 +56,8 @@ class DogCareAccepted extends Notification
         }
 
         return (new MailMessage)
-                    ->greeting('Hi '.$guardian->first_name.',')
+                    ->subject('Opieka zaakceptowana')
+                    ->greeting('Cześć '.$guardian->first_name.',')
                     ->line('Użytkownik '.$owner->first_name.' zaakceptował twoją propozycję opieki dla '.$dogProfile->name)
                     ->action('Przejdź do opiek', env('FRONT_URL').'/aplikacja/opieka')
                     ->line('Opieka rozpoczyna się: '.$this->data->start_date)

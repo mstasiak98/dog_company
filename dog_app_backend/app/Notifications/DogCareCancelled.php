@@ -46,7 +46,8 @@ class DogCareCancelled extends Notification
         $owner = $this->data->dogProfile->user;
 
         return (new MailMessage)
-            ->greeting('Hi '.$owner->first_name.',')
+            ->subject('Opieka anulowana')
+            ->greeting('Cześć '.$owner->first_name.',')
             ->line('Niestety, ale użytkownik ' .$guardian->first_name.' anulował swoją propozycję opieki dla '
                 .$this->data->dogProfile->name)
             ->line('Być może, byłby w stanie zaopiekować się twoim psem w innym terminie.')
