@@ -13,6 +13,7 @@ import { ClickStopPropagationDirective } from './directives/click-stop-propagati
 import { GalleriaModule } from 'primeng/galleria';
 import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/add-photo-dialog.component';
 import { BadgeModule } from 'primeng/badge';
+import { NotAuthorizedPageComponent } from './components/not-authorized-page/not-authorized-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BadgeModule } from 'primeng/badge';
     ImgPreviewUploadComponent,
     ClickStopPropagationDirective,
     AddPhotoDialogComponent,
+    NotAuthorizedPageComponent,
   ],
   exports: [
     NavbarComponent,

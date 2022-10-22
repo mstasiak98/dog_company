@@ -8,6 +8,8 @@ import { AccountDataGuard } from './shared/guards/registration-form/account-data
 import { PersonalDataGuard } from './shared/guards/registration-form/personal-data.guard';
 import { LoginComponent } from './components/login/login.component';
 import { NotLoggedGuard } from './shared/guards/not-logged.guard';
+import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
+import { NotAuthorizedPageComponent } from './core/components/not-authorized-page/not-authorized-page.component';
 
 const routes: Routes = [
   {
@@ -51,8 +53,18 @@ const routes: Routes = [
   },
 
   {
+    path: 'nie-znaleziono',
+    component: NotFoundPageComponent,
+  },
+
+  {
+    path: 'brak-autoryzacji',
+    component: NotAuthorizedPageComponent,
+  },
+
+  {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'nie-znaleziono',
   },
 ];
 

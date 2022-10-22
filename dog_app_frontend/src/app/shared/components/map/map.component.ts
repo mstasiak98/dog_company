@@ -58,8 +58,8 @@ export class MapComponent implements OnInit {
   }
 
   private setMarker(): void {
-    // @ts-ignore
     this.overlays = [
+      // @ts-ignore
       new google.maps.Marker({
         position: {
           lat: this.mapPoint.latitude,

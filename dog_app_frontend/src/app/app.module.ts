@@ -32,6 +32,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
 import { InputMaskModule } from 'primeng/inputmask';
+import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
 
 registerLocaleData(pl);
 
@@ -44,6 +45,7 @@ registerLocaleData(pl);
     PersonalInfoComponent,
     AdditionalInfoComponent,
     MakeProposalDialogComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,

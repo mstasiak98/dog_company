@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handleForbiddenError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 403) {
-      this.router.navigateByUrl(`/aplikacja`);
+      this.router.navigateByUrl(`/brak-autoryzacji`);
 
       return of(err.message);
     }

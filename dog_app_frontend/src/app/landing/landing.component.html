@@ -1,25 +1,64 @@
-<div class="w-full">
-  <!--Navbar full-->
-  <div
-    class="hidden md:flex w-full px-20 items-center justify-between sticky top-0 overflow-hidden z-10 bg-white border-b-2 border-gray-300">
-    <div class="flex items-center gap-x-4 cursor-pointer" routerLink="/">
-      <div>
-        <img
-          src="/assets/background/logo_hr.png"
-          style="display: block; width: 50px; height: 50px" />
+<div id="content">
+  <div class="w-full">
+    <!--Navbar full-->
+    <div
+      class="hidden md:flex w-full px-20 items-center justify-between sticky top-0 overflow-hidden z-10 bg-white border-b-2 border-gray-300">
+      <div class="flex items-center gap-x-4 cursor-pointer" routerLink="/">
+        <div>
+          <img
+            src="/assets/background/logo_hr.png"
+            style="display: block; width: 50px; height: 50px" />
+        </div>
+        <div>
+          <a class="flex-shrink-0 text-lg font-bold"> DogCompany </a>
+        </div>
       </div>
-      <div>
-        <a class="flex-shrink-0 text-lg font-bold"> DogCompany </a>
+      <div class="flex items-center p-4 font-bold text-lg gap-x-8">
+        <div class="cursor-pointer" (click)="scrollTo('who-for')">Dla kogo</div>
+        <div class="cursor-pointer" (click)="scrollTo('how-it-works')">
+          Jak to działa
+        </div>
+        <div class="cursor-pointer" (click)="scrollTo('mission')">Misja</div>
+        <div class="flex gap-4">
+          <ng-container *ngIf="!isLoggedIn; else logged">
+            <div>
+              <button
+                class="purple-button"
+                routerLink="/rejestracja"
+                pButton
+                pRipple
+                type="button"
+                label="Rejestracja"></button>
+            </div>
+            <div>
+              <button
+                routerLink="/logowanie"
+                pButton
+                pRipple
+                type="button"
+                label="Logowanie"
+                class="p-button-secondary"></button>
+            </div>
+          </ng-container>
+          <ng-template #logged>
+            <div>
+              <button
+                class="purple-button"
+                routerLink="/aplikacja"
+                pButton
+                pRipple
+                type="button"
+                label="Przejdź do aplikacji"></button></div
+          ></ng-template>
+        </div>
       </div>
     </div>
-    <div class="flex items-center p-4 font-bold text-lg gap-x-8">
-      <div class="cursor-pointer" (click)="scrollTo('who-for')">Dla kogo</div>
-      <div class="cursor-pointer" (click)="scrollTo('how-it-works')">
-        Jak to działa
-      </div>
-      <div class="cursor-pointer" (click)="scrollTo('mission')">Misja</div>
-      <div class="flex gap-4">
-        <ng-container *ngIf="!isLoggedIn; else logged">
+    <!--Navbar mobile-->
+    <div
+      class="md:hidden w-full p-4 mx-auto sticky top-0 overflow-hidden z-10 bg-white border-b-2 border-gray-300">
+      <div class="flex items-center justify-between">
+        <a class="flex-shrink-0 text-lg font-bold" href="/"> DogCompany </a>
+        <div class="flex gap-4">
           <div>
             <button
               class="purple-button"
@@ -27,300 +66,269 @@
               pButton
               pRipple
               type="button"
-              label="Rejestracja"></button>
-          </div>
-          <div>
-            <button
-              routerLink="/logowanie"
-              pButton
-              pRipple
-              type="button"
-              label="Logowanie"
-              class="p-button-secondary"></button>
-          </div>
-        </ng-container>
-        <ng-template #logged>
-          <div>
-            <button
-              class="purple-button"
-              routerLink="/aplikacja"
-              pButton
-              pRipple
-              type="button"
-              label="Przejdź do aplikacji"></button></div
-        ></ng-template>
-      </div>
-    </div>
-  </div>
-  <!--Navbar mobile-->
-  <div
-    class="md:hidden w-full p-4 mx-auto sticky top-0 overflow-hidden z-10 bg-white border-b-2 border-gray-300">
-    <div class="flex items-center justify-between">
-      <a class="flex-shrink-0 text-lg font-bold" href="/"> DogCompany </a>
-      <div class="flex gap-4">
-        <div>
-          <button
-            class="purple-button"
-            routerLink="/rejestracja"
-            pButton
-            pRipple
-            type="button"
-            label="Dołącz"></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--Header-->
-  <div class="w-full mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2">
-      <div class="md:col-6 px-20 text-center md:text-left flex items-center">
-        <div class="py-6 md:py-0">
-          <span class="block text-6xl font-bold mb-1">Dziel się miłością </span>
-          <div class="text-6xl text-custom-purple-low font-bold mb-3">
-            swoich psów
-          </div>
-          <p class="mt-0 mb-4 text-700 line-height-3 text-lg">
-            Łączymy właścicieli psów z opiekunami chcącymi zatroszczyć się ich
-            pociechami na co dzień, podczas weekendów lub wakacji.
-          </p>
-          <div class="flex gap-4 justify-center md:justify-start">
-            <div>
-              <button
-                routerLink="/rejestracja"
-                pButton
-                pRipple
-                label="Dołącz"
-                type="button"
-                class="purple-button"></button>
-            </div>
-            <div>
-              <button
-                (click)="scrollTo('mission')"
-                pButton
-                pRipple
-                label="Dowiedz się więcej"
-                type="button"
-                class="p-button-outlined"></button>
-            </div>
+              label="Dołącz"></button>
           </div>
         </div>
       </div>
-      <div class="md:col-6 overflow-hidden">
-        <img
-          src="../../assets/landing/header_img.png"
-          alt="Image"
-          class="md:ml-auto block md:h-full"
-          style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" />
+    </div>
+    <!--Header-->
+    <div class="w-full mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="md:col-6 px-20 text-center md:text-left flex items-center">
+          <div class="py-6 md:py-0">
+            <span class="block text-6xl font-bold mb-1"
+              >Dziel się miłością
+            </span>
+            <div class="text-6xl text-custom-purple-low font-bold mb-3">
+              swoich psów
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3 text-lg">
+              Łączymy właścicieli psów z opiekunami chcącymi zatroszczyć się ich
+              pociechami na co dzień, podczas weekendów lub wakacji.
+            </p>
+            <div class="flex gap-4 justify-center md:justify-start">
+              <div>
+                <button
+                  routerLink="/rejestracja"
+                  pButton
+                  pRipple
+                  label="Dołącz"
+                  type="button"
+                  class="purple-button"></button>
+              </div>
+              <div>
+                <button
+                  (click)="scrollTo('mission')"
+                  pButton
+                  pRipple
+                  label="Dowiedz się więcej"
+                  type="button"
+                  class="p-button-outlined"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-6 overflow-hidden">
+          <img
+            src="../../assets/landing/header_img.png"
+            alt="Image"
+            class="md:ml-auto block md:h-full"
+            style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="who-for" class="w-full bg-gray-100 py-6">
-    <h2
-      class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
-      Dla kogo
-    </h2>
-    <hr class="solid pb-6" />
-
-    <div class="max-w-7xl mx-auto px-8 items-center flex break-words">
-      <div class="w-full flex flex-col md:flex-row justify-between">
-        <div class="flex flex-col text-center items-center md:w-1/3 zoom">
-          <div>
-            <img
-              src="assets/background/borrower.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
-          </div>
-          <div class="flex flex-col py-4">
-            <div class="text-2xl font-bold -mt-4 pb-4">Jestem właścicielem</div>
-            <div class="text-lg">
-              Znajdź zaufanego opiekuna wśród swojej lokalnej społeczności,
-              który zaopiekuje się twoim psem, kiedy ty nie będziesz mógł tego
-              zrobić.
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col text-center items-center md:w-1/3 zoom">
-          <div class="flex">
-            <img
-              src="assets/background/owner.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="250px"
-              height="250px" />
-          </div>
-          <div class="flex flex-col py-4">
-            <div class="text-2xl font-bold -mt-7 pb-4">Jestem opiekunem</div>
-            <div class="text-lg">
-              Wypełnij pustkę, spędzając czas z ukochanymi zwierzakami,
-              równocześnie pomagając lokalnym właścicielom psów. Poznaj nowe
-              osoby w twojej okolicy.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="w-full bg-white">
-    <div
-      id="how-it-works"
-      class="max-w-7xl mx-auto px-8 items-center flex flex-col items-center break-words text-center">
-      <div>
-        <h2
-          class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
-          Jak to działa
-        </h2>
-      </div>
+    <div id="who-for" class="w-full bg-gray-100 py-6">
+      <h2
+        class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
+        Dla kogo
+      </h2>
       <hr class="solid pb-6" />
-      <div class="text-xl py-6">
-        DogCompany stara się stworzyć miejsce, w którym właściciele psów będą
-        mogli połączyć się z lokalnymi opiekunami - osobami chcącymi pomóc w
-        opiece nad ich zwierzakami. Od spacerów, zabaw na co dzień, po dłuższą
-        opiekę podczas nieobecności właścicieli. Każdy może się zarejestrować.
-      </div>
-      <div class="text-xl font-extrabold pt-6">Jak zacząć</div>
-      <div
-        class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="w-full md:w-1/2 flex justify-center">
-          <div>
-            <img
-              src="assets/landing/id.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="300px"
-              height="300px" />
+
+      <div class="max-w-7xl mx-auto px-8 items-center flex break-words">
+        <div class="w-full flex flex-col md:flex-row justify-between">
+          <div class="flex flex-col text-center items-center md:w-1/3 zoom">
+            <div>
+              <img
+                src="assets/background/borrower.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="250px"
+                height="250px" />
+            </div>
+            <div class="flex flex-col py-4">
+              <div class="text-2xl font-bold -mt-4 pb-4">
+                Jestem właścicielem
+              </div>
+              <div class="text-lg">
+                Znajdź zaufanego opiekuna wśród swojej lokalnej społeczności,
+                który zaopiekuje się twoim psem, kiedy ty nie będziesz mógł tego
+                zrobić.
+              </div>
+            </div>
           </div>
-        </div>
-        <div
-          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
-          <div class="font-bold text-2xl py-2">Załóż darmowe konto</div>
-          <div class="text-lg">
-            Zacznij szukać przyjaznych psów z Twojej okolicy.
-          </div>
-        </div>
-      </div>
-      <div
-        class="w-full flex flex-col-reverse md:flex-row items-center py-6 md:py-0 justify-center">
-        <div
-          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
-          <div class="font-bold text-2xl py-2">Poznaj nowe twarze</div>
-          <div class="text-lg">Zacznij rozmawiać z właścicielami psów.</div>
-        </div>
-        <div class="w-full md:w-1/2 flex justify-center">
-          <div>
-            <img
-              src="assets/landing/new_people.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="300px"
-              height="300px" />
-          </div>
-        </div>
-      </div>
-      <div
-        class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
-        <div class="w-full md:w-1/2 flex justify-center">
-          <div>
-            <img
-              src="assets/landing/meetup.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="300px"
-              height="300px" />
-          </div>
-        </div>
-        <div
-          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
-          <div class="font-bold text-2xl py-2">Zaproponuj opiekę</div>
-          <div class="text-lg">
-            Spotkaj się twarzą w twarz z właścicielem psa.
-          </div>
-        </div>
-      </div>
-      <div
-        class="w-full flex flex-col-reverse md:flex-row items-center mt-2 py-8 justify-center">
-        <div
-          class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
-          <div class="font-bold text-2xl py-2">Dziel się miłością psów</div>
-          <div class="text-lg text">
-            Ciesz się z nowo powstałych przyjaźni z czworonogami oraz ich
-            właścicielami.
-          </div>
-        </div>
-        <div class="w-full md:w-1/2 flex justify-center">
-          <div>
-            <img
-              src="assets/landing/friends.png"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="300px"
-              height="300px" />
+          <div class="flex flex-col text-center items-center md:w-1/3 zoom">
+            <div class="flex">
+              <img
+                src="assets/background/owner.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="250px"
+                height="250px" />
+            </div>
+            <div class="flex flex-col py-4">
+              <div class="text-2xl font-bold -mt-7 pb-4">Jestem opiekunem</div>
+              <div class="text-lg">
+                Wypełnij pustkę, spędzając czas z ukochanymi zwierzakami,
+                równocześnie pomagając lokalnym właścicielom psów. Poznaj nowe
+                osoby w twojej okolicy.
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="mission" class="w-full bg-gray-100 py-6">
-    <h2
-      class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
-      Misja
-    </h2>
-    <hr class="solid pb-6" />
-    <div class="max-w-7xl mx-auto px-8 items-center flex flex-col break-words">
+    <div class="w-full bg-white">
       <div
-        class="w-full flex flex-col md:flex-row items-center justify-center py-10 md:py-20">
-        <div class="w-full md:w-1/2 flex justify-between md:mb-0">
-          <div>
-            <img
-              style="clip-path: circle(70%)"
-              src="assets/landing/mission.jpg"
-              alt="Image"
-              class="md:ml-auto block md:h-full"
-              width="400px"
-              height="400px" />
-          </div>
-        </div>
-        <div
-          class="w-full md:w-1/2 flex justify-center text-center text-xl py-6 md:py-0">
-          Celem DogCompany jest łączenie miłośników zwierząt mających więcej
-          wolnego czasu, z lokalnymi właścicielami psów, którzy nie zawsze mają
-          czas na zajmowanie się nimi tak dobrze, jakby tego chcieli. Naszą
-          misją jest zapewnienie dodatkowej aktywności zwierzakom, pomoc ich
-          właścicielom oraz udostępnienie możliwości spędzenia czasu z psami,
-          dla które osób nie mogą sobie pozwolić na ukochanego czworonoga.
-        </div>
-      </div>
-      <div class="py-10">
+        id="how-it-works"
+        class="max-w-7xl mx-auto px-8 items-center flex flex-col items-center break-words text-center">
         <div>
-          <button
-            routerLink="/aplikacja"
-            class="purple-dark-button"
-            pButton
-            pRipple
-            type="button"
-            label="Dołącz już teraz"></button>
+          <h2
+            class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
+            Jak to działa
+          </h2>
+        </div>
+        <hr class="solid pb-6" />
+        <div class="text-xl py-6">
+          DogCompany stara się stworzyć miejsce, w którym właściciele psów będą
+          mogli połączyć się z lokalnymi opiekunami - osobami chcącymi pomóc w
+          opiece nad ich zwierzakami. Od spacerów, zabaw na co dzień, po dłuższą
+          opiekę podczas nieobecności właścicieli. Każdy może się zarejestrować.
+        </div>
+        <div class="text-xl font-extrabold pt-6">Jak zacząć</div>
+        <div
+          class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div>
+              <img
+                src="assets/landing/id.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="300px"
+                height="300px" />
+            </div>
+          </div>
+          <div
+            class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
+            <div class="font-bold text-2xl py-2">Załóż darmowe konto</div>
+            <div class="text-lg">
+              Zacznij szukać przyjaznych psów z Twojej okolicy.
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col-reverse md:flex-row items-center py-6 md:py-0 justify-center">
+          <div
+            class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
+            <div class="font-bold text-2xl py-2">Poznaj nowe twarze</div>
+            <div class="text-lg">Zacznij rozmawiać z właścicielami psów.</div>
+          </div>
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div>
+              <img
+                src="assets/landing/new_people.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="300px"
+                height="300px" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col md:flex-row items-center py-6 md:py-0 justify-center">
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div>
+              <img
+                src="assets/landing/meetup.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="300px"
+                height="300px" />
+            </div>
+          </div>
+          <div
+            class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
+            <div class="font-bold text-2xl py-2">Zaproponuj opiekę</div>
+            <div class="text-lg">
+              Spotkaj się twarzą w twarz z właścicielem psa.
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col-reverse md:flex-row items-center mt-2 py-8 justify-center">
+          <div
+            class="flex flex-col w-full md:w-1/2 flex justify-center items-center">
+            <div class="font-bold text-2xl py-2">Dziel się miłością psów</div>
+            <div class="text-lg text">
+              Ciesz się z nowo powstałych przyjaźni z czworonogami oraz ich
+              właścicielami.
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div>
+              <img
+                src="assets/landing/friends.png"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="300px"
+                height="300px" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="w-full bg-custom-purple-low text-white">
-    <div
-      class="max-w-7xl flex flex-col md:flex-row p-6 mx-auto justify-between">
-      <div>DogCompany&copy;</div>
-      <div>Mikołaj Stasiak</div>
+    <div id="mission" class="w-full bg-gray-100 py-6">
+      <h2
+        class="text-center text-6xl text-custom-purple-low font-bold pt-12 pb-6">
+        Misja
+      </h2>
+      <hr class="solid pb-6" />
+      <div
+        class="max-w-7xl mx-auto px-8 items-center flex flex-col break-words">
+        <div
+          class="w-full flex flex-col md:flex-row items-center justify-center py-10 md:py-20">
+          <div class="w-full md:w-1/2 flex justify-between md:mb-0">
+            <div>
+              <img
+                style="clip-path: circle(70%)"
+                src="assets/landing/mission.jpg"
+                alt="Image"
+                class="md:ml-auto block md:h-full"
+                width="400px"
+                height="400px" />
+            </div>
+          </div>
+          <div
+            class="w-full md:w-1/2 flex justify-center text-center text-xl py-6 md:py-0">
+            Celem DogCompany jest łączenie miłośników zwierząt mających więcej
+            wolnego czasu, z lokalnymi właścicielami psów, którzy nie zawsze
+            mają czas na zajmowanie się nimi tak dobrze, jakby tego chcieli.
+            Naszą misją jest zapewnienie dodatkowej aktywności zwierzakom, pomoc
+            ich właścicielom oraz udostępnienie możliwości spędzenia czasu z
+            psami, dla które osób nie mogą sobie pozwolić na ukochanego
+            czworonoga.
+          </div>
+        </div>
+        <div class="py-10">
+          <div>
+            <button
+              routerLink="/aplikacja"
+              class="purple-dark-button"
+              pButton
+              pRipple
+              type="button"
+              label="Dołącz już teraz"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full bg-custom-purple-low text-white">
+      <div
+        class="max-w-7xl flex flex-col md:flex-row p-6 mx-auto justify-between">
+        <div>DogCompany&copy;</div>
+        <div>Mikołaj Stasiak</div>
+      </div>
     </div>
   </div>
+  <ng-container *ngIf="showScroll$ | async"
+    ><div class="scroll-top-button">
+      <button
+        (click)="onScrollToTop()"
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-arrow-up"
+        class="p-button-rounded p-button-secondary"></button>
+    </div>
+  </ng-container>
 </div>
-<ng-container *ngIf="showScroll$ | async"
-  ><div class="scroll-top-button">
-    <button
-      (click)="onScrollToTop()"
-      pButton
-      pRipple
-      type="button"
-      icon="pi pi-arrow-up"
-      class="p-button-rounded p-button-secondary"></button>
-  </div>
-</ng-container>
