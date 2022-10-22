@@ -7,7 +7,6 @@ import { AuthStateService } from '../auth-state/auth-state.service';
 import { TokenService } from '../token/token.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Message, Thread } from '../../models/messages/messages';
-import { DogCareService } from './dog-care/dog-care.service';
 window.Pusher = Pusher;
 
 @Injectable({
@@ -29,8 +28,7 @@ export class PusherServiceService {
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService,
-    private authStateService: AuthStateService,
-    private dog: DogCareService
+    private authStateService: AuthStateService
   ) {
     this.authUserId = this.authStateService.userId();
     this.isSignedIn = this.authStateService.isLoggedIn();
