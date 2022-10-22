@@ -38,6 +38,10 @@ class DogCare extends Model
         return $this->belongsTo(DogProfile::class);
     }
 
+    public function announcement() {
+        return $this->belongsTo(Announcement::class);
+    }
+
     public function careState() {
         return $this->belongsTo(CareState::class, 'state_id');
     }

@@ -83,6 +83,7 @@ export class MakeProposalDialogComponent implements OnInit {
       },
       error: error => {
         this.showErrorMessage();
+        console.log('error = ', error);
         this.isSaving = false;
       },
       complete: () => {
