@@ -53,7 +53,7 @@ export class MapComponent implements OnInit {
         lat: this.mapPoint.latitude,
         lng: this.mapPoint.longitude,
       },
-      zoom: 4,
+      zoom: 12,
     });
   }
 

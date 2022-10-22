@@ -21,6 +21,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { AnnouncementListUserComponent } from './announcement-list-user/announcement-list-user.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: AnnouncementDashboardComponent },
@@ -67,6 +68,7 @@ const routes: Routes = [
     TooltipModule,
     RadioButtonModule,
     ConfirmDialogModule,
+    SharedModule,
   ],
 })
 export class AnnouncementModule {}

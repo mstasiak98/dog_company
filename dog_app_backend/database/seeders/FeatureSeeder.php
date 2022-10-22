@@ -27,7 +27,7 @@ class FeatureSeeder extends Seeder
         ]);
 
         DB::table('features')->insert([
-            'name' => 'Przyjazny wytresowany',
+            'name' => 'Wytresowany',
         ]);
     }
 }
