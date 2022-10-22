@@ -17,6 +17,7 @@ export class MakeProposalDialogComponent implements OnInit {
   announcementId: number;
   proposal: any;
   submitted: boolean = false;
+  isSaving: boolean = false;
 
   constructor(
     private config: DynamicDialogConfig,
@@ -74,19 +75,15 @@ export class MakeProposalDialogComponent implements OnInit {
       ? this.proposalService.makeAnnouncementProposal(proposalData)
       : this.proposalService.makeProposal(proposalData);
 
+    this.isSaving = true;
     proposal.subscribe({
       next: result => {
-        if (result.success) {
-          this.showSuccessMessage(result.start_date);
-          console.log('SUCCESS', result);
-        } else {
-          console.log('result = ', result);
-          this.showErrorMessage();
-        }
+        this.showSuccessMessage(result.start_date);
+        this.isSaving = false;
       },
       error: error => {
-        console.log('ERROR = ', error);
         this.showErrorMessage();
+        this.isSaving = false;
       },
       complete: () => {
         this.proposal.reset();
