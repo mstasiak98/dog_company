@@ -180,7 +180,7 @@
                   src="{{
                     profile.photos.length > 0
                       ? profile.photos[0].url
-                      : '../../../assets/background/placeholder.png'
+                      : '../../../assets/background/placeholder2.png'
                   }}"
                   style="
                     display: block;
@@ -203,7 +203,7 @@
             </div>
           </div>
         </ng-template>
-        <div *ngIf="totalPages > 0" class="w-full mt-4">
+        <div *ngIf="totalPages > 0" class="w-full pt-12">
           <p-paginator
             [rows]="profilesPerPage"
             [totalRecords]="totalPages"

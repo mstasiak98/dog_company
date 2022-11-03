@@ -61,7 +61,9 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn()
     {
         $participants = $this->message->thread->participantsUserIds();
-        $recipients = array_diff($participants, [$this->message->user_id]);
+        $recipients = array_diff(
+            $participants, [$this->message->user_id]
+        );
         return new PrivateChannel('users.'.strval(reset($recipients)));
     }
 }

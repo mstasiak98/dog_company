@@ -23,12 +23,16 @@
   @apply border border-2 border-solid rounded-2xl border-gray-600
 }*/
 
-.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+/*.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
   border: none !important;
+}*/
+
+.p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+  border: 1px solid #f4f4f5;
 }
 
 .p-steps .p-steps-item::before {
-  display: none;
+  /*display: none;*/
 }
 
 .p-card {
@@ -36,4 +40,16 @@
   color: black;
   box-shadow: none !important;
   border: none !important;
+}
+
+.p-steps-item .p-menuitem-link {
+  flex-direction: row !important;
+}
+.p-steps .p-steps-item::before {
+  margin-top: 0 !important;
+  border-top: 1px solid #b4a4f4;
+}
+
+.p-steps .p-steps-item:not(p-highlight) .p-steps-number {
+  border: 1px solid black !important;
 }

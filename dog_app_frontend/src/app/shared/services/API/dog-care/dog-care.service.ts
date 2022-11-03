@@ -77,7 +77,6 @@ export class DogCareService {
   ) {
     const ref = this.dialogService.open(ProposalDetailsDialogComponent, {
       width: '50rem',
-      height: '60rem',
       data: {
         dogCare: dogCare,
         userType: userType,

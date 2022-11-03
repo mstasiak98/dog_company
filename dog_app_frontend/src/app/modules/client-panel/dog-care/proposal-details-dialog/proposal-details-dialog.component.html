@@ -1,5 +1,57 @@
-<div class="w-full min-h-max">
+<div class="w-full min-h-max py-0">
+  <h1 class="text-center text-3xl mt-0 font-bold text-black">
+    {{ dogCare.guardian.name }}
+  </h1>
+  <div class="w-full mt-4 flex flex-col items-center">
+    <img
+      alt="dog photo"
+      src="../../../assets/background/card.png"
+      style="height: 150px; width: 150px"
+      class="rounded-lg" />
+    <span class="mt-2 underline font-bold cursor-pointer hover:text-black"
+      >Zobacz profil</span
+    >
+  </div>
+  <h6 class="text-center mt-4 text-xl">Proponuje opiekę:</h6>
+  <h6 class="text-center mt-2 font-bold text-lg">
+    {{ dogCare.activity.name }}
+  </h6>
+
+  <h6 class="text-center mt-4 text-xl">Opieka dotyczy:</h6>
+  <ng-container *ngIf="dogCare.dog_name; else announcement">
+    <h6 class="text-center mt-2 font-bold text-lg">
+      {{ dogCare?.dog_name }} ({{ dogCare?.dog_breed?.name }})
+    </h6>
+  </ng-container>
+  <ng-template #announcement>
+    <h6 class="text-center mt-2 font-bold text-lg">Ogłoszenia</h6>
+  </ng-template>
+
+  <h6 class="text-center mt-4 text-xl">Proponowany termin:</h6>
+  <h6 class="text-center mt-2 font-bold text-lg">
+    {{ dogCare.start_date | date: 'short' }} -
+    {{ dogCare.end_date | date: 'short' }}
+  </h6>
+  <div *ngIf="dogCare.siblings">
+    <h6 class="text-center mt-4 text-xl">Informacje dodatkowe:</h6>
+    <h6 class="text-center mt-2 font-bold text-lg">
+      {{ dogCare.guardian.name }} z chęcią zaopiekuje się Twoimi pozostałymi
+      psami
+    </h6>
+  </div>
+
+  <h6 class="text-center mt-4 text-xl">Uwagi opiekuna:</h6>
+  <ng-container *ngIf="dogCare.additional_info; else noAdditionalInfo">
+    <h6 class="text-center mt-2 font-bold text-lg">
+      {{ dogCare.additional_info }}
+    </h6>
+  </ng-container>
+  <ng-template #noAdditionalInfo>
+    <h6 class="text-center mt-2 font-bold text-lg">Brak dodatkowych uwag</h6>
+  </ng-template>
+
   <div
+    class="pt-4"
     *ngIf="
       !(
         careType === careTypes.RECEIVED || careType === careTypes.OWNER_ACCEPTED
@@ -21,46 +73,30 @@
     </h6>
   </div>
 
-  <h1 class="text-center text-3xl mt-4 font-bold text-black">
-    {{ dogCare.guardian.name }}
-  </h1>
-  <div class="w-full mt-4 flex flex-col items-center">
-    <img
-      alt="dog photo"
-      src="../../../assets/background/card.png"
-      style="height: 150px; width: 150px"
-      class="rounded-lg" />
-    <span class="mt-2 underline font-bold cursor-pointer hover:text-black"
-      >Zobacz profil</span
-    >
-  </div>
-  <h6 class="text-center mt-4 text-xl">Proponuje opiekę:</h6>
-  <h6 class="text-center mt-2 font-bold text-lg">
-    {{ dogCare.activity.name }}
-  </h6>
-
-  <h6 class="text-center mt-4 text-xl">Opieka dotyczy:</h6>
-  <h6 class="text-center mt-2 font-bold text-lg">
-    {{ dogCare.dog_name }} ({{ dogCare.dog_breed.name }})
-  </h6>
-
-  <h6 class="text-center mt-4 text-xl">Proponowany termin:</h6>
-  <h6 class="text-center mt-2 font-bold text-lg">
-    {{ dogCare.start_date | date: 'short' }} -
-    {{ dogCare.end_date | date: 'short' }}
-  </h6>
-  <div *ngIf="dogCare.siblings">
-    <h6 class="text-center mt-4 text-xl">Informacje dodatkowe:</h6>
-    <h6 class="text-center mt-2 font-bold text-lg">
-      {{ dogCare.guardian.name }} z chęcią zaopiekuje się Twoimi pozostałymi
-      psami
-    </h6>
-  </div>
-  <div class="mt-4 w-fit flex flex-col items-center justify-center">
-    <h5 class="text-center mt-2 text-xl">Uwagi opiekuna:</h5>
-    <textarea rows="5" class="w-3/4" cols="100" pInputTextarea readonly>{{
-      dogCare.additional_info
-    }}</textarea>
+  <div
+    *ngIf="
+      careType === careTypes.DONE &&
+      dogCare.rating &&
+      userType === userTypes.GUARDIAN
+    ">
+    <h6 class="text-center text-2xl font-bold text-red-800">Ocena:</h6>
+    <div class="w-full flex justify-center">
+      <p-rating
+        [ngModel]="dogCare.rating"
+        [readonly]="true"
+        [stars]="5"
+        [cancel]="false"></p-rating>
+    </div>
+    <h6 class="text-center text-2xl font-bold text-red-800">Komentarz:</h6>
+    <div class="w-full flex justify-center">
+      <h6 class="text-center mt-2 font-bold text-lg">
+        {{
+          dogCare.comment
+            ? dogCare.comment
+            : 'Właściciel nie wystawił komentarza'
+        }}
+      </h6>
+    </div>
   </div>
 
   <div
@@ -69,7 +105,7 @@
       careType !== careTypes.DONE &&
       careType !== careTypes.OWNER_REJECTED
     "
-    class="mt-4 w-full flex justify-center">
+    class="mt-6 w-full flex justify-center gap-x-4">
     <button
       *ngIf="careType === careTypes.RECEIVED"
       (click)="changePropositionStatus(propositionActions.ACCEPT)"
@@ -80,7 +116,7 @@
     <button
       (click)="changePropositionStatus(propositionActions.REJECT)"
       type="submit"
-      class="ml-4 btn-red">
+      class="btn-red">
       ODRZUĆ PROPOZYCJĘ
     </button>
   </div>
@@ -91,11 +127,11 @@
       careType !== careTypes.DONE &&
       careType !== careTypes.OWNER_REJECTED
     "
-    class="mt-4 w-full flex justify-center">
+    class="pt-6 w-full flex justify-center">
     <button
       (click)="changePropositionStatus(propositionActions.CANCEL)"
       type="submit"
-      class="ml-4 btn-red">
+      class="btn-red">
       ANULUJ PROPOZYCJĘ
     </button>
   </div>
