@@ -33,6 +33,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
 import { InputMaskModule } from 'primeng/inputmask';
 import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
+import { DividerModule } from 'primeng/divider';
 
 registerLocaleData(pl);
 
@@ -65,6 +66,7 @@ registerLocaleData(pl);
     RadioButtonModule,
     InputTextareaModule,
     InputMaskModule,
+    DividerModule,
   ],
   providers: [
     {

@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
+  AfterViewChecked,
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
   QueryList,
-  Renderer2,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
@@ -23,7 +21,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./message-details.component.scss'],
 })
 export class MessageDetailsComponent
-  implements OnInit, OnDestroy, AfterViewInit
+  implements OnInit, OnDestroy, AfterViewChecked
 {
   @ViewChildren('messageContainer') container: QueryList<
     ElementRef<HTMLInputElement>
@@ -36,7 +34,6 @@ export class MessageDetailsComponent
   isMessageSending: boolean = false;
   authenticatedUserId: number;
   messageSubscription: Subscription;
-  htmlElementSubscribtion: Subscription;
 
   constructor(
     private messagesService: MessagesService,
@@ -47,34 +44,25 @@ export class MessageDetailsComponent
     private pusherService: PusherServiceService
   ) {}
 
-  ngAfterViewInit() {
-    this.htmlElementSubscribtion = this.container.changes.subscribe(
-      (elements: ElementRef<HTMLInputElement>) => {
-        this.container.first.nativeElement.scrollTop =
-          this.container.first.nativeElement.scrollHeight;
-      }
-    );
-  }
-
   ngOnInit(): void {
     this.getThreadIdFromRoute();
     this.getMessagesForThread();
     this.authenticatedUserId = this.authStateService.userId();
     this.listenOnMessageReceiveEvent();
+  }
 
-    console.log('id = ', this.threadId);
+  ngAfterViewChecked() {
+    this.setScrollToBottom();
   }
 
   ngOnDestroy() {
     this.messageSubscription.unsubscribe();
-    this.htmlElementSubscribtion.unsubscribe();
   }
 
   private setScrollToBottom() {
-    console.log('set to bottom');
-    if (this.container) {
+    if (this.container && this.container.first) {
       this.container.first.nativeElement.scrollTop =
-        this.container.first.nativeElement.scrollHeight + 200;
+        this.container.first.nativeElement.scrollHeight;
     }
   }
 
@@ -82,14 +70,12 @@ export class MessageDetailsComponent
     this.messageSubscription = this.pusherService
       .getMessageSubject()
       .subscribe((data: Message) => {
-        console.log('otrzymalem message ', data);
         this.processReceivedMessageEvent(data);
       });
   }
 
   private processReceivedMessageEvent(message: Message): void {
     this.messages = [...this.messages, message];
-    this.setScrollToBottom();
   }
 
   private getMessagesForThread(): void {
@@ -134,7 +120,6 @@ export class MessageDetailsComponent
   private reply(): void {
     this.messagesService.respondToMessage(this.threadId, this.body).subscribe({
       next: data => {
-        console.log('odp = ', data);
         this.messages = [...this.messages, data.message];
         this.toastService.showSuccessMessage('Wiadomość została wysłana');
       },
@@ -148,7 +133,6 @@ export class MessageDetailsComponent
       complete: () => {
         this.body = '';
         this.isMessageSending = false;
-        this.setScrollToBottom();
       },
     });
   }

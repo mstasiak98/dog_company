@@ -3,22 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\AuthorizationHelper;
-use App\Http\Requests\AnnouncementRequest;
+use App\Http\Requests\Announcement\StoreAnnouncementRequest;
+use App\Http\Requests\Announcement\UpdateAnnouncementRequest;
 use App\Http\Requests\Photo\ReplacePhotoRequest;
 use App\Http\Resources\AnnouncmentCollection;
 use App\Http\Resources\AnnouncmentResource;
 use App\Models\Announcement;
-use App\Models\Photo;
-use App\Models\User;
 use App\Services\Announcements\AnnouncementSearchService;
 use App\Services\PhotoService;
-use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 
 class AnnouncementController extends Controller
@@ -47,7 +43,7 @@ class AnnouncementController extends Controller
         return response()->json($announcementsCollection->response()->getData());
     }
 
-    public function store(AnnouncementRequest $request, PhotoService $photoService) {
+    public function store(StoreAnnouncementRequest $request, PhotoService $photoService) {
 
         try {
             $photo = null;
@@ -77,7 +73,7 @@ class AnnouncementController extends Controller
         return response()->json(['success' => true, 'announcementId'=>$announcementId, 'title' => $request->title]);
     }
 
-    public function update(AnnouncementRequest $request) {
+    public function update(UpdateAnnouncementRequest $request) {
 
         $announcement = Announcement::findOrFail($request->id);
         AuthorizationHelper::checkAuthorization($announcement, 'update');

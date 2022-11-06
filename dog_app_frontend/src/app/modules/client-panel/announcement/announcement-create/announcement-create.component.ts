@@ -42,13 +42,7 @@ export class AnnouncementCreateComponent implements OnInit {
           .subscribe({
             next: data => {
               this.announcement = data;
-              console.log('OGLOSZENIE = ', this.announcement);
-
               this.setFormEditData();
-              console.log(
-                'ustawiona data do edycji = ',
-                this.announcementForm.value
-              );
             },
             error: err => {
               this.router.navigate([
@@ -82,8 +76,6 @@ export class AnnouncementCreateComponent implements OnInit {
   }
 
   setFormEditData(): void {
-    console.log('options = ');
-
     let announcement = {
       title: this.announcement.title,
       city: this.announcement.city,
@@ -116,9 +108,6 @@ export class AnnouncementCreateComponent implements OnInit {
     }
 
     const formData = this.getFormData();
-
-    console.log('data form = ', formData.get('data')?.toString());
-    console.log('FORMULARz = ', this.announcementForm.value);
 
     let request = !this.isEdit
       ? this.announcementService.storeAnnouncement(formData)
@@ -166,14 +155,12 @@ export class AnnouncementCreateComponent implements OnInit {
     const formData = new FormData();
     if (this.file) {
       formData.append('photo', this.file);
-      console.log('z foto');
     }
     this.convertDates();
     this.convertActivitiesFormField();
 
     let announcement;
     if (this.isEdit) {
-      console.log('jest edit wartosc przed = ', this.announcementForm.value);
       announcement = {
         ...this.announcementForm.value,
         id: this.announcement.id,
@@ -183,7 +170,6 @@ export class AnnouncementCreateComponent implements OnInit {
     }
 
     formData.append('data', JSON.stringify(announcement));
-    console.log('DATA WYSLANA W DATA', JSON.stringify(announcement));
 
     return formData;
   }

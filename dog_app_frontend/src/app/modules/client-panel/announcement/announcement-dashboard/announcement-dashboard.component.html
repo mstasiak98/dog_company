@@ -173,23 +173,23 @@
                           ? announcement.photo[0].url
                           : '../../../assets/background/placeholder2.png'
                       }}"
-                      class="w-full h-full object-cover rounded-lg" />
+                      class="w-full h-full object-contain rounded-lg" />
                   </div>
                 </div>
                 <div
-                  class="w-full md:w-3/4 announcement flex flex-col px-6 mt-4 md:mt-0">
-                  <div class="h-1/5">
+                  class="w-full md:w-3/4 announcement flex flex-col px-6 pt-4 md:pt-0 justify-evenly">
+                  <div class="">
                     <h2 class="font-bold text-2xl text-center md:text-left">
                       {{ announcement.title }}
                     </h2>
                   </div>
-                  <div class="h-3/5 text-ellipsis overflow-hidden">
+                  <div class="text-ellipsis overflow-hidden">
                     <h5 class="text-justify mt-2 text-base">
                       {{ announcement.description | slice: 0:250 }}&nbsp;...
                     </h5>
                   </div>
 
-                  <div class="h-1/5">
+                  <div class="">
                     <h5 class="text-justify mt-2 text-base">
                       Data rozpoczęcia:
                       <span class="font-bold"

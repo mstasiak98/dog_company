@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Requests\DogProfile;
+namespace App\Http\Requests\Announcement;
 
-use App\Models\Activity;
-use App\Models\Availability;
-use App\Models\Feature;
 use App\Rules\ActivityExists;
-use App\Rules\AvailabilityExists;
-use App\Rules\FeatureExists;
+use App\Rules\EndDateGreaterThanStartDate;
+use App\Rules\GreaterThanToday;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
 
-class StoreDogProfileRequest extends FormRequest
+class StoreAnnouncementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,14 +27,14 @@ class StoreDogProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required'],
-            'color'=>['required'],
-            'breed_id'=>['required', 'exists:breeds,id'],
-            'size_id'=>['required', 'exists:sizes,id'],
-            'activities'=>['required', 'array', new ActivityExists],
-            'availabilities'=>['required', 'array', new AvailabilityExists],
-            'features'=>['required', 'array', new FeatureExists],
+            'title'=>['required'],
+            'city'=>['required'],
+            'quantity'=>['required','integer'],
             'description'=>['required'],
+            'start_date'=>['required', new GreaterThanToday],
+            'end_date'=>['required', new EndDateGreaterThanStartDate],
+            'user_id' => ['required', 'exists:users,id'],
+            'activity_id' => ['required', 'array', new ActivityExists],
         ];
     }
 

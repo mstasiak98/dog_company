@@ -30,54 +30,6 @@
         <div class="w-full" *ngFor="let dog of dogProfiles">
           <app-dog-profile-list-element
             [dogProfile]="dog"></app-dog-profile-list-element>
-          <!--<div
-            class="cursor-pointer w-full flex flex-row justify-between"
-            routerLink="../dog-profile/{{ dog.id }}">
-            <div class="flex flex-row">
-              <div>
-                <img
-                  alt="dog photo"
-                  src="../../../assets/background/paw.png"
-                  class="w-full h-full object-contain rounded-lg" />
-              </div>
-              <div class="pl-4 flex flex-col">
-                <span class="font-bold text-lg">{{ dog.name }}</span>
-                <span>{{ dog.breed.name }}</span>
-              </div>
-            </div>
-
-            <div
-              class="flex flex-row pt-4 justify-center items-center"
-              appClickStopPropagation>
-              <div class="text-center">
-                <span
-                  class="mt-4 text-normal font-bold hover:text-gray-600 cursor-pointer"
-                  >Zdjęcia</span
-                >
-              </div>
-              <div class="ml-4 md:ml-6">
-                <button
-                  routerLink="/edit-dog-profile/{{ dog.id }}"
-                  pButton
-                  pRipple
-                  icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success"
-                  pTooltip="Edytuj"
-                  tooltipPosition="bottom"></button>
-              </div>
-              <div class="ml-1">
-                <button
-                  pButton
-                  pRipple
-                  icon="pi pi-trash"
-                  class="p-button-rounded p-button-warning"
-                  pTooltip="Usuń"
-                  tooltipPosition="bottom"
-                  (click)="deleteDogProfile(dog)"></button>
-              </div>
-            </div>
-          </div>
-          <p-divider class="w-full"></p-divider>-->
         </div>
       </div>
     </div>

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Announcement;
 
+use App\Rules\ActivityExists;
+use App\Rules\EndDateGreaterThanStartDate;
+use App\Rules\GreaterThanToday;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnnouncementRequest extends FormRequest
+class UpdateAnnouncementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,22 +32,10 @@ class AnnouncementRequest extends FormRequest
             'city'=>['required'],
             'quantity'=>['required','integer'],
             'description'=>['required'],
-            'start_date'=>['required', function($attribute, $value, $fail) {
-                $data = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
-                if($data->greaterThan(Carbon::today()->format('Y-m-d H:i:s'))){
-                    return true;
-                }
-                $fail('Data rozpoczęcia jest nieprawidłowa.');
-            }],
-            'end_date'=>['required', function($attribute, $value, $fail) {
-                $data = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
-                $data2 = Carbon::createFromFormat('Y-m-d H:i:s', $this->end_date);
-                if($data2->greaterThan($data)){
-                    return true;
-                }
-                $fail('Data zakończenia nie może być wcześniejsza niż data rozpoczęcia.');
-            }],
+            'start_date'=>['required'],
+            'end_date'=>['required', new EndDateGreaterThanStartDate],
             'user_id' => ['required', 'exists:users,id'],
+            'activity_id' => ['required', 'array', new ActivityExists],
         ];
     }
 

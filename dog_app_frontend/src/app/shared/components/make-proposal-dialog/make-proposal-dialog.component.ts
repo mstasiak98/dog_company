@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProposalService } from '../../services/API/proposal/proposal.service';
 import { CareProposal } from '../../models/CareProposal';
+import { pl_calendar } from '../../util/calendar_pl';
 
 @Component({
   selector: 'app-make-proposal-dialog',
@@ -18,6 +19,9 @@ export class MakeProposalDialogComponent implements OnInit {
   proposal: any;
   submitted: boolean = false;
   isSaving: boolean = false;
+  locale = pl_calendar;
+  showDateBeforeTodayMessage: boolean = false;
+  showEndDateBeforeStartMessage: boolean = false;
 
   constructor(
     private config: DynamicDialogConfig,
@@ -29,8 +33,6 @@ export class MakeProposalDialogComponent implements OnInit {
     this.activities = this.config.data.activities;
     this.dogProfileId = this.config.data.dogProfileId ?? null;
     this.announcementId = this.config.data.announcementId ?? null;
-    console.log('DOG ID = ', this.dogProfileId);
-    console.log('ANN ID = ', this.announcementId);
   }
 
   ngOnInit(): void {
@@ -64,13 +66,17 @@ export class MakeProposalDialogComponent implements OnInit {
   }
 
   saveProposal() {
-    if (this.proposal.invalid) {
+    const proposalData = this.prepareProposalData();
+    const dateIncorrect = this.validateDates(
+      proposalData.start_date,
+      proposalData.end_date
+    );
+
+    if (this.proposal.invalid || dateIncorrect) {
       this.submitted = true;
       return;
     }
 
-    const proposalData = this.prepareProposalData();
-    console.log('TEST DANYCH = ', proposalData);
     const proposal = this.announcementId
       ? this.proposalService.makeAnnouncementProposal(proposalData)
       : this.proposalService.makeProposal(proposalData);
@@ -131,7 +137,6 @@ export class MakeProposalDialogComponent implements OnInit {
       additional_info: this.proposal.get('additionalInfo').value,
     };
 
-    console.log('PROPOSAL DATA = ', proposal);
     return proposal;
   }
 
@@ -162,5 +167,41 @@ export class MakeProposalDialogComponent implements OnInit {
       summary: 'Wystąpił błąd',
       detail: `Wystąpił błąd podczas składania propozycji opieki. Spróbuj złożyć opiekę jeszcze raz.`,
     });
+  }
+
+  isDateBeforeToday(
+    startDate: Date,
+    endDate: Date,
+    currentDate: Date
+  ): boolean {
+    if (startDate < currentDate || endDate < currentDate) {
+      this.showDateBeforeTodayMessage = true;
+      return true;
+    }
+    return false;
+  }
+
+  isEndDateBeforeStartDate(startDate: Date, endDate: Date) {
+    if (new Date(endDate) <= new Date(startDate)) {
+      this.showEndDateBeforeStartMessage = true;
+      return true;
+    }
+    return false;
+  }
+
+  validateDates(startDate: string, endDate: string): boolean {
+    const currentDate = new Date();
+    const isDateBefore = this.isDateBeforeToday(
+      new Date(startDate),
+      new Date(endDate),
+      currentDate
+    );
+
+    const isEndBeforeStart = this.isEndDateBeforeStartDate(
+      new Date(startDate),
+      new Date(endDate)
+    );
+
+    return isDateBefore || isEndBeforeStart;
   }
 }

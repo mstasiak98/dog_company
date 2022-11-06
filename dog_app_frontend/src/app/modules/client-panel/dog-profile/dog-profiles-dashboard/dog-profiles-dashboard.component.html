@@ -10,7 +10,10 @@
     <div
       class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:flex-row md:justify-center md:items-start">
       <div class="md:w-1/4 my-16">
-        <h2 class="block font-bold text-2xl mb-4 text-custom-grey">Filtry</h2>
+        <h2
+          class="block font-bold text-2xl mb-4 text-custom-grey text-center md:text-left">
+          Filtry
+        </h2>
         <div class="block py-6 md:hidden">
           <p
             class="text-custom-purple-dark text-center font-bold text-md cursor-pointer"
@@ -33,9 +36,6 @@
                 defaultLabel="Wybierz rasę"
                 optionLabel="name"
                 display="chip"></p-multiSelect>
-              <!--
-                            <p-autoComplete id="breed" formControlName="breed" [suggestions]="suggestions" (completeMethod)="search($event)" field="name"></p-autoComplete>
-              -->
             </div>
 
             <div class="mt-2 field">
@@ -168,13 +168,13 @@
 
           <div
             *ngIf="dogProfiles.length >= 1"
-            class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 card-panel">
+            class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 card-panel">
             <div
               *ngFor="let profile of dogProfiles"
               class="card shade w-full cursor-pointer bg-white rounded-lg">
               <a
                 routerLink="/aplikacja/profil-psa/{{ profile.id }}"
-                class="w-full block">
+                class="w-full block h-full">
                 <img
                   alt="dog photo"
                   src="{{
@@ -186,12 +186,13 @@
                     display: block;
                     width: 100%;
                     height: 230px;
-                    object-fit: cover;
+                    object-fit: contain;
                   "
                   class="w-full rounded-lg" />
-                <div class="bg-white w-full px-4 py-0 rounded-lg">
+                <div
+                  class="bg-white w-full px-4 rounded-lg description flex flex-col justify-center">
                   <p
-                    class="pt-1.5 text-custom-purple-light text-center text-xl font-medium mb-2 truncate">
+                    class="text-custom-purple-light text-center text-xl font-medium pb-2 truncate">
                     {{ profile.name }}
                   </p>
                   <p

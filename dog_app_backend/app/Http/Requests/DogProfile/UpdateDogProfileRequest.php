@@ -5,6 +5,9 @@ namespace App\Http\Requests\DogProfile;
 use App\Models\Activity;
 use App\Models\Availability;
 use App\Models\Feature;
+use App\Rules\ActivityExists;
+use App\Rules\AvailabilityExists;
+use App\Rules\FeatureExists;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,54 +30,15 @@ class UpdateDogProfileRequest extends FormRequest
      */
     public function rules()
     {
-        Validator::extend(
-            'activities', function ($attribute, $value, $parameters, $validator) {
-            foreach ($value as $item) {
-                if (!\is_numeric($item) || \intval($item) <= 0) {
-                    return false;
-                }
-                if (!Activity::where('id', $item)->exists()) {
-                    return false;
-                }
-            }
-            return true;
-        });
-
-        Validator::extend(
-            'availabilities', function ($attribute, $value, $parameters, $validator) {
-            foreach ($value as $item) {
-                if (!\is_numeric($item) || \intval($item) <= 0) {
-                    return false;
-                }
-                if (!Availability::where('id', $item)->exists()) {
-                    return false;
-                }
-            }
-            return true;
-        });
-
-        Validator::extend(
-            'features', function ($attribute, $value, $parameters, $validator) {
-            foreach ($value as $item) {
-                if (!\is_numeric($item) || \intval($item) <= 0) {
-                    return false;
-                }
-                if (!Feature::where('id', $item)->exists()) {
-                    return false;
-                }
-            }
-            return true;
-        });
-
         return [
             'id' => ['required', 'exists:dog_profiles,id'],
             'name'=>['required'],
             'color'=>['required'],
             'breed_id'=>['required', 'exists:breeds,id'],
             'size_id'=>['required', 'exists:sizes,id'],
-            'activities'=>['required', 'array', 'activities'],
-            'availabilities'=>['required', 'array', 'availabilities'],
-            'features'=>['required', 'array', 'features'],
+            'activities'=>['required', 'array', new ActivityExists],
+            'availabilities'=>['required', 'array', new AvailabilityExists],
+            'features'=>['required', 'array', new FeatureExists],
             'description'=>['required'],
         ];
     }

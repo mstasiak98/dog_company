@@ -108,3 +108,15 @@ p-image {
     padding: 0;
   }
 }
+
+.p-tabview-nav {
+  @apply flex flex-col md:flex-row;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  @apply border-0 md:border-b-2
+}
+
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+  @apply border-0 md:border-b-2
+}

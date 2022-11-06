@@ -34,6 +34,7 @@
               >Dzień rozpoczęcia opieki</label
             >
             <p-calendar
+              dateFormat="dd.mm.yy"
               id="startDate"
               inputId="startDate"
               formControlName="startDate"
@@ -62,6 +63,7 @@
                 >Godzina rozpoczęcia</label
               >
               <p-calendar
+                id="startTime"
                 formControlName="startTime"
                 class="w-full"
                 [timeOnly]="true"
@@ -93,6 +95,7 @@
               >Dzień zakończenia opieki</label
             >
             <p-calendar
+              dateFormat="dd.mm.yy"
               id="endDate"
               inputId="startDate"
               formControlName="endDate"
@@ -113,6 +116,7 @@
             <div class="w-fit flex flex-col">
               <label for="endTime" class="font-bold">Godzina zakończenia</label>
               <p-calendar
+                id="endTime"
                 formControlName="endTime"
                 class="w-full"
                 [timeOnly]="true"
@@ -155,7 +159,31 @@
           >
         </div>
       </div>
+      <ng-container
+        *ngIf="
+          submitted &&
+          (proposal.invalid ||
+            showEndDateBeforeStartMessage ||
+            showDateBeforeTodayMessage)
+        ">
+        <div class="w-full pt-4 text-center font-bold text-red-800 text-lg">
+          Błędnie wypełniony formularz
+        </div>
+        <p-divider></p-divider>
+      </ng-container>
+      <ng-container *ngIf="showDateBeforeTodayMessage">
+        <div class="w-full py-2 text-center font-bold text-red-800">
+          - Data rozpoczęcia/zakończenia opieki nie może być wcześniejsza niż
+          dziesiejsza data
+        </div>
+      </ng-container>
 
+      <ng-container *ngIf="showEndDateBeforeStartMessage">
+        <div class="w-full py-2 text-center font-bold text-red-800">
+          - Data zakończenia opieki nie może być wcześniejsza niż data jej
+          rozpoczęcia
+        </div>
+      </ng-container>
       <div class="w-full flex justify-center py-10">
         <button
           [loading]="isSaving"

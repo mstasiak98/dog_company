@@ -54,6 +54,9 @@ class AnnouncementTest extends TestCase
     public function test_can_create_announcement()
     {
 
+        $activity = Activity::create([
+            'name' => 'Spacer',
+        ]);
         $user = User::factory()->create();
 
         $this->actingAs($user);
@@ -67,6 +70,7 @@ class AnnouncementTest extends TestCase
                 'start_date' => '2022-12-08 23:47:28',
                 'end_date' => '2022-12-09 23:47:28',
                 'user_id' => $user->id,
+                'activity_id' => [$activity->id]
             ]
         ]);
 
@@ -79,6 +83,10 @@ class AnnouncementTest extends TestCase
 
     public function test_can_edit_announcement()
     {
+
+        $activity = Activity::create([
+            'name' => 'Spacer',
+        ]);
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -101,7 +109,8 @@ class AnnouncementTest extends TestCase
                 'start_date' => '2022-12-08 23:47:28',
                 'end_date' => '2022-12-09 23:47:28',
                 'user_id' => $user->id,
-                'id' => $announcement->id
+                'id' => $announcement->id,
+                'activity_id' => [$activity->id]
             ]
         ]);
 
@@ -115,6 +124,10 @@ class AnnouncementTest extends TestCase
 
     public function test_user_cant_modify_other_user_announcement()
     {
+
+        $activity = Activity::create([
+            'name' => 'Spacer',
+        ]);
         $user = User::factory()->create();
         $user2 = User::factory()->create();
         $this->actingAs($user);
@@ -138,7 +151,8 @@ class AnnouncementTest extends TestCase
                 'start_date' => '2022-12-08 23:47:28',
                 'end_date' => '2022-12-09 23:47:28',
                 'user_id' => $user->id,
-                'id' => $announcement->id
+                'id' => $announcement->id,
+                'activity_id' => [$activity->id]
             ]
         ]);
 

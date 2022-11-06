@@ -46,6 +46,7 @@
         <div id="start-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="start_date">Początek opieki</label>
           <p-calendar
+            dateFormat="dd.mm.yy"
             id="start_date"
             formControlName="start_date"
             [showTime]="true"
@@ -55,6 +56,7 @@
         <div id="end-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="end_date">Koniec opieki</label>
           <p-calendar
+            dateFormat="dd.mm.yy"
             id="end_date"
             formControlName="end_date"
             [showTime]="true"
