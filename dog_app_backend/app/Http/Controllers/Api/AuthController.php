@@ -86,7 +86,7 @@ class AuthController extends BaseController
             if(is_string($photo)) {
                Storage::delete($photo);
             }
-            return $this->sendErrorResponse('Error', ['registration_error'=>'Wystąpił błąd poczas rejestracji']);
+            return $this->sendErrorResponse('Error', ['registration_error'=>'Wystąpił błąd poczas rejestracji', 'error' => $e]);
         }
 
         return $this->sendResponse($data, 'Success');

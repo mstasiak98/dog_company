@@ -44,6 +44,7 @@ class AnnouncementRequest extends FormRequest
                 }
                 $fail('Data zakończenia nie może być wcześniejsza niż data rozpoczęcia.');
             }],
+            'user_id' => ['required', 'exists:users,id'],
         ];
     }
 

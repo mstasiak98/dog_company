@@ -9,7 +9,9 @@ use App\Http\Requests\DogCare\DogCaresRateRequest;
 use App\Http\Requests\DogCare\DogCareStatusRequest;
 use App\Http\Requests\DogCare\GetDogCareRequest;
 use App\Http\Resources\DogCareCollection;
+use App\Models\Activity;
 use App\Models\DogCare;
+use App\Models\DogProfile;
 use App\Models\User;
 use App\Notifications\AnnouncementAccepted;
 use App\Notifications\DogCareAccepted;
@@ -34,6 +36,8 @@ class DogCareController extends Controller
             'guardian_id' => auth()->user()->id,
             'state_id' => 1
         ]);
+
+
 
         Notification::send($dogCare->dogProfile->user, new DogCareProposed($dogCare));
         return response()->json(['success' => true, 'start_date' => $dogCare->start_date]);

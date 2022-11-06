@@ -75,7 +75,7 @@ export class AnnouncementService {
   deleteAnnouncement(id: number): Observable<any> {
     const url = `${this.ANNOUNCEMENTS_BASE_URL}/deleteAnnouncement`;
 
-    return this.http.post(url, { id: id });
+    return this.http.delete(url, { params: { id: id } });
   }
 
   private getUrlWithFilters(filters: any) {

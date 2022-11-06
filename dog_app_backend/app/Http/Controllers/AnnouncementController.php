@@ -78,6 +78,7 @@ class AnnouncementController extends Controller
     }
 
     public function update(AnnouncementRequest $request) {
+
         $announcement = Announcement::findOrFail($request->id);
         AuthorizationHelper::checkAuthorization($announcement, 'update');
 

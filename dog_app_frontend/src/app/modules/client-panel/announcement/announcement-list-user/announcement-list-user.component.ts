@@ -95,10 +95,10 @@ export class AnnouncementListUserComponent implements OnInit {
               .subscribe(this.processResults());
           },
           error: err => {
-            this.router.navigate(['/announcements/my-announcements']);
+            this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
           },
           complete: () => {
-            this.router.navigate(['/announcements/my-announcements']);
+            this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
           },
         });
       },

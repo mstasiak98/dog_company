@@ -9,7 +9,9 @@ class CareState extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = [
+        'name',
+    ];
 
     public function dogCares() {
         return $this->hasMany(DogCare::class);

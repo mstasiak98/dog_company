@@ -65,9 +65,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/makeProposal', 'storeProposal');
         Route::post('/makeAnnouncementProposal', 'storeAnnouncementProposal');
         Route::get('/dogCares', 'getDogCares');
-        Route::post('/dogCares/cancel', 'cancel');
-        Route::post('/dogCares/accept', 'accept');
-        Route::post('/dogCares/reject', 'reject');
+        Route::patch('/dogCares/cancel', 'cancel');
+        Route::patch('/dogCares/accept', 'accept');
+        Route::patch('/dogCares/reject', 'reject');
         Route::post('/dogCares/rate-care', 'rate');
     });
 
@@ -75,7 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/announcements/user', 'userAnnouncements');
         Route::post('/announcements/storeAnnouncement', 'store');
         Route::post('/announcements/updateAnnouncement', 'update');
-        Route::post('/announcements/deleteAnnouncement', 'destroy');
+        Route::delete('/announcements/deleteAnnouncement', 'destroy');
         Route::post('/announcements/replacePhoto', 'replacePhoto');
         Route::get('/announcements/edit', 'edit');
     });
@@ -85,7 +85,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('dogs/store', 'store');
         Route::post('dogs/update', 'update');
         Route::post('dogs/destroy', 'destroy');
-        Route::post('dogs/changeVisibility', 'changeVisibility');
+        Route::patch('dogs/changeVisibility', 'changeVisibility');
         Route::get('dogs/edit', 'edit');
     });
 

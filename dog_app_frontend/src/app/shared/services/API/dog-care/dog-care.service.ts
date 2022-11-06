@@ -54,7 +54,7 @@ export class DogCareService {
     action: PropositionAction
   ): Observable<any> {
     const url = `${this.BASE_DOG_CARES_URL}/${action}`;
-    return this.http.post(url, { dogCareId: dogCareId });
+    return this.http.patch(url, { dogCareId: dogCareId });
   }
 
   public rateDogCare(dogCareId: number, data: DogCareRate): Observable<any> {

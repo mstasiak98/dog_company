@@ -42,7 +42,7 @@ class AnnouncementPolicy
      * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Announcement $announcement)
+    public function destroy(User $user, Announcement $announcement)
     {
         return $user->id === $announcement->user_id;
     }

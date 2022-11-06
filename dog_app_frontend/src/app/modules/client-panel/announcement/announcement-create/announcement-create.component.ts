@@ -136,7 +136,7 @@ export class AnnouncementCreateComponent implements OnInit {
         this.router.navigate([url]);
       },
       error: error => {
-        this.router.navigate(['announcements']);
+        this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
         this.toastService.showErrorMessage(`Wystąpił błąd.`);
       },
       complete: () => {

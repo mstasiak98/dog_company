@@ -36,7 +36,7 @@ export class DogService {
     const url = `${this.DOG_PROFILE_BASE_URL}/changeVisibility`;
 
     console.log({ id: dogProfileId, visible: visible });
-    return this.http.post(url, { id: dogProfileId, visible: visible });
+    return this.http.patch(url, { id: dogProfileId, visible: visible });
   }
 
   updateDogProfile(data: any): Observable<any> {
