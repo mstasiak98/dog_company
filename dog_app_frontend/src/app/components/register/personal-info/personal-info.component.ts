@@ -26,7 +26,7 @@ export class PersonalInfoComponent implements OnInit {
     this.personalData = this.formBuilder.group({
       city: ['', [Validators.required]],
       street: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
+      zipCode: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]],
       houseNo: ['', [Validators.required]],
       flatNo: [''],
     });

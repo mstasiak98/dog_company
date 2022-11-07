@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,8 +28,11 @@ export class AccountInfoComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.min(6)]],
-      phoneNo: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      phoneNo: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3}$/)],
+      ],
     });
 
     this.accountData.patchValue(

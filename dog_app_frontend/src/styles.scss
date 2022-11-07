@@ -58,7 +58,6 @@ app-guardian-care {
 
 .register-button {
   @apply cursor-pointer bg-custom-purple-low rounded px-5 py-3 text-lg text-white tracking-wide font-semibold font-sans hover:bg-custom-purple-light
-
 }
 
 .loaderBlock {
@@ -119,4 +118,10 @@ p-image {
 
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
   @apply border-0 md:border-b-2
+}
+
+.registration {
+  .p-button {
+    @apply cursor-pointer bg-custom-purple-low rounded px-5 py-3 text-lg text-white tracking-wide font-semibold font-sans hover:bg-custom-purple-light
+  };
 }

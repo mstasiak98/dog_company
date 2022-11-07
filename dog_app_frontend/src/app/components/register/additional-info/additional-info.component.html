@@ -78,7 +78,12 @@
           Powrót
         </button>
 
-        <button type="button" class="register-button" (click)="save()">
+        <button
+          pButton
+          type="button"
+          class="register-button"
+          (click)="save()"
+          [loading]="isSaving">
           Zarejestruj się
         </button>
       </div>

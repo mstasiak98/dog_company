@@ -21,7 +21,7 @@ export class AdditionalInfoComponent implements OnInit {
   file: File;
   imgUrl: any;
   errors: any = null;
-
+  isSaving: boolean = false;
   registrationData: any;
 
   constructor(
@@ -92,6 +92,7 @@ export class AdditionalInfoComponent implements OnInit {
 
       console.log('TEST = ', formData.get('data'));
 
+      this.isSaving = true;
       this.authService.register(formData).subscribe({
         next: (result: any) => {
           console.log('RESULT', result);
@@ -109,10 +110,12 @@ export class AdditionalInfoComponent implements OnInit {
           this.toastService.showErrorMessage(
             'Wystąpił błąd podczas rejestracji'
           );
+          this.isSaving = false;
         },
         complete: () => {
           this.additionalData.reset();
           this.registrationFormService.registrationFormData.reset();
+          this.isSaving = false;
         },
       });
     }

@@ -24,7 +24,6 @@
                 class="form-control"
                 type="text"
                 placeholder="Imię"
-                required
                 pInputText
                 [ngClass]="{
                   'ng-dirty':
@@ -47,7 +46,6 @@
                 type="text"
                 formControlName="lastName"
                 placeholder="Nazwisko"
-                required
                 pInputText
                 [ngClass]="{
                   'ng-dirty':
@@ -71,7 +69,6 @@
             <input
               id="email"
               type="email"
-              required
               pInputText
               formControlName="email"
               placeholder="Adres email"
@@ -96,7 +93,6 @@
             <input
               id="password"
               type="password"
-              required
               pInputText
               formControlName="password"
               placeholder="*********"
@@ -109,9 +105,18 @@
               class="p-error"
               *ngIf="
                 (f.password.invalid && submitted) ||
-                (f.password.dirty && f.password.invalid)
+                (f.password.dirty && f.password.errors?.['required'])
               "
               >Pole <strong>hasło</strong> jest wymagane.</small
+            >
+            <small
+              class="p-error"
+              *ngIf="
+                (f.password.invalid && submitted) ||
+                (f.password.dirty && f.password.errors?.['minlength'])
+              "
+              >Pole <strong>hasło</strong> musi składać się z minimum 6
+              znaków.</small
             >
           </div>
         </div>
@@ -133,25 +138,35 @@
               class="p-error"
               *ngIf="
                 (f.phoneNo.invalid && submitted) ||
-                (f.phoneNo.dirty && f.phoneNo.invalid)
+                (f.phoneNo.dirty &&
+                  f.phoneNo.invalid &&
+                  f.phoneNo?.errors['required'])
               "
               >Pole <strong>numer telefonu</strong> jest wymagane.</small
+            >
+
+            <small
+              class="p-error"
+              *ngIf="
+                (f.phoneNo.invalid && submitted) ||
+                (f.phoneNo.dirty &&
+                  f.phoneNo.invalid &&
+                  f.phoneNo?.errors.pattern)
+              "
+              >Pole <strong>numer telefonu</strong> jest nieprawidłowo
+              wypełnione</small
             >
           </div>
         </div>
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <button type="button" class="register-button" routerLink="/logowanie">
+          Logowanie
+        </button>
         <button
-          [ngClass]="{
-            disabled:
-              f.firstName.invalid ||
-              f.lastName.invalid ||
-              f.email.invalid ||
-              f.password.invalid ||
-              f.phoneNo.invalid
-          }"
+          [ngClass]="{ disabled: accountData.invalid }"
           type="button"
           class="register-button"
           (click)="nextPage()">

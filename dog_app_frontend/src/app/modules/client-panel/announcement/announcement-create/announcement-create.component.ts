@@ -189,7 +189,7 @@ export class AnnouncementCreateComponent implements OnInit {
     this.deletePhoto = true;
   }
 
-  f() {
+  get f() {
     return this.announcementForm.controls;
   }
 

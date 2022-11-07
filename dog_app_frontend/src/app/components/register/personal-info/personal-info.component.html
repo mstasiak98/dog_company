@@ -58,9 +58,23 @@
                 class="p-error"
                 *ngIf="
                   (f.zipCode.invalid && submitted) ||
-                  (f.zipCode.dirty && f.zipCode.invalid)
+                  (f.zipCode.dirty &&
+                    f.zipCode.invalid &&
+                    f.zipCode?.errors['required'])
                 "
                 >Pole <strong>kod pocztowy</strong> jest wymagane.</small
+              >
+
+              <small
+                class="p-error"
+                *ngIf="
+                  (f.zipCode.invalid && submitted) ||
+                  (f.zipCode.dirty &&
+                    f.zipCode.invalid &&
+                    f.zipCode?.errors['pattern'])
+                "
+                >Pole <strong>kod pocztowy</strong> jest nieprawidłowo
+                wypełnione.</small
               >
             </div>
           </div>
@@ -134,11 +148,7 @@
 
         <button
           [ngClass]="{
-            disabled:
-              f.city.invalid ||
-              f.zipCode.invalid ||
-              f.street.invalid ||
-              f.houseNo.invalid
+            disabled: personalData.invalid
           }"
           type="button"
           class="register-button"

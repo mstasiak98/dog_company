@@ -27,10 +27,18 @@
         </div>
 
         <p-divider class="w-full"></p-divider>
-        <div class="w-full" *ngFor="let dog of dogProfiles">
-          <app-dog-profile-list-element
-            [dogProfile]="dog"></app-dog-profile-list-element>
-        </div>
+        <ng-container *ngIf="dogProfiles.length > 0; else noProfiles">
+          <div class="w-full" *ngFor="let dog of dogProfiles">
+            <app-dog-profile-list-element
+              [dogProfile]="dog"></app-dog-profile-list-element>
+          </div>
+        </ng-container>
+        <ng-template #noProfiles>
+          <div
+            class="font-bold text-lg text-center py-6 flex flex-col items-center justify-center">
+            Nie dodałeś jeszcze żadnego profilu psa.
+          </div>
+        </ng-template>
       </div>
     </div>
   </ng-template>

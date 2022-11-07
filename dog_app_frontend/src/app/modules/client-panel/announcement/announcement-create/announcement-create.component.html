@@ -29,6 +29,14 @@
               required
               pInputText
               formControlName="title" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.title.touched && f.title.invalid) ||
+                (f.title.dirty && f.title.invalid && f.title?.errors.required)
+              "
+              >Pole <strong>tytuł</strong> jest wymagane</small
+            >
           </div>
         </div>
         <div class="mt-4 p-fluid grid grid-cols-1">
@@ -41,6 +49,14 @@
               required
               pInputText
               formControlName="city" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.city.touched && f.city.invalid) ||
+                (f.city.dirty && f.city.invalid && f.city?.errors.required)
+              "
+              >Pole <strong>miejscowość</strong> jest wymagane</small
+            >
           </div>
         </div>
         <div id="start-container" class="mt-4 p-fluid grid grid-cols-1">
@@ -52,6 +68,16 @@
             [showTime]="true"
             inputId="start_date">
           </p-calendar>
+          <small
+            class="p-error"
+            *ngIf="
+              (f.start_date.touched && f.start_date.invalid) ||
+              (f.start_date.dirty &&
+                f.start_date.invalid &&
+                f.start_date?.errors.required)
+            "
+            >Pole <strong>początek opieki</strong> jest wymagane</small
+          >
         </div>
         <div id="end-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="end_date">Koniec opieki</label>
@@ -61,6 +87,16 @@
             formControlName="end_date"
             [showTime]="true"
             inputId="end_date"></p-calendar>
+          <small
+            class="p-error"
+            *ngIf="
+              (f.end_date.touched && f.end_date.invalid) ||
+              (f.end_date.dirty &&
+                f.end_date.invalid &&
+                f.end_date?.errors.required)
+            "
+            >Pole <strong>koniec opieki</strong> jest wymagane</small
+          >
         </div>
         <div class="mt-4 p-fluid grid grid-cols-1">
           <label for="activities-container">Aktywność</label>
@@ -82,6 +118,16 @@
                 >
               </div>
             </div>
+            <small
+              class="p-error"
+              *ngIf="
+                (f.activity_id.touched && f.activity_id.invalid) ||
+                (f.activity_id.dirty &&
+                  f.activity_id.invalid &&
+                  f.activity_id?.errors.required)
+              "
+              >Przynajmniej jedna z aktywności jest wymagana</small
+            >
           </div>
         </div>
         <div class="mt-4 p-fluid grid grid-cols-1">
@@ -94,6 +140,17 @@
               required
               pInputText
               formControlName="quantity" />
+            <small
+              class="p-error"
+              *ngIf="
+                (f.quantity.touched && f.quantity.invalid) ||
+                (f.quantity.dirty &&
+                  f.quantity.invalid &&
+                  f.quantity?.errors.required)
+              "
+              >Pole <strong>ilość</strong> jest wymagane i musi być większe od
+              1</small
+            >
           </div>
         </div>
         <div class="p-fluid mt-4">
