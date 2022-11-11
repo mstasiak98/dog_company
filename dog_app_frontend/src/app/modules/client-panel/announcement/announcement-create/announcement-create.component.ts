@@ -69,7 +69,7 @@ export class AnnouncementCreateComponent implements OnInit {
       quantity: ['', [Validators.required, Validators.min(1)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       activity_id: ['', Validators.required],
       user_id: [this.authenticatedUserId, Validators.required],
     });

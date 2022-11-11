@@ -8,6 +8,7 @@ import { ConfirmationService } from 'primeng/api';
 import { AddPhotoDialogComponent } from '../../../../shared/components/add-photo-dialog/add-photo-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhotoEndpointsEnum } from '../../../../shared/enums/photo-endpoints-enum';
+import { ToastService } from '../../../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-announcement-list-user',
@@ -27,6 +28,7 @@ export class AnnouncementListUserComponent implements OnInit {
   links: Link[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
+  totalRecords: number = 0;
   announcementsPerPage: number = 5;
 
   constructor(
@@ -34,7 +36,8 @@ export class AnnouncementListUserComponent implements OnInit {
     private router: Router,
     private announcementService: AnnouncementService,
     private confirmationService: ConfirmationService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -60,9 +63,11 @@ export class AnnouncementListUserComponent implements OnInit {
 
   private processResults() {
     return (data: any) => {
+      console.log('data = ', data);
       this.announcements = data.data;
       this.links = data.meta.links;
-      this.totalPages = data.meta.total;
+      this.totalPages = data.meta.last_page;
+      this.totalRecords = data.meta.total;
       this.currentPage = data.meta.current_page;
       this.announcementsPerPage = data.meta.per_page;
       this.isContentLoading = false;
@@ -90,15 +95,15 @@ export class AnnouncementListUserComponent implements OnInit {
       accept: () => {
         this.announcementService.deleteAnnouncement(announcement.id).subscribe({
           next: data => {
-            this.announcementService
-              .getAnnouncementListForUser()
-              .subscribe(this.processResults());
+            this.announcements = [
+              ...this.announcements.filter(item => item.id !== announcement.id),
+            ];
+            this.totalRecords = this.totalRecords - 1;
           },
           error: err => {
-            this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
-          },
-          complete: () => {
-            this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
+            this.toastService.showErrorMessage(
+              'Wysąpił błąd podczas usuwania ogłoszenia'
+            );
           },
         });
       },

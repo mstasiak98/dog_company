@@ -13,6 +13,7 @@
           <div class="">
             <label for="name">Imię</label>
             <input
+              cy-data="dog-profile-name-field"
               id="name"
               name="name"
               type="text"
@@ -38,6 +39,7 @@
           <div class="">
             <label for="color">Kolor</label>
             <input
+              cy-data="dog-profile-color-field"
               id="color"
               name="color"
               type="text"
@@ -64,6 +66,7 @@
             <label for="breed">Rasa</label>
             <p-dropdown
               id="breed"
+              cy-data="dog-profile-breed-field"
               [options]="breeds"
               [required]="true"
               [showClear]="true"
@@ -92,6 +95,7 @@
           <div class="">
             <label for="size">Wielkość</label>
             <p-dropdown
+              cy-data="dog-profile-size-field"
               [options]="sizes"
               [required]="true"
               [ngClass]="{
@@ -118,6 +122,7 @@
           <div class="">
             <label for="features">Cechy osobowości psa</label>
             <p-multiSelect
+              cy-data="dog-profile-feature-field"
               id="features"
               [options]="features"
               formControlName="features"
@@ -219,6 +224,7 @@
             id="description-container"
             class="grid grid-cols-1 rounded-lg border-4 border-solid">
             <textarea
+              cy-data="dog-profile-description-field"
               id="description"
               class="h-40"
               name="description"
@@ -254,6 +260,7 @@
         <div class="ml-4">
           <button
             class="p-button-success"
+            cy-data="dog-profile-submit-button"
             pButton
             type="button"
             label="Zapisz"

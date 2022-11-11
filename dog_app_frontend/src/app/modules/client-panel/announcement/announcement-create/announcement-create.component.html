@@ -23,6 +23,7 @@
           <div class="">
             <label for="title">Tytuł</label>
             <input
+              cy-data="create-announcement-title-field"
               id="title"
               name="title"
               type="text"
@@ -43,6 +44,7 @@
           <div class="">
             <label for="city">Miejscowość</label>
             <input
+              cy-data="create-announcement-city-field"
               id="city"
               name="city"
               type="text"
@@ -62,6 +64,7 @@
         <div id="start-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="start_date">Początek opieki</label>
           <p-calendar
+            cy-data="create-announcement-start-field"
             dateFormat="dd.mm.yy"
             id="start_date"
             formControlName="start_date"
@@ -82,6 +85,7 @@
         <div id="end-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="end_date">Koniec opieki</label>
           <p-calendar
+            cy-data="create-announcement-end-field"
             dateFormat="dd.mm.yy"
             id="end_date"
             formControlName="end_date"
@@ -134,6 +138,7 @@
           <div class="">
             <label for="quantity">Ilość</label>
             <input
+              cy-data="create-announcement-quantity-field"
               id="quantity"
               name="quantity"
               type="number"
@@ -159,6 +164,7 @@
             id="description-container"
             class="grid grid-cols-1 rounded-lg border-4 border-solid">
             <textarea
+              cy-data="create-announcement-description-field"
               formControlName="description"
               id="description"
               class="h-40"
@@ -177,6 +183,7 @@
         </div>
         <div class="ml-4">
           <button
+            cy-data="create-announcement-submit-button"
             class="p-button-success"
             pButton
             type="button"

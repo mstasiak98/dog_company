@@ -112,7 +112,6 @@ export class DogProfileListElementComponent implements OnInit {
   }
 
   deleteDogProfile(): void {
-    console.log('event = ', event);
     this.confirmationService.confirm({
       message: `Czy chesz usunąć profil psa ${this.dogProfile.name}?`,
       header: 'Potwierdzenie',
@@ -134,14 +133,9 @@ export class DogProfileListElementComponent implements OnInit {
             }
           },
           error: err => {
-            console.log('error ', err);
             this.toastService.showSuccessMessage(
               'Wystąpił błąd podczas usuwania profilu psa.'
             );
-            this.router.navigate(['my-dog-profiles']);
-          },
-          complete: () => {
-            this.router.navigate(['my-dog-profiles']);
           },
         });
       },
@@ -149,12 +143,8 @@ export class DogProfileListElementComponent implements OnInit {
   }
 
   changeProfileVisibility(event: any): void {
-    console.log('ev = ', event);
-    console.log('dog id ', this.dogProfile.id);
     this.dogService.changeVisibility(this.dogProfile.id, event).subscribe({
-      next: resp => {
-        console.log('res- = ', resp);
-      },
+      next: resp => {},
       error: () => {
         this.checked = !!this.dogProfile.visible;
       },
