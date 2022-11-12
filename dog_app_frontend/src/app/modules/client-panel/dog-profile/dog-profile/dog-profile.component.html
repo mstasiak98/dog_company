@@ -14,268 +14,260 @@
         Następny
       </div>
     </div>-->
-    <div class="w-full bg-gray-500 gallery">
-      <div class="flex flex-row justify-center">
-        <ng-container *ngIf="dogProfile.photos.length > 0; else placeholder">
-          <p-galleria
-            [value]="images"
-            [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
-            [numVisible]="5"
-            [circular]="true"
-            [showItemNavigators]="true"
-            [showThumbnails]="false">
-            <ng-template pTemplate="item" let-item>
-              <p-image
-                [src]="item.previewImageSrc"
-                alt="Image"
-                width="640"
-                height="500"
-                [preview]="true">
-                <ng-template pTemplate="indicator">
-                  <i class="pi pi-eye" style="font-size: 4rem"></i>
-                </ng-template>
-              </p-image>
-            </ng-template>
-          </p-galleria>
-        </ng-container>
-        <ng-template #placeholder>
-          <div class="gallery flex items-center">
-            <img
-              alt="placeholder"
-              style="display: block; height: 400px"
-              src="../../../assets/background/placeholder.png" />
-          </div>
-        </ng-template>
-      </div>
-
-      <!--<div class="max-w-full md:max-w-7xl mx-auto h-full px-8">
-        <div class="w-full md:w-3/4 mx-auto gallery">
-          <p-carousel [value]="images" [showIndicators]="false">
-            <ng-template let-image pTemplate="item">
-              <div class="w-full gallery">
+    <div class="flex flex-col" cy-data="dog-profile-details-container">
+      <div class="w-full bg-gray-500 gallery">
+        <div class="flex flex-row justify-center">
+          <ng-container *ngIf="dogProfile.photos.length > 0; else placeholder">
+            <p-galleria
+              [value]="images"
+              [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
+              [numVisible]="5"
+              [circular]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false">
+              <ng-template pTemplate="item" let-item>
                 <p-image
-                  src="{{ image.previewImageSrc }}"
+                  [src]="item.previewImageSrc"
                   alt="Image"
-                  width="100%"></p-image>
-              </div>
-            </ng-template>
-          </p-carousel>
+                  width="640"
+                  height="500"
+                  [preview]="true">
+                  <ng-template pTemplate="indicator">
+                    <i class="pi pi-eye" style="font-size: 4rem"></i>
+                  </ng-template>
+                </p-image>
+              </ng-template>
+            </p-galleria>
+          </ng-container>
+          <ng-template #placeholder>
+            <div class="gallery flex items-center">
+              <img
+                alt="placeholder"
+                style="display: block; height: 400px"
+                src="../../../assets/background/placeholder.png" />
+            </div>
+          </ng-template>
         </div>
-      </div>-->
-    </div>
-    <div class="max-w-full md:max-w-7xl mx-auto px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 mt-10 gap-4 mb-4">
-        <div class="md:col-span-3">
-          <div class="flex flex-col w-full px-2">
-            <div class="">
-              <span class="font-bold text-2xl text-black">{{
-                dogProfile.name
-              }}</span>
-            </div>
-            <div class="mt-4 py-4">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="w-full flex justify-center">
-              <div
-                class="md:w-full flex flex-col md:flex-row md:justify-start gap-x-6 items-center text-custom-purple-dark">
-                <span class="font-bold text-lg uppercase block">{{
-                  dogProfile.breed.name
-                }}</span>
-                <p-divider
-                  layout="vertical"
-                  class="hidden md:block"></p-divider>
-                <span class="font-bold text-lg uppercase block">{{
-                  dogProfile.size.name
-                }}</span>
-                <p-divider
-                  layout="vertical"
-                  class="hidden md:block"></p-divider>
-                <span class="font-bold text-lg uppercase block">{{
-                  dogProfile.color
+      </div>
+      <div class="max-w-full md:max-w-7xl mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 mt-10 gap-4 mb-4">
+          <div class="md:col-span-3">
+            <div class="flex flex-col w-full px-2">
+              <div class="">
+                <span class="font-bold text-2xl text-black">{{
+                  dogProfile.name
                 }}</span>
               </div>
-            </div>
-            <div class="py-4">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="w-full mt-4">
-              <div class="w-full bg-gray-100 p-2">
-                <span class="text-xl font-bold text-custom-purple-dark"
-                  >OPIS</span
-                >
+              <div class="mt-4 py-4">
+                <div class="w-full border-t border-gray-300"></div>
               </div>
-              <div class="w-full p-2">
-                <span class="text-md font-normal text-black">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                  facilisis dui non dui vehicula mollis. Nam hendrerit, lacus et
-                  iaculis hendrerit, sapien dui varius mauris, sed sodales
-                  sapien lectus porta orci. Proin ut elit sed nisl elementum
-                  ultrices. In quis mollis ipsum. Vivamus id mattis nulla, nec
-                  accumsan mi. Aenean sed urna a magna bibendum hendrerit
-                  placerat sollicitudin massa. Morbi nulla nunc, varius sit amet
-                  odio id, congue auctor felis. Suspendisse molestie eget lorem
-                  rhoncus iaculis. Aliquam ultrices metus eget quam venenatis,
-                  vitae bibendum nisi feugiat.
-                </span>
-              </div>
-            </div>
-            <div class="w-full mt-4">
-              <div class="w-full bg-gray-100 p-2">
-                <span class="text-xl font-bold text-custom-purple-dark"
-                  >CECHY OSOBOWOŚCI</span
-                >
-              </div>
-              <div
-                class="w-full p-2"
-                *ngIf="dogProfile.feature; else emptyFeature">
-                <ul class="paw-li">
-                  <li
-                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
-                    *ngFor="let feature of dogProfile.feature">
-                    {{ feature.name }}
-                  </li>
-                </ul>
-              </div>
-              <ng-template #emptyFeature>
-                <div class="w-full p-2">
-                  <ul class="paw-li">
-                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
-                      Brak
-                    </li>
-                  </ul>
-                </div>
-              </ng-template>
-            </div>
-            <div class="w-full mt-4">
-              <div class="w-full bg-gray-100 p-2">
-                <span class="text-xl font-bold text-custom-purple-dark"
-                  >AKTYWNOŚĆ KTÓREJ POTRZEBUJE</span
-                >
-              </div>
-              <div
-                class="w-full p-2"
-                *ngIf="dogProfile.activity; else emptyActivity">
-                <ul class="paw-li">
-                  <li
-                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
-                    *ngFor="let activity of dogProfile.activity">
-                    {{ activity.name }}
-                  </li>
-                </ul>
-              </div>
-              <ng-template #emptyActivity>
-                <div class="w-full p-2">
-                  <ul class="paw-li">
-                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
-                      Brak
-                    </li>
-                  </ul>
-                </div>
-              </ng-template>
-            </div>
-            <div class="w-full mt-4">
-              <div class="w-full bg-gray-100 p-2">
-                <span class="text-xl font-bold text-custom-purple-dark"
-                  >JEST DOSTĘPNY</span
-                >
-              </div>
-              <div
-                class="w-full p-2"
-                *ngIf="dogProfile.availability; else emptyAvailability">
-                <ul class="paw-li">
-                  <li
-                    class="mt-1 text-black font-normal text-lg px-2 paw-li"
-                    *ngFor="let availability of dogProfile.availability">
-                    {{ availability.name }}
-                  </li>
-                </ul>
-              </div>
-              <ng-template #emptyAvailability>
-                <div class="w-full p-2">
-                  <ul class="paw-li">
-                    <li class="mt-1 text-black font-normal text-lg px-2 paw-li">
-                      Brak
-                    </li>
-                  </ul>
-                </div>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col">
-          <div
-            class="py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
-            <div class="flex flex-col px-2">
-              <h2
-                class="text-2xl font-semibold text-white text-center underline">
-                Właściciel
-              </h2>
-              <h3 class="mt-2 font-semibold text-lg text-white text-center">
-                {{ owner.firstName }} {{ owner.lastName }}
-              </h3>
-              <h3 class="mt-2 font-semibold text-base text-white text-center">
-                {{ owner.city }}, {{ owner.street }}
-              </h3>
-            </div>
-            <ng-container *ngIf="owner.id !== authenticatedUserId">
-              <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
+              <div class="w-full flex justify-center">
                 <div
-                  (click)="makeProposal()"
-                  class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-light hover:cursor-pointer hover:bg-custom-purple-light hover:text-white">
-                  <span class="text-sm font-bold">ZAPROPONUJ OPIEKĘ</span>
+                  class="md:w-full flex flex-col md:flex-row md:justify-start gap-x-6 items-center text-custom-purple-dark">
+                  <span class="font-bold text-lg uppercase block">{{
+                    dogProfile.breed.name
+                  }}</span>
+                  <p-divider
+                    layout="vertical"
+                    class="hidden md:block"></p-divider>
+                  <span class="font-bold text-lg uppercase block">{{
+                    dogProfile.size.name
+                  }}</span>
+                  <p-divider
+                    layout="vertical"
+                    class="hidden md:block"></p-divider>
+                  <span class="font-bold text-lg uppercase block">{{
+                    dogProfile.color
+                  }}</span>
                 </div>
               </div>
-
-              <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
-                <div
-                  (click)="showMessageDialog()"
-                  class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-custom-purple-light">
-                  <span class="text-sm text-white font-bold"
-                    >WYŚLIJ WIADOMOŚĆ</span
+              <div class="py-4">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="w-full mt-4">
+                <div class="w-full bg-gray-100 p-2">
+                  <span class="text-xl font-bold text-custom-purple-dark"
+                    >OPIS</span
                   >
                 </div>
+                <div class="w-full p-2">
+                  <span class="text-md font-normal text-black">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+                    facilisis dui non dui vehicula mollis. Nam hendrerit, lacus
+                    et iaculis hendrerit, sapien dui varius mauris, sed sodales
+                    sapien lectus porta orci. Proin ut elit sed nisl elementum
+                    ultrices. In quis mollis ipsum. Vivamus id mattis nulla, nec
+                    accumsan mi. Aenean sed urna a magna bibendum hendrerit
+                    placerat sollicitudin massa. Morbi nulla nunc, varius sit
+                    amet odio id, congue auctor felis. Suspendisse molestie eget
+                    lorem rhoncus iaculis. Aliquam ultrices metus eget quam
+                    venenatis, vitae bibendum nisi feugiat.
+                  </span>
+                </div>
               </div>
-            </ng-container>
-
-            <div *ngIf="!isLoggedIn" class="w-full px-6 mt-4">
-              <div
-                routerLink="/login"
-                class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
-                <span class="text-sm font-bold">ZALOGUJ SIĘ</span>
+              <div class="w-full mt-4">
+                <div class="w-full bg-gray-100 p-2">
+                  <span class="text-xl font-bold text-custom-purple-dark"
+                    >CECHY OSOBOWOŚCI</span
+                  >
+                </div>
+                <div
+                  class="w-full p-2"
+                  *ngIf="dogProfile.feature; else emptyFeature">
+                  <ul class="paw-li">
+                    <li
+                      class="mt-1 text-black font-normal text-lg px-2 paw-li"
+                      *ngFor="let feature of dogProfile.feature">
+                      {{ feature.name }}
+                    </li>
+                  </ul>
+                </div>
+                <ng-template #emptyFeature>
+                  <div class="w-full p-2">
+                    <ul class="paw-li">
+                      <li
+                        class="mt-1 text-black font-normal text-lg px-2 paw-li">
+                        Brak
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="w-full mt-4">
+                <div class="w-full bg-gray-100 p-2">
+                  <span class="text-xl font-bold text-custom-purple-dark"
+                    >AKTYWNOŚĆ KTÓREJ POTRZEBUJE</span
+                  >
+                </div>
+                <div
+                  class="w-full p-2"
+                  *ngIf="dogProfile.activity; else emptyActivity">
+                  <ul class="paw-li">
+                    <li
+                      class="mt-1 text-black font-normal text-lg px-2 paw-li"
+                      *ngFor="let activity of dogProfile.activity">
+                      {{ activity.name }}
+                    </li>
+                  </ul>
+                </div>
+                <ng-template #emptyActivity>
+                  <div class="w-full p-2">
+                    <ul class="paw-li">
+                      <li
+                        class="mt-1 text-black font-normal text-lg px-2 paw-li">
+                        Brak
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="w-full mt-4">
+                <div class="w-full bg-gray-100 p-2">
+                  <span class="text-xl font-bold text-custom-purple-dark"
+                    >JEST DOSTĘPNY</span
+                  >
+                </div>
+                <div
+                  class="w-full p-2"
+                  *ngIf="dogProfile.availability; else emptyAvailability">
+                  <ul class="paw-li">
+                    <li
+                      class="mt-1 text-black font-normal text-lg px-2 paw-li"
+                      *ngFor="let availability of dogProfile.availability">
+                      {{ availability.name }}
+                    </li>
+                  </ul>
+                </div>
+                <ng-template #emptyAvailability>
+                  <div class="w-full p-2">
+                    <ul class="paw-li">
+                      <li
+                        class="mt-1 text-black font-normal text-lg px-2 paw-li">
+                        Brak
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>
+          <div class="flex flex-col">
+            <div
+              class="py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
+              <div class="flex flex-col px-2">
+                <h2
+                  class="text-2xl font-semibold text-white text-center underline">
+                  Właściciel
+                </h2>
+                <h3 class="mt-2 font-semibold text-lg text-white text-center">
+                  {{ owner.firstName }} {{ owner.lastName }}
+                </h3>
+                <h3 class="mt-2 font-semibold text-base text-white text-center">
+                  {{ owner.city }}, {{ owner.street }}
+                </h3>
+              </div>
+              <ng-container *ngIf="owner.id !== authenticatedUserId">
+                <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
+                  <div
+                    cy-data="dog-profile-create-dog-care"
+                    (click)="makeProposal()"
+                    class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-light hover:cursor-pointer hover:bg-custom-purple-light hover:text-white">
+                    <span class="text-sm font-bold">ZAPROPONUJ OPIEKĘ</span>
+                  </div>
+                </div>
 
-          <div
-            class="mt-5 py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
-            <div class="flex flex-col">
-              <h3
-                class="mt-2 font-semibold text-2xl text-white text-center underline">
-                Rodzeństwo
-              </h3>
-              <h4
-                *ngFor="let sibling of siblings"
-                routerLink="/aplikacja/profil-psa/{{ sibling.id }}"
-                class="mt-2 font-semibold text-lg text-white text-center cursor-pointer hover:text-custom-purple-dark">
-                {{ sibling.name }}
-              </h4>
-              <h4
-                *ngIf="siblings.length === 0"
-                class="mt-2 font-semibold text-lg text-white text-center">
-                Brak
-              </h4>
+                <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
+                  <div
+                    cy-data="dog-profile-send-message"
+                    (click)="showMessageDialog()"
+                    class="rounded-2xl border border-solid border-white h-10 flex justify-center items-center hover:cursor-pointer hover:bg-custom-purple-light">
+                    <span class="text-sm text-white font-bold"
+                      >WYŚLIJ WIADOMOŚĆ</span
+                    >
+                  </div>
+                </div>
+              </ng-container>
+
+              <div *ngIf="!isLoggedIn" class="w-full px-6 mt-4">
+                <div
+                  routerLink="/login"
+                  class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
+                  <span class="text-sm font-bold">ZALOGUJ SIĘ</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-5 py-4 bg-custom-purple-low rounded-xl flex flex-col items-center">
+              <div class="flex flex-col">
+                <h3
+                  class="mt-2 font-semibold text-2xl text-white text-center underline">
+                  Rodzeństwo
+                </h3>
+                <h4
+                  *ngFor="let sibling of siblings"
+                  routerLink="/aplikacja/profil-psa/{{ sibling.id }}"
+                  class="mt-2 font-semibold text-lg text-white text-center cursor-pointer hover:text-custom-purple-dark">
+                  {{ sibling.name }}
+                </h4>
+                <h4
+                  *ngIf="siblings.length === 0"
+                  class="mt-2 font-semibold text-lg text-white text-center">
+                  Brak
+                </h4>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="pt-6">
-      <app-map
-        [addressParams]="{
-          city: owner.city,
-          street: owner.street,
-          postalcode: owner.zipCode
-        }"></app-map>
+      <div class="pt-6">
+        <app-map
+          [addressParams]="{
+            city: owner.city,
+            street: owner.street,
+            postalcode: owner.zipCode
+          }"></app-map>
+      </div>
     </div>
   </ng-template>
 </div>

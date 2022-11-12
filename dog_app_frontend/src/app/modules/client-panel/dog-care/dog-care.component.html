@@ -14,7 +14,9 @@
           </p-tabPanel>
           <p-tabPanel header="Panel opiekuna">
             <ng-template pTemplate="content">
-              <app-dog-care-user-view [userType]="0"></app-dog-care-user-view>
+              <app-dog-care-user-view
+                cy-data="guardian-care-view"
+                [userType]="0"></app-dog-care-user-view>
             </ng-template>
           </p-tabPanel>
         </p-tabView>

@@ -18,13 +18,13 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'first_name' => 'Test',
-            'last_name' => 'Test',
-            'phone_number' => '111111111',
+            'first_name' => 'Andrzej',
+            'last_name' => 'Nowak',
+            'phone_number' => '312 233 231',
             'city' => 'Kalisz',
-            'street' => 'Kaliska',
-            'zip_code' => '11-111',
-            'house_number' => '4a',
+            'street' => 'Widok',
+            'zip_code' => '62-800',
+            'house_number' => '75a',
             'email' => 'test@test.com',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -36,13 +36,13 @@ class UsersSeeder extends Seeder
         }
 
         $user = User::create([
-            'first_name' => 'Test',
-            'last_name' => 'Test',
-            'phone_number' => '222222222',
-            'city' => 'Kalisz',
+            'first_name' => 'Mikolaj',
+            'last_name' => 'Stasiak',
+            'phone_number' => '123 887 212',
+            'city' => 'Nowe Skalmierzyce',
             'street' => 'Kaliska',
-            'zip_code' => '11-111',
-            'house_number' => '4a',
+            'zip_code' => '63-460',
+            'house_number' => '12',
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),

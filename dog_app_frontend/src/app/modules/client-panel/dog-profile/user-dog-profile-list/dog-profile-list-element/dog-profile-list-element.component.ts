@@ -72,10 +72,8 @@ export class DogProfileListElementComponent implements OnInit {
   }
 
   doAction(data: any) {
-    console.log('do action =', data);
     this.photoService.deletePhoto(data.id).subscribe({
       next: resp => {
-        console.log('de;ete photo resp = ', resp);
         this.toastService.showSuccessMessage('Zdjęcie zostało usunięte');
         this.displayGallery = false;
         this.dogService.triggerDataReload();
@@ -91,11 +89,9 @@ export class DogProfileListElementComponent implements OnInit {
   ngOnInit(): void {
     this.checked = !!this.dogProfile.visible;
     this.initPhotos();
-    console.log('zdjecia = ', this.dogProfile.photos);
   }
 
   change(event: any) {
-    console.log('odebralem = ');
     this.displayGallery = !this.displayGallery;
   }
 

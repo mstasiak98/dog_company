@@ -111,6 +111,7 @@
 
             <div *ngIf="isLoggedIn" class="w-full px-6 mt-4">
               <div
+                cy-data="announcement-send-message"
                 (click)="
                   messagesService.openSendMessageDialog(announcement.user.id)
                 "

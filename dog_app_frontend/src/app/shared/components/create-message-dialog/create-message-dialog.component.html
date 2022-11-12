@@ -1,10 +1,13 @@
-<div class="w-full h-full flex flex-col items-center justify-center p-5">
+<div
+  cy-data="send-message-dialog"
+  class="w-full h-full flex flex-col items-center justify-center p-5">
   <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
     <div class="font-bold text-2xl text-center">Wyślij wiadomość</div>
     <div class="w-full flex px-12">
       <div class="w-full flex flex-col">
         <label for="subject" class="font-bold">Temat wiadomości</label>
         <input
+          cy-data="send-message-thread-field"
           id="subject"
           name="subject"
           type="text"
@@ -17,6 +20,7 @@
       <div class="w-fit flex flex-col">
         <h5 class="font-bold">Treść wiadomości</h5>
         <textarea
+          cy-data="send-message-body-field"
           rows="5"
           class="w-full"
           cols="100"
@@ -27,6 +31,7 @@
     </div>
     <div class="mt-6 w-full flex justify-center">
       <button
+        cy-data="create-thread-button"
         [ngClass]="{
           disabled: this.messageForm.invalid || this.messageForm.pristine
         }"

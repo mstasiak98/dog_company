@@ -21,7 +21,7 @@ class DogProfileFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
+            'name'=>$this->faker->word(),
             'color'=>$this->faker->colorName(),
             'visible'=>1,
             'description'=>$this->faker->text(200),

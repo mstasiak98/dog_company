@@ -13,12 +13,6 @@ describe('Announcement', () => {
     cy.get('[cy-data="create-announcement-submit-button"]').should(
       'be.disabled'
     );
-    /* cy.get('[cy-data="create-announcement-city-field"]').type('Kalisz');
-    cy.contains('label', 'Spacer').click();
-    cy.get('[cy-data="create-announcement-quantity-field"]').type('2');
-    cy.get('[cy-data="create-announcement-description-field"]').type(
-      'Przykładowy opis ogłoszenia'
-    );*/
   });
 
   it('Should create announcement if form is valid', () => {

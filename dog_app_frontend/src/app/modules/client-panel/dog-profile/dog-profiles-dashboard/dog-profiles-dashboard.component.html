@@ -170,6 +170,7 @@
             *ngIf="dogProfiles.length >= 1"
             class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 card-panel">
             <div
+              cy-data="dog-profile-card"
               *ngFor="let profile of dogProfiles"
               class="card shade w-full cursor-pointer bg-white rounded-lg">
               <a

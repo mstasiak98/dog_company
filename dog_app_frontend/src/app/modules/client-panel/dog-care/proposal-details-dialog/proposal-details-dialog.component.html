@@ -3,11 +3,22 @@
     {{ dogCare.guardian.name }}
   </h1>
   <div class="w-full mt-4 flex flex-col items-center">
-    <img
-      alt="dog photo"
-      src="../../../assets/background/card.png"
-      style="height: 150px; width: 150px"
-      class="rounded-lg" />
+    <ng-container
+      *ngIf="dogCare.guardian.photo.length > 0; else placeholderPhoto">
+      <img
+        alt="dog photo"
+        src="{{ dogCare.guardian.photo[0].url }}"
+        style="height: 150px; width: 150px; object-fit: contain"
+        class="rounded-lg"
+    /></ng-container>
+    <ng-template #placeholderPhoto>
+      <img
+        alt="dog photo"
+        src="../../../assets/background/placeholder2.png"
+        style="height: 150px; width: 150px"
+        class="rounded-lg" />
+    </ng-template>
+
     <span class="mt-2 underline font-bold cursor-pointer hover:text-black"
       >Zobacz profil</span
     >

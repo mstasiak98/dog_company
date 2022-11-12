@@ -11,7 +11,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { UpcomingCareComponent } from './upcoming-care/upcoming-care.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProposalDetailsDialogComponent } from './proposal-details-dialog/proposal-details-dialog.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -39,7 +38,6 @@ const routes: Routes = [
   declarations: [
     DogCareComponent,
     PropositionViewComponent,
-    UpcomingCareComponent,
     CalendarComponent,
     ProposalDetailsDialogComponent,
     RateCareDialogComponent,

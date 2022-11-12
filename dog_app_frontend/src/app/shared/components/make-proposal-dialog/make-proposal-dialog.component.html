@@ -1,4 +1,4 @@
-<div class="w-full min-h-max">
+<div cy-data="create-dog-care-dialog" class="w-full min-h-max">
   <h1 class="text-center text-3xl font-bold text-black">Zaproponuj opiekę</h1>
   <h6 class="text-center mt-12 font-bold text-base">Wybierz rodzaj opieki</h6>
 
@@ -34,6 +34,7 @@
               >Dzień rozpoczęcia opieki</label
             >
             <p-calendar
+              cy-data="care-startdate-field"
               dateFormat="dd.mm.yy"
               id="startDate"
               inputId="startDate"
@@ -63,6 +64,7 @@
                 >Godzina rozpoczęcia</label
               >
               <p-calendar
+                cy-data="care-starttime-field"
                 id="startTime"
                 formControlName="startTime"
                 class="w-full"
@@ -95,6 +97,7 @@
               >Dzień zakończenia opieki</label
             >
             <p-calendar
+              cy-data="care-enddate-field"
               dateFormat="dd.mm.yy"
               id="endDate"
               inputId="startDate"
@@ -116,6 +119,7 @@
             <div class="w-fit flex flex-col">
               <label for="endTime" class="font-bold">Godzina zakończenia</label>
               <p-calendar
+                cy-data="care-endtime-field"
                 id="endTime"
                 formControlName="endTime"
                 class="w-full"
@@ -186,6 +190,8 @@
       </ng-container>
       <div class="w-full flex justify-center py-10">
         <button
+          [disabled]="proposal.invalid"
+          cy-data="submit-care-button"
           [loading]="isSaving"
           pButton
           type="submit"
