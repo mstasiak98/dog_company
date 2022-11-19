@@ -44,7 +44,6 @@ class AnnouncementTest extends TestCase
             'user_id'=>$user->id,
         ]);
 
-        $this->withoutExceptionHandling();
         $response = $this->getJson('api/announcements/announcementDetails?announcementId='.$announcement->id);
 
         $response->assertStatus(200)

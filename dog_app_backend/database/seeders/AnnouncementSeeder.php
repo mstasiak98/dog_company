@@ -17,10 +17,10 @@ class AnnouncementSeeder extends Seeder
     public function run()
     {
         Announcement::factory()->count(50)->create()->each(function($announcement){
-            for($i=0; $i < rand(1,3); $i++) {
+            for($i=0; $i < 3; $i++) {
                 DB::table('activity_announcement')->insert([
                     'announcement_id' => $announcement->id,
-                    'activity_id' => Activity::select('id')->orderByRaw("RAND()")->first()->id
+                    'activity_id' => $i+1
                 ]);
             }
         });

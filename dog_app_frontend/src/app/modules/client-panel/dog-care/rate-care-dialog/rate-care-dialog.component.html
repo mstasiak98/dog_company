@@ -23,8 +23,10 @@
 
   <div class="mt-4 w-full flex justify-center uppercase">
     <button
+      [loading]="loading"
+      pButton
       type="submit"
-      class="btn-default uppercase"
+      class=""
       [ngClass]="{ disabled: ratingData.invalid }"
       (click)="save()"
       [disabled]="ratingData.invalid">

@@ -87,12 +87,13 @@
     <div class="flex w-full mt-4">
       <div class="w-full flex justify-end">
         <button
+          [disabled]="profileForm.pristine"
           [loading]="isSaving"
           pButton
           pRipple
           type="submit"
           label="Zapisz"
-          class="p-button-help"></button>
+          class=""></button>
       </div>
     </div>
   </form>

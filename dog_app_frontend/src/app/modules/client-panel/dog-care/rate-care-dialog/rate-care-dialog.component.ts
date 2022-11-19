@@ -15,6 +15,7 @@ export class RateCareDialogComponent implements OnInit {
   ratingData: any;
   dogCare: DogCare;
   isEdit: boolean = false;
+  loading: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private dogCareService: DogCareService,
@@ -52,6 +53,7 @@ export class RateCareDialogComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.dogCareService
       .rateDogCare(this.dogCare.id, this.ratingData.value)
       .subscribe({
@@ -59,11 +61,12 @@ export class RateCareDialogComponent implements OnInit {
           this.toastService.showSuccessMessage(
             'Ocena opieki została wystawiona'
           );
+          this.loading = false;
           this.dogCareService.triggerCareDataReload();
           this.ref.close();
         },
         error: err => {
-          console.log('err = ', err.error);
+          this.loading = false;
           this.toastService.showErrorMessage(err.error.error);
         },
       });

@@ -23,6 +23,7 @@ export class ProposalDetailsDialogComponent implements OnInit {
   propositionActions = PropositionAction;
   careTypes = DogCarePropositionViewType;
   userTypes = DogCareUserType;
+  loading: boolean = false;
 
   constructor(
     private config: DynamicDialogConfig,
@@ -40,6 +41,7 @@ export class ProposalDetailsDialogComponent implements OnInit {
   }
 
   public changePropositionStatus(action: PropositionAction): void {
+    this.loading = true;
     this.dogCareService
       .changePropositionStatus(this.dogCare.id, action)
       .subscribe({
@@ -53,12 +55,14 @@ export class ProposalDetailsDialogComponent implements OnInit {
                 : 'wycofana'
             }`
           );
+          this.loading = false;
           this.dogCareService.triggerCareDataReload();
           this.ref.close();
         },
         error: err => {
           console.log('err = ', err.error);
           this.toastService.showErrorMessage(err.error.error);
+          this.loading = false;
         },
       });
   }

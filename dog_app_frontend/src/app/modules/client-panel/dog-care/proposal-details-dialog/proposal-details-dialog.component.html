@@ -118,16 +118,20 @@
     "
     class="mt-6 w-full flex justify-center gap-x-4">
     <button
+      [loading]="loading"
+      pButton
       *ngIf="careType === careTypes.RECEIVED"
       (click)="changePropositionStatus(propositionActions.ACCEPT)"
       type="submit"
-      class="btn-default">
+      class="bg-custom-purple-light py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-low text-sm font-bold fon">
       AKCEPTUJ PROPOZYCJĘ
     </button>
     <button
+      pButton
+      [loading]="loading"
       (click)="changePropositionStatus(propositionActions.REJECT)"
       type="submit"
-      class="btn-red">
+      class="p-button-raised p-button-danger">
       ODRZUĆ PROPOZYCJĘ
     </button>
   </div>
@@ -140,9 +144,11 @@
     "
     class="pt-6 w-full flex justify-center">
     <button
+      pButton
+      [loading]="loading"
       (click)="changePropositionStatus(propositionActions.CANCEL)"
       type="submit"
-      class="btn-red">
+      class="p-button-raised p-button-danger">
       ANULUJ PROPOZYCJĘ
     </button>
   </div>

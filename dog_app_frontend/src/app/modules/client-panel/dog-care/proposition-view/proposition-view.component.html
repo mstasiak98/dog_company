@@ -34,80 +34,85 @@
       </div>
       <p-divider></p-divider>
       <div class="w-full pt-8">
-        <div
-          *ngFor="let dogCare of dogCares"
-          class="border-gray-300 border-b-2 border-solid">
-          <div class="flex py-2 flex-col md:flex-row rounded-xl">
-            <div class="w-full md:w-2/6">
-              <div class="w-full flex flex-row">
-                <div class="w-1/2 flex justify-center md:justify-start">
-                  <img
-                    alt="dog photo"
-                    src="{{
-                      userType === 1
-                        ? dogCare.guardian.photo.length > 0
-                          ? dogCare.guardian.photo[0].url
+        <ng-container *ngIf="dogCares.length <= 0; else content">
+          <div class="w-full text-center font-bold text-2xl">Brak opiek</div>
+        </ng-container>
+        <ng-template #content>
+          <div
+            *ngFor="let dogCare of dogCares"
+            class="border-gray-300 border-b-2 border-solid">
+            <div class="flex py-2 flex-col md:flex-row rounded-xl">
+              <div class="w-full md:w-2/6">
+                <div class="w-full flex flex-row">
+                  <div class="w-1/2 flex justify-center md:justify-start">
+                    <img
+                      alt="dog photo"
+                      src="{{
+                        userType === 1
+                          ? dogCare.guardian.photo.length > 0
+                            ? dogCare.guardian.photo[0].url
+                            : '../../../assets/background/placeholder2.png'
+                          : dogCare.owner.photo.length > 0
+                          ? dogCare.owner.photo[0].url
                           : '../../../assets/background/placeholder2.png'
-                        : dogCare.owner.photo.length > 0
-                        ? dogCare.owner.photo[0].url
-                        : '../../../assets/background/placeholder2.png'
-                    }}"
-                    style="height: 100px; width: 100px; object-fit: contain"
-                    class="rounded-lg" />
-                </div>
-                <div
-                  class="w-1/2 flex flex-col justify-evenly items-center md:items-start">
-                  <div class="text-xl font-bold">
-                    {{
-                      userType === 1
-                        ? dogCare.guardian.name
-                        : dogCare.owner.name
-                    }}
+                      }}"
+                      style="height: 100px; width: 100px; object-fit: contain"
+                      class="rounded-lg" />
                   </div>
                   <div
-                    routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
-                      userType === 1 ? dogCare.guardian.id : dogCare.owner.id
-                    }}"
-                    class="cursor-pointer underline hover:text-black">
-                    Zobacz profil
+                    class="w-1/2 flex flex-col justify-evenly items-center md:items-start">
+                    <div class="text-xl font-bold">
+                      {{
+                        userType === 1
+                          ? dogCare.guardian.name
+                          : dogCare.owner.name
+                      }}
+                    </div>
+                    <div
+                      routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+                        userType === 1 ? dogCare.guardian.id : dogCare.owner.id
+                      }}"
+                      class="cursor-pointer underline hover:text-black">
+                      Zobacz profil
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="w-full md:w-3/6 md:pl-4 flex flex-col items-center md:items-start justify-evenly">
-              <div class="text-xl font-bold">Typ:</div>
-              <div>
-                <span class="">{{ dogCare.activity.name }}</span>
+              <div
+                class="w-full md:w-3/6 md:pl-4 flex flex-col items-center md:items-start justify-evenly">
+                <div class="text-xl font-bold">Typ:</div>
+                <div>
+                  <span class="">{{ dogCare.activity.name }}</span>
+                </div>
+                <div class="text-xl font-bold">Termin:</div>
+                <div>
+                  <span class=""
+                    >{{ dogCare.start_date | date: 'short' }} -
+                    {{ dogCare.end_date | date: 'short' }}</span
+                  >
+                </div>
               </div>
-              <div class="text-xl font-bold">Termin:</div>
-              <div>
-                <span class=""
-                  >{{ dogCare.start_date | date: 'short' }} -
-                  {{ dogCare.end_date | date: 'short' }}</span
-                >
-              </div>
-            </div>
 
-            <div
-              class="w-full md:w-1/6 flex flex-col justify-center items-center">
               <div
-                class="cursor-pointer underline font-bold hover:text-black"
-                (click)="showPropositionDetailsDialog(dogCare)">
-                Szczegóły
-              </div>
-              <div
-                *ngIf="
-                  careType === dogCarePropositionViewTypes.DONE &&
-                  userType !== dogCareUserTypes.GUARDIAN
-                "
-                (click)="showRateCareDialog(dogCare)"
-                class="cursor-pointer underline font-bold hover:text-black">
-                Oceń
+                class="w-full md:w-1/6 flex flex-col justify-center items-center">
+                <div
+                  class="cursor-pointer underline font-bold hover:text-black"
+                  (click)="showPropositionDetailsDialog(dogCare)">
+                  Szczegóły
+                </div>
+                <div
+                  *ngIf="
+                    careType === dogCarePropositionViewTypes.DONE &&
+                    userType !== dogCareUserTypes.GUARDIAN
+                  "
+                  (click)="showRateCareDialog(dogCare)"
+                  class="cursor-pointer underline font-bold hover:text-black">
+                  Oceń
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-template>
       </div>
       <div *ngIf="totalPages > 1" class="w-full mt-4">
         <p-paginator
