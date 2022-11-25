@@ -19,7 +19,11 @@
         class="rounded-lg" />
     </ng-template>
 
-    <span class="mt-2 underline font-bold cursor-pointer hover:text-black"
+    <span
+      routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+        userType === 1 ? dogCare.guardian.id : dogCare.owner.id
+      }}"
+      class="mt-2 underline font-bold cursor-pointer hover:text-black"
       >Zobacz profil</span
     >
   </div>

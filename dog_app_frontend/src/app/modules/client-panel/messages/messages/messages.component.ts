@@ -74,6 +74,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   private processReceivedMessage(data: Thread): void {
+    this.totalThreads++;
     data.is_unread = true;
     if (this.threads.length >= this.threadsPerPage) this.threads.splice(-1);
 
