@@ -7,6 +7,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { finalize, forkJoin, Subscription } from 'rxjs';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
 import PhotoHelper from '../../../../shared/helpers/PhotoHelper';
+import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 
 @Component({
   selector: 'app-guardian-profile-view',
@@ -33,15 +34,19 @@ export class GuardianProfileViewComponent implements OnInit, OnDestroy {
   commentsPerPage: number = 10;
   totalPages: number;
 
+  authenticatedUserId: number;
+
   constructor(
     private usersService: UsersService,
     private router: Router,
     private route: ActivatedRoute,
     private dialogService: DialogService,
-    public messagesService: MessagesService
+    public messagesService: MessagesService,
+    private authStateService: AuthStateService
   ) {}
 
   ngOnInit(): void {
+    this.authenticatedUserId = this.authStateService.userId();
     this.getUserIdFromRoute();
     this.loadUserData(this.userId);
     this.listenOnTriggerDataReload();
@@ -53,7 +58,6 @@ export class GuardianProfileViewComponent implements OnInit, OnDestroy {
 
   private initPhotoGallery(): void {
     this.responsiveOptions = PhotoHelper.getGalleryResponsiveOptions();
-    console.log('photos = ', this.userDetails.photo);
     this.images = PhotoHelper.getImagesArrayFromPhoto(this.userDetails.photo);
   }
 
@@ -104,15 +108,12 @@ export class GuardianProfileViewComponent implements OnInit, OnDestroy {
       this.currentPage = data[1].meta.current_page;
       this.commentsPerPage = data[1].meta.per_page;
       this.totalPages = data[1].meta.last_page;
-
-      console.log('user details = ', this.userDetails);
     };
   }
 
   onPageChange(event: any) {
     const page = event.page + 1;
     const link = this.links.find(link => link.label === page.toString());
-    console.log('limnk = ', link!.url);
 
     this.usersService
       .getUserComments(this.userId, link!.url)

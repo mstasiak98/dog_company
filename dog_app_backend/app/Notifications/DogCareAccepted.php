@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DogCareAccepted extends Notification
+class DogCareAccepted extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -44,8 +44,13 @@ class DogCareAccepted extends Notification
     public function toMail($notifiable)
     {
         $guardian = $this->data->guardian;
-        $owner = $this->data->dogProfile->user;
-        $dogProfile = $this->data->dogProfile;
+        $owner = $this->data->dogProfile ? $this->data->dogProfile->user : $this->data->announcement->user;
+
+        if($this->data->dogProfile) {
+            $acceptMessage = 'psa: '.$this->data->dogProfile->name;
+        } else{
+            $acceptMessage = 'ogłoszenia: '.$this->data->announcement->title;
+        }
 
         $address = 'Adres zamieszkania właściciela: '
             .$owner->city.', '.$owner->zip_code
@@ -58,7 +63,7 @@ class DogCareAccepted extends Notification
         return (new MailMessage)
                     ->subject('Opieka zaakceptowana')
                     ->greeting('Cześć '.$guardian->first_name.',')
-                    ->line('Użytkownik '.$owner->first_name.' zaakceptował twoją propozycję opieki dla '.$dogProfile->name)
+                    ->line('Użytkownik '.$owner->first_name.' zaakceptował twoją propozycję opieki dla '.$acceptMessage)
                     ->action('Przejdź do opiek', env('FRONT_URL').'/aplikacja/opieka')
                     ->line('Opieka rozpoczyna się: '.$this->data->start_date)
                     ->line($address)

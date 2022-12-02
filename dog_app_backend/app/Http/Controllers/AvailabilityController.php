@@ -24,10 +24,6 @@ class AvailabilityController extends Controller
 
     public function test() {
 
-        $care = DogCare::find(1);
-
-        $user = User::findOrFail(2);
-        Notification::send($user, new DogCareAccepted($care));
     }
 
 }

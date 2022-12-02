@@ -49,12 +49,30 @@
 
             <div class="mt-2">
               <div
+                pButton
+                *ngIf="
+                  authenticatedUserId &&
+                  authenticatedUserId !== -1 &&
+                  authenticatedUserId !== userDetails.id
+                "
                 (click)="messagesService.openSendMessageDialog(userDetails.id)"
-                class="w-fit py-3 px-4 rounded-2xl border bg-custom-purple-medium border-solid border-white flex justify-center items-center hover:cursor-pointer hover:bg-custom-purple-light">
+                class="w-fit py-3 px-4 rounded-2xl flex justify-center items-center hover:cursor-pointer">
                 <span class="text-sm text-white font-bold"
                   >WYŚLIJ WIADOMOŚĆ</span
                 >
               </div>
+
+              <ng-container
+                *ngIf="!authenticatedUserId || authenticatedUserId === -1">
+                <div
+                  pButton
+                  routerLink="/logowanie"
+                  class="rounded-2xl h-10 flex justify-center items-center">
+                  <span class="text-sm font-bold uppercase"
+                    >zaloguj się aby wysłać wiadomość</span
+                  >
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>

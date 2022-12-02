@@ -39,12 +39,16 @@ class AnnouncementTest extends TestCase
             'description' => $this->faker->text(300),
             'quantity' => $this->faker->numberBetween(1,5),
             'city' => 'Kalisz',
-            'start_date' => $this->faker->dateTimeBetween('-5 days', '+60 days'),
-            'end_date' => $this->faker->dateTimeBetween('-5 days', '+60 days'),
+            'start_date' => $this->faker
+                ->dateTimeBetween('-5 days', '+60 days'),
+            'end_date' => $this->faker
+                ->dateTimeBetween('-5 days', '+60 days'),
             'user_id'=>$user->id,
         ]);
 
-        $response = $this->getJson('api/announcements/announcementDetails?announcementId='.$announcement->id);
+        $response = $this->getJson(
+            'api/announcements/announcementDetails?announcementId='
+            .$announcement->id);
 
         $response->assertStatus(200)
             ->assertJsonPath('id', $announcement->id);

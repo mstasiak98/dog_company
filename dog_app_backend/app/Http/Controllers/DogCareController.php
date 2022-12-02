@@ -10,6 +10,7 @@ use App\Http\Requests\DogCare\DogCareStatusRequest;
 use App\Http\Requests\DogCare\GetDogCareRequest;
 use App\Http\Resources\DogCareCollection;
 use App\Models\Activity;
+use App\Models\Announcement;
 use App\Models\DogCare;
 use App\Models\DogProfile;
 use App\Models\User;
@@ -44,19 +45,20 @@ class DogCareController extends Controller
     }
 
     public function storeAnnouncementProposal(DogCareAnnouncementRequest $request) {
+        $announcement = Announcement::where('id', $request->announcement_id)->first();
 
         $dogCare = DogCare::create([
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'additional_info' => $request->additional_info,
-            'siblings' => $request->siblings,
+            'start_date' => $announcement->start_date,
+            'end_date' => $announcement->end_date,
+            'additional_info' => $request->additional_info ?? null,
+            'siblings' => null,
             'activity_id' => $request->activity_id,
             'guardian_id' => auth()->user()->id,
             'state_id' => 1,
-            'announcement_id' => $request->announcement_id
+            'announcement_id' => $announcement->id
         ]);
 
-        Notification::send($dogCare->announcement->user, new AnnouncementAccepted($dogCare));
+        Notification::send($announcement->user, new AnnouncementAccepted($dogCare));
         return response()->json(['success' => true, 'start_date' => $dogCare->start_date]);
     }
 

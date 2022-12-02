@@ -48,7 +48,7 @@ class DogCare extends Model
 
     // check if there is any accepted dog_care overlaping this dog care for owner of dog in this dog care
     public function datesOverlap() {
-        $userId = $this->dogProfile->user_id;
+        $userId = $this->dogProfile ? $this->dogProfile->user_id : $this->announcement->user_id ;
         $countOverlaping = DogCare::where('state_id', CareStateEnum::OWNER_ACCEPTED->value)
             ->whereHas('dogProfile', function (Builder $query) use ($userId) {
                 $query->where('user_id', '=', $userId);

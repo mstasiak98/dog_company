@@ -35,17 +35,21 @@ class DogCareService
         if(!$request->is_owner) {
             $dogCares->where('guardian_id', '=', $request->user_id);
         } else {
-            $dogCares->whereHas('dogProfile', function (Builder $query) use ($request) {
-                $query->where('user_id', '=', $request->user_id);
+            $dogCares->where(function ($query) use ($request) {
+                $query->whereHas('announcement', function ($innerQuery) use ($request) {
+                    $innerQuery->where('user_id', '=', $request->user_id);
+                })->orWhereHas('dogProfile', function ($innerQuery) use ($request) {
+                    $innerQuery->where('user_id', '=', $request->user_id);
+                });
             });
         }
 
         //zaakceptowane(nadchodzące) opieki wyciągam bez paginacji
         if($request->care_state_id == CareStateEnum::OWNER_ACCEPTED->value) {
-            return $dogCares->get();
+            return $dogCares->orderBy('created_at', 'DESC')->get();
         }
 
-        return $dogCares->paginate(config('app.default_announcements_page_size'))->withQueryString();
+        return $dogCares->orderBy('created_at', 'DESC')->paginate(config('app.default_announcements_page_size'))->withQueryString();
     }
 
     public function acceptDogCare($dogCareId) {
@@ -95,7 +99,8 @@ class DogCareService
         if($state == CareStateEnum::OWNER_REJECTED) {
             Notification::send($dogCare->guardian, new DogCareRejected($dogCare));
         } else {
-            Notification::send($dogCare->dogProfile->user, new DogCareCancelled($dogCare));
+            $owner = !is_null($dogCare->dogProfile) ? $dogCare->dogProfile->user : $dogCare->announcement->user;
+            Notification::send($owner, new DogCareCancelled($dogCare));
         }
         return true;
     }
@@ -120,7 +125,8 @@ class DogCareService
     }
 
     private function checkAuthorization(DogCare $dogCare, bool $isOwner)  {
-        $userId = $isOwner ? $dogCare->dogProfile->user->id : $dogCare->guardian_id;
+        $ownerId = $dogCare->dogProfile ? $dogCare->dogProfile->user->id : $dogCare->announcement->user->id;
+        $userId = $isOwner ? $ownerId : $dogCare->guardian_id;
 
         if($userId !== auth()->user()->id) {
             throw new HttpResponseException(response()->json([

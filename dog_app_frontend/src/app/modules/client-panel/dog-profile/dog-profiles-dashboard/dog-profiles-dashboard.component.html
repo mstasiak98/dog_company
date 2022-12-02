@@ -205,10 +205,10 @@
             </div>
           </div>
         </ng-template>
-        <div *ngIf="totalPages > 0" class="w-full pt-12">
+        <div *ngIf="totalPages > 1" class="w-full pt-12">
           <p-paginator
             [rows]="profilesPerPage"
-            [totalRecords]="totalPages"
+            [totalRecords]="totalProfiles"
             [showFirstLastIcon]="false"
             (onPageChange)="onPageChange($event)"></p-paginator>
         </div>

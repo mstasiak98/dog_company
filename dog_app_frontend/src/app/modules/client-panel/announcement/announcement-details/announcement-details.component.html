@@ -92,9 +92,13 @@
                 class="text-2xl font-semibold text-white text-center underline">
                 Właściciel
               </h2>
-              <h3 class="mt-2 font-semibold text-lg text-white text-center">
+              <h3
+                routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+                  announcement.user.id
+                }}"
+                class="mt-2 font-semibold text-lg text-white text-center hover:text-custom-purple-dark cursor-pointer">
                 {{
-                  announcement.user.firstName.concat(announcement.user.lastName)
+                  announcement.user.firstName + ' ' + announcement.user.lastName
                 }}
               </h3>
               <h3 class="mt-2 font-semibold text-base text-white text-center">

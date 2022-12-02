@@ -29,6 +29,7 @@ export class AnnouncementDashboardComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 0;
   announcementsPerPage: number = 5;
+  totalAnnouncements: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,7 +69,8 @@ export class AnnouncementDashboardComponent implements OnInit {
     return (data: any) => {
       this.announcements = data.data;
       this.links = data.meta.links;
-      this.totalPages = data.meta.total;
+      this.totalPages = data.meta.last_page;
+      this.totalAnnouncements = data.meta.total;
       this.currentPage = data.meta.current_page;
       this.announcementsPerPage = data.meta.per_page;
       this.isPageChanging = false;
@@ -77,16 +79,14 @@ export class AnnouncementDashboardComponent implements OnInit {
 
   private processCombinedResults() {
     return (data: any) => {
-      console.log('OTRZYMALEM = ', data);
       this.announcements = data[0].data;
       this.links = data[0].meta.links;
-      this.totalPages = data[0].meta.total;
+      this.totalPages = data[0].meta.last_page;
+      this.totalAnnouncements = data[0].meta.total;
       this.currentPage = data[0].meta.current_page;
       this.announcementsPerPage = data[0].meta.per_page;
 
       this.activities = data[1];
-      console.log('PRZETWORZYLEM = ', this.announcements);
-      console.log('PRZETWORZYLEM2 = ', this.activities);
       this.isContentLoading = false;
     };
   }
