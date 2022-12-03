@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { TokenService } from '../../shared/services/token/token.service';
 import { AuthStateService } from '../../shared/services/auth-state/auth-state.service';
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   errorMessage: string = 'Niepoprawne dane logowania';
   showErrorMessage: boolean = false;
+  redirectUrl: any = '';
 
   constructor(
     public router: Router,
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService,
     private authStateService: AuthStateService,
     private messageService: MessageService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +38,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.redirectUrl =
+      this.activatedRoute.snapshot.queryParamMap.get('redirectUrl') ||
+      '/aplikacja';
+  }
+
   get f() {
     return this.loginForm.controls;
   }
@@ -47,7 +54,6 @@ export class LoginComponent implements OnInit {
     console.log('wysylam');
     this.authService.signIn(this.loginForm.value).subscribe({
       next: result => {
-        console.log('result = ', result);
         if (result.success) {
           this.responseHandler(result.data.access_token);
           const userState: UserState = {
@@ -55,13 +61,13 @@ export class LoginComponent implements OnInit {
             user: result.data.user,
           };
           this.authStateService.setAuthState(userState);
-          this.router.navigate(['/aplikacja']);
+          //this.router.navigate(['/aplikacja']);
+          this.router.navigateByUrl(this.redirectUrl);
         } else {
           this.showErrorMessage = true;
         }
       },
       error: error => {
-        console.log('error = ', error);
         this.toastService.showErrorMessage('Wystąpił błąd podczas logowania');
       },
       complete: () => {

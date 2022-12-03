@@ -127,11 +127,7 @@
             </div>
 
             <div *ngIf="!isLoggedIn" class="w-full px-6 mt-4">
-              <div
-                routerLink="/logowanie"
-                class="bg-white rounded-2xl h-10 flex justify-center items-center text-custom-purple-medium hover:cursor-pointer hover:bg-gray-200">
-                <span class="text-sm font-bold">ZALOGUJ SIĘ</span>
-              </div>
+              <app-sign-in-button></app-sign-in-button>
             </div>
           </div>
         </div>

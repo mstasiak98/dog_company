@@ -11,6 +11,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MapComponent } from './components/map/map.component';
 import { GMapModule } from 'primeng/gmap';
+import { SignInButtonComponent } from './components/sign-in-button/sign-in-button.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { GMapModule } from 'primeng/gmap';
     FullscreenGalleryComponent,
     CreateMessageDialogComponent,
     MapComponent,
+    SignInButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,11 @@ import { GMapModule } from 'primeng/gmap';
     InputTextModule,
     GMapModule,
   ],
-  exports: [InputSwitchComponent, FullscreenGalleryComponent, MapComponent],
+  exports: [
+    InputSwitchComponent,
+    FullscreenGalleryComponent,
+    MapComponent,
+    SignInButtonComponent,
+  ],
 })
 export class SharedModule {}

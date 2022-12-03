@@ -119,4 +119,10 @@ export class GuardianProfileViewComponent implements OnInit, OnDestroy {
       .getUserComments(this.userId, link!.url)
       .subscribe(this.processChangePageResults());
   }
+
+  redirectToLogin(): void {
+    this.router.navigate(['/logowanie'], {
+      queryParams: { redirectUrl: this.router.routerState.snapshot.url },
+    });
+  }
 }

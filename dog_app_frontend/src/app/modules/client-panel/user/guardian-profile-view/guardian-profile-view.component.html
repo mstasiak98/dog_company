@@ -37,6 +37,7 @@
               {{ userDetails.city }}, {{ userDetails.street }}
             </div>
             <div
+              *ngIf="authenticatedUserId >= 0"
               (click)="showContact = !showContact"
               class="mt-2 text-lg font-bold cursor-pointer underline">
               {{ showContact ? 'Ukryj' : 'Pokaż kontakt' }}
@@ -66,7 +67,7 @@
                 *ngIf="!authenticatedUserId || authenticatedUserId === -1">
                 <div
                   pButton
-                  routerLink="/logowanie"
+                  (click)="redirectToLogin()"
                   class="rounded-2xl h-10 flex justify-center items-center">
                   <span class="text-sm font-bold uppercase"
                     >zaloguj się aby wysłać wiadomość</span

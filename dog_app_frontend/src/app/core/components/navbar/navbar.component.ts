@@ -82,9 +82,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.authService.logout();
       }
     });
-    this.router.navigate(['/']);
-    /*
+    this.router.navigate(['/aplikacja']);
     location.reload();
-*/
   }
 }
