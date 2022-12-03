@@ -10,7 +10,7 @@
           [userType]="userType"></app-proposition-view>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="Nadchodzące opieki">
+    <p-tabPanel [cache]="false" header="Nadchodzące opieki">
       <ng-template pTemplate="content">
         <app-calendar
           [data]="incomingDogCares"

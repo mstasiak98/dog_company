@@ -37,7 +37,6 @@ export class ProposalDetailsDialogComponent implements OnInit {
     this.dogCare = this.config.data.dogCare;
     this.userType = this.config.data.userType;
     this.careType = this.config.data.careType;
-    console.log('id = ', this.dogCare.id);
   }
 
   public changePropositionStatus(action: PropositionAction): void {
@@ -60,7 +59,6 @@ export class ProposalDetailsDialogComponent implements OnInit {
           this.ref.close();
         },
         error: err => {
-          console.log('err = ', err.error);
           this.toastService.showErrorMessage(err.error.error);
           this.loading = false;
         },

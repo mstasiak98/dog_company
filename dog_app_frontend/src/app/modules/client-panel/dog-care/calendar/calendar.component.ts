@@ -3,12 +3,10 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChange,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { DialogService } from 'primeng/dynamicdialog';
 import plLocale from '@fullcalendar/core/locales/pl';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
 import {
@@ -37,8 +35,6 @@ export class CalendarComponent implements OnInit, OnChanges {
   constructor(private dogCareService: DogCareService) {}
 
   ngOnInit(): void {
-    console.log('TEST DATA = ', this.data);
-
     this.initEvents();
 
     this.options = {
@@ -60,7 +56,6 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('zmiana = ', changes);
     this.initEvents();
     if (this.calendarComponent) {
       this.calendarComponent.getApi().removeAllEvents();

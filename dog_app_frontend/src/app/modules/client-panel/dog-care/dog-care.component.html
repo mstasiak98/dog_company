@@ -5,14 +5,14 @@
     <div class="flex flex-col w-full">
       <div class="w-full flex justify-center">
         <p-tabView class="w-full">
-          <p-tabPanel header="Panel właściciela">
+          <p-tabPanel [cache]="false" header="Panel właściciela">
             <ng-template pTemplate="content">
               <div class="w-full">
                 <app-dog-care-user-view [userType]="1"></app-dog-care-user-view>
               </div>
             </ng-template>
           </p-tabPanel>
-          <p-tabPanel header="Panel opiekuna">
+          <p-tabPanel [cache]="false" header="Panel opiekuna">
             <ng-template pTemplate="content">
               <app-dog-care-user-view
                 cy-data="guardian-care-view"

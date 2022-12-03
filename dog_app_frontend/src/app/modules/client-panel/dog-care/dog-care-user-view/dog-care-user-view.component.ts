@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   DogCarePropositionViewType,
   DogCareUserType,
@@ -7,16 +7,18 @@ import { AuthStateService } from '../../../../shared/services/auth-state/auth-st
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
 import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dog-care-user-view',
   templateUrl: './dog-care-user-view.component.html',
   styleUrls: ['./dog-care-user-view.component.scss'],
 })
-export class DogCareUserViewComponent implements OnInit {
+export class DogCareUserViewComponent implements OnInit, OnDestroy {
   @Input() userType: DogCareUserType;
   careTypes = DogCarePropositionViewType;
   incomingDogCares: DogCare[] = [];
+  triggerSubscription: Subscription;
 
   constructor(private dogCareService: DogCareService) {}
 
@@ -25,18 +27,20 @@ export class DogCareUserViewComponent implements OnInit {
     this.listenOnDataReloadTrigger();
   }
 
+  ngOnDestroy(): void {
+    this.triggerSubscription.unsubscribe();
+  }
+
   private getIncomingCares(): void {
     this.dogCareService
       .getDogCares(this.userType, DogCarePropositionViewType.OWNER_ACCEPTED)
       .subscribe((res: any) => {
         this.incomingDogCares = res.data;
-        console.log('incm cares = ', this.incomingDogCares);
       });
   }
 
   private listenOnDataReloadTrigger() {
-    this.dogCareService.subject.subscribe(() => {
-      console.log('pobrane nowe dane');
+    this.triggerSubscription = this.dogCareService.subject.subscribe(() => {
       this.getIncomingCares();
     });
   }

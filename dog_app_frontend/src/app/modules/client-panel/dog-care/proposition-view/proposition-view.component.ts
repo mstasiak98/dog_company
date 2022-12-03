@@ -1,8 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
-import plLocale from '@fullcalendar/core/locales/pl';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ProposalDetailsDialogComponent } from '../proposal-details-dialog/proposal-details-dialog.component';
 import {
   DogCarePropositionViewType,
   DogCareUserType,
@@ -11,6 +9,7 @@ import { DogCareService } from '../../../../shared/services/API/dog-care/dog-car
 import { Link } from '../../../../shared/models/pagination/Link';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
 import { RateCareDialogComponent } from '../rate-care-dialog/rate-care-dialog.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-proposition-view',
   templateUrl: './proposition-view.component.html',
@@ -39,6 +38,7 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
 
   //GUI
   isContentLoading: boolean;
+  triggerSubscription: Subscription;
 
   constructor(
     public dialogService: DialogService,
@@ -48,42 +48,35 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
   onPageChange(event: any): void {
     const page = event.page + 1;
     const link = this.links.find(link => link.label === page.toString());
-    console.log('link = ', link);
     this.dogCareService
       .getDogCares(this.userType, this.careType, link?.url)
       .subscribe(this.processResult());
   }
 
   ngOnInit(): void {
-    console.log('init prop vieww ', this.careType);
     this.isContentLoading = true;
     this.initDogCares();
-    // this.getIncomingCares();
     this.listenOnDataReloadTrigger();
   }
 
   ngOnDestroy(): void {
-    console.log('destroy prop view');
+    this.triggerSubscription.unsubscribe();
   }
 
   private listenOnDataReloadTrigger() {
-    this.dogCareService.subject.subscribe(() => {
+    this.triggerSubscription = this.dogCareService.subject.subscribe(() => {
       this.initDogCares();
-      //this.getIncomingCares();
     });
   }
 
   private processResult() {
     return (data: any) => {
-      console.log('DATA PRZYSZLA = ', data);
-      console.log('DATA BYLA = ', this.dogCares);
       this.dogCares = data.data;
       this.links = data.meta.links;
       this.totalPages = data.meta.total;
       this.currentPage = data.meta.current_page;
       this.caresPerPage = data.meta.per_page;
       this.isContentLoading = false;
-      console.log('DATA PO ZMIANIE = ', this.dogCares);
     };
   }
 
@@ -112,14 +105,9 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
   showRateCareDialog(dogCare: DogCare) {
     const ref = this.dialogService.open(RateCareDialogComponent, {
       width: '50rem',
-      height: '35rem',
       data: {
         dogCare: dogCare,
       },
-    });
-
-    ref.onClose.subscribe(response => {
-      console.log('response = ', response);
     });
   }
 }
