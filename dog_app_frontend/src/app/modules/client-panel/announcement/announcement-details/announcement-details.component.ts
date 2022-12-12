@@ -6,6 +6,8 @@ import { Announcement } from '../../../../shared/models/announcements/announceme
 import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
+import { ConfirmationService } from 'primeng/api';
+import { ToastService } from '../../../../shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-announcement-details',
@@ -25,7 +27,9 @@ export class AnnouncementDetailsComponent implements OnInit {
     private announcementService: AnnouncementService,
     private router: Router,
     private dialogService: DialogService,
-    public messagesService: MessagesService
+    public messagesService: MessagesService,
+    private confirmationService: ConfirmationService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -73,18 +77,26 @@ export class AnnouncementDetailsComponent implements OnInit {
   }
 
   deleteAnnouncement() {
-    this.announcementService
-      .deleteAnnouncement(this.announcement.id)
-      .subscribe({
-        next: data => {
-          console.log('ODP USUWANIE = ', data);
-        },
-        error: err => {
-          this.router.navigate(['/aplikacja/ogloszenia']);
-        },
-        complete: () => {
-          this.router.navigate(['/aplikacja/ogloszenia']);
-        },
-      });
+    this.confirmationService.confirm({
+      message: `Czy chesz usunąć ogłoszenie: ${this.announcement.title}?`,
+      header: 'Potwierdzenie',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Tak',
+      rejectLabel: 'Nie',
+      accept: () => {
+        this.announcementService
+          .deleteAnnouncement(this.announcement.id)
+          .subscribe({
+            next: data => {
+              this.router.navigate(['/aplikacja/ogloszenia']);
+            },
+            error: err => {
+              this.toastService.showErrorMessage(
+                'Wysąpił błąd podczas usuwania ogłoszenia'
+              );
+            },
+          });
+      },
+    });
   }
 }

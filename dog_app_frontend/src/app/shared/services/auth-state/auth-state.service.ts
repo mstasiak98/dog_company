@@ -39,6 +39,10 @@ export class AuthStateService {
     return this.userState.value.user.id;
   }
 
+  getUsername(): string {
+    return this.userState.value.user.name;
+  }
+
   isLoggedIn() {
     const state = this.getAuthState();
     if (state) {

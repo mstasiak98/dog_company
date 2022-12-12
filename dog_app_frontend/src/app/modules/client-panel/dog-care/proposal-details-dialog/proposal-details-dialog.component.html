@@ -1,32 +1,53 @@
-<div class="w-full min-h-max py-0">
-  <h1 class="text-center text-3xl mt-0 font-bold text-black">
-    {{ dogCare.guardian.name }}
-  </h1>
-  <div class="w-full mt-4 flex flex-col items-center">
-    <ng-container
-      *ngIf="dogCare.guardian.photo.length > 0; else placeholderPhoto">
-      <img
-        alt="dog photo"
-        src="{{ dogCare.guardian.photo[0].url }}"
-        style="height: 150px; width: 150px; object-fit: contain"
-        class="rounded-lg"
-    /></ng-container>
-    <ng-template #placeholderPhoto>
-      <img
-        alt="dog photo"
-        src="../../../assets/background/placeholder2.png"
-        style="height: 150px; width: 150px"
-        class="rounded-lg" />
-    </ng-template>
+<div class="w-full min-h-max py-2 px-2">
+  <ng-container *ngIf="userType === userTypes.OWNER; else guardianView">
+    <div>
+      <h1 class="text-center text-3xl mt-0 font-bold text-black">
+        {{ dogCare.guardian.name }}
+      </h1>
+      <div class="w-full mt-4 flex flex-col items-center">
+        <ng-container
+          *ngIf="dogCare.guardian.photo.length > 0; else placeholderPhoto">
+          <img
+            alt="dog photo"
+            src="{{ dogCare.guardian.photo[0].url }}"
+            style="height: 150px; width: 150px; object-fit: contain"
+            class="rounded-lg"
+        /></ng-container>
+        <ng-template #placeholderPhoto>
+          <img
+            alt="dog photo"
+            src="../../../assets/background/placeholder2.png"
+            style="height: 150px; width: 150px"
+            class="rounded-lg" />
+        </ng-template>
 
-    <span
-      routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
-        userType === 1 ? dogCare.guardian.id : dogCare.owner.id
-      }}"
-      class="mt-2 underline font-bold cursor-pointer hover:text-black"
-      >Zobacz profil</span
-    >
-  </div>
+        <span
+          routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+            userType === 1 ? dogCare.guardian.id : dogCare.owner.id
+          }}"
+          class="mt-2 underline font-bold cursor-pointer hover:text-black"
+          >Zobacz profil</span
+        >
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #guardianView>
+    <div>
+      <h1 class="text-center text-3xl mt-0 py-2 font-bold text-black">
+        Szczegóły propozycji którą wystawiłeś
+      </h1>
+      <p class="text-center text-lg py-1">
+        dla użytkownika
+        <span
+          routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
+            dogCare.owner.id
+          }}"
+          class="font-bold underline cursor-pointer"
+          >{{ dogCare.owner.name }} {{ dogCare.owner.lastname }}</span
+        >
+      </p>
+    </div>
+  </ng-template>
   <h6 class="text-center mt-4 text-xl">Proponuje opiekę:</h6>
   <h6 class="text-center mt-2 font-bold text-lg">
     {{ dogCare.activity.name }}
@@ -72,6 +93,8 @@
         careType === careTypes.RECEIVED || careType === careTypes.OWNER_ACCEPTED
       )
     ">
+    <p-divider></p-divider>
+
     <h6 class="text-center text-2xl font-bold text-red-800">Status opieki:</h6>
     <h6 class="text-center mt-2 mb-2 font-bold text-lg">
       <span *ngIf="dogCare.state.id === careTypes.DONE">Zakończona</span>
@@ -94,8 +117,11 @@
       dogCare.rating &&
       userType === userTypes.GUARDIAN
     ">
-    <h6 class="text-center text-2xl font-bold text-red-800">Ocena:</h6>
-    <div class="w-full flex justify-center">
+    <p-divider></p-divider>
+    <h1 class="text-center text-3xl mt-0 py-4 font-bold text-black">
+      Ocena wystawiona przez właściciela
+    </h1>
+    <div class="w-full py-2 flex justify-center">
       <p-rating
         [ngModel]="dogCare.rating"
         [readonly]="true"
@@ -103,8 +129,8 @@
         [cancel]="false"></p-rating>
     </div>
     <h6 class="text-center text-2xl font-bold text-red-800">Komentarz:</h6>
-    <div class="w-full flex justify-center">
-      <h6 class="text-center mt-2 font-bold text-lg">
+    <div class="w-full flex justify-center py-4">
+      <h6 class="text-center font-bold text-lg">
         {{
           dogCare.comment
             ? dogCare.comment
@@ -114,46 +140,55 @@
     </div>
   </div>
 
-  <div
-    *ngIf="
-      userType === 1 &&
-      careType !== careTypes.DONE &&
-      careType !== careTypes.OWNER_REJECTED
-    "
-    class="mt-6 w-full flex justify-center gap-x-4">
-    <button
-      [loading]="loading"
-      pButton
-      *ngIf="careType === careTypes.RECEIVED"
-      (click)="changePropositionStatus(propositionActions.ACCEPT)"
-      type="submit"
-      class="bg-custom-purple-light py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-low text-sm font-bold fon">
-      AKCEPTUJ PROPOZYCJĘ
-    </button>
-    <button
-      pButton
-      [loading]="loading"
-      (click)="changePropositionStatus(propositionActions.REJECT)"
-      type="submit"
-      class="p-button-raised p-button-danger">
-      ODRZUĆ PROPOZYCJĘ
-    </button>
-  </div>
+  <ng-container *ngIf="!loading; else loader">
+    <div
+      *ngIf="
+        userType === 1 &&
+        careType !== careTypes.DONE &&
+        careType !== careTypes.OWNER_REJECTED
+      "
+      class="mt-6 w-full flex justify-center gap-x-4">
+      <button
+        pButton
+        *ngIf="careType === careTypes.RECEIVED"
+        (click)="changePropositionStatus(propositionActions.ACCEPT)"
+        type="submit"
+        class="bg-custom-purple-light py-3 px-5 rounded-2xl text-white hover:bg-custom-purple-low text-sm font-bold fon">
+        AKCEPTUJ PROPOZYCJĘ
+      </button>
+      <button
+        pButton
+        (click)="changePropositionStatus(propositionActions.REJECT)"
+        type="submit"
+        class="p-button-raised p-button-danger">
+        ODRZUĆ PROPOZYCJĘ
+      </button>
+    </div>
 
-  <div
-    *ngIf="
-      userType === 0 &&
-      careType !== careTypes.DONE &&
-      careType !== careTypes.OWNER_REJECTED
-    "
-    class="pt-6 w-full flex justify-center">
-    <button
-      pButton
-      [loading]="loading"
-      (click)="changePropositionStatus(propositionActions.CANCEL)"
-      type="submit"
-      class="p-button-raised p-button-danger">
-      ANULUJ PROPOZYCJĘ
-    </button>
-  </div>
+    <div
+      *ngIf="
+        userType === 0 &&
+        careType !== careTypes.DONE &&
+        careType !== careTypes.OWNER_REJECTED
+      "
+      class="pt-6 w-full flex justify-center">
+      <button
+        pButton
+        (click)="changePropositionStatus(propositionActions.CANCEL)"
+        type="submit"
+        class="p-button-raised p-button-danger">
+        ANULUJ PROPOZYCJĘ
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #loader>
+    <div class="w-full flex justify-center mt-2">
+      <p-progressSpinner
+        [style]="{ width: '30px', height: '30px' }"
+        styleClass="custom-spinner"
+        strokeWidth="8"
+        fill="var(--surface-ground)"
+        animationDuration=".5s"></p-progressSpinner>
+    </div>
+  </ng-template>
 </div>

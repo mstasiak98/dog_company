@@ -23,17 +23,17 @@ class CreateDogCaresTable extends Migration
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('activity_id');
             $table->foreign('activity_id')
-                ->references('id')->on('activities')->onDelete('no action');
+                ->references('id')->on('activities')->onDelete('cascade');
             $table->unsignedBigInteger('guardian_id');
             $table->foreign('guardian_id')
-                ->references('id')->on('users')->onDelete('no action');
+                ->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('state_id');
             $table->foreign('state_id')
-                ->references('id')->on('care_states')->onDelete('no action');
+                ->references('id')->on('care_states')->onDelete('cascade');
             $table->foreignId('dog_profile_id')->nullable()
-                ->references('id')->on('dog_profiles')->onDelete('no action');
+                ->references('id')->on('dog_profiles')->onDelete('cascade');
             $table->foreignId('announcement_id')->nullable()
-                ->references('id')->on('announcements')->onDelete('no action');
+                ->references('id')->on('announcements')->onDelete('cascade');
             $table->timestamps();
         });
     }

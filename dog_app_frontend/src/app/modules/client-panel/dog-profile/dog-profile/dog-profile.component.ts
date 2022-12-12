@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DogService } from '../../../../shared/services/API/dog/dog.service';
@@ -10,6 +16,7 @@ import { AuthStateService } from '../../../../shared/services/auth-state/auth-st
 import { MakeProposalDialogComponent } from '../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
 import PhotoHelper from '../../../../shared/helpers/PhotoHelper';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-dog-profile',
@@ -17,6 +24,9 @@ import PhotoHelper from '../../../../shared/helpers/PhotoHelper';
   styleUrls: ['./dog-profile.component.scss'],
 })
 export class DogProfileComponent implements OnInit {
+  @ViewChild('outlet', { read: ViewContainerRef }) outletRef: ViewContainerRef;
+  @ViewChild('content', { read: TemplateRef }) contentRef: TemplateRef<any>;
+
   dogProfileId: number;
   dogProfile: DogProfile;
   owner: Owner;
@@ -35,7 +45,8 @@ export class DogProfileComponent implements OnInit {
     private router: Router,
     private dialogService: DialogService,
     private authStateService: AuthStateService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +64,7 @@ export class DogProfileComponent implements OnInit {
           this.initPhotoGallery();
         },
         error: err => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/aplikacja']);
         },
         complete: () => {
           this.isContentLoading = false;
@@ -64,6 +75,10 @@ export class DogProfileComponent implements OnInit {
 
   private initPhotoGallery(): void {
     this.images = PhotoHelper.getImagesArrayFromPhoto(this.dogProfile.photos);
+    if (this.outletRef) {
+      this.outletRef.clear();
+      this.outletRef.createEmbeddedView(this.contentRef);
+    }
   }
 
   makeProposal() {

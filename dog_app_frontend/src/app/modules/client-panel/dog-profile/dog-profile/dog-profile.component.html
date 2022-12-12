@@ -18,6 +18,9 @@
       <div class="w-full bg-gray-500 gallery">
         <div class="flex flex-row justify-center">
           <ng-container *ngIf="dogProfile.photos.length > 0; else placeholder">
+            <ng-container #outlet [ngTemplateOutlet]="content"> </ng-container>
+          </ng-container>
+          <ng-template #content>
             <p-galleria
               [value]="images"
               [containerStyle]="{ 'max-width': '640px', 'max-height': '500px' }"
@@ -38,7 +41,7 @@
                 </p-image>
               </ng-template>
             </p-galleria>
-          </ng-container>
+          </ng-template>
           <ng-template #placeholder>
             <div class="gallery flex items-center">
               <img

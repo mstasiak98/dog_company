@@ -218,7 +218,7 @@
             <div *ngIf="totalPages > 1" class="w-full mt-4 h-36">
               <p-paginator
                 [rows]="announcementsPerPage"
-                [totalRecords]="totalPages"
+                [totalRecords]="totalAnnouncements"
                 [showFirstLastIcon]="false"
                 (onPageChange)="onPageChange($event)"></p-paginator>
             </div>

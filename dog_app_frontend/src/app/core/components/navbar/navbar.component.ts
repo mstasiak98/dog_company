@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unreadMessages: string;
   messageSubscription: Subscription;
   threadOpenedSubscription: Subscription;
+  userName: string = '';
 
   constructor(
     private authStateService: AuthStateService,
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isSignedIn = this.authStateService.isLoggedIn();
     this.authenticatedUserId = this.authStateService.userId();
+    this.userName = this.authStateService.getUsername();
     if (this.isSignedIn) {
       this.getUnreadCount();
       this.listenOnMessageReceived();

@@ -63,7 +63,6 @@ export class AnnouncementListUserComponent implements OnInit {
 
   private processResults() {
     return (data: any) => {
-      console.log('data = ', data);
       this.announcements = data.data;
       this.links = data.meta.links;
       this.totalPages = data.meta.last_page;
