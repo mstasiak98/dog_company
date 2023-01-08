@@ -42,7 +42,7 @@ class AnnouncementTest extends TestCase
             'start_date' => $this->faker
                 ->dateTimeBetween('-5 days', '+60 days'),
             'end_date' => $this->faker
-                ->dateTimeBetween('-5 days', '+60 days'),
+                ->dateTimeBetween('+1 days', '+60 days'),
             'user_id'=>$user->id,
         ]);
 

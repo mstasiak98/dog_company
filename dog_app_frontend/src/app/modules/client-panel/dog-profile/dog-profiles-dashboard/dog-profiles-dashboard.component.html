@@ -8,20 +8,20 @@
 
   <ng-template #content>
     <div
-      class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center md:flex-row md:justify-center md:items-start">
+      class="max-w-full md:max-w-7xl mx-auto bg-white h-full px-8 flex flex-col items-center lg:flex-row lg:justify-center lg:items-start">
       <div class="md:w-1/4 my-16">
         <h2
-          class="block font-bold text-2xl mb-4 text-custom-grey text-center md:text-left">
+          class="block font-bold text-2xl mb-4 text-custom-grey text-center lg:text-left">
           Filtry
         </h2>
-        <div class="block py-6 md:hidden">
+        <div class="block py-6 lg:hidden">
           <p
             class="text-custom-purple-dark text-center font-bold text-md cursor-pointer"
             (click)="showFilters = !showFilters">
             {{ showFilters ? 'Schowaj filtry' : 'Pokaż filtry' }}
           </p>
         </div>
-        <div [ngClass]="{ show: showFilters }" class="hidden md:block">
+        <div [ngClass]="{ show: showFilters }" class="hidden lg:block">
           <form [formGroup]="filters">
             <div class="field">
               <label
@@ -139,7 +139,7 @@
                 </div>
               </div>
             </div>
-            <div class="mt-6 field flex justify-center md:justify-start">
+            <div class="mt-6 field flex justify-center lg:justify-start">
               <button
                 (click)="searchFilters()"
                 style="min-width: 60%"
@@ -168,7 +168,7 @@
 
           <div
             *ngIf="dogProfiles.length >= 1"
-            class="w-3/4 md:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 card-panel">
+            class="w-3/4 md:w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 card-panel">
             <div
               cy-data="dog-profile-card"
               *ngFor="let profile of dogProfiles"
@@ -181,7 +181,7 @@
                   src="{{
                     profile.photos.length > 0
                       ? profile.photos[0].url
-                      : '../../../assets/background/placeholder2.png'
+                      : 'assets/background/dog-placeholder.png'
                   }}"
                   style="
                     display: block;

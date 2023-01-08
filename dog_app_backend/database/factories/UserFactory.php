@@ -40,6 +40,7 @@ class UserFactory extends Factory
             'zip_code' => $randomAddress[2],
             'flat_number' => '5a',
             'house_number' => '4',
+            'description' => $this->faker->text(200),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

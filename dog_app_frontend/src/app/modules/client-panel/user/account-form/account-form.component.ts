@@ -20,7 +20,6 @@ export class AccountFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('tet ud = ', this.userDetails);
     this.initForm();
   }
 
@@ -34,7 +33,6 @@ export class AccountFormComponent implements OnInit {
 
   changePassword(): void {
     if (this.accountForm.invalid) return;
-    console.log('dane = ', this.accountForm.value);
     this.isSaving = true;
     this.usersService.changePassword(this.accountForm.value).subscribe({
       next: (resp: any) => {

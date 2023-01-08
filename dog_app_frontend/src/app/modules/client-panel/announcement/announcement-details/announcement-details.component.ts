@@ -44,7 +44,6 @@ export class AnnouncementDetailsComponent implements OnInit {
       this.announcementService.getAnnouncementDetails(parameter.id).subscribe({
         next: data => {
           this.announcement = data;
-          console.log('OGLOSZENIE = ', this.announcement);
         },
         error: err => {
           this.router.navigate(['/aplikacja/ogloszenia']);
@@ -69,10 +68,6 @@ export class AnnouncementDetailsComponent implements OnInit {
         startDate: this.announcement.start_date,
         endDate: this.announcement.end_date,
       },
-    });
-
-    ref.onClose.subscribe(response => {
-      console.log('response = ', response);
     });
   }
 

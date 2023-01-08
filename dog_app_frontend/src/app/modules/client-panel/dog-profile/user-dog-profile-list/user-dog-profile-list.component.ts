@@ -35,7 +35,6 @@ export class UserDogProfileListComponent implements OnInit {
     return (data: any) => {
       this.dogProfiles = data;
       this.isContentLoading = false;
-      console.log('data = ', JSON.stringify(this.dogProfiles[0]));
     };
   }
 
@@ -46,7 +45,6 @@ export class UserDogProfileListComponent implements OnInit {
   }
 
   deleteDogProfile(dogProfile: DogProfile): void {
-    console.log('event = ', event);
     this.confirmationService.confirm({
       message: `Czy chesz usunąć profil psa ${dogProfile.name}?`,
       header: 'Potwierdzenie',

@@ -31,7 +31,6 @@ export class UserComponent implements OnInit, OnDestroy {
       .subscribe((data: UserAccountFullDetails) => {
         this.userAccountFullDetails = data;
         this.isContentLoading = false;
-        console.log('data = ', this.userAccountFullDetails);
       });
   }
 
