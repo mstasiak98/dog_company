@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\DogCareController;
 use App\Http\Controllers\DogProfileController;

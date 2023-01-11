@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
@@ -34,8 +34,6 @@ class AuthController extends BaseController
             $user = Auth::user();
             $data['access_token'] = $user->createToken('access_token')->plainTextToken;
             $data['user'] = new UserResource($user);
-            /*$data['first_name'] = $user->first_name;
-            $data['user_id'] = $user->id;*/
 
             return $this->sendResponse($data, 'Success');
         }else{
@@ -68,8 +66,6 @@ class AuthController extends BaseController
                 $data = [];
                 $data['access_token'] = $user->createToken('access_token')->plainTextToken;
                 $data['user'] = new UserResource($user);
-                /*$data['name'] = $user->first_name;
-                $data['user_id'] = $user->id;*/
 
                 // if photo exists save it to database
                 if(is_string($photo)) {

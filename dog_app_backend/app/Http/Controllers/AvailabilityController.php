@@ -22,8 +22,4 @@ class AvailabilityController extends Controller
         return response()->json($availabilityCollection);
     }
 
-    public function test() {
-
-    }
-
 }

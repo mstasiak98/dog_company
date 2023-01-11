@@ -39,7 +39,6 @@ class DogCareController extends Controller
         ]);
 
 
-
         Notification::send($dogCare->dogProfile->user, new DogCareProposed($dogCare));
         return response()->json(['success' => true, 'start_date' => $dogCare->start_date]);
     }
