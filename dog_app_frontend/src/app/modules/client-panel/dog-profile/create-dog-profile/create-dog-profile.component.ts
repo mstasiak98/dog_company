@@ -9,6 +9,7 @@ import { DogService } from '../../../../shared/services/API/dog/dog.service';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DogProfile } from '../../../../shared/models/dogs/DogProfile';
+import { ValidatorUtils } from '../../../../shared/util/validator.utils';
 
 @Component({
   selector: 'app-create-dog-profile',
@@ -27,6 +28,7 @@ export class CreateDogProfileComponent implements OnInit {
   breeds: Breed[];
   photos: any[] = [];
   isEdit: boolean = false;
+  isRequestSending: boolean = false;
 
   constructor(
     private builder: FormBuilder,
@@ -43,8 +45,8 @@ export class CreateDogProfileComponent implements OnInit {
     this.retrieveExistingProfileData();
 
     this.dogProfileForm = this.builder.group({
-      name: [null, Validators.required],
-      color: [null, Validators.required],
+      name: [null, [Validators.required, ValidatorUtils.notOnlyWhitespace]],
+      color: [null, [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       breed_id: [null, Validators.required],
       size_id: [null, Validators.required],
       activities: [null, Validators.required],
@@ -74,13 +76,7 @@ export class CreateDogProfileComponent implements OnInit {
         this.dogService.getDogProfileEditData(parameter.id).subscribe({
           next: data => {
             this.dogProfile = data.dog;
-            console.log('profil = ', this.dogProfile);
-
             this.setFormEditData();
-            console.log(
-              'ustawiona data do edycji = ',
-              this.dogProfileForm.value
-            );
           },
           error: err => {
             this.router.navigate([`/aplikacja/moje-psy`]);
@@ -127,14 +123,16 @@ export class CreateDogProfileComponent implements OnInit {
       ? this.dogService.storeDogProfile(dogProfile, this.photos)
       : this.dogService.updateDogProfile(dogProfile);
 
+    this.isRequestSending = true;
     request.subscribe({
       next: result => {
-        console.log('result = ', result);
+        this.isRequestSending = false;
         if (result.success) {
           this.router.navigate(['/aplikacja/moje-psy']);
         }
       },
       error: error => {
+        this.isRequestSending = false;
         this.router.navigate(['/aplikacja/moje-psy']).then(() => {
           this.toastService.showErrorMessage(
             'Wystąpił błąd poczas tworzenia profilu. Spróbuj ponownie.'
@@ -152,7 +150,6 @@ export class CreateDogProfileComponent implements OnInit {
   }
 
   handleSelectFile(event: any) {
-    console.log('event', event);
     Array.from(event.files).forEach(file => {
       this.photos.push(file);
     });

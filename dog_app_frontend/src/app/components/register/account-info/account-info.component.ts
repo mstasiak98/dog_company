@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ValidatorUtils } from '../../../shared/util/validator.utils';
 
 @Component({
   selector: 'app-account-info',
@@ -25,8 +26,8 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountData = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
+      lastName: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phoneNo: [

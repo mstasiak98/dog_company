@@ -3,6 +3,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessagesService } from '../../services/API/messages/messages.service';
 import { ToastService } from '../../services/toast/toast.service';
+import { ValidatorUtils } from '../../util/validator.utils';
 
 @Component({
   selector: 'app-create-message-dialog',
@@ -28,9 +29,9 @@ export class CreateMessageDialogComponent implements OnInit {
 
   private initForm(): void {
     this.messageForm = this.formBuilder.group({
-      subject: [null, [Validators.required]],
+      subject: [null, [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       recipient: [this.messageRecipientId, Validators.required],
-      message: [null, [Validators.required]],
+      message: [null, [Validators.required, ValidatorUtils.notOnlyWhitespace]],
     });
   }
   private initData(): void {
@@ -43,10 +44,10 @@ export class CreateMessageDialogComponent implements OnInit {
     const formData = this.messageForm.value;
     this.messagesService.createThread(formData).subscribe({
       next: resp => {
+        this.isSending = false;
         this.toastService.showSuccessMessage('Wiadomość została wysłana');
       },
       error: err => {
-        console.log('err = ', err);
         this.toastService.showErrorMessage(
           'Wystąpił błąd poczas wysyłania wiadomości'
         );
@@ -57,6 +58,5 @@ export class CreateMessageDialogComponent implements OnInit {
         this.ref.close();
       },
     });
-    console.log('message = ', this.messageForm.value);
   }
 }

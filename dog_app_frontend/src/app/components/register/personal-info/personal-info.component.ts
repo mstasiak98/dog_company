@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ValidatorUtils } from '../../../shared/util/validator.utils';
 
 @Component({
   selector: 'app-personal-info',
@@ -24,10 +25,10 @@ export class PersonalInfoComponent implements OnInit {
       this.registrationFormService.registrationFormData.value
     );
     this.personalData = this.formBuilder.group({
-      city: ['', [Validators.required]],
-      street: ['', [Validators.required]],
+      city: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
+      street: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]],
-      houseNo: ['', [Validators.required]],
+      houseNo: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       flatNo: [''],
     });
 

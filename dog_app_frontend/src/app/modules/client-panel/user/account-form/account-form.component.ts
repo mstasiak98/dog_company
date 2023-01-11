@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserAccountFullDetails } from '../../../../shared/models/users/UserAccountFullDetails';
 import { UsersService } from '../../../../shared/services/API/users/users.service';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
+import { ValidatorUtils } from '../../../../shared/util/validator.utils';
 
 @Component({
   selector: 'app-account-form',
@@ -26,8 +27,18 @@ export class AccountFormComponent implements OnInit {
   private initForm(): void {
     this.accountForm = this.formBuilder.group({
       email: [this.userDetails.email, Validators.required],
-      old_password: [null, Validators.required],
-      new_password: [null, Validators.required],
+      old_password: [
+        null,
+        [Validators.required, ValidatorUtils.notOnlyWhitespace],
+      ],
+      new_password: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          ValidatorUtils.notOnlyWhitespace,
+        ],
+      ],
     });
   }
 
@@ -36,17 +47,19 @@ export class AccountFormComponent implements OnInit {
     this.isSaving = true;
     this.usersService.changePassword(this.accountForm.value).subscribe({
       next: (resp: any) => {
-        console.log('res=', resp);
         this.toastService.showSuccessMessage('Hasło zostało zmienione');
         this.isSaving = false;
       },
       error: err => {
-        console.log('erro', err);
         this.toastService.showErrorMessage(
           'Wystąpił błąd podczas zmiany hasła'
         );
         this.isSaving = false;
       },
     });
+  }
+
+  get f() {
+    return this.accountForm.controls;
   }
 }

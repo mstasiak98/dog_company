@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Announcement } from '../../../../shared/models/announcements/announcement';
 import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
+import { ValidatorUtils } from '../../../../shared/util/validator.utils';
 
 @Component({
   selector: 'app-announcement-create',
@@ -22,6 +23,7 @@ export class AnnouncementCreateComponent implements OnInit {
   announcement: Announcement;
   authenticatedUserId: number;
   deletePhoto: boolean = false;
+  isRequestSending: boolean = false;
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
@@ -63,16 +65,39 @@ export class AnnouncementCreateComponent implements OnInit {
 
     this.authenticatedUserId = this.authStateService.userId();
 
-    this.announcementForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      city: ['', Validators.required],
-      quantity: ['', [Validators.required, Validators.min(1)]],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      description: ['', Validators.required],
-      activity_id: ['', Validators.required],
-      user_id: [this.authenticatedUserId, Validators.required],
-    });
+    this.announcementForm = this.formBuilder.group(
+      {
+        title: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(200),
+            ValidatorUtils.notOnlyWhitespace,
+          ],
+        ],
+        city: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(200),
+            ValidatorUtils.notOnlyWhitespace,
+          ],
+        ],
+        quantity: ['', [Validators.required, Validators.min(1)]],
+        start_date: [
+          '',
+          [Validators.required, ValidatorUtils.dateGreaterThanToday],
+        ],
+        end_date: [
+          '',
+          [Validators.required, ValidatorUtils.dateGreaterThanToday],
+        ],
+        description: ['', Validators.required],
+        activity_id: ['', Validators.required],
+        user_id: [this.authenticatedUserId, Validators.required],
+      },
+      { validator: ValidatorUtils.dateRangeValidator }
+    );
   }
 
   setFormEditData(): void {
@@ -113,9 +138,15 @@ export class AnnouncementCreateComponent implements OnInit {
       ? this.announcementService.storeAnnouncement(formData)
       : this.announcementService.updateAnnouncement(formData);
 
+    this.isRequestSending = true;
+
     request.subscribe({
       next: result => {
-        console.log('result = ', result);
+        this.isRequestSending = false;
+        if (!result.success) {
+          this.toastService.showErrorMessage(`Wystąpił błąd.`);
+          this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
+        }
         let url;
         if (this.isEdit) {
           url = `/aplikacja/ogloszenia/detale-ogloszenia/${this.announcement.id}`;
@@ -125,11 +156,12 @@ export class AnnouncementCreateComponent implements OnInit {
         this.router.navigate([url]);
       },
       error: error => {
+        this.isRequestSending = false;
         this.router.navigate(['/aplikacja/ogloszenia/moje-ogloszenia']);
-        this.toastService.showErrorMessage(`Wystąpił błąd.`);
       },
       complete: () => {
         this.announcementForm.reset();
+        this.isRequestSending = false;
       },
     });
   }

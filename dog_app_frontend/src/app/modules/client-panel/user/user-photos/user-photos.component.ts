@@ -47,7 +47,6 @@ export class UserPhotosComponent implements OnInit {
   addPhoto(): void {
     const ref = this.dialogService.open(AddPhotoDialogComponent, {
       width: '40rem',
-      height: '30rem',
       data: {
         id: this.userDetails.id,
         isAnnouncementChangePhoto: false,
@@ -66,9 +65,12 @@ export class UserPhotosComponent implements OnInit {
         this.photoService.deletePhoto(photoId).subscribe({
           next: (resp: any) => {
             this.userService.triggerAccountDataReload();
+            this.toastService.showSuccessMessage('Zdjęcie zostało usunięte');
           },
           error: (err: any) => {
-            console.log('err = ', err);
+            this.toastService.showErrorMessage(
+              'Wystąpił błąd podczas usuwania zdjęcia'
+            );
           },
         });
       },

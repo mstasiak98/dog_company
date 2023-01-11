@@ -31,6 +31,8 @@
     </div>
     <div class="mt-6 w-full flex justify-center">
       <button
+        [loading]="isSending"
+        pButton
         cy-data="create-thread-button"
         [ngClass]="{
           disabled: this.messageForm.invalid || this.messageForm.pristine

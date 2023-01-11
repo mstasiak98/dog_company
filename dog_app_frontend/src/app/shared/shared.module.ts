@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MapComponent } from './components/map/map.component';
 import { GMapModule } from 'primeng/gmap';
 import { SignInButtonComponent } from './components/sign-in-button/sign-in-button.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SignInButtonComponent } from './components/sign-in-button/sign-in-butto
     InputTextareaModule,
     InputTextModule,
     GMapModule,
+    ButtonModule,
   ],
   exports: [
     InputSwitchComponent,

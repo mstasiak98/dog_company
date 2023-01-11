@@ -28,6 +28,14 @@
           type="password"
           pInputText
           formControlName="new_password" />
+        <small
+          class="p-error"
+          *ngIf="
+            (f.new_password.touched && f.new_password.invalid) ||
+            (f.new_password.dirty && f.new_password.invalid)
+          "
+          >Pole <strong>hasło</strong> musi mieć co najmniej 6 znaków</small
+        >
       </div>
     </div>
 
@@ -35,6 +43,7 @@
       <div class="w-full flex">
         <button
           [loading]="isSaving"
+          [disabled]="!accountForm.valid"
           pButton
           pRipple
           type="submit"

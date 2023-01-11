@@ -37,6 +37,6 @@ class GreaterThanToday implements Rule
      */
     public function message()
     {
-        return 'Data zakończenia nie może być wcześniejsza niż data dzisiejsza';
+        return 'Data nie może być wcześniejsza niż data dzisiejsza';
     }
 }

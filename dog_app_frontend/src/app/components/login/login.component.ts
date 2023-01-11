@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.invalid) return;
 
-    console.log('wysylam');
     this.authService.signIn(this.loginForm.value).subscribe({
       next: result => {
         if (result.success) {
@@ -61,7 +60,6 @@ export class LoginComponent implements OnInit {
             user: result.data.user,
           };
           this.authStateService.setAuthState(userState);
-          //this.router.navigate(['/aplikacja']);
           this.router.navigateByUrl(this.redirectUrl);
         } else {
           this.showErrorMessage = true;

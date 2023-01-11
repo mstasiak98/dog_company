@@ -30,14 +30,19 @@
               required
               pInputText
               formControlName="title" />
-            <small
-              class="p-error"
+            <div
+              class="flex flex-col mb-1"
               *ngIf="
                 (f.title.touched && f.title.invalid) ||
-                (f.title.dirty && f.title.invalid && f.title?.errors.required)
-              "
-              >Pole <strong>tytuł</strong> jest wymagane</small
-            >
+                (f.title.dirty && f.title.invalid)
+              ">
+              <small class="p-error" *ngIf="f.title?.errors?.required"
+                >Pole <strong>tytuł</strong> jest wymagane</small
+              >
+              <small class="p-error" *ngIf="f.title?.errors?.maxlength"
+                >Pole <strong>tytuł</strong> jest zbyt długie</small
+              >
+            </div>
           </div>
         </div>
         <div class="mt-4 p-fluid grid grid-cols-1">
@@ -71,16 +76,24 @@
             [showTime]="true"
             inputId="start_date">
           </p-calendar>
-          <small
-            class="p-error"
+          <div
+            class="flex flex-col mt-1"
             *ngIf="
               (f.start_date.touched && f.start_date.invalid) ||
-              (f.start_date.dirty &&
-                f.start_date.invalid &&
-                f.start_date?.errors.required)
-            "
-            >Pole <strong>początek opieki</strong> jest wymagane</small
-          >
+              (f.start_date.dirty && f.start_date.invalid) ||
+              (f.end_date.dirty && announcementForm.errors)
+            ">
+            <small class="p-error" *ngIf="f.start_date?.errors?.required"
+              >Pole <strong>początek opieki</strong> jest wymagane</small
+            >
+            <small class="p-error" *ngIf="f.start_date?.errors?.dateBeforeToday"
+              >Data w polu <strong>początek opieki</strong> nie może być
+              wcześniejsze niż data dzisiejsza</small
+            >
+            <small class="p-error" *ngIf="announcementForm?.errors?.range"
+              >Niepoprawnie wypełnione daty
+            </small>
+          </div>
         </div>
         <div id="end-container" class="mt-4 p-fluid grid grid-cols-1">
           <label for="end_date">Koniec opieki</label>
@@ -91,16 +104,24 @@
             formControlName="end_date"
             [showTime]="true"
             inputId="end_date"></p-calendar>
-          <small
-            class="p-error"
+          <div
+            class="flex flex-col mt-1"
             *ngIf="
               (f.end_date.touched && f.end_date.invalid) ||
-              (f.end_date.dirty &&
-                f.end_date.invalid &&
-                f.end_date?.errors.required)
-            "
-            >Pole <strong>koniec opieki</strong> jest wymagane</small
-          >
+              (f.end_date.dirty && f.end_date.invalid) ||
+              (f.end_date.dirty && announcementForm.errors)
+            ">
+            <small class="p-error" *ngIf="f.end_date?.errors?.required"
+              >Pole <strong>koniec opieki</strong> jest wymagane</small
+            >
+            <small class="p-error" *ngIf="f.end_date?.errors?.dateBeforeToday"
+              >Data w polu <strong>koniec opieki</strong> nie może być
+              wcześniejsze niż data dzisiejsza</small
+            >
+            <small class="p-error" *ngIf="announcementForm?.errors?.range"
+              >Niepoprawnie wypełnione daty
+            </small>
+          </div>
         </div>
         <div class="mt-4 p-fluid grid grid-cols-1">
           <label for="activities-container">Aktywność</label>
@@ -138,6 +159,7 @@
           <div class="">
             <label for="quantity">Ilość</label>
             <input
+              min="1"
               cy-data="create-announcement-quantity-field"
               id="quantity"
               name="quantity"
@@ -183,15 +205,14 @@
         </div>
         <div class="ml-4">
           <button
+            [loading]="isRequestSending"
             cy-data="create-announcement-submit-button"
             class="p-button-success"
             pButton
             type="button"
+            [disabled]="announcementForm.pristine || !announcementForm.valid"
             label="{{ isEdit ? 'Edytuj' : 'Dodaj' }}"
-            (click)="saveAnnouncement()"
-            [disabled]="
-              announcementForm.pristine || !announcementForm.valid
-            "></button>
+            (click)="saveAnnouncement()"></button>
         </div>
       </div>
     </div>

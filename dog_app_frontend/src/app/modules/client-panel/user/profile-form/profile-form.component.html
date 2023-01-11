@@ -10,6 +10,14 @@
           type="text"
           pInputText
           formControlName="first_name" />
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.first_name.touched && f.first_name.invalid) ||
+            (f.first_name.dirty && f.first_name.invalid)
+          "
+          >Pole <strong>Imię</strong> jest niepoprawnie wypełnione</small
+        >
       </div>
 
       <div class="md:w-1/2 flex flex-col">
@@ -19,6 +27,14 @@
           type="text"
           pInputText
           formControlName="last_name" />
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.last_name.touched && f.last_name.invalid) ||
+            (f.last_name.dirty && f.last_name.invalid)
+          "
+          >Pole <strong>Nazwisko</strong> jest niepoprawnie wypełnione</small
+        >
       </div>
     </div>
 
@@ -30,11 +46,28 @@
           mask="(+48) 999-999-999"
           placeholder="(+99) 999-999-999"
           formControlName="phone_number"></p-inputMask>
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.phone_number.touched && f.phone_number.invalid) ||
+            (f.phone_number.dirty && f.phone_number.invalid)
+          "
+          >Pole <strong>Numer telefonu</strong> jest niepoprawnie
+          wypełnione</small
+        >
       </div>
 
       <div class="w-full md:w-1/2 flex flex-col">
         <label for="city">Miasto</label>
         <input id="city" type="text" pInputText formControlName="city" />
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.city.touched && f.city.invalid) ||
+            (f.city.dirty && f.city.invalid)
+          "
+          >Pole <strong>Miasto</strong> jest niepoprawnie wypełnione</small
+        >
       </div>
     </div>
     <div class="flex w-full flex-col md:flex-row gap-x-4 mt-6">
@@ -45,11 +78,28 @@
           mask="99-999"
           placeholder="99-999"
           formControlName="zip_code"></p-inputMask>
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.zip_code.touched && f.zip_code.invalid) ||
+            (f.zip_code.dirty && f.zip_code.invalid)
+          "
+          >Pole <strong>Kod pocztowy</strong> jest niepoprawnie
+          wypełnione</small
+        >
       </div>
 
       <div class="w-full md:w-1/2 flex flex-col">
         <label for="street">Ulica</label>
         <input id="street" type="text" pInputText formControlName="street" />
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.street.touched && f.street.invalid) ||
+            (f.street.dirty && f.street.invalid)
+          "
+          >Pole <strong>Ulica</strong> jest niepoprawnie wypełnione</small
+        >
       </div>
     </div>
     <div class="flex w-full flex-col md:flex-row gap-x-4 mt-6">
@@ -60,6 +110,14 @@
           type="text"
           pInputText
           formControlName="house_number" />
+        <small
+          class="p-error mt-1"
+          *ngIf="
+            (f.house_number.touched && f.house_number.invalid) ||
+            (f.house_number.dirty && f.house_number.invalid)
+          "
+          >Pole <strong>Numer domu</strong> jest niepoprawnie wypełnione</small
+        >
       </div>
 
       <div class="w-full md:w-1/2 flex flex-col">
@@ -87,7 +145,7 @@
     <div class="flex w-full mt-4">
       <div class="w-full flex justify-end">
         <button
-          [disabled]="profileForm.pristine"
+          [disabled]="profileForm.pristine || !profileForm.valid"
           [loading]="isSaving"
           pButton
           pRipple
