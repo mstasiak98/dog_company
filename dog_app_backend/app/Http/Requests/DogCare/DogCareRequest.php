@@ -7,6 +7,7 @@ use App\Rules\DogNeedsActivity;
 use App\Rules\EndDateGreaterThanStartDate;
 use App\Rules\GreaterThanToday;
 use App\Rules\IsNotDogOwner;
+use App\Rules\IsNotTheSameProposition;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Http\FormRequest;
@@ -31,7 +32,7 @@ class DogCareRequest extends FormRequest
     public function rules()
     {
         return [
-            'dog_profile_id'=>['required', 'exists:dog_profiles,id', new IsNotDogOwner],
+            'dog_profile_id'=>['required', 'exists:dog_profiles,id', new IsNotDogOwner, new IsNotTheSameProposition],
             'activity_id'=>['required', 'exists:activities,id', new DogNeedsActivity],
             'start_date'=>['required', new GreaterThanToday],
             'end_date'=>['required', new EndDateGreaterThanStartDate],

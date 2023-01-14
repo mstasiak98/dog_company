@@ -77,6 +77,7 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
       this.currentPage = data.meta.current_page;
       this.caresPerPage = data.meta.per_page;
       this.isContentLoading = false;
+      console.log('dog cares = ', this.dogCares);
     };
   }
 
@@ -84,14 +85,6 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
     this.dogCareService
       .getDogCares(this.userType, this.careType)
       .subscribe(this.processResult());
-  }
-
-  private getIncomingCares(): void {
-    this.dogCareService
-      .getDogCares(this.userType, DogCarePropositionViewType.OWNER_ACCEPTED)
-      .subscribe((res: any) => {
-        this.incomingDogCares = res.data;
-      });
   }
 
   showPropositionDetailsDialog(dogCare: DogCare) {

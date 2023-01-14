@@ -27,8 +27,12 @@ class IsNotDogOwner implements Rule
      */
     public function passes($attribute, $value)
     {
-        $dogOwnerId = DogProfile::where('id', $value)->first()->user->id;
-        return $dogOwnerId !== auth()->user()->id;
+        $dogProfile = DogProfile::where('id', $value)->first();
+        if($dogProfile) {
+            $dogOwnerId = $dogProfile->user->id;
+            return $dogOwnerId !== auth()->user()->id;
+        }
+        return false;
     }
 
     /**

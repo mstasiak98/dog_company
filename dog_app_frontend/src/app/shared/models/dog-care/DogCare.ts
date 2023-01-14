@@ -17,4 +17,6 @@ export interface DogCare {
   state: CareState;
   dog_name: string;
   dog_breed: Breed;
+  dog_profile_id: number;
+  announcement_id: number;
 }

@@ -33,7 +33,9 @@ class DogCareResource extends JsonResource
             'guardian' => new UserResource($this->guardian),
             'owner' => new UserResource($user),
             'dog_name' => !is_null($this->dogProfile) ? $this->dogProfile->name : null,
-            'dog_breed' => !is_null($this->dogProfile) ? new BreedResource($this->dogProfile->breed) : null
+            'dog_breed' => !is_null($this->dogProfile) ? new BreedResource($this->dogProfile->breed) : null,
+            'dog_profile_id' => !is_null($this->dogProfile) ? $this->dogProfile->id : null,
+            'announcement_id' => !is_null($this->announcement) ? $this->announcement->id : null,
         ];
     }
 }

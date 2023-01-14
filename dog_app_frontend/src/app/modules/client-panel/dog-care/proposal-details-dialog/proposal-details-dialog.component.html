@@ -8,25 +8,25 @@
         <ng-container
           *ngIf="dogCare.guardian.photo.length > 0; else placeholderPhoto">
           <img
-            alt="dog photo"
+            alt="person picture"
             src="{{ dogCare.guardian.photo[0].url }}"
             style="height: 150px; width: 150px; object-fit: contain"
             class="rounded-lg"
         /></ng-container>
         <ng-template #placeholderPhoto>
           <img
-            alt="dog photo"
+            alt="person picture"
             src="../../../assets/background/img_placeholder.svg"
             style="height: 150px; width: 150px"
             class="rounded-lg" />
         </ng-template>
 
-        <span
+        <a
           routerLink="/aplikacja/uzytkownik/profil-uzytkownika/{{
             userType === 1 ? dogCare.guardian.id : dogCare.owner.id
           }}"
-          class="mt-2 underline font-bold cursor-pointer hover:text-black"
-          >Zobacz profil</span
+          class="block mt-2 underline font-bold cursor-pointer hover:text-black"
+          >Zobacz profil</a
         >
       </div>
     </div>
@@ -55,12 +55,20 @@
 
   <h6 class="text-center mt-4 text-xl">Opieka dotyczy:</h6>
   <ng-container *ngIf="dogCare.dog_name; else announcement">
-    <h6 class="text-center mt-2 font-bold text-lg">
+    <a
+      routerLink="/aplikacja/profil-psa/{{ dogCare.dog_profile_id }}"
+      class="block text-center mt-2 font-bold text-lg cursor-pointer underline hover:text-black">
       {{ dogCare?.dog_name }} ({{ dogCare?.dog_breed?.name }})
-    </h6>
+    </a>
   </ng-container>
   <ng-template #announcement>
-    <h6 class="text-center mt-2 font-bold text-lg">Ogłoszenia</h6>
+    <a
+      routerLink="/aplikacja/ogloszenia/detale-ogloszenia/{{
+        dogCare.announcement_id
+      }}"
+      class="block cursor-pointer underline hover:text-black text-center mt-2 font-bold text-lg">
+      Ogłoszenia
+    </a>
   </ng-template>
 
   <h6 class="text-center mt-4 text-xl">Proponowany termin:</h6>

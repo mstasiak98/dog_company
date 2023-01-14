@@ -7,6 +7,7 @@ use App\Models\DogProfile;
 use App\Rules\AnnouncementNeedsActivity;
 use App\Rules\EndDateGreaterThanStartDate;
 use App\Rules\GreaterThanToday;
+use App\Rules\IsNotTheSameAnnouncementProposition;
 use App\Rules\UserNotAnnouncementCreator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +33,7 @@ class DogCareAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'announcement_id'=>['required', 'exists:announcements,id', new UserNotAnnouncementCreator],
+            'announcement_id'=>['required', 'exists:announcements,id', new UserNotAnnouncementCreator, new IsNotTheSameAnnouncementProposition],
             'activity_id'=>['required', 'exists:activities,id', new AnnouncementNeedsActivity],
             'additional_info'=>['nullable'],
         ];

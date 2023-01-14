@@ -26,8 +26,12 @@ class UserNotAnnouncementCreator implements Rule
      */
     public function passes($attribute, $value)
     {
-        $announcementCreatorId = Announcement::where('id', $value)->first()->user->id;
-        return $announcementCreatorId !== auth()->user()->id;
+        $announcement = Announcement::where('id', $value)->first();
+        if($announcement) {
+            $announcementCreatorId = $announcement->user->id;
+            return $announcementCreatorId !== auth()->user()->id;
+        }
+        return false;
     }
 
     /**

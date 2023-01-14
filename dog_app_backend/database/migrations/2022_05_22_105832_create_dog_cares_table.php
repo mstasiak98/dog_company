@@ -17,7 +17,7 @@ class CreateDogCaresTable extends Migration
             $table->id();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('additional_info')->nullable();
+            $table->text('additional_info')->nullable();
             $table->boolean('siblings')->nullable();
             $table->double('rating')->nullable();
             $table->text('comment')->nullable();

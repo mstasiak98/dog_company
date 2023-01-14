@@ -48,14 +48,20 @@ class DogCare extends Model
 
     // check if there is any accepted dog_care overlaping this dog care for owner of dog in this dog care
     public function datesOverlap() {
-        $userId = $this->dogProfile ? $this->dogProfile->user_id : $this->announcement->user_id ;
-        $countOverlaping = DogCare::where('state_id', CareStateEnum::OWNER_ACCEPTED->value)
-            ->whereHas('dogProfile', function (Builder $query) use ($userId) {
-                $query->where('user_id', '=', $userId);
-            })
-            ->whereDate('start_date', '<=', Carbon::createFromFormat('Y-m-d H:i:s', $this->end_date))
-            ->whereDate('end_date', '>=', Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date))
-            ->count();
+        $userId = $this->dogProfile ? $this->dogProfile->user_id : $this->announcement->user_id;
+        if($this->dogProfile) {
+            $countOverlaping = DogCare::where('state_id', CareStateEnum::OWNER_ACCEPTED->value)
+                ->where('dog_profile_id', '=', $this->dog_profile_id)
+                ->where('start_date', '<=', Carbon::createFromFormat('Y-m-d H:i:s', $this->end_date))
+                ->where('end_date', '>=', Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date))
+                ->count();
+        } else {
+            $countOverlaping = DogCare::where('state_id', CareStateEnum::OWNER_ACCEPTED->value)
+                ->where('announcement_id', '=', $this->announcement_id)
+                ->where('start_date', '<=', Carbon::createFromFormat('Y-m-d H:i:s', $this->end_date))
+                ->where('end_date', '>=', Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date))
+                ->count();
+        }
 
         if($countOverlaping > 0) {
             return true;

@@ -88,8 +88,13 @@ export class MakeProposalDialogComponent implements OnInit {
         this.isSaving = false;
       },
       error: error => {
-        this.showErrorMessage();
-        console.log('error = ', error);
+        let errors = '';
+        Object.keys(error?.error?.errors).forEach(key => {
+          error.error.errors[key]?.forEach((error: any) => {
+            errors += `${error}\n`;
+          });
+        });
+        this.showErrorMessage(errors);
         this.isSaving = false;
       },
       complete: () => {
@@ -161,11 +166,11 @@ export class MakeProposalDialogComponent implements OnInit {
     });
   }
 
-  showErrorMessage(): void {
+  showErrorMessage(errors: string): void {
     this.messageService.add({
       severity: 'error',
       summary: 'Wystąpił błąd',
-      detail: `Wystąpił błąd podczas składania propozycji opieki. Spróbuj złożyć opiekę jeszcze raz.`,
+      detail: `Wystąpił błąd podczas składania propozycji opieki: ${errors}`,
     });
   }
 
