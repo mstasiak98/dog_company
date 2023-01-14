@@ -60,9 +60,7 @@ export class AnnouncementDashboardComponent implements OnInit {
 
   changeSortMode(sortMode: number) {
     this.sortMode = sortMode;
-    this.announcementService
-      .getAnnouncementList(undefined, undefined, sortMode)
-      .subscribe(this.processChangePageResult());
+    this.applyFilters();
   }
 
   onPageChange(event: any) {
@@ -106,7 +104,7 @@ export class AnnouncementDashboardComponent implements OnInit {
     const filters = this.filters.value;
 
     this.announcementService
-      .getAnnouncementList(this.dogUrl, filters)
+      .getAnnouncementList(this.dogUrl, filters, this.sortMode)
       .subscribe(this.processChangePageResult());
   }
 }

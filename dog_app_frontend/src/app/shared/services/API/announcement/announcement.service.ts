@@ -19,6 +19,8 @@ export class AnnouncementService {
     filters?: any,
     sortMode: number = -1
   ): Observable<any> {
+    sortMode = sortMode === 0 ? -1 : sortMode;
+
     // page initialization
     if (!searchUrl) {
       return this.http.get(`${this.ANNOUNCEMENTS_BASE_URL}?sort=${sortMode}`);
@@ -29,9 +31,7 @@ export class AnnouncementService {
       return this.http.get(searchUrl);
     }
 
-    const urlWithFilters = this.getUrlWithFilters(filters);
-
-    console.log('URL WITH FILTERS = ', urlWithFilters);
+    const urlWithFilters = this.getUrlWithFilters(filters, sortMode);
 
     return this.http.get(urlWithFilters);
   }
@@ -82,7 +82,7 @@ export class AnnouncementService {
     return this.http.delete(url, { params: { id: id } });
   }
 
-  private getUrlWithFilters(filters: any) {
+  private getUrlWithFilters(filters: any, sortMode: number = -1) {
     const activities = filters.activity
       ?.map((activity: any) => {
         return `activities[]=${activity.id}`;
@@ -111,7 +111,7 @@ export class AnnouncementService {
       }
     });
 
-    return `${this.ANNOUNCEMENTS_BASE_URL}?${urlWithFilters}`.slice(0, -1);
+    return `${this.ANNOUNCEMENTS_BASE_URL}?${urlWithFilters}sort=${sortMode}`;
   }
 
   private formatDateType(date: Date): string {

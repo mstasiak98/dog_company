@@ -38,7 +38,7 @@ class AnnouncementController extends Controller
     }
 
     public function userAnnouncements() {
-        $announcements = Announcement::where('user_id', auth()->user()->id)->paginate(config('app.default_announcements_page_size'))->withQueryString();
+        $announcements = Announcement::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(config('app.default_announcements_page_size'))->withQueryString();
         $announcementsCollection = new AnnouncmentCollection($announcements);
         return response()->json($announcementsCollection->response()->getData());
     }

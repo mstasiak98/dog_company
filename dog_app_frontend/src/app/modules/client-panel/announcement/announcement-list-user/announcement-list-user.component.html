@@ -55,15 +55,15 @@
                   </div>
                 </div>
                 <div
-                  class="w-full md:w-5/6 announcement flex flex-col md:flex-row items-center">
-                  <div class="w-full flex flex-col announcement px-6 pt-0">
+                  class="w-full md:w-5/6 flex flex-col md:flex-row items-center">
+                  <div class="w-full flex flex-col h-full px-6 pt-0">
                     <div>
                       <h2 class="font-bold text-2xl text-center md:text-left">
                         {{ announcement.title }}
                       </h2>
                     </div>
                     <div
-                      class="flex-1 overflow-hidden text-ellipsis whitespace-normal">
+                      class="flex-1 overflow-hidden text-ellipsis whitespace-normal mt-2 md:mt-0">
                       <h5 class="text-justify text-base">
                         {{ announcement.description | slice: 0:250 }}&nbsp;...
                       </h5>
