@@ -16,24 +16,16 @@ html {
   scroll-behavior: smooth;
 }
 
-.bg-img {
-  background-image: url("/assets/background/bg2.png");
-  object-fit: cover;
-}
 
 .nav-img {
-  background-image: url("/assets/background/dogs9.png") !important;
+  background-image: url("/assets/background/header.png") !important;
   object-fit: cover;
   background-repeat: no-repeat;
+  background-position: center;
+
   filter: blur(4px);
   filter: blur();
   -webkit-filter: blur(4px);
-}
-
-.landing-header {
-  background-image: url("/assets/background/wall2.jpg") !important;
-  object-fit: cover;
-  background-repeat: no-repeat;
 }
 
 app-owner-care {
@@ -96,8 +88,8 @@ li.paw-li {
   font-weight:bold;
   list-style:none;
   background-repeat:no-repeat;
-  background-image: url("assets/background/paw_item.png");
-  background-size: 35px;
+  background-image: url("assets/background/paw_img.svg");
+  background-size: 25px;
 }
 
 p-image {
