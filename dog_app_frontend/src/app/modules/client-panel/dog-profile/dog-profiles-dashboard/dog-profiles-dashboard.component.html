@@ -207,6 +207,7 @@
         </ng-template>
         <div *ngIf="totalPages > 1" class="w-full pt-12">
           <p-paginator
+            [first]="first"
             [rows]="profilesPerPage"
             [totalRecords]="totalProfiles"
             [showFirstLastIcon]="false"

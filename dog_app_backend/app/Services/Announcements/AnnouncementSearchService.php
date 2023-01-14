@@ -17,6 +17,14 @@ class AnnouncementSearchService
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
+        $sortMode = 'ASC';
+
+        $sort = $request->sort;
+
+        if($sort) {
+            $sortMode = $sort == -1 ? 'ASC' : 'DESC';
+        }
+
         // nie wyświetlaj starych ogłoszeń
         $announcements = Announcement::whereDate('end_date', '>=', Carbon::now());
 
@@ -39,6 +47,6 @@ class AnnouncementSearchService
             }
         });
 
-        return $announcements->paginate(config('app.default_announcements_page_size'))->withQueryString();
+        return $announcements->orderBy('start_date', $sortMode)->paginate(config('app.default_announcements_page_size'))->withQueryString();
     }
 }

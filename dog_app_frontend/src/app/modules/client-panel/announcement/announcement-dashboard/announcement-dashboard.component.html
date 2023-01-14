@@ -143,7 +143,30 @@
       <div class="lg:ml-20 w-full lg:w-3/4 items-center lg:my-12 flex flex-col">
         <div class="w-full">
           <div class="w-full flex justify-between items-center">
-            <h3 class="font-bold text-4xl">Znalezione ogłoszenia</h3>
+            <div class="flex flex-row items-center">
+              <i
+                pTooltip="Sortuj wg Daty rozpoczęcia"
+                tooltipPosition="top"
+                (click)="changeSortMode(1)"
+                *ngIf="announcements.length > 0 && sortMode === 0"
+                class="cursor-pointer pi pi-sort-alt mr-4"
+                style="font-size: 1.5rem"></i>
+              <i
+                pTooltip="Od najpóźniejszej daty rozpoczęcia"
+                tooltipPosition="top"
+                (click)="changeSortMode(-1)"
+                *ngIf="sortMode === 1"
+                class="cursor-pointer pi pi-sort-amount-up mr-4"
+                style="font-size: 1.5rem"></i>
+              <i
+                pTooltip="Od najwcześniejszej daty rozpoczęcia"
+                tooltipPosition="top"
+                (click)="changeSortMode(1)"
+                *ngIf="sortMode === -1"
+                class="cursor-pointer pi pi-sort-amount-down mr-4"
+                style="font-size: 1.5rem"></i>
+              <h3 class="font-bold text-4xl">Znalezione ogłoszenia</h3>
+            </div>
             <div
               *ngIf="isSignedIn"
               routerLink="dodaj-ogloszenie"
@@ -167,7 +190,7 @@
                 <div class="w-full md:w-1/4 flex justify-center announcement">
                   <div class="w-1/2 md:w-full flex justify-center">
                     <img
-                      alt="dog photo"
+                      alt="announcement photo"
                       src="{{
                         announcement.photo.length > 0
                           ? announcement.photo[0].url
@@ -218,6 +241,7 @@
 
             <div *ngIf="totalPages > 1" class="w-full mt-4 h-36">
               <p-paginator
+                [first]="first"
                 [rows]="announcementsPerPage"
                 [totalRecords]="totalAnnouncements"
                 [showFirstLastIcon]="false"

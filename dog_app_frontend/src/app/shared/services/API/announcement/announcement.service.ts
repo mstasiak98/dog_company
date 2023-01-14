@@ -14,10 +14,14 @@ export class AnnouncementService {
 
   constructor(private http: HttpClient) {}
 
-  getAnnouncementList(searchUrl?: string, filters?: any): Observable<any> {
+  getAnnouncementList(
+    searchUrl?: string,
+    filters?: any,
+    sortMode: number = -1
+  ): Observable<any> {
     // page initialization
     if (!searchUrl) {
-      return this.http.get(this.ANNOUNCEMENTS_BASE_URL);
+      return this.http.get(`${this.ANNOUNCEMENTS_BASE_URL}?sort=${sortMode}`);
     }
 
     // pagination without filters - passed url with query parameters

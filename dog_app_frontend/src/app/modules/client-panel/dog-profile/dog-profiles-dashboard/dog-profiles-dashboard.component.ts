@@ -24,6 +24,7 @@ export class DogProfilesDashboardComponent implements OnInit {
   totalPages: number = 0;
   profilesPerPage: number = 9;
   totalProfiles: number;
+  first = 0;
 
   //GUI
   showFilters = false;
@@ -79,6 +80,7 @@ export class DogProfilesDashboardComponent implements OnInit {
       this.currentPage = data.meta.current_page;
       this.profilesPerPage = data.meta.per_page;
       this.isPageChanging = false;
+      this.first = data.meta.from - 1;
     };
   }
 

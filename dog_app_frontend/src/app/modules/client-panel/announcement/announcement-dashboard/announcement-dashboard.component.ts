@@ -19,6 +19,7 @@ export class AnnouncementDashboardComponent implements OnInit {
   activities: any[];
   dogUrl = 'http://127.0.0.1:8000/api/announcements';
   isSignedIn: boolean = false;
+  sortMode: number = 0;
 
   //ANNOUNCEMENTS
   announcements: Announcement[] = [];
@@ -30,6 +31,7 @@ export class AnnouncementDashboardComponent implements OnInit {
   totalPages: number = 0;
   announcementsPerPage: number = 5;
   totalAnnouncements: number;
+  first: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,6 +58,13 @@ export class AnnouncementDashboardComponent implements OnInit {
     });
   }
 
+  changeSortMode(sortMode: number) {
+    this.sortMode = sortMode;
+    this.announcementService
+      .getAnnouncementList(undefined, undefined, sortMode)
+      .subscribe(this.processChangePageResult());
+  }
+
   onPageChange(event: any) {
     const page = event.page + 1;
     const link = this.links.find(link => link.label === page.toString());
@@ -74,6 +83,7 @@ export class AnnouncementDashboardComponent implements OnInit {
       this.currentPage = data.meta.current_page;
       this.announcementsPerPage = data.meta.per_page;
       this.isPageChanging = false;
+      this.first = data.meta.from - 1;
     };
   }
 
@@ -94,6 +104,7 @@ export class AnnouncementDashboardComponent implements OnInit {
   applyFilters() {
     this.isPageChanging = true;
     const filters = this.filters.value;
+
     this.announcementService
       .getAnnouncementList(this.dogUrl, filters)
       .subscribe(this.processChangePageResult());
