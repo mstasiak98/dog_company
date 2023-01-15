@@ -77,14 +77,23 @@
                   (f.email.invalid && submitted) ||
                   (f.email.dirty && f.email.invalid)
               }" />
-            <small
-              class="p-error"
+            <div
               *ngIf="
                 (f.email.invalid && submitted) ||
                 (f.email.dirty && f.email.invalid)
               "
-              >Pole <strong>email</strong> jest wymagane.</small
-            >
+              class="flex flex-col">
+              <small *ngIf="f.email.errors?.['required']" class="p-error"
+                >Pole <strong>email</strong> jest wymagane.</small
+              >
+              <small
+                class="p-error"
+                *ngIf="f.email.errors?.['email']
+                "
+                >Pole <strong>email</strong> jest nieprawidłowo
+                wypełnione.</small
+              >
+            </div>
           </div>
         </div>
         <div class="pt-4 p-fluid grid grid-cols-1">
