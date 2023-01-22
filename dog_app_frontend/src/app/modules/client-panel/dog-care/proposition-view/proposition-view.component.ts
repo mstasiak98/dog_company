@@ -77,7 +77,6 @@ export class PropositionViewComponent implements OnInit, OnDestroy {
       this.currentPage = data.meta.current_page;
       this.caresPerPage = data.meta.per_page;
       this.isContentLoading = false;
-      console.log('dog cares = ', this.dogCares);
     };
   }
 

@@ -19,23 +19,16 @@ export class DogService {
     const formData = new FormData();
     formData.append('data', JSON.stringify(data));
 
-    console.log('files =', files);
-
     files.forEach((file: File) => {
       formData.append('photo[]', file);
     });
 
-    console.log('TEST = ', formData.get('data'));
-    console.log('TEST = ', formData.get('photo'));
     const url = `${this.DOG_PROFILE_BASE_URL}/store`;
-
     return this.http.post(url, formData);
   }
 
   changeVisibility(dogProfileId: number, visible: boolean): Observable<any> {
     const url = `${this.DOG_PROFILE_BASE_URL}/changeVisibility`;
-
-    console.log({ id: dogProfileId, visible: visible });
     return this.http.patch(url, { id: dogProfileId, visible: visible });
   }
 
@@ -83,8 +76,6 @@ export class DogService {
     }
 
     const urlWithFilters = this.getFiltersUrl(filters);
-
-    console.log('URL WITH FILTERS = ', urlWithFilters);
     return this.http.get(urlWithFilters);
   }
 

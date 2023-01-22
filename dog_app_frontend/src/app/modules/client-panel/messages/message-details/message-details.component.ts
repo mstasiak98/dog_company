@@ -76,6 +76,10 @@ export class MessageDetailsComponent
 
   private processReceivedMessageEvent(message: Message): void {
     this.messages = [...this.messages, message];
+    //set message to read
+    this.messagesService.getThreadMessages(this.threadId).subscribe(() => {
+      this.messagesService.triggerThreadOpenedEvent();
+    });
   }
 
   private getMessagesForThread(): void {

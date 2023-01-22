@@ -84,7 +84,6 @@ export class AnnouncementListUserComponent implements OnInit {
   }
 
   delete(announcement: Announcement): void {
-    console.log('event = ', event);
     this.confirmationService.confirm({
       message: `Czy chesz usunąć ogłoszenie ${announcement.title}?`,
       header: 'Potwierdzenie',

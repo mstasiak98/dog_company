@@ -78,7 +78,6 @@ export class AddPhotoDialogComponent implements OnInit {
       )
       .subscribe({
         next: res => {
-          console.log('resp = ', res);
           if (res.success) {
             this.toastService.showSuccessMessage(
               `Zdjęcie zostało ${

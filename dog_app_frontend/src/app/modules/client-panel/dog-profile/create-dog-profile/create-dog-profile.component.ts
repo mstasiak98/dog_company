@@ -58,7 +58,6 @@ export class CreateDogProfileComponent implements OnInit {
 
   private processFilters() {
     return (data: any) => {
-      console.log('data = ', data);
       this.features = data.features;
       this.sizes = data.sizes;
       this.breeds = data.breeds;
