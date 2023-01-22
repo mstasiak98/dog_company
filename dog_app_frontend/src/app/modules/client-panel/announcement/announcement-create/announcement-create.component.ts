@@ -113,6 +113,9 @@ export class AnnouncementCreateComponent implements OnInit {
     };
 
     this.announcementForm.setValue(announcement);
+    if (this.announcementForm.invalid) {
+      this.announcementForm.markAllAsTouched();
+    }
   }
 
   processReceivedActivities() {

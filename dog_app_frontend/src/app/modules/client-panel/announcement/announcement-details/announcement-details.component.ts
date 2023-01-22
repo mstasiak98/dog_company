@@ -8,6 +8,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-announcement-details',
@@ -20,6 +21,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   announcementId: number;
   announcement: Announcement;
   authenticatedUserId: number;
+  isOldAnnouncement: boolean = false;
 
   constructor(
     private authStateService: AuthStateService,
@@ -44,6 +46,11 @@ export class AnnouncementDetailsComponent implements OnInit {
       this.announcementService.getAnnouncementDetails(parameter.id).subscribe({
         next: data => {
           this.announcement = data;
+          const dateNow = this.getDateNow();
+          this.isOldAnnouncement = !(
+            this.announcement.start_date > dateNow &&
+            this.announcement.end_date > dateNow
+          );
         },
         error: err => {
           this.router.navigate(['/aplikacja/ogloszenia']);
@@ -93,5 +100,10 @@ export class AnnouncementDetailsComponent implements OnInit {
           });
       },
     });
+  }
+
+  getDateNow(): any {
+    const datepipe: DatePipe = new DatePipe('pl-PL');
+    return datepipe.transform(new Date(), 'YYYY-MM-dd HH:mm:ss');
   }
 }

@@ -26,7 +26,7 @@ class AnnouncementSearchService
         }
 
         // nie wyświetlaj starych ogłoszeń
-        $announcements = Announcement::whereDate('end_date', '>=', Carbon::now());
+        $announcements = Announcement::whereDate('end_date', '>=', Carbon::now())->whereDate('start_date', '>=', Carbon::now());
 
         $announcements->where('city', 'like', '%'.$city.'%');
         if($quantity && count($quantity)==1){
