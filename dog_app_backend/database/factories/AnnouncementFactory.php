@@ -35,7 +35,7 @@ class AnnouncementFactory extends Factory
 
     public function definition()
     {
-        $start= Carbon::createFromTimeStamp($this->faker->dateTimeBetween('-1 days', '+30 days')->getTimestamp());
+        $start= Carbon::createFromTimeStamp($this->faker->dateTimeBetween('+1 days', '+30 days')->getTimestamp());
         $end = Carbon::createFromFormat('Y-m-d H:i:s', $start)->addWeek();
 
         return [

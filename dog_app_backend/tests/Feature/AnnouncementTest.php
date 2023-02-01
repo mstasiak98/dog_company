@@ -70,8 +70,8 @@ class AnnouncementTest extends TestCase
                 'description' => $this->faker->text(300),
                 'quantity' => $this->faker->numberBetween(1,5),
                 'city' => 'Kalisz',
-                'start_date' => '2022-12-08 23:47:28',
-                'end_date' => '2022-12-09 23:47:28',
+                'start_date' => '2023-12-08 23:47:28',
+                'end_date' => '2023-12-09 23:47:28',
                 'user_id' => $user->id,
                 'activity_id' => [$activity->id]
             ]
