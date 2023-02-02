@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotLoggedGuard } from './shared/guards/not-logged.guard';
 import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
 import { NotAuthorizedPageComponent } from './core/components/not-authorized-page/not-authorized-page.component';
+import { EmailVerificationComponent } from './core/components/email-verification/email-verification.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         canActivate: [AccountDataGuard, PersonalDataGuard],
       },
     ],
+  },
+
+  {
+    path: 'weryfikacja-email',
+    component: EmailVerificationComponent,
   },
 
   {

@@ -29,8 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'logIn']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('changePassword', [AuthController::class, 'changePassword']);
-
-Route::get('/test', [AvailabilityController::class, 'test']);
+Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify');
 
 //DOGS
 Route::get('/dogs', [DogProfileController::class, 'index']);
@@ -55,7 +54,7 @@ Route::controller(UserController::class)->group(function () {
 });
 
 // AUTHENTICATED
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'is_verify_email'])->group(function () {
 
     Route::get('/user', function (Request $request) {
         return $request->user();

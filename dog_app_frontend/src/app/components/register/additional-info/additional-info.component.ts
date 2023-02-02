@@ -20,7 +20,7 @@ export class AdditionalInfoComponent implements OnInit {
   imgUploaded = false;
   file: File;
   imgUrl: any;
-  errors: any = null;
+  errors: string[] = [];
   isSaving: boolean = false;
   registrationData: any;
 
@@ -82,7 +82,6 @@ export class AdditionalInfoComponent implements OnInit {
       !this.registrationFormService.registrationFormData.errors
     ) {
       this.setFormDataToSend();
-      console.log('DANE OSTATECZNE OSTATECZNE = ', this.registrationData);
 
       let formData = new FormData();
       if (this.imgUploaded) {
@@ -90,23 +89,20 @@ export class AdditionalInfoComponent implements OnInit {
       }
       formData.append('data', JSON.stringify(this.registrationData));
 
-      console.log('TEST = ', formData.get('data'));
-
       this.isSaving = true;
       this.authService.register(formData).subscribe({
         next: (result: any) => {
-          console.log('RESULT', result);
           if (result.success) {
-            this.tokenService.handleData(result.data.access_token);
-            const userState: UserState = {
-              authenticated: true,
-              user: result.data.user,
-            };
-            this.authStateService.setAuthState(userState);
-            this.router.navigate(['/aplikacja']);
+            this.router.navigate(['/weryfikacja-email']);
           }
         },
         error: error => {
+          if (error.status === 422) {
+            const err = error?.error?.errors;
+            this.errors = Object.keys(err).map((key, index) => {
+              return err[key].join(';');
+            });
+          }
           this.toastService.showErrorMessage(
             'Wystąpił błąd podczas rejestracji'
           );

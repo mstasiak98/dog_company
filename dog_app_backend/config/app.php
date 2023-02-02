@@ -240,4 +240,6 @@ return [
     'default_page_size' => 9,
     'default_announcements_page_size' => 5,
     'default_comments_page_size' => 10,
+
+    'front_url' => env('FRONT_URL', 'http://localhost:4200'),
 ];

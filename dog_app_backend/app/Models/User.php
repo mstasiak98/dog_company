@@ -30,7 +30,8 @@ class User extends Authenticatable
         'zip_code',
         'house_number',
         'flat_number',
-        'description'
+        'description',
+        'is_email_verified'
     ];
 
 

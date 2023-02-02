@@ -9,13 +9,16 @@ use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Photo;
 use App\Models\User;
+use App\Models\UserVerify;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -54,7 +57,7 @@ class AuthController extends BaseController
                 return $this->sendErrorResponse('Error', ['photo_error'=>'Wystąpił błąd podczas przesyłania zdjęcia']);
             }
 
-            $data = DB::transaction(function () use ($request, $photo){
+            $userCreated = DB::transaction(function () use ($request, $photo){
                 //Create user and assign role
                 $request['password'] = Hash::make($request->password);
                 $user = User::create($request->all());
@@ -62,10 +65,6 @@ class AuthController extends BaseController
                 if(isset($userRole) && isset($user)){
                     $user->assignRole($userRole);
                 }
-                //prepare user data for message to front
-                $data = [];
-                $data['access_token'] = $user->createToken('access_token')->plainTextToken;
-                $data['user'] = new UserResource($user);
 
                 // if photo exists save it to database
                 if(is_string($photo)) {
@@ -76,7 +75,7 @@ class AuthController extends BaseController
                     $user_photo->save();
                 }
 
-                return $data;
+                return $user;
             });
         } catch (\Exception $e) {
             if(is_string($photo)) {
@@ -85,7 +84,18 @@ class AuthController extends BaseController
             return $this->sendErrorResponse('Error', ['registration_error'=>'Wystąpił błąd poczas rejestracji', 'error' => $e]);
         }
 
-        return $this->sendResponse($data, 'Success');
+        $token = Str::random(64);
+        UserVerify::create([
+            'user_id' => $userCreated->id,
+            'token' => $token
+        ]);
+
+        Mail::send('emails.emailVerificationEmail', ['token' => $token], function($message) use($userCreated){
+            $message->to($userCreated->email);
+            $message->subject('Weryfikacja konta');
+        });
+
+        return $this->sendResponse(null, 'Success');
     }
 
     public function logout() {
@@ -113,5 +123,21 @@ class AuthController extends BaseController
             return $this->sendErrorResponse('Not authorized', ['unauthorized'=>'Niepoprawne dane logowania']);
         }
     }
+
+    public function verifyAccount($token) {
+        $verifyUser = UserVerify::where('token', $token)->first();
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+            }
+        } else {
+            return $this->sendErrorResponse(null, 'Nie można zweryfikować twojego adresu email. Podany token jest nieprawidłowy');
+        }
+        return $this->sendResponse(null, 'Twój adres email jest zweryfikowany. Możesz się zalogować');
+    }
+
+    
 
 }

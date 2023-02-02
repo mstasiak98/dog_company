@@ -14,6 +14,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { AddPhotoDialogComponent } from '../shared/components/add-photo-dialog/add-photo-dialog.component';
 import { BadgeModule } from 'primeng/badge';
 import { NotAuthorizedPageComponent } from './components/not-authorized-page/not-authorized-page.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NotAuthorizedPageComponent } from './components/not-authorized-page/not
     ClickStopPropagationDirective,
     AddPhotoDialogComponent,
     NotAuthorizedPageComponent,
+    EmailVerificationComponent,
   ],
   exports: [
     NavbarComponent,

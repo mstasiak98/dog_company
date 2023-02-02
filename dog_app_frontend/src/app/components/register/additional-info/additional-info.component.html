@@ -73,12 +73,26 @@
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
+      <div
+        *ngIf="errors.length > 0"
+        class="w-full flex flex-col items-center justify-center">
+        <p class="text-red-700 text-lg font-bold">
+          Formularz wypełniony niepoprawnie:
+        </p>
+        <div class="mt-2 w-full flex flex-col items-center justify-center">
+          <ul *ngFor="let error of errors">
+            <li class="text-base font-bold text-red-700">{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+      <p-divider></p-divider>
       <div class="flex justify-between">
         <button type="button" class="register-button" (click)="previousPage()">
           Powrót
         </button>
 
         <button
+          [disabled]="this.errors.length > 0"
           pButton
           type="button"
           class="register-button"

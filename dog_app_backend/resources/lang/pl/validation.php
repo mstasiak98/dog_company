@@ -138,7 +138,14 @@ return [
     'attributes' => [
         'name' => 'nazwa',
         'address' => 'adres',
-        'password' => 'hasło'
+        'password' => 'hasło',
+        'first_name' => 'imię',
+        'last_name' => 'nazwisko',
+        'phone_number' => 'numer telefonu',
+        'city' => 'miasto',
+        'street' => 'ulica',
+        'zip_code' => 'kod pocztowy',
+        'house_number' => 'numer domu'
     ],
 
 ];

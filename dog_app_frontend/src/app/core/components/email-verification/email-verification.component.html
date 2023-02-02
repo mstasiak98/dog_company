@@ -1,0 +1,59 @@
+<div
+  *ngIf="!emailVerification"
+  class="w-full h-screen flex items-center justify-center">
+  <div class="flex flex-col text-center">
+    <h2 class="pt-4 text-black text-6xl font-bold">Zweryfikuj adres email</h2>
+    <span class="pt-4 text-gray-600 text-2xl font-semibold"
+      >Dostęp do serwisu zostanie przyznany po weryfikacji adresu e-mail.</span
+    >
+    <span class="pt-4 text-gray-600 text-2xl font-semibold"
+      >Zaloguj się na swoją pocztę i zweryfikuj konto</span
+    >
+    <div class="pt-8">
+      <button
+        routerLink="/"
+        class="purple-button"
+        pButton
+        pRipple
+        type="button"
+        label="Powrót"></button>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="emailVerification"
+  class="w-full h-screen flex items-center justify-center">
+  <div class="flex flex-col text-center">
+    <h2 class="pt-4 text-black text-6xl font-bold">Weryfikacja email</h2>
+    <span *ngIf="invalidToken" class="pt-8 text-gray-600 text-2xl font-semibold"
+      >Niepoprawny token. Nie można zweryfikować twojego konta</span
+    >
+    <span *ngIf="isLoading" class="pt-8 text-gray-600 text-2xl font-semibold"
+      >Trwa weryfikacja twojego konta...</span
+    >
+    <span
+      *ngIf="!isLoading && responseMessage"
+      class="pt-8 text-gray-600 text-2xl font-semibold"
+      >{{ responseMessage }}</span
+    >
+    <div class="pt-8">
+      <button
+        *ngIf="!responseMessage"
+        routerLink="/"
+        class="purple-button"
+        pButton
+        pRipple
+        type="button"
+        label="Powrót"></button>
+      <button
+        *ngIf="isVerified"
+        routerLink="/logowanie"
+        class="purple-button"
+        pButton
+        pRipple
+        type="button"
+        label="Zaloguj się"></button>
+    </div>
+  </div>
+</div>

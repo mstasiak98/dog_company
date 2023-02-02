@@ -23,7 +23,7 @@ export class AuthService {
     return this.http.post(`${this.url}/logout`, '');
   }
 
-  test(): Observable<any> {
-    return this.http.get(`${this.url}/user`);
+  verifyAccount(token: string) {
+    return this.http.get(`${this.url}/account/verify/${token}`);
   }
 }
