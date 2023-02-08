@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
@@ -36,7 +35,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handleForbiddenError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 403) {
-      console.log('brak authoryzacji');
       this.router.navigateByUrl(`/brak-autoryzacji`);
 
       return of(err.message);
@@ -45,7 +43,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleUnauthorizedError(err: HttpErrorResponse): Observable<any> {
-    console.log('error = ', err);
     if (err.status === 401 && err?.error?.email_not_verified) {
       this.router.navigateByUrl(`/weryfikacja-email`);
       return of(err.message);

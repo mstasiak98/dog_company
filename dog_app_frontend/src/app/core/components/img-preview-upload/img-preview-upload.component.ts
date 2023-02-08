@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './img-preview-upload.component.html',
   styleUrls: ['./img-preview-upload.component.scss'],
 })
-export class ImgPreviewUploadComponent implements OnInit {
+export class ImgPreviewUploadComponent {
   imgUploaded = false;
   file: File;
   imgUrl: any;
@@ -15,8 +15,6 @@ export class ImgPreviewUploadComponent implements OnInit {
   @Input() imgUrlEdit: string | undefined;
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   onFileChange(event: any) {
     const files = event.target.files;

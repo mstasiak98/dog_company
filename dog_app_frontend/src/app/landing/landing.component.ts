@@ -1,7 +1,6 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ViewportScroller, DOCUMENT } from '@angular/common';
-import { fromEvent, Observable } from 'rxjs';
-import { map } from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT, ViewportScroller } from '@angular/common';
+import { fromEvent, map, Observable } from 'rxjs';
 import { AuthStateService } from '../shared/services/auth-state/auth-state.service';
 
 @Component({

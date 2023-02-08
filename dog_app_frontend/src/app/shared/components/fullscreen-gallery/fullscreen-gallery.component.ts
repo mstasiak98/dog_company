@@ -3,12 +3,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   SimpleChanges,
   ViewChild,
-  Renderer2,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { PhotoService } from '../../services/API/photo/photo.service';
@@ -16,14 +15,13 @@ import { ToastService } from '../../services/toast/toast.service';
 import { DogService } from '../../services/API/dog/dog.service';
 import { UsersService } from '../../services/API/users/users.service';
 import { ContextMenu } from 'primeng/contextmenu';
-import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-fullscreen-gallery',
   templateUrl: './fullscreen-gallery.component.html',
   styleUrls: ['./fullscreen-gallery.component.scss'],
 })
-export class FullscreenGalleryComponent implements OnInit, OnDestroy {
+export class FullscreenGalleryComponent implements OnInit {
   @ViewChild('targetContextMenu') contextMenu: ContextMenu;
   @ViewChild('.p-galleria-close') closeGallery: ElementRef<HTMLElement>;
   @Input() photos: any[] = [];
@@ -66,11 +64,9 @@ export class FullscreenGalleryComponent implements OnInit, OnDestroy {
     if (change.displayGallery.currentValue === true) {
       this.initListener();
     }
-    console.log('zmiany = ', change);
   }
 
   private initListener(): void {
-    console.log('inicjacja');
     setTimeout(() => {
       const button =
         this.elementRef.nativeElement.querySelector('.p-galleria-close');
@@ -79,11 +75,6 @@ export class FullscreenGalleryComponent implements OnInit, OnDestroy {
         this.displayGalleryChange.emit(this.displayGallery);
       });
     }, 5000);
-    console.log('inicjacja2');
-  }
-
-  ngOnDestroy() {
-    console.log('destroy');
   }
 
   private initPhotos(): void {
@@ -110,10 +101,8 @@ export class FullscreenGalleryComponent implements OnInit, OnDestroy {
   }
 
   doAction(data: any) {
-    console.log('do action =', data);
     this.photoService.deletePhoto(data.id).subscribe({
       next: resp => {
-        console.log('de;ete photo resp = ', resp);
         this.toastService.showSuccessMessage('Zdjęcie zostało usunięte');
         this.displayGallery = false;
         this.dogService.triggerDataReload();

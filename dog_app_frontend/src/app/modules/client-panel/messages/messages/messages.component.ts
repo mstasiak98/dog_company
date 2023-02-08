@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Thread } from '../../../../shared/models/messages/messages';
 import { MessagesService } from '../../../../shared/services/API/messages/messages.service';
-import { LazyLoadEvent } from 'primeng/api';
 import { Link } from '../../../../shared/models/pagination/Link';
 import { PusherServiceService } from '../../../../shared/services/API/pusher-service.service';
-import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 import { Subscription } from 'rxjs';
 
 @Component({

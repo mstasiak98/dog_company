@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidatorUtils } from '../../../shared/util/validator.utils';
 
@@ -42,7 +37,6 @@ export class AccountInfoComponent implements OnInit {
   }
 
   nextPage() {
-    console.log('DANE PO ZATWIERDZENIU= ', this.accountData.value);
     if (this.accountData.valid && !this.accountData.errors) {
       this.registrationFormService.registrationFormData.patchValue(
         this.accountData.value,

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
 import { TokenService } from '../../../shared/services/token/token.service';

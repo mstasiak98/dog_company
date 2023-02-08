@@ -66,9 +66,9 @@ export class ProfileFormComponent implements OnInit {
     }
     return invalid;
   }
+
   update(): void {
     if (this.profileForm.invalid) {
-      console.log('invalid ', this.findInvalidControls());
       return;
     }
 
@@ -81,7 +81,6 @@ export class ProfileFormComponent implements OnInit {
         this.isSaving = false;
       },
       error: (err: any) => {
-        console.log('error = ', err);
         this.toastService.showErrorMessage(
           'Wystąpił błąd podczas aktualizacji danych profilowych'
         );

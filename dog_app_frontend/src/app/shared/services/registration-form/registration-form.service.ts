@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { RegistrationData } from '../../models/RegistrationData';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({

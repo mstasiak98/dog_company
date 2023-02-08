@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
   templateUrl: './sign-in-button.component.html',
   styleUrls: ['./sign-in-button.component.scss'],
 })
-export class SignInButtonComponent implements OnInit {
+export class SignInButtonComponent {
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   redirectToLogin() {
     this.router.navigate(['/logowanie'], {

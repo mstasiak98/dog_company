@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { RegistrationFormService } from '../../../shared/services/registration-form/registration-form.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { RegistrationData } from '../../../shared/models/RegistrationData';
-import { UserState } from '../../../shared/models/UserState';
 import { AuthStateService } from '../../../shared/services/auth-state/auth-state.service';
 import { TokenService } from '../../../shared/services/token/token.service';
 import { ToastService } from '../../../shared/services/toast/toast.service';

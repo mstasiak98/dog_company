@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { HttpClient } from '@angular/common/http';
 import { AuthStateService } from '../auth-state/auth-state.service';
 import { TokenService } from '../token/token.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Message, Thread } from '../../models/messages/messages';
+
 window.Pusher = Pusher;
 
 @Injectable({

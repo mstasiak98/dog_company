@@ -66,7 +66,6 @@ export class UserDogProfileListComponent implements OnInit {
             }
           },
           error: err => {
-            console.log('error ', err);
             this.toastService.showSuccessMessage(
               'Wystąpił błąd podczas usuwania profilu psa.'
             );

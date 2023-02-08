@@ -34,6 +34,7 @@ import { EmailVerificationComponent } from './components/email-verification/emai
     ImgPreviewUploadComponent,
     ClickStopPropagationDirective,
   ],
+
   imports: [
     CommonModule,
     MenuModule,

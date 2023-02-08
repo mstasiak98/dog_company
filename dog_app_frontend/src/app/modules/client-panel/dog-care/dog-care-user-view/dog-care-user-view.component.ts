@@ -3,10 +3,8 @@ import {
   DogCarePropositionViewType,
   DogCareUserType,
 } from '../../../../shared/enums/dog-care-enums';
-import { AuthStateService } from '../../../../shared/services/auth-state/auth-state.service';
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 import { DogCare } from '../../../../shared/models/dog-care/DogCare';
-import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import { Subscription } from 'rxjs';
 
 @Component({

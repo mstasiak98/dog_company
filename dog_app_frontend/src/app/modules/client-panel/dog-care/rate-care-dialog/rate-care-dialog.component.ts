@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { PropositionAction } from '../../../../shared/enums/dog-care-enums';
 import { DogCareService } from '../../../../shared/services/API/dog-care/dog-care.service';
 import { ToastService } from '../../../../shared/services/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';

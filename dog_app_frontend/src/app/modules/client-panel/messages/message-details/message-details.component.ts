@@ -128,7 +128,6 @@ export class MessageDetailsComponent
         this.toastService.showSuccessMessage('Wiadomość została wysłana');
       },
       error: error => {
-        console.log('error = ', error);
         this.isMessageSending = false;
         this.toastService.showErrorMessage(
           'Wystąpił błąd podczas wysyłania wiadomości'

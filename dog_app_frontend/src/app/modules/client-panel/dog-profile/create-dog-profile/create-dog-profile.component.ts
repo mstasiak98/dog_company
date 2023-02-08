@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Feature } from '../../../../shared/models/dogs/Feature';
 import { Size } from '../../../../shared/models/dogs/Size';
 import { Activity } from '../../../../shared/models/dogs/Activity';

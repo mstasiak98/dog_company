@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { AuthStateService } from '../../auth-state/auth-state.service';
 import { Observable, Subject } from 'rxjs';
-import { MakeProposalDialogComponent } from '../../../components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CreateMessageDialogComponent } from '../../../components/create-message-dialog/create-message-dialog.component';
 import { CreateThreadModel, Message } from '../../../models/messages/messages';

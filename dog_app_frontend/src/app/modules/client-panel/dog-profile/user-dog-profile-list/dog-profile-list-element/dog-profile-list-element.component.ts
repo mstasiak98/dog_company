@@ -1,20 +1,12 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DogProfile } from '../../../../../shared/models/dogs/DogProfile';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { DogService } from '../../../../../shared/services/API/dog/dog.service';
 import { ToastService } from '../../../../../shared/services/toast/toast.service';
 import { Router } from '@angular/router';
 import { ContextMenu } from 'primeng/contextmenu';
-import { MakeProposalDialogComponent } from '../../../../../shared/components/make-proposal-dialog/make-proposal-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddPhotoDialogComponent } from '../../../../../shared/components/add-photo-dialog/add-photo-dialog.component';
-import { InputSwitch } from 'primeng/inputswitch';
 import { InputSwitchComponent } from '../../../../../shared/components/input-switch/input-switch.component';
 import { PhotoService } from '../../../../../shared/services/API/photo/photo.service';
 import { PhotoEndpointsEnum } from '../../../../../shared/enums/photo-endpoints-enum';
@@ -129,7 +121,6 @@ export class DogProfileListElementComponent implements OnInit {
             }
           },
           error: err => {
-            console.log('error = ', err);
             this.toastService.showErrorMessage(
               'Wystąpił błąd podczas usuwania profilu psa.'
             );

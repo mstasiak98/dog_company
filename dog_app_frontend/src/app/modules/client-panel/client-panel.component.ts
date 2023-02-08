@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './client-panel.component.html',
   styleUrls: ['./client-panel.component.scss'],
 })
-export class ClientPanelComponent implements OnInit {
+export class ClientPanelComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }

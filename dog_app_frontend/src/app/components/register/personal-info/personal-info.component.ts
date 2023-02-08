@@ -20,10 +20,6 @@ export class PersonalInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(
-      'DANE Z NOWEGO KOMPONENTU',
-      this.registrationFormService.registrationFormData.value
-    );
     this.personalData = this.formBuilder.group({
       city: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
       street: ['', [Validators.required, ValidatorUtils.notOnlyWhitespace]],
@@ -43,15 +39,11 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   nextPage() {
-    console.log('DANE PO ZATWIERDZENIU= ', this.personalData.value);
     if (this.personalData.valid && !this.personalData.errors) {
       this.registrationFormService.registrationFormData
         .get('personalData')
         ?.patchValue(this.personalData.value);
-      console.log(
-        'DANE PO NOWYM ZATWIERDZENIU',
-        this.registrationFormService.registrationFormData.value
-      );
+
       this.router.navigate(['rejestracja/dodatkowe_informacje']);
     }
     this.submitted = true;
