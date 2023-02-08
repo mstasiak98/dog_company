@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientPanelComponent } from './client-panel.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../../components/login/login.component';
-import { NotLoggedGuard } from '../../shared/guards/not-logged.guard';
 import { CoreModule } from '../../core/core.module';
 import { AuthGuard } from '../../shared/guards/auth.guard';
 

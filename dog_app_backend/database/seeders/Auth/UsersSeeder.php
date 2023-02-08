@@ -28,6 +28,7 @@ class UsersSeeder extends Seeder
             'email' => 'test@test.com',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'is_email_verified' => true
         ]);
 
         $userRole = Role::findByName(config('app.user_role'));
@@ -46,6 +47,7 @@ class UsersSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'is_email_verified' => true
         ]);
 
         $adminRole = Role::findByName(config('app.admin_role'));

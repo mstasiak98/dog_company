@@ -26,7 +26,7 @@ class DogProfileController extends Controller
     }
 
     public function details(Request $request) {
-        $dog = DogProfile::findOrFail($request->dogProfileId);
+        $dog = DogProfile::where('id', '=', $request->dogProfileId)->where('visible', '=', 1)->firstOrFail();
         return response()->json($this->getDogProfileData($dog));
     }
 
